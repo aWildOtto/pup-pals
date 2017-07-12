@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Pup-Pals</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+<div id="react-root"></div>
+<script src="/socket.io/socket.io.js"></script>
+<% if (process.env.NODE_ENV === 'production') { %>
+  <script src="/scripts/bundle.js"></script>
+<% } else { %>
+  <script src="http://localhost:8080/bundle.js"></script>
+<% } %>
+</body>
+</html>

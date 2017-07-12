@@ -1,0 +1,16 @@
+{
+  "name": "styles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass:dev": "./node_modules/.bin/node-sass -w src/main.scss -o build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "node-sass": "^4.5.3"
+  }
+}
