@@ -15,6 +15,13 @@ const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 
 
+const eventRoutes = require("./routes/event");
+const userRoutes = require("./routes/user");
+const profileRoutes = require("./routes/profile");
+
+const dbHelper = require("./lib/dbHelper")(knex);
+
+
 io.on('connection', function () {
 });
 
@@ -29,16 +36,12 @@ app.use('/scripts', express.static('../search-client/build'));
 
 app.get('/', (req, res) => {
   res.render('index');
-  //sample knex test query to make sure connected to database
-  knex.select().table('test').then(function(results){
-    console.log(results)
-  });
-
 });
 
-app.get('/search', (req, res) => {
-  res.render('search');
-});
+
+app.use("/events", eventRoutes(dbHelper));
+app.use("/user", userRoutes(dbHelper));
+app.use("/profile", profileRoutes(dbHelper));
 
 server.listen(3000 || process.env.PORT, () => {
   console.log('Server running');
