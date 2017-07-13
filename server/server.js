@@ -29,7 +29,7 @@ app.use('/scripts', express.static('../search-client/build'));
 
 app.get('/', (req, res) => {
   res.render('index');
-
+  //sample knex test query to make sure connected to database
   knex.select().table('test').then(function(results){
     console.log(results)
   });
