@@ -1,0 +1,26 @@
+.btn-custom{
+	background-color: #1dc6df;
+	border-color: #8BE6F4;
+}
+.btn-custom:hover,.btn-custom:focus{
+    background-color: #07ADC5;
+    border-color: #1dc6df;
+}
+.form-control:focus {
+	border-color: #1dc6df;
+}
+.navbar-custom .navbar-nav>.active>a, .navbar-custom .navbar-nav>.active>a:hover, .navbar-custom .navbar-nav>.active>a:focus,
+.navbar-custom .navbar-nav>.open>a, .navbar-custom .navbar-nav>.open>a:hover, .navbar-custom .navbar-nav>.open>a:focus,
+.navbar-custom .navbar-nav>li>a:hover, .navbar-custom .navbar-nav>li>a:focus,
+.intro-title span,.testi-slide p,#ajaxsuccess,#contact i,#contact h4{
+	color: #1dc6df !important;
+}
+.item-img-overlay span{
+    background: url(../img/plus.png) no-repeat center center rgba(29, 198, 223, 0.7);
+}
+.work-desc{
+    border-bottom: 2px solid rgba(29, 198, 223, 0.7);
+}
+.back-to-top {
+    background: #1dc6df;
+}
