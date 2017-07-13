@@ -10,7 +10,9 @@ module.exports = (knex) => {
     },
     getProfileByUsername: (username) => {
       return knex.select().from('users').where({username});
-    },
-
+    }
+    // getEventDetailById: (id) => {
+    //   return knex.
+    // }
   }
 };
