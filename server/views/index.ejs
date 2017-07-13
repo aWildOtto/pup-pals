@@ -1,13 +1,307 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Pup-Pals</title>
-  <link rel="stylesheet" href="/styles/main.css">
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+  <!-- Bootstrap core CSS -->
+  <link href="/styles/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Owl-carousel CSS -->
+  <link href="/styles/css/owl.carousel.css" rel="stylesheet">
+  <link href="/styles/css/owl.theme.css" rel="stylesheet">
+  <link href="/styles/css/YTPlayer.css" rel="stylesheet" type="text/css" />
+  <!--external css-->
+  <link href="/styles/css/simple-line-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- Circliful CSS -->
+  <link href="/styles/css/jquery.circliful.css" rel="stylesheet" />
+  <!--popups css-->
+  <link href="/styles/css/magnific-popup.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template -->
+  <link href="/styles/css/style.css" rel="stylesheet">
+  <link href="/styles/css/caitlin.css" rel="stylesheet" id="color-opt">
+
 </head>
-<body>
-  <h1>It works</h1>
+
+<body data-spy="scroll" data-offset="80">
+  <!-- Preloader -->
+  <!-- <div class="animationload">
+    <div class="loader">&nbsp;</div>
+  </div> -->
+  <!-- End Preloader -->
+
+  <!-- Header -->
+  <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#">Pup-Pals</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#Login">Login</a></li>
+          <li><a href="#Sign-up">Sign Up</a></li>
+
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
+  <!-- /Header -->
+
+  <!-- Home -->
+  <section id="home" class="home-section">
+    <div id="video_container" class="video-bg-slider"></div>
+    <div id="P3" class="player video-container" data-property="{videoURL:'BKorP55Aqvg',containment:'#video_container',autoPlay:true, showControls:false, mute:true, startAt:0}"></div>
+    <div class="container slidero">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="intro-title">Some Header<span class="element" data-elements="Creative agency,Cubana,Modern"></span></h1>
+          <p class="intro-text">Some sub heading</p>
+          <div class="btn-bar">
+            <a href="#" class="btn btn-custom">Find a Meetup</a>
+            <a href="#" class="btn btn-custom-outline">Create a Meetup</a>
+          </div>
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </section>
+  <!-- /Home -->
+
+  <!-- FUN-FACTS -->
+  <section class="fun-facts bg-dark" id="fun-facts">
+    <div class="container">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        <h1>Featured Meetup</h1>
+      </div>
+    </div>
+    <!--  /container -->
+  </section>
+  <!-- / FUN-FACTS -->
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h3 class="title">Instagram API</h3>
+          <p class="slog">#puppies</p>
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- /row -->
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-diamond"></i>
+            <div class="service-detail">
+              <h4>Strategy Solutions</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-screen-tablet"></i>
+            <div class="service-detail">
+              <h4>Digital Design</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-magnifier"></i>
+            <div class="service-detail">
+              <h4>SEO</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- end row -->
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-rocket"></i>
+            <div class="service-detail">
+              <h4>Graphic Design</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-graph"></i>
+            <div class="service-detail">
+              <h4>Analystics</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-earphones-alt"></i>
+            <div class="service-detail">
+              <h4>Dedicated Support</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- end row -->
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-basket"></i>
+            <div class="service-detail">
+              <h4>Truly Multipurpose</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-disc"></i>
+            <div class="service-detail">
+              <h4>Unlimited Colors</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-layers"></i>
+            <div class="service-detail">
+              <h4>Easy to customize</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+            </div>
+            <!-- /service-detail -->
+          </div>
+          <!-- /service-item margin-b-md -->
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- end row -->
+
+    </div>
+    <!-- container -->
+  </section>
+  <!-- /Services -->
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <!-- Footer-copyright -->
+    <p>©2017 Pup-Pals</p>
+  </footer>
+  <!-- /Footer -->
+
+  <!-- Back to top -->
+  <a href="#" class="back-to-top"> <i class="fa fa-chevron-up"> </i> </a>
+
+  <!-- JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- initialize jQuery Library -->
+  <script src="/styles/jquery.min.js"></script>
+  <!-- jquery easing -->
+  <script src="/styles/js/jquery.easing.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="/styles/js/bootstrap.min.js"></script>
+  <!-- SmoothScroll -->
+  <script src="/styles/js/SmoothScroll.js"></script>
+  <!-- owl-carousel -->
+  <script src="/styles/js/owl.carousel.js"></script>
+  <!-- Video -->
+  <script type="text/javascript" src="/styles/js/jquery.mb.YTPlayer.js"></script>
+  <!-- Counter-up -->
+  <script src="/styles/js/waypoints.min.js" type="text/javascript"></script>
+  <script src="/styles/js/jquery.counterup.min.js" type="text/javascript"></script>
+  <!--popup js-->
+  <script src="/styles/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
+  <!-- Parallax -->
+  <script src="/styles/js/jquery.stellar.min.js"></script>
+  <script type="text/javascript">
+    window.requestAnimationFrame || (window.requestAnimationFrame = function () {
+      return window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame || function (n) {
+          window.setTimeout(n, 1e3 / 60)
+        }
+    }());
+  </script>
+  <!-- EasyPieChart -->
+  <script src="/styles/js/jquery.circliful.min.js"></script>
+  <!-- Typed -->
+  <script src="/styles/js/typed.js" type="text/javascript"></script>
+  <!-- Custom -->
+  <script src="/styles/js/app.js" type="text/javascript"></script>
+
+  <!-- Switcher script for demo only -->
+  <script type="text/javascript" src="/styles/js/switcher.js"></script>
+
+</body>
+
+</html>
+
+<!-- <h1>It works</h1>
   <form action="/search" method="get">
     <p>
       <label for="search-query">Search</label>
@@ -18,4 +312,4 @@
     </p>
   </form>
 </body>
-</html>
+</html> -->
