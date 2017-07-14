@@ -26,12 +26,6 @@ module.exports = (knex) => {
         email: user.email,
         password: bcrypt.hashSync(user.password, 10)
       }).returning('id');
-      // .into('users');
-      // const password = bcrypt.hashSync(user.password, 10)
-      // return knex.raw(
-      //   `INSERT INTO users (username,name,email,password)
-      //      VALUES ('${user.username}','${user.name}','${user.email}','${password}')`
-      //   )
     }
 
   }
