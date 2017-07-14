@@ -7,13 +7,12 @@ const app = express();
 const server = http.createServer(app);
 const io = socket(server);
 const bodyParser  = require("body-parser");
-
+const cookieSession = require('cookie-session');
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
-
 
 const eventRoutes = require("./routes/event");
 const userRoutes = require("./routes/user");
@@ -31,11 +30,18 @@ app.use(knexLogger(knex));
 
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieSession({
+  secret: 'My socks aren not matching.'
+}));
+
 app.use('/styles', express.static('../styles/build'));
 app.use('/scripts', express.static('../search-client/build'));
 
 app.get('/', (req, res) => {
   res.render('index');
+
 });
 
 
