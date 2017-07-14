@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
     table.string('email');
     table.string('password');
     table.boolean('open_status');
-    table.timestamps(true,true);
+    table.timestamp('created_at');
   }),
   knex.schema.createTable('pups', function(table) {
     table.increments('id').primary;
