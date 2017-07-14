@@ -28,9 +28,7 @@ module.exports = (dbHelper) => {
     const user = req.body;
     console.log(user);
     dbHelper.createUser(user).then(()=>{
-        // console.log(id);
-        // res.session.id = id;
-        res.redirect('/')
+          res.redirect('/login')
       });
   })
   return router;

@@ -20,19 +20,18 @@ module.exports = (knex) => {
     // },
 
     createUser: (user) => {
-      // return knex.table('users').insert({
-      //   username:'ppb',
-      //   name: 'Percy Poopybutt',
-      //   email: 'percypoop@hotmail.com',
-      //   password: '1234',
-      //   created_at: Date.now
-      // }).returning('id');
-      //.into('users');
-      const password = bcrypt.hashSync(user.password, 10)
-      return knex.raw(
-        `INSERT INTO users (username,name,email,password)
-           VALUES ('${user.username}','${user.name}','${user.email}','${password}')`
-        )
+      return knex.table('users').insert({
+        username:user.username,
+        name: user.name,
+        email: user.email,
+        password: bcrypt.hashSync(user.password, 10)
+      }).returning('id');
+      // .into('users');
+      // const password = bcrypt.hashSync(user.password, 10)
+      // return knex.raw(
+      //   `INSERT INTO users (username,name,email,password)
+      //      VALUES ('${user.username}','${user.name}','${user.email}','${password}')`
+      //   )
     }
 
   }
