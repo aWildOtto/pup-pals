@@ -31,7 +31,7 @@ app.use(knexLogger(knex));
 
 app.set('view engine', 'ejs');
 
-app.use('/styles', express.static('../styles/build'));
+app.use('/styles', express.static('../styles/'));
 app.use('/scripts', express.static('../search-client/build'));
 
 app.get('/', (req, res) => {
