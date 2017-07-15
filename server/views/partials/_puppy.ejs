@@ -1,8 +1,18 @@
 <div class="puppy-card">
   <div class="puppy-box">
-    <img src="https://s-media-cache-ak0.pinimg.com/236x/99/11/7b/99117b78d2f63f98145a5e1c1cb578db--golden-retriever-puppies-golden-retrievers.jpg">
-    <h2>Charlie</h2>
-    <p>Golden Retreiver</p>
-    <p>Age: 3</p>
+    <img src="<%= data.pups.avatar_url %>" style="width:200px">
+    <h2><%= data.pups.name %></h2>
+    <p><%= data.pups.breed %></p>
+    <p><%= data.pups.age %> years old</p>
+    <% if (data.pups.sex == 'male') {%>
+      <p> Boy </p>
+    <% } else  { %>
+      <p> Girl </p>
+    <% } %>
+    <% if (data.pups.neutered == true) {%>
+      <p> Neutered </p>
+    <% } else  { %>
+      <p> Not Neutered </p>
+    <% } %>
   </div>
 </div>

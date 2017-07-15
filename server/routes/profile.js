@@ -9,9 +9,9 @@ module.exports = (dbHelper) => {
     res.render("pet_profile");
   });
   router.get("/owner/:id", (req, res) => {
-
     dbHelper.getUserAndPupsById(req.params.id).then((results) => {
       console.log(results[0]);
+      res.render("owner_profile", {data : results[0]});
     });
 
   });

@@ -1,11 +1,12 @@
 <div class="smalldetails">
 	<div class="smalldetails-header">
-		<h3 class="smalldetails-title">Pup Hangout</h3>
+		<h3 class="smalldetails-title"><%= data.events.title %></h3>
 		<span class="smalldetails-attendees">10 Going</span>
 	</div>
 	<div class="smalldetails-body">
-		<span class="smalldetails-date">FRI Jul 14</span>
-		<span class="smalldetails-location">Lighthouse Labs</span>          
+		<span class="smalldetails-date"><%= data.events.event_time %></span>
+		<span class="smalldetails-location"><%= data.events.location %></span>
+		<span class="smalldetails-location"><%= data.events.description %></span>
 	</div>
 	<div class="smalldetails-footer">
 		<span class="smalldetails-rsvp">
@@ -13,6 +14,6 @@
 		</span>
 		<span class="smalldetails-calender">
 			<button type="button" class="btn btn-primary">Calender</button>
-		</span>          
+		</span>
 	</div>
 </div>
