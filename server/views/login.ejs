@@ -1,14 +1,25 @@
-    <div class="logindiv">
-      <h2>Log in</h2>
-      <form method="POST" action= "/login" class="login-form">
-         <span>
-         <label for="email" class="label">Enter your email:</label>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Pup-Pals</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div class="registerdiv">
+    <h2>Log in</h2>
+    <form method="POST" action= "/user/login" class="register-form">
+       <p>
+         <label for="email-input">Enter your email to log in</label>
          <input class="input email-input" type="email" name="email">
-         </span>
-         <span>
-         <label for="password" class="label">Enter your password:</label>
+       </p>
+       <p>
+         <label for="password-input">Enter your password:</label>
          <input class="input password-input" type="password" name="password">
-         </span>
-        <button type="submit" class="formbtn">Submit</button>
-      </form>
-    </div>
+       </p>
+      <button type="submit" class="formbtn">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
