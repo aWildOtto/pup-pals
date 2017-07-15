@@ -1,12 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
-  </head>
-  <body>
-  
-  </body>
+
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+
+  <link href="/styles/build/main.css" rel="stylesheet">
+</head>
+
+<body>
+  <% include partials/_navbar.ejs %>
+  <div class="registerdiv">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <% include partials/_puppy.ejs %>
+        </div>
+        <div class="col-md-6 text-center">
+          <% include partials/_owner.ejs %>
+        </div>
+        <div class="col-md-3 text-right">
+          <% include partials/_event.ejs %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
 </html>

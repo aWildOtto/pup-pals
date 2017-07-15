@@ -16,6 +16,7 @@ module.exports = (dbHelper) => {
     //   .then((results) => {
     //     res.render('event_detail', {results})
     //   })
+    res.render('event_detail');
   });
   
   return router;

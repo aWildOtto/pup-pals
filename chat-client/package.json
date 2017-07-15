@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack1": "./node_modules/.bin/webpack-dev-server"
+    "webpack2": "./node_modules/.bin/webpack-dev-server"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +17,8 @@
     "babel-preset-stage-0": "^6.24.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "webpack": "^3.2.0",
-    "dotenv":"4.0.0"
+    "dotenv":"4.0.0",
+    "webpack": "^3.2.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.5.1"

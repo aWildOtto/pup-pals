@@ -1,33 +1,39 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Pup-Pals</title>
-  <link href="/styles/css/style.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/styles/build/main.css">
 </head>
+
 <body>
+  <% include partials/_navbar.ejs%>
   <div class="registerdiv">
     <h2>Sign Up</h2>
-    <form method="POST" action= "/user/signup" class="register-form">
-       <p>
-         <label for="username-input" >Enter a username:</label>
-         <input class="input username-input" type="text" name="username">
-       </p>
-       <p>
-         <label for="name-input">Enter your name:</label>
-         <input class="input name-input" type="text" name="name">
-       </p>
-       <p>
-         <label for="email-input">Enter your email:</label>
-         <input class="input email-input" type="email" name="email">
-       </p>
-       <p>
-         <label for="password-input">Enter your password:</label>
-         <input class="input password-input" type="password" name="password">
-       </p>
+    <form method="POST" action="/user/signup" class="register-form">
+      <p>
+        <label for="username-input">Enter a username:</label>
+        <input class="input username-input" type="text" name="username">
+      </p>
+      <p>
+        <label for="name-input">Enter your name:</label>
+        <input class="input name-input" type="text" name="name">
+      </p>
+      <p>
+        <label for="email-input">Enter your email:</label>
+        <input class="input email-input" type="email" name="email">
+      </p>
+      <p>
+        <label for="password-input">Enter your password:</label>
+        <input class="input password-input" type="password" name="password">
+      </p>
       <button type="submit" class="formbtn">Submit</button>
     </form>
   </div>
 </body>
+
 </html>
