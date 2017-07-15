@@ -26,6 +26,10 @@ module.exports = (knex) => {
         email: user.email,
         password: bcrypt.hashSync(user.password, 10)
       }).returning('id');
+    },
+
+    getUserByEmail: (email) => {
+      return knex.select('password').from('users').where({email});
     }
 
   }
