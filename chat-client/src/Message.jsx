@@ -1,19 +1,11 @@
 import React, {Component} from 'react';
 
 class Message extends Component {
-  render() {
-    const colorChange = {
-      color: this.props.color
-    };
-    const blockdisplay = {
-      display: "block"
-    };
+  render(){
     return (
-      <div className="message">
-        <span style = {colorChange} className="message-username">{this.props.username}</span>
-        <span className="message-content">
-          <div style = {blockdisplay} dangerouslySetInnerHTML={urlify(this.props.content)} />
-        </span>
+      <div className="">
+        <span className="">{this.props.username}</span>
+        <span className="">{this.props.content}</span>
       </div>
     );
   }
