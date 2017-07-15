@@ -23,11 +23,16 @@ module.exports = (dbHelper) => {
   router.post("/login", (req, res) => {
     dbHelper.getUserByEmail(req.body.email)
     .then((result)=>{
-      if(bcrypt.compareSync(req.body.password, result[0].password)){
-        req.session.userID = req.body.email;
-        res.redirect('/');
+      console.log(result);
+      if(result){
+        if(bcrypt.compareSync(req.body.password, result[0].password)){
+          req.session.username = result.username;
+          res.redirect('/');
+        } else {
+          res.status(403).send('Oops, looks like you entered something wrong.');
+        }
       } else {
-        res.status(403).send('nope');
+        res.status(404).send('Oops, looks like that email hasn\'t be registered');
       }
     })
     .catch((error) => {
