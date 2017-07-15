@@ -1,5 +1,5 @@
 .navbar-custom {
-	background-color: palevioletred;
+	background-color: deeppink;
 	margin-bottom: 0px;
 	z-index: 1000;
 	border: none;
@@ -45,9 +45,6 @@ nav.small {
    box-shadow: 0 2px 2px rgba(0,0,0,.1);
 }
 
-.small .navbar-nav>li>a, 
-.small .navbar-nav > .fa.fa-user.fa-2x {
+.small .navbar-nav>li>a {
 	color: #666;
 }
-
-

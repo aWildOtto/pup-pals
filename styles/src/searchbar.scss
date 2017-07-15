@@ -1,0 +1,16 @@
+.searchbar {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
+  position: fixed;
+  bottom: 0px;
+  right: 0;
+  left: 0;
+  z-index: 7;
+  display: flex;
+  padding: 9px;
+  height: 70px;
+  background: deepskyblue;
+}
+
+.searchform {
+  padding: 8px
+}

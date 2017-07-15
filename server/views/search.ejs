@@ -1,17 +1,28 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>Pup-Pals</title>
-  <link rel="stylesheet" href="/styles/main.css">
+  <!-- Google Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+  <!-- Bootstrap core CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="/styles/build/main.css" rel="stylesheet">
 </head>
+
 <body>
-<div id="react-root"></div>
+  <div id="react-root"></div>
+  <script src="/socket.io/socket.io.js"></script>
   <% if (process.env.NODE_ENV === 'production') { %>
     <script src="/scripts/bundle.js"></script>
   <% } else { %>
-    <script src="http://localhost:8081/bundle.js"></script>
+    <script src="http://localhost:10002/bundle.js"></script>
   <% } %>
+
 </body>
+
 </html>
