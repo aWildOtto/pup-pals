@@ -8,10 +8,10 @@
 </head>
 <body>
 <div id="react-root"></div>
-<% if (process.env.NODE_ENV === 'production') { %>
-  <script src="/scripts/bundle.js"></script>
-<% } else { %>
-  <script src="http://localhost:8081/bundle.js"></script>
-<% } %>
+  <% if (process.env.NODE_ENV === 'production') { %>
+    <script src="/scripts/bundle.js"></script>
+  <% } else { %>
+    <script src="http://localhost:8081/bundle.js"></script>
+  <% } %>
 </body>
 </html>
