@@ -36,9 +36,16 @@ module.exports = (knex) => {
 
     getUserAndPupsById: (id) => {
       return knex ('users')
-        .join('pups', 'users.id', '=', 'pups.user_id')
-        .join('events', 'users.id', '=', 'events.creator_user_id')
+        .leftJoin('pups', 'users.id', '=', 'pups.user_id')
+        .leftJoin('events', 'users.id', '=', 'events.creator_user_id')
         .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups'), knex.raw('to_json(events.*) as events')])
+        .where({'users.id' : id})
+    },
+
+    test: (id) => {
+      return knex('users')
+        .leftJoin('pups', 'users.id', '=', 'pups.user_id')
+        .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
         .where({'users.id' : id})
     }
 

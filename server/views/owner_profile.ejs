@@ -13,7 +13,27 @@
 
 <body>
   <% include partials/_navbar.ejs %>
-
+  <div class="registerdiv">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <% data.forEach(function cb(item) { %>
+            <% include partials/_puppy.ejs %>
+          <% }) %>
+        </div>
+        <div class="col-md-6 text-center">
+          <% include partials/_owner.ejs %>
+        </div>
+        <div class="col-md-3 text-right">
+          <% if(data.events) { %>
+            <% include partials/_event.ejs %>
+          <% } else { %>
+            This user has not created any events yet.
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 
