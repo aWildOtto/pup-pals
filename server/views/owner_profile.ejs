@@ -5,11 +5,7 @@
   <title></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/style.css" rel="stylesheet">
-  <link href="/styles/css/listty.css" rel="stylesheet">
-  <link href="/styles/css/homepage.css" rel="stylesheet">
-  <link href="/styles/css/owner-profile.css" rel="stylesheet">
-    <!-- Google Fonts -->
+  <!-- Google Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
   <!-- Bootstrap core CSS -->
@@ -26,17 +22,27 @@
   <!--popups css-->
   <link href="/styles/css/magnific-popup.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template -->
-  <link href="/styles/css/style.css" rel="stylesheet">
+   <!-- <link href="/styles/css/style.css" rel="stylesheet">  -->
   <link href="/styles/css/homepage.css" rel="stylesheet">
+  <link href="/styles/css/owner-profile.css" rel="stylesheet">
+
 </head>
 
 <body>
-  <div class="container">
-    <% include partials/_navbar.ejs %>
-    <% include partials/_owner.ejs %>
-    <% include partials/_puppy.ejs %>
-    <% include partials/_event.ejs %>
-  </div>
+  <% include partials/_navbar.ejs %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <% include partials/_puppy.ejs %>
+        </div>
+        <div class="col-md-6 text-center">
+          <% include partials/_owner.ejs %>
+        </div>
+        <div class="col-md-3 text-right">
+          <% include partials/_event.ejs %>
+        </div>
+      </div>
+    </div>
 
 
 </body>
