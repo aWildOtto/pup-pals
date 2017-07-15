@@ -14,7 +14,8 @@
   <link href="/styles/build/main.css" rel="stylesheet">
 </head>
 
-<body>
+<body>   
+  <% include partials/_navbar.ejs%>
   <div id="react-root"></div>
   <script src="/socket.io/socket.io.js"></script>
   <% if (process.env.NODE_ENV === 'production') { %>

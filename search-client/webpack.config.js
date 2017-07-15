@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 
 module.exports = {
@@ -16,5 +17,8 @@ module.exports = {
         }
       }
     ]
+  },
+  devServer: {
+    port: process.env.PORT
   }
 };
