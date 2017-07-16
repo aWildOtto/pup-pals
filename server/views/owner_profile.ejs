@@ -28,7 +28,6 @@
         <div class="col-md-3 text-right">
           <% if(data[0].events) { %>
             <% for (var i = 0; i < eventsIDs.length; i++)  { %>
-              <%= data[0].events.location %>
               <% include partials/_event.ejs %>
             <% } %>
           <% } else { %>
