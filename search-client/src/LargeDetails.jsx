@@ -24,13 +24,10 @@ class LargeDetails extends Component {
             <span className="largedetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp; Lighthouse Labs</span>
             <br />
             <br />
-            <a href="#" target="_blank" className="btn btn-primary largedetails-directions">Get Directions</a>
+            <a href="/events/1" target="_blank" className="btn btn-primary largedetails-eventpage">Go to event page</a>                        
           </div>
           <div className="largedetails-section">
             <span className="largedetails-detailbody">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium.</span>
-          </div>
-          <div className="largedetails-section">
-            <a href="#" target="_blank" className="btn btn-primary largedetails-eventpage">Go to event page</a>            
           </div>
         </div>  
       </div>

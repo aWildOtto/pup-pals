@@ -1,40 +1,53 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 class SearchBar extends Component {
+  state = {
+    startDay: undefined,
+    endDay : undefined
+  };
+
+  handleDayChangeStart = () => {
+    this.setState({ startDay });
+  };
+
+  handleDayChangeEnd = () => {
+    this.setState({ endDay });
+  };
+
   render() {
+
+    const value = this.state.selectedDay
+      ? this.state.selectedDay.format('DD/MM/YYYY')
+      : '';
+      
     return (
       <div className="searchbar">
-        <form className="searchform">
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-4 col-xs-12">
-                <div className="form-group">
-                  <div className="input-group">
-                    <div className="input-group-addon">Location</div>
-                    <input type="text" className="form-control" id="findItem" placeholder="What are you looking for?" />
-                    <div className="input-group-addon addon-right"></div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-4 col-xs-12">
-                <div className="form-group">
-                  <div className="input-group">
-                    <div className="input-group-addon">Something</div>
-                    <input type="text" className="form-control" id="nearLocation" placeholder="Location" />
-                    <div className="input-group-addon addon-right"><i className="icon-listy icon-target" aria-hidden="true"></i></div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-4 col-xs-12">
-                <div className="form-group">
-                  <div className="input-group">
-                    <div className="input-group-addon">Something else</div>
-                    <input type="text" className="form-control" id="nearLocation" placeholder="Location" />
-                    <div className="input-group-addon addon-right"><i className="icon-listy icon-target" aria-hidden="true"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <form className="form-inline searchform">
+          <div className="form-group">
+            <input type="text" className="form-control input-lg" id="location" placeholder="Location" />
+          </div>
+          <div className="form-group">
+            <DayPickerInput  
+              className="form-control input-lg"         
+              name="birthday"
+              placeholder="Start Date"
+              format="DD/MM/YYYY"
+              value={value}
+              onDayChange={this.handleDayChangeStart}
+            />
+          </div>
+          <div className="form-group">
+            <DayPickerInput  
+              className="form-control input-lg"         
+              name="birthday"
+              placeholder="End Date"
+              format="DD/MM/YYYY"
+              value={value}
+              onDayChange={this.handleDayChangeEnd}
+            />
           </div>
         </form>
       </div>
