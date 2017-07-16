@@ -1,15 +1,15 @@
 <div class="puppy-card">
   <div class="puppy-box">
-    <img src="<%= item.pups.avatar_url %>" style="width:200px">
-    <h2><%= item.pups.name %></h2>
-    <p><%= item.pups.breed %></p>
-    <p><%= item.pups.age %> years old</p>
-    <% if (item.pups.sex == 'male') {%>
+    <img src="<%= data[i].pups.avatar_url %>" style="width:200px">
+    <h2><%= data[i].pups.name %></h2>
+    <p><%= data[i].pups.breed %></p>
+    <p><%= data[i].pups.age %> years old</p>
+    <% if (data[i].pups.sex == 'male') {%>
       <p> Boy </p>
     <% } else  { %>
       <p> Girl </p>
     <% } %>
-    <% if (item.pups.neutered == true) {%>
+    <% if (data[i].pups.neutered == true) {%>
       <p> Neutered </p>
     <% } else  { %>
       <p> Not Neutered </p>

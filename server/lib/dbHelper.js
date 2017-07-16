@@ -47,6 +47,13 @@ module.exports = (knex) => {
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
         .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
         .where({'users.id' : id})
+    },
+
+    testCount: (id) => {
+      return knex('pups')
+        .count('user_id')
+        .count('')
+        .where({'user_id' : id})
     }
 
   }
