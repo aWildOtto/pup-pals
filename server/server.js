@@ -8,7 +8,16 @@ const app = express();
 const server = http.createServer(app);
 const io = socket(server);
 const bodyParser  = require("body-parser");
-const cookieSession = require('cookie-session');
+
+const session = require("express-session")({
+    secret: "my-secret",
+    resave: true,
+    saveUninitialized: true
+});
+const sharedsession = require("express-socket.io-session");
+
+// Use express-session middleware for express
+app.use(session);
 
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
@@ -21,10 +30,10 @@ const profileRoutes = require("./routes/profile");
 
 const dbHelper = require("./lib/dbHelper")(knex);
 
-
+let userCount = 0;
 io.on('connection', function (socket) {
-  console.log(socket);
-  socket.emit("i",{msg: "iujiuimn"});
+  userCount ++;
+  console.log(userCount);
   socket.on('message', (data)=>{
     console.log(data);
     socket.emit("incomingMessage",{
@@ -33,6 +42,10 @@ io.on('connection', function (socket) {
       id:uuid()
     })
   });
+  socket.on("disconnect", (e)=>{
+    userCount --;
+    console.log(userCount + " users");
+  })
 });
 
 app.use(morgan('dev'));
