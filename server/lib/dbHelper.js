@@ -10,14 +10,15 @@ module.exports = (knex) => {
       return knex.select().from('events');
     },
 
+    getEventById: (id) => {
+      return knex.select()
+        .from('events')
+        .where({id})
+    },
+
     getProfileByUsername: (username) => {
       return knex.select().from('users').where({username});
     },
-    // getEventDetailById: (id) => {
-    //   return knex.
-    // }
-
-    // },
 
     createUser: (user) => {
       return knex.table('users').insert({
@@ -48,9 +49,12 @@ module.exports = (knex) => {
         title: event.title,
         description: event.description,
         open_status: true,
+        location: event.location,
+        event_time: event.event_time,
         restriction: false
       }).returning('id');
     },
+
 
     test: (id) => {
       return knex('users')

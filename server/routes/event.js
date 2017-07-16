@@ -20,16 +20,16 @@ module.exports = (dbHelper) => {
     console.log(req.body)
     dbHelper.createEvent(req.body)
       .then(id => {
-        console.log(id)
+        res.redirect(`/events/${id}`);
       })
   }),
 
   router.get("/:id", (req, res) => {
-    // dbHelper.getEventDetailById(req.params.id)
-    //   .then((results) => {
-    //     res.render('event_detail', {results})
-    //   })
-    res.render('event_detail');
+    dbHelper.getEventById(req.params.id)
+      .then((results) => {
+        console.log(results[0]);
+        res.render('event_detail', {event: results[0]})
+      })
   });
 
   return router;
