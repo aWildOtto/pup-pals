@@ -42,13 +42,21 @@ const dbHelper = require("./lib/dbHelper")(knex);
 let userCount = 0;
 io.on('connection', function (socket) {
   userCount ++;
-  console.log(userCount);
+  console.log("a user joined: " + userCount + " users");
+
+  console.log(socket.handshake.session.eventId);
+
+  const event_message = dbHelper.getMessagesByEventId(socket.handshake.session.eventId)
+  .then((results)=>{
+    console.log("all event_posts are " + results);
+  });
+
   socket.on('message', (data)=>{
     console.log("username is", socket.handshake.session );
     const msgId = uuid();
     const eventId = socket.handshake.session.eventId;
     console.log("current event id is", eventId);
-    socket.emit("incomingMessage",{
+    io.broadcast("incomingMessage",{
       msg:data.msg,
       username: socket.handshake.session.username,
       id:msgId
@@ -56,9 +64,10 @@ io.on('connection', function (socket) {
     //TODO: save message to database
     dbHelper.saveMessage(data.msg, socket.handshake.session.user_id, msgId, eventId);
   });
+  
   socket.on("disconnect", (e)=>{
     userCount --;
-    console.log(userCount + " users");
+    console.log("a user left: " + userCount + " users");
   })
 });
 

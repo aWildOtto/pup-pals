@@ -64,7 +64,10 @@ module.exports = (knex) => {
         event_id,
         content
       })//add media url in here
-    }
+    },
 
+    getMessagesByEventId: (event_id) => {
+      return knex("event_posts").select().where({event_id});
+    }
   }
 };
