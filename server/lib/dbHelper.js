@@ -56,10 +56,14 @@ module.exports = (knex) => {
         .where({'user_id' : id})
     },
 
-    saveMessage: (message, username, msgId, eventId) => {
+    saveMessage: (content, user_id, msgId, event_id) => {
       //TODO: 
-      //find user id 
       //save the message
+      return knex('event_posts').insert({
+        user_id,
+        event_id,
+        content
+      })//add media url in here
     }
 
   }

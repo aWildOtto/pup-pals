@@ -18,6 +18,7 @@ module.exports = (dbHelper) => {
       if(result){
         if(bcrypt.compareSync(req.body.password, result[0].password)){
           req.session.username = result[0].username;
+          req.session.user_id = result[0].id;
           console.log(req.session);
           res.redirect('/');
         } else {

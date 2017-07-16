@@ -53,7 +53,7 @@ io.on('connection', function (socket) {
       id:msgId
     });
     //TODO: save message to database
-    dbHelper.saveMessage(data.msg, socket.handshake.session.username, msgId, eventId);
+    dbHelper.saveMessage(data.msg, socket.handshake.session.user_id, msgId, eventId);
   });
   socket.on("disconnect", (e)=>{
     userCount --;
