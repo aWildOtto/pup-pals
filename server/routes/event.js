@@ -18,6 +18,10 @@ module.exports = (dbHelper) => {
 
   router.post("/create", (req, res)=> {
     console.log(req.body)
+    dbHelper.createEvent(req.body)
+      .then(id => {
+        console.log(id)
+      })
   }),
 
   router.get("/:id", (req, res) => {

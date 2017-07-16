@@ -42,6 +42,16 @@ module.exports = (knex) => {
         .where({'users.id' : id})
     },
 
+    createEvent: (event) => {
+      return knex.table('events').insert({
+        creator_user_id:event.user_id,
+        title: event.title,
+        description: event.description,
+        open_status: true,
+        restriction: false
+      }).returning('id');
+    },
+
     test: (id) => {
       return knex('users')
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
