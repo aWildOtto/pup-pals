@@ -30,7 +30,7 @@ module.exports = (knex) => {
     },
 
     getUserByEmail: (email) => {
-      return knex.select('password', 'username')
+      return knex.select()
         .from('users')
         .where({email});
     },
@@ -68,6 +68,16 @@ module.exports = (knex) => {
         .count('user_id')
         .count('')
         .where({'user_id' : id})
+    },
+
+    saveMessage: (content, user_id, msgId, event_id) => {
+      //TODO: 
+      //save the message
+      return knex('event_posts').insert({
+        user_id,
+        event_id,
+        content
+      })//add media url in here
     }
 
   }

@@ -25,11 +25,15 @@ module.exports = (dbHelper) => {
   }),
 
   router.get("/:id", (req, res) => {
+
     dbHelper.getEventById(req.params.id)
       .then((results) => {
         console.log(results[0]);
         res.render('event_detail', {event: results[0]})
       })
+    req.session.eventId = req.params.id;
+ 
+
   });
 
   return router;

@@ -47,6 +47,10 @@
   cursor: pointer;
 }
 
+.largedetails-close:hover {
+  background-color: rgba(0,0,0,.1);
+}
+
 .largedetails-content {
   overflow-y: scroll;
   padding-top: 80px;

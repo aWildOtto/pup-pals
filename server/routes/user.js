@@ -2,17 +2,8 @@
 
 const express = require('express');
 const router  = express.Router();
-const cookieSession = require('cookie-session');
-const app  = express();
 const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
-
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(cookieSession({
-  secret: 'My socks are not matching.'
-}));
 
 module.exports = (dbHelper) => {
 
@@ -26,7 +17,9 @@ module.exports = (dbHelper) => {
       console.log(result);
       if(result){
         if(bcrypt.compareSync(req.body.password, result[0].password)){
-          req.session.username = result.username;
+          req.session.username = result[0].username;
+          req.session.user_id = result[0].id;
+          console.log(req.session);
           res.redirect('/');
         } else {
           res.status(403).send('Oops, looks like you entered something wrong.');

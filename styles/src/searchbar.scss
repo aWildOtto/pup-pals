@@ -1,16 +1,19 @@
 .searchbar {
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
   position: fixed;
-  bottom: 0px;
-  right: 0;
-  left: 0;
   z-index: 7;
-  display: flex;
-  padding: 9px;
-  height: 70px;
-  background: deepskyblue;
+  height: 80px;
+  background: deeppink;
+  border-radius: 4px;
+  top: 90px;
+  left: 50%;
+  right: 0;
+  margin-left: -691px;
+  padding: 8px;
+  max-width: 1000px;
 }
 
 .searchform {
-  padding: 8px
+  padding: 8px;
 }
+
