@@ -13,7 +13,7 @@ class App extends React.Component {
       <div>
         <Map />
         <SideBar />
-        <SearchBar />
+        <SearchBar /> 
       </div>
     );
   }
