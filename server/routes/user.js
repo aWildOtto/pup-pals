@@ -18,8 +18,8 @@ module.exports = (dbHelper) => {
       if(result){
         if(bcrypt.compareSync(req.body.password, result[0].password)){
           req.session.username = result[0].username;
-          req.session.user_id = result[0].id;
-          console.log(req.session);
+          req.session.userID = result[0].id;
+          // console.log(req.session);
           res.redirect('/');
         } else {
           res.status(403).send('Oops, looks like you entered something wrong.');
@@ -40,9 +40,10 @@ module.exports = (dbHelper) => {
   router.post("/signup", (req, res) => {
     const user = req.body;
     dbHelper.createUser(user)
-    .then(()=>{
+    .then((id)=>{
       req.session.username = user.username;
-      res.redirect('/')
+      req.session.userID = id;
+      res.redirect('/');
     })
     .catch((error) => {
       console.log(error);
