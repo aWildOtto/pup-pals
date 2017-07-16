@@ -4,13 +4,14 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (dbHelper) => {
-  
+
   router.get("/", (req, res) => {
     dbHelper.getAllEvents()
       .then((results) => {
         res.render('search', {results});
       });
   }),
+
   router.get("/:id", (req, res) => {
     // dbHelper.getEventDetailById(req.params.id)
     //   .then((results) => {
@@ -18,6 +19,6 @@ module.exports = (dbHelper) => {
     //   })
     res.render('event_detail');
   });
-  
+
   return router;
 }
