@@ -5,6 +5,16 @@ class SmallDetails extends Component {
     this.props.toggleHidden();
   }
 
+  handleButton1 = (e) => {
+    e.stopPropagation();
+    this.props.RSVP();
+  }
+
+  handleButton2 = (e) => {
+    e.stopPropagation();
+    this.props.AddToCalender();
+  }
+  
   render() {
     return (
       <div className="detailcontainer">
@@ -21,10 +31,10 @@ class SmallDetails extends Component {
             </div>
             <div className="smalldetails-footer">
               <span className="smalldetails-rsvp">
-                <button type="button" className="btn btn-primary">RSVP</button>
+                <button type="button" onClick={this.handleButton1.bind(this)} className="btn btn-primary">RSVP</button>
               </span>
               <span className="smalldetails-calender">
-                <button type="button" className="btn btn-primary">Calender</button>
+                <button type="button" onClick={this.handleButton2.bind(this)} className="btn btn-primary">Calender</button>
               </span>
             </div>
           </div>
