@@ -14,7 +14,7 @@ module.exports = (knex) => {
       return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
         .leftJoin('event_pup', 'events.id', '=', 'event_pup.event_id')
-        .select(knex.raw('to_json(events.*) as events'), knex.raw('to_json(event_user.*) as event_users'), knex.raw('to_json(event_pup.*) as event_pups'))
+        .select(knex.raw('to_json(events.*) as events'), knex.raw('to_json(event_user.user_id) as event_user'), knex.raw('to_json(event_pup.pup_id) as event_pup'))
         .where({'events.id' : id})
     },
 
@@ -29,6 +29,18 @@ module.exports = (knex) => {
         email: user.email,
         password: bcrypt.hashSync(user.password, 10)
       }).returning('id');
+    },
+
+    getPupsByIds: (ids) => {
+      return knex.table('pups')
+        .select()
+        .whereIn('id', ids)
+    },
+
+    getUserByIds: (ids) => {
+      return knex.table('users')
+        .select('username', 'name', 'avatar_url')
+        .whereIn('id', ids)
     },
 
     getUserByEmail: (email) => {

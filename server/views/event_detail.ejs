@@ -14,13 +14,14 @@
 
     <% include partials/_navbar.ejs %>
     <div class="registerdiv">
-      <p><%= event.title %></p>
-      <p><%= event.location%></p>
-      <p><%= event.date_time%></p>
-      <p>Attending Owners</p>
-      <p>Attending Pups</p>
-      <p><%= event.status%></p>
-      <p><%= event.description %></p>
+      <p><%= events.title %></p>
+      <p><%= events.location%></p>
+      <p><%= events.date_time%></p>
+      <% users.forEach(function(item){%>
+        <% include partials/_event_owner.ejs %>
+      <% })%>
+      <p><%= events.status%></p>
+      <p><%= events.description %></p>
 
 
       <div id="react-root">

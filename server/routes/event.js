@@ -29,10 +29,31 @@ module.exports = (dbHelper) => {
 
     dbHelper.getEventDetailsById(req.params.id)
       .then((results) => {
-        console.log(results)
-        res.render('event_detail', {event: results[0]})
+        let userIDs = [];
+        console.log(typeof userIDs)
+        let pupIDs = [];
+        results.forEach(function(item){
+          if(!userIDs.includes(item.event_user)){
+            userIDs.push(item.event_user);
+          }
+          if(!pupIDs.includes(item.event_pup)){
+            pupIDs.push(item.event_pup)
+          }
+        })
+        dbHelper.getPupsByIds(pupIDs)
+          .then((pups) => {
+            console.log(pups);
+            dbHelper.getUserByIds(userIDs)
+              .then((users) => {
+                console.log(users);
+                req.session.eventId = req.params.id;
+                res.render('event_detail', {
+                  events: results[0].events,
+                  pups: pups,
+                  users: users})
+              })
+          });
       })
-    req.session.eventId = req.params.id;
   });
 
   return router;
