@@ -25,6 +25,7 @@ module.exports = (dbHelper) => {
     //   .then((results) => {
     //     res.render('event_detail', {results})
     //   })
+    req.session.eventId = req.params.id;
     res.render('event_detail');
   });
 
