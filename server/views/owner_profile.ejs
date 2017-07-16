@@ -17,13 +17,23 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
-          <% include partials/_puppy.ejs %>
+          <% for (var i = 0; i < pupsIDs.length; i++) { %>
+            <%= data[i].pups.name %>
+            <% include partials/_puppy.ejs %>
+          <% } %>
         </div>
         <div class="col-md-6 text-center">
           <% include partials/_owner.ejs %>
         </div>
         <div class="col-md-3 text-right">
-          <% include partials/_event.ejs %>
+          <% if(data[0].events) { %>
+            <% for (var i = 0; i < eventsIDs.length; i++)  { %>
+              <%= data[0].events.location %>
+              <% include partials/_event.ejs %>
+            <% } %>
+          <% } else { %>
+            This user has not created any events yet.
+          <% } %>
         </div>
       </div>
     </div>

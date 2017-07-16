@@ -1,7 +1,8 @@
 <div class="owner-card">
   <div class="owner-box">
-      <img class="owner-avatar" src="http://bryjensen.com/boffwiki/images/6/6e/Human.png">
-      <h2 class="listContent">Emma Quon</h2>
-      <p>Taking my pups to the park today!</p>
+      <img class="owner-avatar" src="<%= data[0].avatar_url %>" style="width:200px">
+      <h2 class="listContent"><%= data[0].username %></h2>
+      <h4><%= data[0].name %></h4>
+      <p><%= data[0].status %></p>
     </div>
 </div>

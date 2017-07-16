@@ -54,7 +54,7 @@ exports.seed = function(knex, Promise) {
           temperament: 'Active',
           neutered: true,
           age: '1',
-          avatar_url:'https://s-media-cache-ak0.pinimg.com/736x/19/f2/76/19f276156a79bcf6e4cfe3e3884aba5e.jpg',
+          avatar_url:'https://s-media-cache-ak0.pinimg.com/736x/cb/43/1a/cb431a937eefd5f2db41d12e09960873--wall-calendars-greeting-cards.jpg',
           name: 'Mavis',
           sex: 'female'
         })
