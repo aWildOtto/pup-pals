@@ -12,6 +12,14 @@ module.exports = (dbHelper) => {
       });
   }),
 
+  router.get("/create", (req, res) => {
+    res.render('create');
+  }),
+
+  router.post("/create", (req, res)=> {
+    console.log(req.body)
+  }),
+
   router.get("/:id", (req, res) => {
     // dbHelper.getEventDetailById(req.params.id)
     //   .then((results) => {
