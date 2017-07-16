@@ -29,7 +29,7 @@ module.exports = (knex) => {
     },
 
     getUserByEmail: (email) => {
-      return knex.select('password', 'username')
+      return knex.select()
         .from('users')
         .where({email});
     },
