@@ -33,7 +33,8 @@ io.use(sharedsession(session, {
 
 const eventRoutes = require("./routes/event");
 const userRoutes = require("./routes/user");
-const profileRoutes = require("./routes/profile");
+const petRoutes = require("./routes/pet");
+const ownerRoutes = require("./routes/owner");
 
 const dbHelper = require("./lib/dbHelper")(knex);
 
@@ -82,7 +83,8 @@ app.get('/', (req, res) => {
 
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));
-app.use("/profile", profileRoutes(dbHelper));
+app.use("/", petRoutes(dbHelper));
+app.use("/", ownerRoutes(dbHelper));
 
 server.listen(3000 || process.env.PORT, () => {
   console.log('Server running');
