@@ -18,22 +18,21 @@ module.exports = (dbHelper) => {
 
   router.post("/create", (req, res)=> {
     console.log(req.body)
-    dbHelper.createEvent(req.body)
-      .then(id => {
+    dbHelper.createEvent(req.body,req.session.userID)
+      .then((id) => {
+        console.log(req.session.userID)
         res.redirect(`/events/${id}`);
       })
   }),
 
   router.get("/:id", (req, res) => {
 
-    dbHelper.getEventById(req.params.id)
+    dbHelper.getEventDetailsById(req.params.id)
       .then((results) => {
-        console.log(results[0]);
+        console.log(results)
         res.render('event_detail', {event: results[0]})
       })
     req.session.eventId = req.params.id;
- 
-
   });
 
   return router;

@@ -10,24 +10,24 @@
   </head>
   <body>
     <script src="/socket.io/socket.io.js"></script>
-   
+
 
     <% include partials/_navbar.ejs %>
     <div class="registerdiv">
-      <%= event.title %>
-      <%= event.location%>
-      <%= event.event_time%>
-      Attending Owners
-      Attending Pups
-      <%= event.status%>
-      <%= event.description %>
+      <p><%= event.title %></p>
+      <p><%= event.location%></p>
+      <p><%= event.date_time%></p>
+      <p>Attending Owners</p>
+      <p>Attending Pups</p>
+      <p><%= event.status%></p>
+      <p><%= event.description %></p>
 
-      
+
       <div id="react-root">
-    
+
       </div>
     </div>
-    
+
     <% if (process.env.NODE_ENV === 'production') { %>
       <script src="/scripts/chat.js"></script>
     <% } else { %>

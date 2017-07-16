@@ -10,10 +10,12 @@ module.exports = (knex) => {
       return knex.select().from('events');
     },
 
-    getEventById: (id) => {
-      return knex.select()
-        .from('events')
-        .where({id})
+    getEventDetailsById: (id) => {
+      return knex('events')
+        .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
+        .leftJoin('event_pup', 'events.id', '=', 'event_pup.event_id')
+        .select(knex.raw('to_json(events.*) as events'), knex.raw('to_json(event_user.*) as event_users'), knex.raw('to_json(event_pup.*) as event_pups'))
+        .where({'events.id' : id})
     },
 
     getProfileByUsername: (username) => {
@@ -43,9 +45,9 @@ module.exports = (knex) => {
         .where({'users.id' : id})
     },
 
-    createEvent: (event) => {
+    createEvent: (event, id) => {
       return knex.table('events').insert({
-        creator_user_id:event.user_id,
+        creator_user_id:id,
         title: event.title,
         description: event.description,
         open_status: true,
@@ -71,7 +73,7 @@ module.exports = (knex) => {
     },
 
     saveMessage: (content, user_id, msgId, event_id) => {
-      //TODO: 
+      //TODO:
       //save the message
       return knex('event_posts').insert({
         user_id,
