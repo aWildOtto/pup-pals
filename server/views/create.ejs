@@ -14,22 +14,26 @@
   <% include partials/_navbar.ejs%>
   <div class="registerdiv">
     <h2>Create a Event</h2>
-    <form method="POST" action="/event/create" class="register-form">
+    <form method="POST" action="/events/create" class="register-form">
       <p>
-        <label for="username-input">Enter your event title</label>
-        <input class="input username-input" type="text" name="username">
+        <label for="title-input">Enter a title for your event</label>
+        <input class="input title-input" type="text" name="title">
       </p>
       <p>
-        <label for="name-input">Enter your event description</label>
-        <input class="input name-input" type="text" name="name">
+        <label for="event-input">Enter a description for your event</label>
+        <input class="input event-input" type="text" name="description">
       </p>
       <p>
-        <label for="email-input">Enter your</label>
-        <input class="input email-input" type="email" name="email">
+        <label for="restrictions-input">Enter restrictions if you wish to specify any</label>
+        <input class="input restrictions-input" type="text" placeholder="eg. Only big dogs" name="restrictions">
       </p>
       <p>
-        <label for="password-input">Enter your password:</label>
-        <input class="input password-input" type="password" name="password">
+        <label for="location-input">Enter a location for your event</label>
+        <input class="input location-input" type="text" name="location">
+      </p>
+      <p>
+        <label for="time-input">Enter a date and time for your event</label>
+        <input class="input time-input" type="datetime-local" name="date_time">
       </p>
       <button type="submit" class="formbtn">Submit</button>
     </form>

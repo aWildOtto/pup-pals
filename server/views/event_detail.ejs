@@ -14,18 +14,14 @@
 
     <% include partials/_navbar.ejs %>
     <div class="registerdiv">
-      <h2>Event Title</h2>
-      <h5>Location</h5>
-      <h5>Date and Time</h5>
-      <h6>Attending Owners</h6>
-      <h6>Attending Pups</h6>
-      <p>Status</p>
-      <p>Lorem Ipsum is simply dummy text of the printing
-        and typesetting industry. Lorem Ipsum has been the 
-        industry's standard dummy text ever since the 1500s, 
-        when an unknown printer took a galley of type and scrambled 
-        it to make a type specimen book.
-      </p>
+      <%= event.title %>
+      <%= event.location%>
+      <%= event.event_time%>
+      Attending Owners
+      Attending Pups
+      <%= event.status%>
+      <%= event.description %>
+
       
       <div id="react-root">
     
@@ -37,5 +33,6 @@
     <% } else { %>
       <script src="http://localhost:10001/chat.js"></script>
     <% } %>
+
   </body>
 </html>
