@@ -16,7 +16,9 @@ const knexLogger = require('knex-logger');
 const uuid = require('uuid');
 
 const session = require("express-session")({
-    secret: "My socks are not matching."
+    secret: "My socks are not matching.",
+    resave: true,
+    saveUninitialized: true
 });
 const sharedsession = require("express-socket.io-session");
 
@@ -42,11 +44,16 @@ io.on('connection', function (socket) {
   console.log(userCount);
   socket.on('message', (data)=>{
     console.log("username is", socket.handshake.session );
+    const msgId = uuid();
+    const eventId = socket.handshake.session.eventId;
+    console.log("current event id is", eventId);
     socket.emit("incomingMessage",{
       msg:data.msg,
       username: socket.handshake.session.username,
-      id:uuid()
-    })
+      id:msgId
+    });
+    //TODO: save message to database
+    dbHelper.saveMessage(data.msg, socket.handshake.session.username, msgId, eventId);
   });
   socket.on("disconnect", (e)=>{
     userCount --;

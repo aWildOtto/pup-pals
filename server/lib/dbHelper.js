@@ -54,6 +54,12 @@ module.exports = (knex) => {
         .count('user_id')
         .count('')
         .where({'user_id' : id})
+    },
+
+    saveMessage: (message, username, msgId, eventId) => {
+      //TODO: 
+      //find user id 
+      //save the message
     }
 
   }
