@@ -7,28 +7,29 @@
     <link href="/styles/build/main.css" rel="stylesheet">
   </head>
   <body>
-   
+     <script src="/socket.io/socket.io.js"></script>
    
 
     <% include partials/_navbar.ejs %>
-    <h2>Event Title</h2>
-    <h5>Location</h5>
-    <h5>Date and Time</h5>
-    <h6>Attending Owners</h6>
-    <h6>Attending Pups</h6>
-    <p>Status</p>
-    <p>Lorem Ipsum is simply dummy text of the printing
-       and typesetting industry. Lorem Ipsum has been the 
-       industry's standard dummy text ever since the 1500s, 
-       when an unknown printer took a galley of type and scrambled 
-       it to make a type specimen book.
-    </p>
+    <div class="registerdiv">
+      <h2>Event Title</h2>
+      <h5>Location</h5>
+      <h5>Date and Time</h5>
+      <h6>Attending Owners</h6>
+      <h6>Attending Pups</h6>
+      <p>Status</p>
+      <p>Lorem Ipsum is simply dummy text of the printing
+        and typesetting industry. Lorem Ipsum has been the 
+        industry's standard dummy text ever since the 1500s, 
+        when an unknown printer took a galley of type and scrambled 
+        it to make a type specimen book.
+      </p>
+      
+      <div id="react-root">
     
-    <div id="react-root">
-  
+      </div>
     </div>
-    
-    <script src="/socket.io/socket.io.js"></script>
+  
     <script src="http://localhost:10001/chat.js"></script>
   </body>
 </html>

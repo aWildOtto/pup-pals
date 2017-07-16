@@ -1,7 +1,8 @@
+const ENV = process.env.ENV || "development";
 const express = require('express');
 const http = require('http');
 const socket = require('socket.io');
-const ENV = process.env.ENV || "development";
+const uuid = require('uuid');
 
 const app = express();
 const server = http.createServer(app);
@@ -21,7 +22,17 @@ const profileRoutes = require("./routes/profile");
 const dbHelper = require("./lib/dbHelper")(knex);
 
 
-io.on('connection', function () {
+io.on('connection', function (socket) {
+  console.log(socket);
+  socket.emit("i",{msg: "iujiuimn"});
+  socket.on('message', (data)=>{
+    console.log(data);
+    socket.emit("incomingMessage",{
+      msg:data.msg,
+      username: "caitlin",
+      id:uuid()
+    })
+  });
 });
 
 app.use(morgan('dev'));
