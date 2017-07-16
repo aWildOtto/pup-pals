@@ -30,29 +30,24 @@ module.exports = (dbHelper) => {
     dbHelper.getEventDetailsById(req.params.id)
       .then((results) => {
         let userIDs = [];
-        console.log(typeof userIDs)
-        let pupIDs = [];
         results.forEach(function(item){
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
           }
-          if(!pupIDs.includes(item.event_pup)){
-            pupIDs.push(item.event_pup)
-          }
         })
-        dbHelper.getPupsByIds(pupIDs)
-          .then((pups) => {
-            console.log(pups);
-            dbHelper.getUserByIds(userIDs)
-              .then((users) => {
-                console.log(users);
+        dbHelper.getUserByIds(userIDs)
+          .then((users) => {
+            console.log(users);
+            dbHelper.getPupsByUserIds(userIDs)
+              .then((pups) => {
+                console.log(pups);
                 req.session.eventId = req.params.id;
                 res.render('event_detail', {
                   events: results[0].events,
-                  pups: pups,
-                  users: users})
+                  users: users,
+                  pups: pups})
               })
-          });
+          })
       })
   });
 

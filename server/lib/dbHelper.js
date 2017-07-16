@@ -39,8 +39,15 @@ module.exports = (knex) => {
 
     getUserByIds: (ids) => {
       return knex.table('users')
-        .select('username', 'name', 'avatar_url')
+        .select('id','username', 'name', 'avatar_url')
         .whereIn('id', ids)
+    },
+
+    getPupsByUserIds: (ids) => {
+      return knex.table('pups')
+        .select('name', 'breed', 'avatar_url', 'user_id')
+        .whereIn('user_id', ids)
+        .groupBy('user_id', 'pups.name', 'pups.breed', 'pups.avatar_url')
     },
 
     getUserByEmail: (email) => {
