@@ -50,7 +50,7 @@ module.exports = (knex) => {
         description: event.description,
         open_status: true,
         location: event.location,
-        event_time: event.event_time,
+        date_time: event.date_time,
         restriction: false
       }).returning('id');
     },
