@@ -47,16 +47,20 @@ io.set('authorization', function (handshakeData, callback) {
 let userCount = 0;
 io.on('connection', function (socket) {
   userCount ++;
-  console.log("a user joined: " + userCount + " users");
-  console.log(socket.handshake.session);
+  //console.log("a user joined: " + userCount + " users");
+  if(socket.handshake.session) {
+    console.log(socket.handshake.session.eventId);
+  }
+  //const sessionId = socket.handshake.sessionID
+  //console.log(socket.handshake.sessionStore.sessions[sessionId].cookie.eventId);
   // console.log(socket.handshake.session.eventId);
   // const eventId = socket.handshake.session.cookie.eventId;
-  console.log(socket.handshake.headers.referer.slice(29))
+  //console.log(socket.handshake.headers.referer.slice(29))
   var eventId = socket.handshake.headers.referer.slice(29)
   if(eventId){
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
     .then((results) => {
-      console.log( "all event posts: ", results);
+      // console.log( "all event posts: ", results);
       const messages = [];
       results.forEach(function(message){
          messages.push({
@@ -65,7 +69,7 @@ io.on('connection', function (socket) {
           id: message.id
         });
       })
-      console.log(messages);
+      // console.log(messages);
       io.in("room-"+eventId).emit("incomingMessage", messages);
       });
     }

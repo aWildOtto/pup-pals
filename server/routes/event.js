@@ -21,16 +21,16 @@ module.exports = (dbHelper) => {
   }),
 
   router.post("/new", (req, res)=> {
-    console.log(req.body)
+    // console.log(req.body)
     dbHelper.createEvent(req.body,req.session.userID)
       .then((id) => {
-        console.log(req.session.userID)
+        // console.log(req.session.userID)
         res.redirect(`/events/${id}`);
       })
   }),
 
   router.get("/:id", (req, res) => {
-    console.log(req.session);
+    // console.log(req.session);
     dbHelper.getEventDetailsById(req.params.id)
       .then((results) => {
         let userIDs = [];
@@ -44,10 +44,9 @@ module.exports = (dbHelper) => {
             console.log(users);
             dbHelper.getPupsByUserIds(userIDs)
               .then((pups) => {
-                console.log(pups);
+                // console.log(pups);
                 req.session.eventId = req.params.id;
-                req.session.hello = 'world';
-                console.log(req.session, 'this is on get')
+                // console.log(req.session, 'this is on get')
                 res.render('event_detail', {
                   events: results[0].events,
                   users: users,

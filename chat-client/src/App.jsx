@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    this.socket = io.connect("http:\//0.0.0.0:3000");
+    this.socket = io();
     this.socket.on('incomingMessage',(e)=>{
       console.log("caitlin",e);
       const newMessages = this.state.messages.concat(e);
