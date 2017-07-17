@@ -10,32 +10,31 @@
   </head>
   <body>
     <script src="/socket.io/socket.io.js"></script>
-   
+
 
     <% include partials/_navbar.ejs %>
     <div class="registerdiv">
-      <h2>Event Title</h2>
-      <h5>Location</h5>
-      <h5>Date and Time</h5>
-      <h6>Attending Owners</h6>
-      <h6>Attending Pups</h6>
-      <p>Status</p>
-      <p>Lorem Ipsum is simply dummy text of the printing
-        and typesetting industry. Lorem Ipsum has been the 
-        industry's standard dummy text ever since the 1500s, 
-        when an unknown printer took a galley of type and scrambled 
-        it to make a type specimen book.
-      </p>
-      
+      <h1><%= events.title %></h1>
+      <h3>Location: <%= events.location%></h3>
+      <h3>Time: <%= events.date_time%></h3>
+      <h3>Description: <%= events.description %></p>
+      <h3>Who's coming:</h3>
+      <% pups.forEach(function(item) {%>
+        <% include partials/_event_owner.ejs %>
+      <% })%>
+
+
+
       <div id="react-root">
-    
+
       </div>
     </div>
-    
+
     <% if (process.env.NODE_ENV === 'production') { %>
       <script src="/scripts/chat.js"></script>
     <% } else { %>
       <script src="http://localhost:10001/chat.js"></script>
     <% } %>
+
   </body>
 </html>

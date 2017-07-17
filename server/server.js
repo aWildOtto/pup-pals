@@ -17,7 +17,7 @@ const uuid = require('uuid');
 
 const session = require("express-session")({
     secret: "My socks are not matching.",
-    resave: true,
+    resave: false,
     saveUninitialized: true
 });
 const sharedsession = require("express-socket.io-session");
@@ -42,13 +42,35 @@ const dbHelper = require("./lib/dbHelper")(knex);
 let userCount = 0;
 io.on('connection', function (socket) {
   userCount ++;
-  console.log(userCount);
+  console.log("a user joined: " + userCount + " users");
+
+  console.log(socket.handshake.session.eventId);
+
+  
+  const eventId = socket.handshake.session.eventId;
+  if(eventId){
+    dbHelper.getMessagesByEventId(eventId)// find all messages under this event
+    .then((results) => {
+      console.log( "all event posts: ", results);
+      const messages = [];
+      for(let i in results[0]){
+        messages.push({
+          msg: i["content"],
+          username: "Otto",//TODO: need username for this message
+          id: results[0].id
+        })
+      }
+      io.in("room-"+eventId).emit("incomingMessage", messages);
+      });
+    }
+  
+  socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
     console.log("username is", socket.handshake.session );
     const msgId = uuid();
-    const eventId = socket.handshake.session.eventId;
+    
     console.log("current event id is", eventId);
-    socket.emit("incomingMessage",{
+    io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
       msg:data.msg,
       username: socket.handshake.session.username,
       id:msgId
@@ -56,9 +78,10 @@ io.on('connection', function (socket) {
     //TODO: save message to database
     dbHelper.saveMessage(data.msg, socket.handshake.session.user_id, msgId, eventId);
   });
+  
   socket.on("disconnect", (e)=>{
     userCount --;
-    console.log(userCount + " users");
+    console.log("a user left: " + userCount + " users");
   })
 });
 
