@@ -99,9 +99,11 @@ class Map extends Component {
       markers,
     });
   }
-
+  
   handleMarkerClick() {
-    console.log(this.state.markers[1].position.lat)
+    this.state.markers.forEach((marker) => {
+      console.log('lat: ' + marker.position.lat() + '\nlng: ' + marker.position.lng())
+    })
   }
 
   render() {
