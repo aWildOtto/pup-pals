@@ -44,6 +44,7 @@ io.on('connection', function (socket) {
   userCount ++;
   console.log("a user joined: " + userCount + " users");
 
+  console.log(socket.handshake.session);
   console.log(socket.handshake.session.eventId);
 
   

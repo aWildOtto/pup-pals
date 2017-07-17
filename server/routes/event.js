@@ -30,7 +30,7 @@ module.exports = (dbHelper) => {
   }),
 
   router.get("/:id", (req, res) => {
-
+    console.log(req.session);
     dbHelper.getEventDetailsById(req.params.id)
       .then((results) => {
         let userIDs = [];
