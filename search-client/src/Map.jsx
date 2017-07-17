@@ -12,35 +12,41 @@ const INPUT_STYLE = {
   boxSizing: `border-box`,
   MozBoxSizing: `border-box`,
   border: `1px solid transparent`,
-  width: `auto`,
+  width: `455px`,
   height: `46px`,
-  marginTop: `90px`,
+  marginTop: `50px`,
   padding: `10px 16px`,
   borderRadius: `6px`,
   boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
   fontSize: `18px`,
   outline: `none`,
-  textOverflow: `ellipses`,
-  zIndex: `1000`,
+  textOverflow: `ellipsis`,
+  overflow: `hidden`,
+  whiteSpace: `nowrap`,
+  opacity: `0.8`,
 };
 
 const SearchBoxExampleGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={15}
+    defaultZoom={14}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
   >
     <SearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
-      controlPosition={google.maps.ControlPosition.TOP_LEFT}
+      controlPosition={google.maps.ControlPosition.TOP_CENTER}
       onPlacesChanged={props.onPlacesChanged}
       inputPlaceholder="Location"
       inputStyle={INPUT_STYLE}
     />
     {props.markers.map((marker, index) => (
-      <Marker position={marker.position} key={index} />
+      <Marker 
+      position={marker.position} 
+      key={index} 
+      onClick={props.onMarkerClick}
+      />
     ))}
   </GoogleMap>
 ));
@@ -60,6 +66,7 @@ class Map extends Component {
   handleBoundsChanged = this.handleBoundsChanged.bind(this);
   handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
   handlePlacesChanged = this.handlePlacesChanged.bind(this);
+  handleMarkerClick = this.handleMarkerClick.bind(this);
 
   handleMapMounted(map) {
     this._map = map;
@@ -93,6 +100,10 @@ class Map extends Component {
     });
   }
 
+  handleMarkerClick() {
+    console.log(this.state.markers[1].position.lat)
+  }
+
   render() {
     return (
       <div className="mapcontainer">
@@ -110,6 +121,7 @@ class Map extends Component {
           bounds={this.state.bounds}
           onPlacesChanged={this.handlePlacesChanged}
           markers={this.state.markers}
+          onMarkerClick={this.handleMarkerClick}
         />
       </div>
     );

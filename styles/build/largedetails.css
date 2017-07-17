@@ -1,18 +1,16 @@
 .largedetails-container {
   width: 100%;
   height: 100%;
-  background: white;
-}
+  background: white; }
 
 .largedetails-titlebar {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   position: absolute;
   z-index: 1;
   padding: 20px 80px 0 20px;
   width: 100%;
   height: 80px;
-  background: #4f99e2;
-}
+  background: #4f99e2; }
 
 .largedetails-titlebar-title {
   margin: 0;
@@ -22,16 +20,14 @@
   color: #fff;
   font-size: 2.4rem;
   line-height: 1.3;
-  font-weight: 400;
-}
+  font-weight: 400; }
 
 .largedetails-titlebar-subtitle {
   margin: 0;
   text-align: left;
   font-size: 1.8rem;
-  color: hsla(0, 0%, 100%, .7);
-  font-weight: 400;
-}
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400; }
 
 .largedetails-close {
   border-radius: 22px;
@@ -44,87 +40,74 @@
   margin-top: -22px;
   width: 44px;
   height: 44px;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .largedetails-close:hover {
-  background-color: rgba(0,0,0,.1);
-}
+  background-color: rgba(0, 0, 0, 0.1); }
 
 .largedetails-content {
   overflow-y: scroll;
   padding-top: 80px;
-  height: 100%;
-}
+  height: 100%; }
 
 .largedetails-section {
   padding: 24px 32px;
   border-bottom: 1px solid #ddd;
-  text-align: center;
-}
+  text-align: center; }
 
 .largedetails-date {
-  font-size: 3rem;
-}
+  font-size: 3rem; }
 
 .largedetails-time {
   display: block;
-  font-size: 1.6rem;
-}
+  font-size: 1.6rem; }
 
 .largedetails-location {
   display: block;
-  font-size: 2.5rem;
-}
+  font-size: 2.5rem; }
 
 a.largedetails-directions {
   background-color: #4f99e2;
   border-radius: 4px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   width: 100%;
   font-size: 1.6em;
   text-align: center;
   display: block;
   border: none;
   color: #fff;
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 .largedetails-detailbody {
-  display: block;
-}
+  display: block; }
 
 a.largedetails-eventpage {
   background-color: #4f99e2;
   border-radius: 4px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   width: 100%;
   font-size: 1.6em;
   text-align: center;
   display: block;
   border: none;
   color: #fff;
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 .largedetails-footer {
   border-radius: 0 0 4px 4px;
   display: flex;
   border-top: 1px solid #ddd;
   align-items: center;
-  justify-content: space-between;
-}
+  justify-content: space-between; }
 
 .largedetails-rsvp {
   right: 0px;
   margin: 8px 18px 8px 0;
   flex: 1;
-  text-align: center;
-}
+  text-align: center; }
 
 .largedetails-calender {
   right: 0px;
   margin: 8px;
   flex: 1;
-  text-align: center;
-}
+  text-align: center; }

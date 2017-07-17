@@ -1,19 +1,21 @@
 .searchbar {
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
   position: fixed;
   z-index: 7;
   height: 80px;
-  background: deeppink;
+  background: transparent;
+  border: 0;
   border-radius: 4px;
-  top: 300px;
+  top: 130px;
   left: 50%;
   right: 0;
   margin-left: -691px;
   padding: 8px;
-  max-width: 1000px; }
+  max-width: 1000px;
+  opacity: 0.8; }
 
 .searchform {
-  padding: 8px; }
+  padding: 8px;
+  text-align: center; }
 
 .input-lg {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
