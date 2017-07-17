@@ -64,7 +64,28 @@ module.exports = (knex) => {
         event_id,
         content
       })//add media url in here
-    }
+    },
+
+    savePet: (pup, user_id) => {
+      return knex('pups').insert({
+        user_id: user_id, 
+        breed: pup.breed , 
+        size: pup.size, 
+        temperament: pup.temperament, 
+        neutered: "Yes"? true: false, 
+        age: pup.age, 
+        avatar_url: pup.avatar_url, 
+        name: pup.name, 
+        sex: pup.sex
+      })
+    },
+
+     getUserPupsById: (id) => {
+      return knex ('pups')
+        .leftJoin('pups', 'users.id', '=', 'pups.user_id')
+        .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
+        .where({'users.id' : id});
+    },
 
   }
 };

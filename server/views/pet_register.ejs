@@ -1,15 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
-  </head>
-  <body>
-    include the navbar here
 
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="/styles/build/main.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
 
-    set up the form here
-  </body>
+<body>
+  <% include partials/_navbar.ejs%>
+    <div class="registerdiv">
+      <h2>Pet Registration</h2>
+      <form method="POST" action="/pet/new" class="register-form">
+        <p>
+          <label for="name-input">Name:</label>
+          <input class="input name-input" type="text" name="name">
+        </p>
+        <p>
+          <label for="breed-input">Breed:</label>
+          <input class="input breed-input" type="text" name="breed">
+        </p>
+        <p>
+          <label for="age-input">Age:</label>
+          <input class="input age-input" type="number" name="age">
+        </p>
+        <p>
+          <div class="col-md-1">
+            <label class="row">Gender:</label>
+          </div>
+          <div class="row">
+            <div class="col-md-1">
+              <label class="radio-inline">
+              <input name="gender" id="input-gender-male" value="Male" type="radio" />Male</label>
+            </div>
+            <div class="col-md-1">
+              <label class="radio-inline">
+              <input name="gender" id="input-gender-female" value="Female" type="radio" />Female</label>
+            </div>
+          </div>
+        </p>
+        <p>
+          <div class="col-md-1">
+            <label class="row">Neuteured:</label>
+          </div>
+          <div class="row">
+            <div class="col-md-1">
+              <label class="radio-inline">
+              <input name="neuteured" id="input-neuteured" value="Yes" type="radio" />Yes</label>
+            </div>
+            <div class="col-md-1">
+              <label class="radio-inline">
+              <input name="neuteured" id="input-neuteured" value="No" type="radio" />No</label>
+            </div>
+          </div>
+        </p>
+        <p>
+          <div class="col-md-1">
+            <label class="row">Size:</label>
+          </div>
+          <div class="row">
+            <div class="col-md-1">
+              <label class="radio-inline">
+              <input name="size" id="input-size" value="small" type="radio" />Small</label>
+            </div>
+            <div class="col-md-1">
+              <label class="radio-inline">
+              <input name="size" id="input-size" value="medium" type="radio" />Medium</label>
+            </div>
+            <div class="col-md-1">
+              <label class="radio-inline">
+              <input name="size" id="input-size" value="large" type="radio" />Large</label>
+            </div>
+          </div>
+        </p>
+        <button type="submit" class="formbtn">Submit</button>
+      </form>
+    </div>
+</body>
+
 </html>
