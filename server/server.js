@@ -17,7 +17,7 @@ const uuid = require('uuid');
 
 const session = require("express-session")({
     secret: "My socks are not matching.",
-    resave: true,
+    resave: false,
     saveUninitialized: true
 });
 const sharedsession = require("express-socket.io-session");
@@ -46,17 +46,33 @@ io.on('connection', function (socket) {
 
   console.log(socket.handshake.session.eventId);
 
-  const event_message = dbHelper.getMessagesByEventId(socket.handshake.session.eventId)
-  .then((results)=>{
-    console.log("all event_posts are " + results);
-  });
-
+  
+  const eventId = socket.handshake.session.eventId;
+  if(eventId){
+    dbHelper.getMessagesByEventId(eventId)
+    .then((results) => {
+      console.log( "all event posts: ", results);
+      const messages = [];
+      for(let i in results[0]){
+        messages.push({
+          msg: i[content],
+          username: "Otto",
+          id: results[0].id
+        })
+      }
+      io.in("room-"+eventId).emit("incomingMessage", {
+        
+      })
+      });
+    }
+  
+  socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
     console.log("username is", socket.handshake.session );
     const msgId = uuid();
-    const eventId = socket.handshake.session.eventId;
+    
     console.log("current event id is", eventId);
-    io.broadcast("incomingMessage",{
+    io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
       msg:data.msg,
       username: socket.handshake.session.username,
       id:msgId

@@ -19,7 +19,7 @@ module.exports = (dbHelper) => {
   router.post("/create", (req, res)=> {
     console.log(req.body)
     dbHelper.createEvent(req.body)
-      .then(id => {
+      .then((id) => {
         res.redirect(`/events/${id}`);
       })
   }),
@@ -29,9 +29,9 @@ module.exports = (dbHelper) => {
     dbHelper.getEventById(req.params.id)
       .then((results) => {
         console.log(results[0]);
+        req.session.eventId = req.params.id;
         res.render('event_detail', {event: results[0]})
       })
-    req.session.eventId = req.params.id;
  
 
   });
