@@ -12,9 +12,7 @@ module.exports = (dbHelper) => {
         let arr = []
         results.forEach(function(item){
           if(item[table]){
-            if(arr.includes(item[table].id)){
-              console.log('is in there')
-            } else {
+            if(!arr.includes(item[table].id)){
               arr.push(item[table].id)
             }
           }

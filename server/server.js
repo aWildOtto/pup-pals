@@ -49,20 +49,18 @@ io.on('connection', function (socket) {
   
   const eventId = socket.handshake.session.eventId;
   if(eventId){
-    dbHelper.getMessagesByEventId(eventId)
+    dbHelper.getMessagesByEventId(eventId)// find all messages under this event
     .then((results) => {
       console.log( "all event posts: ", results);
       const messages = [];
       for(let i in results[0]){
         messages.push({
-          msg: i[content],
-          username: "Otto",
+          msg: i["content"],
+          username: "Otto",//TODO: need username for this message
           id: results[0].id
         })
       }
-      io.in("room-"+eventId).emit("incomingMessage", {
-        
-      })
+      io.in("room-"+eventId).emit("incomingMessage", messages);
       });
     }
   
