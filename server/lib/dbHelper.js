@@ -84,7 +84,7 @@ module.exports = (knex) => {
       return knex ('pups')
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
         .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
-        .where({'users.id' : id})
+        .where({'users.id' : id});
     },
 
   }
