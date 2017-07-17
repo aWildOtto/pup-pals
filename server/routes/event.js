@@ -12,11 +12,15 @@ module.exports = (dbHelper) => {
       });
   }),
 
-  router.get("/create", (req, res) => {
-    res.render('create');
+  router.get("/new", (req, res) => {
+    if(req.session.userID){
+      res.render('event_create');
+    }else{
+      res.redirect('/user/login');
+    }
   }),
 
-  router.post("/create", (req, res)=> {
+  router.post("/new", (req, res)=> {
     console.log(req.body)
     dbHelper.createEvent(req.body,req.session.userID)
       .then((id) => {
