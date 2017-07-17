@@ -9,7 +9,7 @@ exports.seed = function(knex, Promise) {
           title: 'Doggos Beach Party',
           description: 'Bring your pups to the beach! All pups welcome.',
           location: 'Sunset Beach Park',
-          event_time: new Date('2017-07-23 19:48:31.893241-07'),
+          date_time: '2017-08-02T12:00',
           open_status: true,
           restriction: false
         }),
@@ -19,7 +19,7 @@ exports.seed = function(knex, Promise) {
           title: 'Small pups playdate',
           description: 'Playdate at the dog park',
           location: 'Burnaby Heights Off-leash Park',
-          event_time: '2017-06-05 19:48:31.893241-07' ,
+          date_time: '2017-06-05 19:48:31.893241-07' ,
           open_status: true,
           restriction: true
         })

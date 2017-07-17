@@ -1,0 +1,6 @@
+ id | creator_user_id |        title        |                   description                   |            location            |          event_time           | open_status |          created_at           |          updated_at           | restriction 
+----+-----------------+---------------------+-------------------------------------------------+--------------------------------+-------------------------------+-------------+-------------------------------+-------------------------------+-------------
+ 31 |               3 | Doggos Beach Party  | Bring your pups to the beach! All pups welcome. | Sunset Beach Park              | 2017-07-23 19:48:31.893-07    | t           | 2017-07-15 20:32:29.995919-07 | 2017-07-15 20:32:29.995919-07 | f
+ 32 |               1 | Small pups playdate | Playdate at the dog park                        | Burnaby Heights Off-leash Park | 2017-06-05 19:48:31.893241-07 | t           | 2017-07-15 20:32:29.996223-07 | 2017-07-15 20:32:29.996223-07 | t
+(2 rows)
+

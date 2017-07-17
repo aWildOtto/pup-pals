@@ -10,14 +10,17 @@ module.exports = (knex) => {
       return knex.select().from('events');
     },
 
+    getEventDetailsById: (id) => {
+      return knex('events')
+        .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
+        .leftJoin('event_pup', 'events.id', '=', 'event_pup.event_id')
+        .select(knex.raw('to_json(events.*) as events'), knex.raw('to_json(event_user.user_id) as event_user'), knex.raw('to_json(event_pup.pup_id) as event_pup'))
+        .where({'events.id' : id})
+    },
+
     getProfileByUsername: (username) => {
       return knex.select().from('users').where({username});
     },
-    // getEventDetailById: (id) => {
-    //   return knex.
-    // }
-
-    // },
 
     createUser: (user) => {
       return knex.table('users').insert({
@@ -26,6 +29,25 @@ module.exports = (knex) => {
         email: user.email,
         password: bcrypt.hashSync(user.password, 10)
       }).returning('id');
+    },
+
+    getPupsByIds: (ids) => {
+      return knex.table('pups')
+        .select()
+        .whereIn('id', ids)
+    },
+
+    getUserByIds: (ids) => {
+      return knex.table('users')
+        .select('id','username', 'name', 'avatar_url')
+        .whereIn('id', ids)
+    },
+
+    getPupsByUserIds: (ids) => {
+      return knex.table('pups')
+        .select('name', 'breed', 'avatar_url', 'user_id')
+        .whereIn('user_id', ids)
+        .groupBy('user_id', 'pups.name', 'pups.breed', 'pups.avatar_url')
     },
 
     getUserByEmail: (email) => {
@@ -42,6 +64,19 @@ module.exports = (knex) => {
         .where({'users.id' : id})
     },
 
+    createEvent: (event, id) => {
+      return knex.table('events').insert({
+        creator_user_id:id,
+        title: event.title,
+        description: event.description,
+        open_status: true,
+        location: event.location,
+        date_time: event.date_time,
+        restriction: false
+      }).returning('id');
+    },
+
+
     test: (id) => {
       return knex('users')
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
@@ -57,7 +92,7 @@ module.exports = (knex) => {
     },
 
     saveMessage: (content, user_id, msgId, event_id) => {
-      //TODO: 
+      //TODO:
       //save the message
       return knex('event_posts').insert({
         user_id,
