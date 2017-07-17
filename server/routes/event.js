@@ -46,6 +46,8 @@ module.exports = (dbHelper) => {
               .then((pups) => {
                 console.log(pups);
                 req.session.eventId = req.params.id;
+                req.session.hello = 'world';
+                console.log(req.session, 'this is on get')
                 res.render('event_detail', {
                   events: results[0].events,
                   users: users,

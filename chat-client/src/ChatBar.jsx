@@ -6,10 +6,8 @@ class ChatBar extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-
-  
   handleKeyPress = (e) => {
-    const content = this.refs.content.value;
+    const message = this.refs.content.value;
     if (e.key === "Enter") {
       this.props.addNewMessage(e.target.value);
       this.refs.content.value = '';

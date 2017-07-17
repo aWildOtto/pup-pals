@@ -98,19 +98,19 @@ module.exports = (knex) => {
         user_id,
         event_id,
         content
-      })//add media url in here
+      }).returning('id')//add media url in here
     },
 
     savePet: (pup, user_id) => {
       return knex('pups').insert({
-        user_id: user_id, 
-        breed: pup.breed , 
-        size: pup.size, 
-        temperament: pup.temperament, 
-        neutered: "Yes"? true: false, 
-        age: pup.age, 
-        avatar_url: pup.avatar_url, 
-        name: pup.name, 
+        user_id: user_id,
+        breed: pup.breed ,
+        size: pup.size,
+        temperament: pup.temperament,
+        neutered: "Yes"? true: false,
+        age: pup.age,
+        avatar_url: pup.avatar_url,
+        name: pup.name,
         sex: pup.sex
       })
     },

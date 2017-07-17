@@ -15,11 +15,11 @@ class App extends Component {
 
   addNewMessage(content) {
     console.log("in app", content);
-    this.socket.emit("message",{msg: content})
+    this.socket.emit("message",{message: content})
   }
 
   componentDidMount () {
-    this.socket = io.connect("http://0.0.0.0:3000");
+    this.socket = io.connect("http:\//0.0.0.0:3000");
     this.socket.on('incomingMessage',(e)=>{
       console.log("caitlin",e);
       const newMessages = this.state.messages.concat(e);
