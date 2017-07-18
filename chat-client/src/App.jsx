@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import MessageList from './MessageList.jsx';
 import ChatBar from './ChatBar.jsx';
 import io from 'socket.io-client';
-import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
 
 class App extends Component {
   constructor(props){

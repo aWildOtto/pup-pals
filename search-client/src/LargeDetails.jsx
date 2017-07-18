@@ -5,6 +5,16 @@ class LargeDetails extends Component {
     this.props.toggleHidden();
   }
   
+  handleButton1 = (e) => {
+    e.stopPropagation();
+    this.props.RSVP();
+  }
+
+  handleButton2 = (e) => {
+    e.stopPropagation();
+    this.props.AddToCalender();
+  }
+  
   render() {
     return (
       <div className="largedetails-container">
@@ -28,6 +38,14 @@ class LargeDetails extends Component {
           </div>
           <div className="largedetails-section">
             <span className="largedetails-detailbody">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium.</span>
+          </div>
+          <div className="largedetails-footer">
+            <span className="largedetails-rsvp">
+              <button type="button" onClick={this.handleButton1.bind(this)} className="btn btn-primary">RSVP</button>
+            </span>
+            <span className="largedetails-calender">
+              <button type="button" onClick={this.handleButton2.bind(this)} className="btn btn-primary">Calender</button>
+            </span>
           </div>
         </div>  
       </div>
