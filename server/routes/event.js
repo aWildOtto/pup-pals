@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const geocoder = require('geocoder');
 
 module.exports = (dbHelper) => {
 
@@ -9,6 +10,9 @@ module.exports = (dbHelper) => {
     dbHelper.getAllEvents()
       .then((results) => {
         res.render('search', {results});
+        geocoder.geocode("Nelson Dog Park, Vancouver", function ( err, data ) {
+          console.log(data.results[0].geometry.location)
+        });
       });
   }),
 

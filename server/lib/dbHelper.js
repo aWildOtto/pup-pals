@@ -43,6 +43,8 @@ module.exports = (knex) => {
         .whereIn('id', ids)
     },
 
+
+
     getPupsByUserIds: (ids) => {
       return knex.table('pups')
         .select('name', 'breed', 'avatar_url', 'user_id')
@@ -92,9 +94,7 @@ module.exports = (knex) => {
     },
 
     saveMessage: (content, user_id, msgId, event_id) => {
-      //TODO:
-      //save the message
-      return knex('event_posts').insert({
+       return knex('event_posts').insert({
         user_id,
         event_id,
         content
@@ -123,7 +123,10 @@ module.exports = (knex) => {
     },
 
     getMessagesByEventId: (event_id) => {
-      return knex("event_posts").select().where({event_id});
+      return knex('event_posts')
+        .leftJoin('users','event_posts.user_id', '=', 'users.id')
+        .select('users.username', 'users.avatar_url', 'event_posts.*')
+        .where({'event_posts.event_id': event_id});
     }
   }
 };

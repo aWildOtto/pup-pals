@@ -13,9 +13,9 @@ class App extends Component {
     this.addNewMessage = this.addNewMessage.bind(this);
   }
 
-  addNewMessage(content) {
-    console.log("in app", content);
-    this.socket.emit("message",{message: content})
+  addNewMessage(message) {
+    console.log("in app", message);
+    this.socket.emit("message",{message: message})
   }
 
   componentDidMount () {

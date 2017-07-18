@@ -50,23 +50,25 @@ io.on('connection', function (socket) {
   //console.log("a user joined: " + userCount + " users");
   if(socket.handshake.session) {
     console.log(socket.handshake.session.eventId);
-  }
+
   //const sessionId = socket.handshake.sessionID
   //console.log(socket.handshake.sessionStore.sessions[sessionId].cookie.eventId);
   // console.log(socket.handshake.session.eventId);
   // const eventId = socket.handshake.session.cookie.eventId;
   //console.log(socket.handshake.headers.referer.slice(29))
-  var eventId = socket.handshake.headers.referer.slice(29)
+  var eventId = socket.handshake.session.eventId
   if(eventId){
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
     .then((results) => {
-      // console.log( "all event posts: ", results);
+      console.log( "all event posts: ", results);
       const messages = [];
       results.forEach(function(message){
          messages.push({
           message: message.content,
-          username: message.user_id,//TODO: need username for this message
-          id: message.id
+          avatar_url: message.avatar_url,
+          username: message.username,
+          id: message.id,
+          created_at: message.created_at
         });
       })
       // console.log(messages);
@@ -79,20 +81,21 @@ io.on('connection', function (socket) {
     console.log("username is", socket.handshake.session );
     const msgId = uuid();
     console.log("current event id is", eventId);
-    io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
-      msg:data.message,
-      username: socket.handshake.session.username,
-      id:msgId
+    dbHelper.saveMessage(data.message, socket.handshake.session.userID, msgId, eventId)
+      .then((id)=>{
+        io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
+          message:data.message,
+          username: socket.handshake.session.username,
+          id:id[0]
+        });
     });
-    dbHelper.saveMessage(data.message, socket.handshake.session.user_id, msgId, eventId)
-      .then((results)=>{console.log(results)});
-    //TODO: save message to database
   });
 
   socket.on("disconnect", (e)=>{
     userCount --;
     console.log("a user left: " + userCount + " users");
   })
+  }
 });
 
 app.use(morgan('dev'));
