@@ -106,3 +106,25 @@ a.largedetails-eventpage {
   color: #fff;
   text-decoration: none;
 }
+
+.largedetails-footer {
+  border-radius: 0 0 4px 4px;
+  display: flex;
+  border-top: 1px solid #ddd;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.largedetails-rsvp {
+  right: 0px;
+  margin: 8px 18px 8px 0;
+  flex: 1;
+  text-align: center;
+}
+
+.largedetails-calender {
+  right: 0px;
+  margin: 8px;
+  flex: 1;
+  text-align: center;
+}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Pup-Pals</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/styles/build/main.css">
+</head>
+
+<body>
+  <% include partials/_navbar.ejs%>
+  <div class="registerdiv">
+    <h2>Create a Event</h2>
+    <form method="POST" action="/events/new" class="register-form">
+      <p>
+        <label for="title-input">Enter a title for your event</label>
+        <input class="input title-input" type="text" name="title">
+      </p>
+      <p>
+        <label for="event-input">Enter a description for your event</label>
+        <input class="input event-input" type="text" name="description">
+      </p>
+      <p>
+        <label for="restrictions-input">Enter restrictions if you wish to specify any</label>
+        <input class="input restrictions-input" type="text" placeholder="eg. Only big dogs" name="restrictions">
+      </p>
+      <p>
+        <label for="location-input">Enter a location for your event</label>
+        <input class="input location-input" type="text" name="location">
+      </p>
+      <p>
+        <label for="time-input">Enter a date and time for your event</label>
+        <input class="input time-input" type="datetime-local" name="date_time">
+      </p>
+      <button type="submit" class="formbtn">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>
