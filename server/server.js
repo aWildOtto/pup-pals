@@ -47,8 +47,6 @@ let userCount = 0;
 io.on('connection', function (socket) {
   userCount ++;
   console.log("a user joined: " + userCount + " users");
-  console.log(socket.handshake.session.eventId);
-  console.log(socket.rooms)
   const eventId = socket.handshake.session.eventId;
   if(socket.handshake.session) {
     console.log(socket.handshake.session.eventId);
@@ -60,7 +58,7 @@ io.on('connection', function (socket) {
   if(eventId){
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
     .then((results) => {
-      console.log( "all event posts: ", results);
+      // console.log( "all event posts: ", results);
       const messages = [];
       results.forEach(function(message){
          messages.push({
@@ -113,13 +111,14 @@ app.use(knexLogger(knex));
 
 app.set('view engine', 'ejs');
 
-
 app.use('/styles', express.static('../styles/'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/searchReact', express.static('../search-client/build'));
+app.use('/chatReact', express.static('../chat-client/build'));
 
-app.use('/scripts', express.static('../search-client/build'));
+app.locals.user = null;//prepare the object for nav bar, add data to user when logged in and signed up
 
 app.get('/', (req, res) => {
   res.render('index');
