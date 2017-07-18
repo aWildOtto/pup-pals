@@ -29,7 +29,7 @@ app.use(session);
 // setting autoSave:true
 io.use(sharedsession(session, {
     autoSave:true
-})); 
+}));
 
 const eventRoutes = require("./routes/event");
 const userRoutes = require("./routes/user");
@@ -46,7 +46,6 @@ io.on('connection', function (socket) {
 
   console.log(socket.handshake.session.eventId);
 
-  
   const eventId = socket.handshake.session.eventId;
   if(eventId){
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
@@ -63,12 +62,12 @@ io.on('connection', function (socket) {
       io.in("room-"+eventId).emit("incomingMessage", messages);
       });
     }
-  
+
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
     console.log("username is", socket.handshake.session );
     const msgId = uuid();
-    
+
     console.log("current event id is", eventId);
     io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
       msg:data.msg,
@@ -78,7 +77,7 @@ io.on('connection', function (socket) {
     //TODO: save message to database
     dbHelper.saveMessage(data.msg, socket.handshake.session.user_id, msgId, eventId);
   });
-  
+
   socket.on("disconnect", (e)=>{
     userCount --;
     console.log("a user left: " + userCount + " users");
@@ -109,6 +108,6 @@ app.use("/user", userRoutes(dbHelper));
 app.use("/", petRoutes(dbHelper));
 app.use("/", ownerRoutes(dbHelper));
 
-server.listen(3000 || process.env.PORT, () => {
+server.listen( process.env.PORT || 3000, () => {
   console.log('Server running');
 });
