@@ -13,6 +13,7 @@
 <body>
   <% include partials/_navbar.ejs %>
   <div class="registerdiv">
+    <% events.forEach()
     <% include partials/_event.ejs %>
     <% include partials/_puppy.ejs %>
     <p>Description</p>
@@ -23,3 +24,7 @@
 </body>
 
 </html>
+
+<% pups.forEach(function(item) {%>
+        <% include partials/_event_owner.ejs %>
+      <% })%>

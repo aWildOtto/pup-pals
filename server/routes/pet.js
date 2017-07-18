@@ -12,7 +12,7 @@ module.exports = (dbHelper) => {
   router.get("/pet/:id", (req, res) => {
     dbHelper.getPupsAndEventsById(req.params.id).then((result) => {
       console.log("result of getPupsAndEventsById:", result);
-      res.render("pet_profile", result[0]);
+      res.render("pet_profile", {pup: result});
     })
   });
 
