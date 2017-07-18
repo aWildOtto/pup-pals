@@ -40,7 +40,6 @@ const dbHelper = require("./lib/dbHelper")(knex);
 
 io.set('authorization', function (handshakeData, callback) {
   // console.log(handshakeData, 'is handshakeData')
-  console.log('socket request', handshakeData.headers.referer)
   callback(null, true);
 });
 
@@ -48,21 +47,16 @@ let userCount = 0;
 io.on('connection', function (socket) {
   userCount ++;
   console.log("a user joined: " + userCount + " users");
-
   console.log(socket.handshake.session.eventId);
-
+  console.log(socket.rooms)
   const eventId = socket.handshake.session.eventId;
-
-  //console.log("a user joined: " + userCount + " users");
   if(socket.handshake.session) {
     console.log(socket.handshake.session.eventId);
-
   //const sessionId = socket.handshake.sessionID
   //console.log(socket.handshake.sessionStore.sessions[sessionId].cookie.eventId);
   // console.log(socket.handshake.session.eventId);
   // const eventId = socket.handshake.session.cookie.eventId;
   //console.log(socket.handshake.headers.referer.slice(29))
-
   if(eventId){
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
     .then((results) => {
@@ -81,11 +75,15 @@ io.on('connection', function (socket) {
       io.in("room-"+eventId).emit("incomingMessage", messages);
       });
     }
+  // io.of('/events').on('connection', function(socket){
+  //   console.log('connected events')
+  // })
 
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
     console.log("username is", socket.handshake.session );
     console.log("current event id is", eventId);
+    msgId = uuid()
     dbHelper.saveMessage(data.message, socket.handshake.session.userID, msgId, eventId)
       .then((id)=>{
         io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
@@ -95,6 +93,12 @@ io.on('connection', function (socket) {
         });
     });
   });
+
+  socket.on('getEvents', (data) =>{
+    dbHelper.getAllEvents(data).then((results) => {
+
+    })
+  })
 
   socket.on("disconnect", (e)=>{
     userCount --;
@@ -121,7 +125,11 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-
+app.get('/api/events', (req, res) => {
+  dbHelper.getAllEvents().then((results) => {
+    res.json(results);
+  })
+})
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));
 app.use("/", petRoutes(dbHelper));
