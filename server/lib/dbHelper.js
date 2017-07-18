@@ -73,10 +73,18 @@ module.exports = (knex) => {
         open_status: true,
         location: event.location,
         date_time: event.date_time,
-        restriction: false
+        restriction: false,
+        longitude: event.longitude,
+        latitude: event.latitude
       }).returning('id');
     },
 
+    insertEventUser: (event_id, user_id) => {
+        return knex.table('event_user'). insert({
+          event_id: event_id,
+          user_id: user_id
+        })
+    },
 
     test: (id) => {
       return knex('users')
