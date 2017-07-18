@@ -10,9 +10,6 @@ module.exports = (dbHelper) => {
     dbHelper.getAllEvents()
       .then((results) => {
         res.render('search', {results});
-        geocoder.geocode("Sunset Beach Park, Vancouver", function ( err, data ) {
-          console.log(data.results[0].geometry.location)
-        });
       });
   }),
 
@@ -25,12 +22,28 @@ module.exports = (dbHelper) => {
   }),
 
   router.post("/new", (req, res)=> {
-    // console.log(req.body)
-    dbHelper.createEvent(req.body,req.session.userID)
-      .then((id) => {
-        // console.log(req.session.userID)
-        res.redirect(`/events/${id}`);
-      })
+    geocoder.geocode(`${req.body.location}, Vancouver`, function ( err, data ) {
+      console.log(data.results[0].geometry.location)
+      const event = {
+        title: req.body.title,
+        description: req.body.description,
+        location: req.body.location,
+        date_time: req.body.date_time,
+        latitude: data.results[0].geometry.location.lat,
+        longitude: data.results[0].geometry.location.lng
+      };
+      console.log(event)
+      dbHelper.createEvent(event,req.session.userID)
+        .then((id) => {
+          const event_id = parseInt(id)
+          dbHelper.insertEventUser(event_id, req.session.userID)
+            .then(() => {
+              res.redirect(`/events/${event_id}`);
+            })
+        })
+    });
+
+
   }),
 
   router.get("/:id", (req, res) => {
