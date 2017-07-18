@@ -18,11 +18,12 @@
       <div class="row">
         <div class="col-md-3">
           <% for (var i = 0; i < pupsIDs.length; i++) { %>
-            <% data[i].pups.name; %>
             <% const pup = data[i].pups; %>
             <% include partials/_puppy.ejs %>
           <% } %>
-          <a href="/pet/new">Add New Pups</a>
+          <%if(user && user.id == profileId){%>
+            <a href="/pet/new">Add New Pups</a>
+          <%}%>
         </div>
         <div class="col-md-6 text-center">
           <% const owner = data[0];%>

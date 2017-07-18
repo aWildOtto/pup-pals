@@ -25,7 +25,9 @@ module.exports = (dbHelper) => {
       res.render("owner_profile", {
         data : results,
         eventsIDs: eventsIDs,
-        pupsIDs: pupsIDs});
+        pupsIDs: pupsIDs,
+        profileId: req.params.id
+      });
     });
   });
 
