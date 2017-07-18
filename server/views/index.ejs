@@ -11,6 +11,7 @@
   <!-- Youtube CSS -->
   <link href="/styles/css/YTPlayer.css" rel="stylesheet" type="text/css" />
   <!--external css-->
+
   <link href="/styles/css/simple-line-icons.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <!-- Custom styles for this template -->
@@ -28,20 +29,63 @@
 
   <!-- Header -->
   <% include partials/_navbar.ejs%>
-    <!-- /Header -->
 
-    <!-- Home -->
-    <section id="home" class="home-section">
-      <div id="video_container" class="video-bg-slider"></div>
-      <div id="P3" class="player video-container" data-property="{videoURL:'P52aXzGHGU4',containment:'#video_container',autoPlay:true, showControls:false, mute:true, startAt:0}"></div>
-      <div class="container slidero">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="intro-title">Join a community<span class="element" data-elements="for your puppy"></span></h1>
-            <p class="intro-text">Some sub heading</p>
-            <div class="btn-bar">
-              <a href="/events" class="btn btn-custom-outline">Find a Meetup</a>
-              <a href="/events/new" class="btn btn-custom-outline">Create a Meetup</a>
+  <!-- /Header -->
+
+  <!-- Home -->
+  <section id="home" class="home-section">
+    <div id="video_container" class="video-bg-slider"></div>
+     <div id="P3" class="player video-container" data-property="{videoURL:'P52aXzGHGU4',containment:'#video_container',autoPlay:true, showControls:false, mute:true, startAt:0}"></div>
+    <div class="container slidero">
+      <div class="row">
+        <div class="col-md-12">
+           <h1 class="intro-title">Find pals for your pup<span class="element" data-elements="for your puppy"></span></h1>
+          <p class="intro-text"></p>
+          <div class="btn-bar">
+            <a href="/events" class="btn btn-custom-outline">Find a Pup-pal Party</a>
+            <a href="/events/new" class="btn btn-custom-outline">Create a Pup-pal Party</a>
+          </div>
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </section>
+  <!-- /Home -->
+
+  <!-- FUN-FACTS -->
+  <section class="fun-facts bg-dark" id="fun-facts">
+    <div class="container">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        <h1>Featured Meetup</h1>
+      </div>
+    </div>
+    <!--  /container -->
+  </section>
+  <!-- / FUN-FACTS -->
+
+  <!-- Services -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h3 class="title">Instagram API</h3>
+          <p class="slog">#puppies</p>
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- /row -->
+
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="service-item margin-b-md">
+            <i class="icon-diamond"></i>
+            <div class="service-detail">
+              <h4>Strategy Solutions</h4>
+              <p>We put a lot of effort in design, as it’s the most important ingredient of successful website.Sed ut perspiciatis
+                unde omnis iste natus error sit.</p>
+
             </div>
           </div>
           <!-- /col -->
