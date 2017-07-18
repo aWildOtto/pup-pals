@@ -5,6 +5,8 @@
   <title></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap core CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
 
@@ -30,6 +32,7 @@
           <% include partials/_owner.ejs %>
         </div>
         <div class="col-md-3 text-right">
+        <h3> Pup-parties created by <%= data[0].username%></h3>
           <% if(data[0].events) { %>
             <% for (var i = 0; i < eventsIDs.length; i++)  { %>
               <%const event = data[i].events%>
@@ -38,6 +41,12 @@
           <% } else { %>
             This user has not created any events yet.
           <% } %>
+        </div>
+        <div class="col-md-3 text-right">
+          <h3> <%= data[0].username%> is going to these pup-parties </h3>
+             <% allEvents.forEach ((ev) => { %>
+               <% include partials/_event_2.ejs %>
+             <% }) %>
         </div>
       </div>
     </div>
