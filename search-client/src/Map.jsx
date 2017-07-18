@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SideBar from './SideBar.jsx'
 
 import {
   withGoogleMap,
@@ -41,13 +42,12 @@ const SearchBoxExampleGoogleMap = withGoogleMap(props => (
       inputPlaceholder="Location"
       inputStyle={INPUT_STYLE}
     />
-    {props.markers.map((marker, index) => (
-      <Marker 
-      position={marker.position} 
-      key={index} 
+    { props.events.map((e) => {
+      return <Marker 
+      key={e.id}
+      position={{ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }} 
       onClick={props.onMarkerClick}
-      />
-    ))}
+      /> })}
   </GoogleMap>
 ));
 
@@ -59,7 +59,7 @@ class Map extends Component {
       lat: 49.2828082,
       lng: -123.10668750000002,
     },
-    markers: [],
+    markers: []
   };
 
   handleMapMounted = this.handleMapMounted.bind(this);
@@ -93,15 +93,32 @@ class Map extends Component {
 
     // Set markers; set map center to first search result
     const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
+    
+    markers.forEach((marker) => {
+      const lat = marker.position.lat();
+      const lng = marker.position.lng();
+      console.log('lat: ' + lat + '\nlng: ' + lng)
+    })
 
     this.setState({
       center: mapCenter,
-      markers,
     });
   }
-
-  handleMarkerClick() {
-    console.log(this.state.markers[1].position.lat)
+  
+  handleMarkerClick(e) {
+    const events = this.props.events
+    events.map((event) => {
+      const lat = e.latLng.lat();
+      const lng = e.latLng.lng();
+      const threshold = 0.000001;
+      const event_lat = parseFloat(event.latitude);
+      const event_lng = parseFloat(event.longitude);
+      if (Math.abs(lat - event_lat) < threshold && Math.abs(lng - event_lng) < threshold) {
+        this.refs.sidebar.toggleHidden(event);       
+      }
+      //render the large details of that event   
+    })
+    // console.log('lat: ' + lat + '\nlng: ' + lng)
   }
 
   render() {
@@ -121,7 +138,12 @@ class Map extends Component {
           bounds={this.state.bounds}
           onPlacesChanged={this.handlePlacesChanged}
           markers={this.state.markers}
+          events={this.props.events}
           onMarkerClick={this.handleMarkerClick}
+        />
+        <SideBar          
+          events={this.props.events}
+          ref="sidebar"
         />
       </div>
     );
