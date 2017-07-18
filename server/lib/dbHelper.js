@@ -69,7 +69,7 @@ module.exports = (knex) => {
     savePet: (pup, user_id) => {
       return knex('pups').insert({
         user_id: user_id, 
-        breed: pup.breed , 
+        breed: pup.breed, 
         size: pup.size, 
         temperament: pup.temperament, 
         neutered: "Yes"? true: false, 
@@ -77,15 +77,25 @@ module.exports = (knex) => {
         avatar_url: pup.avatar_url, 
         name: pup.name, 
         sex: pup.sex
-      })
+      }).returning('id');
     },
 
-     getUserPupsById: (id) => {
-      return knex ('pups')
+    getPupsAndEventsById: (id) => {
+      return knex()
+        .select(['pups.id as puppy_id', 'pups.name', 'pups.breed', 'pups.sex', 'pups.age', 'pups.size', 'pups.neutered', 'pups.temperament', 'events.id as events_id', 'events.title', 'events.description', 'events.location', 'events.event_time', 'events.open_status'])
+        .from('pups')
+        .leftJoin('event_pup', 'pups.id', '=', 'event_pup.pup_id')
+        .leftJoin('events', 'event_pup.event_id', '=', 'events.id')
+        .where({'pups.id': id});
+    },
+
+    getUserPupsById: (id) => {
+      return knex ('users')
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
         .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
         .where({'users.id' : id});
     },
+
 
   }
 };
