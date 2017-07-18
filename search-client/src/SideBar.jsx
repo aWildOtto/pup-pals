@@ -3,24 +3,24 @@ import SmallDetails from './SmallDetails.jsx'
 import LargeDetails from './LargeDetails.jsx'
 
 class SideBar extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       selectedEvent: null
     }
   }
 
-  toggleHidden (e) {
+  toggleHidden(e) {
     this.setState({
       selectedEvent: e
     })
   }
 
-  RSVP () {
+  RSVP() {
     alert('RSVP');
   }
 
-  AddToCalender () {
+  AddToCalender() {
     alert('Add to Calender');
   }
 
@@ -36,7 +36,7 @@ class SideBar extends Component {
     })
   }
 
-  renderLargeDetails () {
+  renderLargeDetails() {
     return <LargeDetails 
     event={this.state.selectedEvent}
     toggleHidden={this.toggleHidden.bind(this)} 

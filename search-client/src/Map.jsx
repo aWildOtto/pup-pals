@@ -45,7 +45,7 @@ const SearchBoxExampleGoogleMap = withGoogleMap(props => (
     { props.events.map((e) => {
       return <Marker 
       key={e.id}
-      position={{ lat: 49.2884964, lng: -123.01807739999998 }} 
+      position={{ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }} 
       onClick={props.onMarkerClick}
       /> })}
   </GoogleMap>
@@ -106,18 +106,19 @@ class Map extends Component {
   }
   
   handleMarkerClick(e) {
-    const lat = e.latLng.lat();
-    const lng = e.latLng.lng();
-    console.log('lat: ' + lat + '\nlng: ' + lng)
-  }
-
-  renderMarkers () {
-    return this.props.events.map(() => {
-      return <Marker 
-      position={{ lat: 49.2884964, lng: -123.01807739999998 }} 
-      onClick={props.onMarkerClick}
-    />
+    const events = this.props.events
+    events.map((event) => {
+      const lat = e.latLng.lat();
+      const lng = e.latLng.lng();
+      const threshold = 0.000001;
+      const event_lat = parseFloat(event.latitude);
+      const event_lng = parseFloat(event.longitude);
+      if (Math.abs(lat - event_lat) < threshold && Math.abs(lng - event_lng) < threshold) {
+        this.refs.sidebar.toggleHidden(event);       
+      }
+      //render the large details of that event   
     })
+    // console.log('lat: ' + lat + '\nlng: ' + lng)
   }
 
   render() {
@@ -142,6 +143,7 @@ class Map extends Component {
         />
         <SideBar          
           events={this.props.events}
+          ref="sidebar"
         />
       </div>
     );
