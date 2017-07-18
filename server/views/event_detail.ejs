@@ -20,11 +20,11 @@
       <h3>Time: <%= events.date_time%></h3>
       <h3>Description: <%= events.description %></p>
       <h3>Pup-pals coming</h3>
-      <% users.forEach(function(item) {%>
+      <% users.forEach((item) => {%>
         <% include partials/_event_goer.ejs %>
       <% })%>
       <h4>~~~~Some kind of cut-of line~~~~~</h4>
-      <% pups.forEach(function(item) {%>
+      <% pups.forEach((item) => {%>
         <% include partials/_event_pup.ejs %>
       <% })%>
 
