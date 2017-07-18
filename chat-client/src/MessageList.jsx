@@ -7,14 +7,18 @@ class MessageList extends Component {
   return (
     <div>
      { this.props.messages.map((item) => {
-       console.log("I'm",item);
-        return <Message key={item.id} username = {item.username} message={item.msg} />
+       console.log(item);
+        return <Message key={item.id}
+                        username = {item.username}
+                        avatar_url = {item.avatar_url}
+                        message={item.message}
+                        created_at={item.created_at} />
       })
      }
-    
+
     </div>
   )
   }
-} 
+}
 export default MessageList;
 
