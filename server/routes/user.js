@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 module.exports = (dbHelper) => {
 
   router.get("/login", (req, res) => {
-    res.render('login');
+    res.render('login', {error: null});
   });
 
   router.post("/login", (req, res) => {
@@ -20,35 +20,58 @@ module.exports = (dbHelper) => {
           req.session.username = result[0].username;
           req.session.userID = result[0].id;
           // console.log(req.session);
+          req.app.locals.user = {
+            username: result[0].username,
+            id: result[0].id,
+            avatar_url: result[0].avatar_url,
+          };
           res.redirect('/');
         } else {
-          res.status(403).send('Oops, looks like you entered something wrong.');
+          res.render('login', {
+            error: "wrong password"
+          });
         }
       } else {
-        res.status(404).send('Oops, looks like that email hasn\'t be registered');
+        res.render('login', {
+            error: "Email not in the system"
+          });
       }
     })
     .catch((error) => {
-      console.log(error);
+      res.render('login', {
+        error: "Unexpected turnout, report to Otto"
+      });
     });
   });
 
   router.get("/signup", (req, res) => {
-    res.render('signup');
+    res.render('signup', {error:null});
   });
 
   router.post("/signup", (req, res) => {
-    const user = req.body;
+    let user = req.body;
+    console.log(user);
     dbHelper.createUser(user)
     .then((id)=>{
       req.session.username = user.username;
       req.session.userID = id;
+      user.id = id;
+      req.app.locals.user = user;
       res.redirect('/');
     })
     .catch((error) => {
       console.log(error);
+      res.render('signup', {
+        error: "username or email was taken"
+      })
     });
-  })
+  });
+
+  router.get("/logout", (req, res) => {
+    req.session = null;
+    req.app.locals.user = null;
+    res.redirect('back');
+  });
 
   return router;
 }
