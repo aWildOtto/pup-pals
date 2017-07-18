@@ -6,13 +6,13 @@ class SideBar extends Component {
   constructor () {
     super()
     this.state = {
-      isHidden: true
+      selectedEvent: null
     }
   }
 
-  toggleHidden () {
+  toggleHidden (e) {
     this.setState({
-      isHidden: !this.state.isHidden
+      selectedEvent: e
     })
   }
 
@@ -29,18 +29,28 @@ class SideBar extends Component {
       return <SmallDetails 
       event={e}
       key={e.id}
-      toggleHidden={this.toggleHidden.bind(this)} 
-      RSVP={this.RSVP.bind(this)} 
+      toggleHidden={this.toggleHidden.bind(this, e)} 
+      RSVP={this.RSVP.bind(this)}
       AddToCalender={this.AddToCalender.bind(this)} 
       />
     })
   }
+
+  renderLargeDetails () {
+    return <LargeDetails 
+    event={this.state.selectedEvent}
+    toggleHidden={this.toggleHidden.bind(this)} 
+    RSVP={this.RSVP.bind(this)} 
+    AddToCalender={this.AddToCalender.bind(this)} 
+    />
+  }
+
   render() {
     return (
       <div>
         <div className="sidebar">
-          {this.state.isHidden && this.renderEvents() }   
-          {!this.state.isHidden && <LargeDetails toggleHidden={this.toggleHidden.bind(this)} RSVP={this.RSVP.bind(this)} AddToCalender={this.AddToCalender.bind(this)} /> }    
+          {!this.state.selectedEvent && this.renderEvents() }   
+          {this.state.selectedEvent && this.renderLargeDetails() }    
         </div>
       </div>      
     );

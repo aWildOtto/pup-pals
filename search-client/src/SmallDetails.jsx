@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Moment from 'react-moment';
 
 class SmallDetails extends Component {
   handleClick = () => {
@@ -25,8 +26,8 @@ class SmallDetails extends Component {
               <span className="smalldetails-attendees">10 Going</span>
             </div>
             <div className="smalldetails-body">
-              <span className="smalldetails-date"><i className="fa fa-clock-o" aria-hidden="true"></i> {this.props.event.date_time}</span>
-              <span className="smalldetails-time">12:00 PM - 4:00PM</span>
+              <span className="smalldetails-date"><i className="fa fa-clock-o" aria-hidden="true"></i> <Moment format="ddd MMMM Do YYYY">{this.props.event.date_time}</Moment></span>
+              <span className="smalldetails-time"><Moment format="h:mm a">{this.props.event.date_time}</Moment></span>
               <span className="smalldetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i> {this.props.event.location}</span>
             </div>
             <div className="smalldetails-footer">

@@ -42,21 +42,12 @@ const SearchBoxExampleGoogleMap = withGoogleMap(props => (
       inputPlaceholder="Location"
       inputStyle={INPUT_STYLE}
     />
-    {props.markers.map((marker, index) => (
-      <Marker 
-        position={marker.position} 
-        key={index} 
-        onClick={props.onMarkerClick}
-      />
-    ))}
-    <Marker 
-      position={{ lat: 49.279948, lng: -123.13869410000001 }} 
-      onClick={props.onMarkerClick}
-    />
-    <Marker 
+    { props.events.map((e) => {
+      return <Marker 
+      key={e.id}
       position={{ lat: 49.2884964, lng: -123.01807739999998 }} 
       onClick={props.onMarkerClick}
-    />
+      /> })}
   </GoogleMap>
 ));
 
@@ -68,31 +59,7 @@ class Map extends Component {
       lat: 49.2828082,
       lng: -123.10668750000002,
     },
-    markers: [],
-    events: [{
-      id: 31,
-      creator_user_id: 3,
-      title: 'Doggos Beach Party',
-      description: 'Bring your pups to the beach! All pups welcome.',
-      location: 'Sunset Beach Park',
-      lat: 49.279948,
-      lng: -123.13869410000001,
-      open_status: true,
-      restriction: false,
-      date_time: '2017-08-02 12:00:00-07'
-    }, 
-    {
-      id: 32,
-      creator_user_id: 4,
-      title: 'Small pups playdate',
-      description: 'Playdate at the dog park',
-      location: 'Burnaby Heights Off-leash Park',
-      lat: 49.279948,
-      lng: -123.13869410000001,
-      open_status: true,
-      restriction: false,
-      date_time: '2017-06-05 19:48:31'
-    }]
+    markers: []
   };
 
   handleMapMounted = this.handleMapMounted.bind(this);
@@ -144,6 +111,15 @@ class Map extends Component {
     console.log('lat: ' + lat + '\nlng: ' + lng)
   }
 
+  renderMarkers () {
+    return this.props.events.map(() => {
+      return <Marker 
+      position={{ lat: 49.2884964, lng: -123.01807739999998 }} 
+      onClick={props.onMarkerClick}
+    />
+    })
+  }
+
   render() {
     return (
       <div className="mapcontainer">
@@ -161,10 +137,11 @@ class Map extends Component {
           bounds={this.state.bounds}
           onPlacesChanged={this.handlePlacesChanged}
           markers={this.state.markers}
+          events={this.props.events}
           onMarkerClick={this.handleMarkerClick}
         />
         <SideBar          
-          events={this.state.events}
+          events={this.props.events}
         />
       </div>
     );
