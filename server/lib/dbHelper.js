@@ -10,7 +10,7 @@ module.exports = (knex) => {
       return knex.select().from('events');
     },
 
-    getEventDetailsById: (id) => {
+    getEventDetailsByEventId: (id) => {
       return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
         .leftJoin('event_pup', 'events.id', '=', 'event_pup.event_id')
@@ -42,8 +42,6 @@ module.exports = (knex) => {
         .select('id','username', 'name', 'avatar_url')
         .whereIn('id', ids)
     },
-
-
 
     getPupsByUserIds: (ids) => {
       return knex.table('pups')

@@ -12,9 +12,22 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/user/login">Login</a></li>
-        <li><a href="/user/signup">Sign Up</a></li>
+        <% if(!user){%>
+          <li><a href="/user/login">Login</a></li>
+          <li><a href="/user/signup">Sign Up</a></li>
+        <%}else{%>
+          <li>
+            <a href="/owner/<%=user.id%>">
+              <img src="<%=user.avatar_url%>" style="width:20px; height:20px">
+              <%=user.username%>
+            </a>
+          </li>
+          
+          <li><a href="/user/logout">Log out</a></li>
+
+        <%}%>
       </ul>
+
     </div>
   </div>
 </nav>

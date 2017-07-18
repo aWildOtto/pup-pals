@@ -35,9 +35,10 @@ module.exports = (dbHelper) => {
 
   router.get("/:id", (req, res) => {
     // console.log(req.session);
-    dbHelper.getEventDetailsById(req.params.id)
+    dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
         let userIDs = [];
+        // console.log("from getEventDetails: ", results);
         results.forEach(function(item){
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
@@ -45,12 +46,11 @@ module.exports = (dbHelper) => {
         })
         dbHelper.getUserByIds(userIDs)
           .then((users) => {
-            console.log(users);
+            console.log("from getUserById: ", users);
             dbHelper.getPupsByUserIds(userIDs)
               .then((pups) => {
-                // console.log(pups);
+                console.log(pups);
                 req.session.eventId = req.params.id;
-                // console.log(req.session, 'this is on get')
                 res.render('event_detail', {
                   events: results[0].events,
                   users: users,
