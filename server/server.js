@@ -111,15 +111,14 @@ app.use(knexLogger(knex));
 
 app.set('view engine', 'ejs');
 
-
 app.use('/styles', express.static('../styles/'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/searchReact', express.static('../search-client/build'));
+app.use('/chatReact', express.static('../chat-client/build'));
 
-app.use('/scripts', express.static('../search-client/build'));
-
-app.locals.user = null;
+app.locals.user = null;//prepare the object for nav bar, add data to user when logged in and signed up
 
 app.get('/', (req, res) => {
   res.render('index');

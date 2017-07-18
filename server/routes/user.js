@@ -8,7 +8,7 @@ const bcrypt = require("bcrypt");
 module.exports = (dbHelper) => {
 
   router.get("/login", (req, res) => {
-    res.render('login');
+    res.render('login', {error: null});
   });
 
   router.post("/login", (req, res) => {
@@ -27,23 +27,30 @@ module.exports = (dbHelper) => {
           };
           res.redirect('/');
         } else {
-          res.status(403).send('Oops, looks like you entered something wrong.');
+          res.render('login', {
+            error: "wrong password"
+          });
         }
       } else {
-        res.status(404).send('Oops, looks like that email hasn\'t be registered');
+        res.render('login', {
+            error: "Email not in the system"
+          });
       }
     })
     .catch((error) => {
-      console.log(error);
+      res.render('login', {
+        error: "Unexpected turnout, report to Otto"
+      });
     });
   });
 
   router.get("/signup", (req, res) => {
-    res.render('signup');
+    res.render('signup', {error:null});
   });
 
   router.post("/signup", (req, res) => {
     let user = req.body;
+    console.log(user);
     dbHelper.createUser(user)
     .then((id)=>{
       req.session.username = user.username;
@@ -54,6 +61,9 @@ module.exports = (dbHelper) => {
     })
     .catch((error) => {
       console.log(error);
+      res.render('signup', {
+        error: "username or email was taken"
+      })
     });
   });
 

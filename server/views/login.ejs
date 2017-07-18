@@ -14,6 +14,9 @@
   <% include partials/_navbar.ejs%>
   <div class="registerdiv">
     <h2>Log in</h2>
+    <%if(error){%>
+      <h4><%= error%></h4>
+    <%}%>
     <form method="POST" action="/user/login" class="register-form">
       <p>
         <label for="email-input">Enter your email to log in</label>

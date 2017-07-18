@@ -24,9 +24,10 @@ module.exports = (knex) => {
 
     createUser: (user) => {
       return knex.table('users').insert({
-        username:user.username,
+        username: user.username,
         name: user.name,
         email: user.email,
+        avatar_url: user.avatar_url,
         password: bcrypt.hashSync(user.password, 10)
       }).returning('id');
     },

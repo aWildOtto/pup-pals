@@ -14,6 +14,9 @@
   <% include partials/_navbar.ejs%>
   <div class="registerdiv">
     <h2>Sign Up</h2>
+    <%if(error){%>
+      <h4><%= error%></h4>
+    <%}%>
     <form method="POST" action="/user/signup" class="register-form">
       <p>
         <label for="avatar-input">Enter a url for your avatar:</label>
