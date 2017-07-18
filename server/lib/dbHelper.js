@@ -46,9 +46,9 @@ module.exports = (knex) => {
 
     getPupsByUserIds: (ids) => {
       return knex.table('pups')
-        .select('name', 'breed', 'avatar_url', 'user_id')
+        .select("pups.id",'name', 'breed', 'avatar_url', 'user_id')
         .whereIn('user_id', ids)
-        .groupBy('user_id', 'pups.name', 'pups.breed', 'pups.avatar_url')
+        .groupBy('user_id','pups.id', 'pups.name', 'pups.breed', 'pups.avatar_url')
     },
 
     getUserByEmail: (email) => {
@@ -73,10 +73,18 @@ module.exports = (knex) => {
         open_status: true,
         location: event.location,
         date_time: event.date_time,
-        restriction: false
+        restriction: false,
+        longitude: event.longitude,
+        latitude: event.latitude
       }).returning('id');
     },
 
+    insertEventUser: (event_id, user_id) => {
+        return knex.table('event_user'). insert({
+          event_id: event_id,
+          user_id: user_id
+        })
+    },
 
     test: (id) => {
       return knex('users')
@@ -115,12 +123,28 @@ module.exports = (knex) => {
     },
 
     getPupsAndEventsById: (id) => {
-      return knex()
-        .select(['pups.id as puppy_id', 'pups.name', 'pups.breed', 'pups.sex', 'pups.age', 'pups.size', 'pups.neutered', 'pups.temperament', 'events.id as events_id', 'events.title', 'events.description', 'events.location', 'events.event_time', 'events.open_status'])
-        .from('pups')
-        .leftJoin('event_pup', 'pups.id', '=', 'event_pup.pup_id')
-        .leftJoin('events', 'event_pup.event_id', '=', 'events.id')
-        .where({'pups.id': id});
+      return new Promise((resolve, reject) => {
+        knex('pups')
+          .where('id', id)
+          .first()
+          .then((pup) => {
+            knex('event_pup')
+            .where('pup_id', pup.id)
+            .leftJoin('events', 'event_pup.event_id', '=', 'events.id')
+            .then((events) => {
+              // console.log(events)
+              pup.events = events;
+              resolve(pup)
+            })
+          })
+      })
+
+      // return knex()
+      //   .select(['pups.id as puppy_id', 'pups.name', 'pups.breed', 'pups.sex', 'pups.age', 'pups.size', 'pups.neutered', 'pups.temperament', 'events.id as events_id', 'events.title', 'events.description', 'events.location', 'events.event_time', 'events.open_status'])
+      //   .from('pups')
+      //   .leftJoin('event_pup', 'pups.id', '=', 'event_pup.pup_id')
+      //   .leftJoin('events', 'event_pup.event_id', '=', 'events.id')
+      //   .where({'pups.id': id});
     },
 
     getUserPupsById: (id) => {
