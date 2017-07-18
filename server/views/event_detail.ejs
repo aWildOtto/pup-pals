@@ -19,6 +19,9 @@
       <h3>Location: <%= events.location%></h3>
       <h3>Time: <%= events.date_time%></h3>
       <h3>Description: <%= events.description %></p>
+      <%if (events.event_restriction) { %>
+        <h3><%= events.event_restriction%></h3>
+      <% } %>
       <h3>Pup-pals coming</h3>
       <% users.forEach((item) => {%>
         <% include partials/_event_goer.ejs %>
