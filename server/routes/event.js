@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const geocoder = require('geocoder');
 
 module.exports = (dbHelper) => {
 
@@ -9,6 +10,9 @@ module.exports = (dbHelper) => {
     dbHelper.getAllEvents()
       .then((results) => {
         res.render('search', {results});
+        geocoder.geocode("Sunset Beach Park, Vancouver", function ( err, data ) {
+          console.log(data.results[0].geometry.location)
+        });
       });
   }),
 
@@ -21,19 +25,20 @@ module.exports = (dbHelper) => {
   }),
 
   router.post("/new", (req, res)=> {
-    console.log(req.body)
+    // console.log(req.body)
     dbHelper.createEvent(req.body,req.session.userID)
       .then((id) => {
-        console.log(req.session.userID)
+        // console.log(req.session.userID)
         res.redirect(`/events/${id}`);
       })
   }),
 
   router.get("/:id", (req, res) => {
-
-    dbHelper.getEventDetailsById(req.params.id)
+    // console.log(req.session);
+    dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
         let userIDs = [];
+        // console.log("from getEventDetails: ", results);
         results.forEach(function(item){
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
@@ -41,7 +46,7 @@ module.exports = (dbHelper) => {
         })
         dbHelper.getUserByIds(userIDs)
           .then((users) => {
-            console.log(users);
+            console.log("from getUserById: ", users);
             dbHelper.getPupsByUserIds(userIDs)
               .then((pups) => {
                 console.log(pups);

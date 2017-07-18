@@ -10,7 +10,7 @@ module.exports = (knex) => {
       return knex.select().from('events');
     },
 
-    getEventDetailsById: (id) => {
+    getEventDetailsByEventId: (id) => {
       return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
         .leftJoin('event_pup', 'events.id', '=', 'event_pup.event_id')
@@ -24,9 +24,10 @@ module.exports = (knex) => {
 
     createUser: (user) => {
       return knex.table('users').insert({
-        username:user.username,
+        username: user.username,
         name: user.name,
         email: user.email,
+        avatar_url: user.avatar_url,
         password: bcrypt.hashSync(user.password, 10)
       }).returning('id');
     },
@@ -92,25 +93,23 @@ module.exports = (knex) => {
     },
 
     saveMessage: (content, user_id, msgId, event_id) => {
-      //TODO:
-      //save the message
-      return knex('event_posts').insert({
+       return knex('event_posts').insert({
         user_id,
         event_id,
         content
-      })//add media url in here
+      }).returning('id')//add media url in here
     },
 
     savePet: (pup, user_id) => {
       return knex('pups').insert({
-        user_id: user_id, 
-        breed: pup.breed, 
-        size: pup.size, 
-        temperament: pup.temperament, 
-        neutered: "Yes"? true: false, 
-        age: pup.age, 
-        avatar_url: pup.avatar_url, 
-        name: pup.name, 
+        user_id: user_id,
+        breed: pup.breed,
+        size: pup.size,
+        temperament: pup.temperament,
+        neutered: "Yes"? true: false,
+        age: pup.age,
+        avatar_url: pup.avatar_url,
+        name: pup.name,
         sex: pup.sex
       }).returning('id');
     },
@@ -149,7 +148,10 @@ module.exports = (knex) => {
 
 
     getMessagesByEventId: (event_id) => {
-      return knex("event_posts").select().where({event_id});
+      return knex('event_posts')
+        .leftJoin('users','event_posts.user_id', '=', 'users.id')
+        .select('users.username', 'users.avatar_url', 'event_posts.*')
+        .where({'event_posts.event_id': event_id});
     }
 
   }
