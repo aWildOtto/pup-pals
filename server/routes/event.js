@@ -38,7 +38,7 @@ module.exports = (dbHelper) => {
     dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
         let userIDs = [];
-        // console.log("from getEventDetails: ", results);
+        console.log("from getEventDetails: ", results);
         results.forEach(function(item){
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
