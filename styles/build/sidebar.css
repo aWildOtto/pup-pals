@@ -8,4 +8,5 @@
   background: #fff;
   left: auto;
   display: block;
-  width: 380px; }
+  width: 380px;
+  overflow-y: scroll; }

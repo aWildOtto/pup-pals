@@ -14,15 +14,19 @@
 
     <% include partials/_navbar.ejs %>
     <div class="registerdiv">
+      <p>A map here</p>
       <h1><%= events.title %></h1>
       <h3>Location: <%= events.location%></h3>
       <h3>Time: <%= events.date_time%></h3>
       <h3>Description: <%= events.description %></p>
-      <h3>Who's coming:</h3>
-      <% pups.forEach(function(item) {%>
-        <% include partials/_event_owner.ejs %>
+      <h3>Pup-pals coming</h3>
+      <% users.forEach((item) => {%>
+        <% include partials/_event_goer.ejs %>
       <% })%>
-
+      <h4>~~~~Some kind of cut-of line~~~~~</h4>
+      <% pups.forEach((item) => {%>
+        <% include partials/_event_pup.ejs %>
+      <% })%>
 
 
       <div id="react-root">
@@ -31,7 +35,7 @@
     </div>
 
     <% if (process.env.NODE_ENV === 'production') { %>
-      <script src="/scripts/chat.js"></script>
+      <script src="/chatReact/chat.js"></script>
     <% } else { %>
       <script src="http://localhost:10001/chat.js"></script>
     <% } %>

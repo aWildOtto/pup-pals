@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Moment from 'react-moment';
 
 class LargeDetails extends Component {
   handleClick = () => {
@@ -19,7 +20,7 @@ class LargeDetails extends Component {
     return (
       <div className="largedetails-container">
         <div className="largedetails-titlebar">
-          <h1 className="largedetails-titlebar-title">Pup Hangout</h1>
+          <h1 className="largedetails-titlebar-title">{this.props.event.title}</h1>
           <h2 className="largedetails-titlebar-subtitle">10 Going</h2>
           <a href="#" onClick={this.handleClick.bind(this)} className="largedetails-close">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 80 80">
@@ -29,15 +30,15 @@ class LargeDetails extends Component {
         </div>
         <div className="largedetails-content">
           <div className="largedetails-section">
-            <span className="largedetails-date"><i className="fa fa-clock-o" aria-hidden="true"></i> Thu, July 20, 2017</span>
-            <span className="largedetails-time">12:00 PM - 4:00PM</span>
-            <span className="largedetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp; Lighthouse Labs</span>
+            <span className="largedetails-date"><i className="fa fa-clock-o" aria-hidden="true"></i> <Moment format="ddd MMMM Do YYYY">{this.props.event.date_time}</Moment></span>
+            <span className="largedetails-time"><Moment format="h:mm a">{this.props.event.date_time}</Moment></span>
+            <span className="largedetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i> {this.props.event.location}</span>
             <br />
             <br />
             <a href="/events/1" target="_blank" className="btn btn-primary largedetails-eventpage">Go to event page</a>                        
           </div>
           <div className="largedetails-section">
-            <span className="largedetails-detailbody">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium quis.Donec quam felis, ultricies nec, pellentesque eu, pretium.</span>
+            <span className="largedetails-detailbody">{this.props.event.description}</span>
           </div>
           <div className="largedetails-footer">
             <span className="largedetails-rsvp">

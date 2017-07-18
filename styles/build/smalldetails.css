@@ -1,7 +1,6 @@
 .detailcontainer {
-  height: 100%;
   background: #f7f7f7;
-  padding: 20px 10px 50px; }
+  padding: 20px 10px 10px; }
 
 .smalldetails-container {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
@@ -46,7 +45,7 @@
   line-height: 1; }
 
 .smalldetails-date {
-  font-size: 3rem; }
+  font-size: 2.5rem; }
 
 .smalldetails-time {
   display: block;
@@ -54,7 +53,7 @@
 
 .smalldetails-location {
   display: block;
-  font-size: 2.5rem; }
+  font-size: 2rem; }
 
 .smalldetails-footer {
   border-radius: 0 0 4px 4px;

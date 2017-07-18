@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar.jsx';
-import SideBar from './SideBar.jsx'
-import Map from './Map.jsx'
+import Map from './Map.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: []
+    }
+  }
+
   componentDidMount() {
-    this.socket = io();
+   axios.get('/api/events').then((events)=>{
+     console.log(events.data);
+     this.setState({events: events.data});
+   })
   }
 
   render() {
     return (
       <div>
-        <Map />  
-        <SideBar />
-        <SearchBar />   
+        <Map events={this.state.events} />
+        <SearchBar />
       </div>
     );
   }
