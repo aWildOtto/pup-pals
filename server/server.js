@@ -119,7 +119,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/scripts', express.static('../search-client/build'));
 
-app.locals.user = {};
+app.locals.user = null;
 
 app.get('/', (req, res) => {
   res.render('index');
