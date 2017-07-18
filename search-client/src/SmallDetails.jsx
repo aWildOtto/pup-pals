@@ -21,13 +21,13 @@ class SmallDetails extends Component {
         <a href="#" onClick={this.handleClick.bind(this)} className="smalldetails-link">
           <div className="smalldetails-container">
             <div className="smalldetails-header">
-              <h3 className="smalldetails-title">Pup Hangout</h3>
+              <h3 className="smalldetails-title">{this.props.event.title}</h3>
               <span className="smalldetails-attendees">10 Going</span>
             </div>
             <div className="smalldetails-body">
-              <span className="smalldetails-date"><i className="fa fa-clock-o" aria-hidden="true"></i> Thu, July 20, 2017</span>
+              <span className="smalldetails-date"><i className="fa fa-clock-o" aria-hidden="true"></i> {this.props.event.date_time}</span>
               <span className="smalldetails-time">12:00 PM - 4:00PM</span>
-              <span className="smalldetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp; Lighthouse Labs</span>
+              <span className="smalldetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i> {this.props.event.location}</span>
             </div>
             <div className="smalldetails-footer">
               <span className="smalldetails-rsvp">

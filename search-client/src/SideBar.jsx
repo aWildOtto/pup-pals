@@ -23,11 +23,23 @@ class SideBar extends Component {
   AddToCalender () {
     alert('Add to Calender');
   }
+
+  renderEvents() {
+    return this.props.events.map((e) => {
+      return <SmallDetails 
+      event={e}
+      key={e.id}
+      toggleHidden={this.toggleHidden.bind(this)} 
+      RSVP={this.RSVP.bind(this)} 
+      AddToCalender={this.AddToCalender.bind(this)} 
+      />
+    })
+  }
   render() {
     return (
       <div>
         <div className="sidebar">
-          {this.state.isHidden && <SmallDetails toggleHidden={this.toggleHidden.bind(this)} RSVP={this.RSVP.bind(this)} AddToCalender={this.AddToCalender.bind(this)} />  }   
+          {this.state.isHidden && this.renderEvents() }   
           {!this.state.isHidden && <LargeDetails toggleHidden={this.toggleHidden.bind(this)} RSVP={this.RSVP.bind(this)} AddToCalender={this.AddToCalender.bind(this)} /> }    
         </div>
       </div>      
