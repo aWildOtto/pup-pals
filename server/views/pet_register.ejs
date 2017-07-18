@@ -17,6 +17,10 @@
       <h2>Pet Registration</h2>
       <form method="POST" action="/pet/new" class="register-form">
         <p>
+          <label for="url-input">Avatar URL:</label>
+          <input class="input url-input" type="text" name="avatar_url">
+        </p>
+        <p>
           <label for="name-input">Name:</label>
           <input class="input name-input" type="text" name="name">
         </p>
@@ -29,32 +33,36 @@
           <input class="input age-input" type="number" name="age">
         </p>
         <p>
+          <label for="temperament-input">Temperament:</label>
+          <input class="input temperament-input" type="text" maxlength="15" name="temperament">
+        </p>
+        <p>
           <div class="col-md-1">
-            <label class="row">Gender:</label>
+            <label class="row">Sex:</label>
           </div>
           <div class="row">
             <div class="col-md-1">
               <label class="radio-inline">
-              <input name="gender" id="input-gender-male" value="Male" type="radio" />Male</label>
+              <input name="sex" id="input-sex-male" value="Male" type="radio" />Male</label>
             </div>
             <div class="col-md-1">
               <label class="radio-inline">
-              <input name="gender" id="input-gender-female" value="Female" type="radio" />Female</label>
+              <input name="sex" id="input-sex-female" value="Female" type="radio" />Female</label>
             </div>
           </div>
         </p>
         <p>
           <div class="col-md-1">
-            <label class="row">Neuteured:</label>
+            <label class="row">Neutered:</label>
           </div>
           <div class="row">
             <div class="col-md-1">
               <label class="radio-inline">
-              <input name="neuteured" id="input-neuteured" value="Yes" type="radio" />Yes</label>
+              <input name="neutered" id="input-neutered" value="Yes" type="radio" />Yes</label>
             </div>
             <div class="col-md-1">
               <label class="radio-inline">
-              <input name="neuteured" id="input-neuteured" value="No" type="radio" />No</label>
+              <input name="neutered" id="input-neutered" value="No" type="radio" />No</label>
             </div>
           </div>
         </p>
