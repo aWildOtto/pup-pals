@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack2": "./node_modules/.bin/webpack-dev-server"
+    "webpack2": "./node_modules/.bin/webpack-dev-server",
+    "build-chat": "node_modules/.bin/webpack"
   },
   "keywords": [],
   "author": "",

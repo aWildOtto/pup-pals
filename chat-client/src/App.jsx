@@ -39,7 +39,7 @@ class App extends Component {
         <MessageList messages = {this.state.messages}/>
         <ChatBar addNewMessage={this.addNewMessage}/>
       </div>
-    )
+    );
   }
 }
 export default App;

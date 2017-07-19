@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack1": "./node_modules/.bin/webpack-dev-server"
+    "webpack1": "./node_modules/.bin/webpack-dev-server",
+    "build-search": "node_modules/.bin/webpack"
   },
   "keywords": [],
   "author": "",
