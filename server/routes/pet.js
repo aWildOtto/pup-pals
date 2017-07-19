@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const moment = require('moment');
 
 module.exports = (dbHelper) => {
   router.get("/pet/new", (req, res) => {
@@ -27,7 +28,8 @@ module.exports = (dbHelper) => {
         console.log(person)
         res.render("pet_profile", {
           person,
-          pup
+          pup,
+          moment
         });
       })
     })
