@@ -86,7 +86,7 @@ module.exports = (knex) => {
         open_status: true,
         location: event.location,
         date_time: event.date_time,
-        restriction: ""?false:true,
+        event_restriction: ""?false:true,
         longitude: event.longitude,
         latitude: event.latitude
       }).returning('id');
@@ -106,7 +106,8 @@ module.exports = (knex) => {
         .where({'users.id' : id})
     },
 
-    saveMessage: (content, user_id, msgId, event_id) => {
+
+    saveMessage: (content, user_id, event_id) => {
        return knex('event_posts').insert({
         user_id,
         event_id,

@@ -3,32 +3,54 @@ import SmallDetails from './SmallDetails.jsx'
 import LargeDetails from './LargeDetails.jsx'
 
 class SideBar extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
-      isHidden: true
+      selectedEvent: null
     }
   }
 
-  toggleHidden () {
+  toggleHidden(e) {
     this.setState({
-      isHidden: !this.state.isHidden
+      selectedEvent: e
     })
   }
 
-  RSVP () {
+  RSVP() {
     alert('RSVP');
   }
 
-  AddToCalender () {
+  AddToCalender() {
     alert('Add to Calender');
   }
+
+  renderEvents() {
+    return this.props.events.map((e) => {
+      return <SmallDetails 
+      event={e}
+      key={e.id}
+      toggleHidden={this.toggleHidden.bind(this, e)} 
+      RSVP={this.RSVP.bind(this)}
+      AddToCalender={this.AddToCalender.bind(this)} 
+      />
+    })
+  }
+
+  renderLargeDetails() {
+    return <LargeDetails 
+    event={this.state.selectedEvent}
+    toggleHidden={this.toggleHidden.bind(this)} 
+    RSVP={this.RSVP.bind(this)} 
+    AddToCalender={this.AddToCalender.bind(this)} 
+    />
+  }
+
   render() {
     return (
       <div>
         <div className="sidebar">
-          {this.state.isHidden && <SmallDetails toggleHidden={this.toggleHidden.bind(this)} RSVP={this.RSVP.bind(this)} AddToCalender={this.AddToCalender.bind(this)} />  }   
-          {!this.state.isHidden && <LargeDetails toggleHidden={this.toggleHidden.bind(this)} RSVP={this.RSVP.bind(this)} AddToCalender={this.AddToCalender.bind(this)} /> }    
+          {!this.state.selectedEvent && this.renderEvents() }   
+          {this.state.selectedEvent && this.renderLargeDetails() }    
         </div>
       </div>      
     );
