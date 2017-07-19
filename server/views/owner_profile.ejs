@@ -35,18 +35,9 @@
         </div>
         <div class="col-md-3 text-center">
           <div class="profile_sidebar">
-            <h3>Created events</h3>
-              <% if(data[0].events) { %>
-                <% for (var i = 0; i < eventsIDs.length; i++)  { %>
-                  <%const event = data[i].events%>
-                  <% include partials/_event.ejs %>
-                <% } %>
-              <% } else { %>
-                This user has not created any events yet.
-              <% } %>
             <h3>Attending events</h3>
               <% allEvents.forEach ((ev) => { %>
-                <% include partials/_event_2.ejs %>
+                <% include partials/_event.ejs %>
               <% }) %>
           </div>
         </div>

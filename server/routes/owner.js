@@ -8,7 +8,6 @@ module.exports = (dbHelper) => {
   router.get("/owner/:id", (req, res) => {
 
     dbHelper.getUserAndPupsById(req.params.id).then((results) => {
-      console.log(results)
       const IDs = (results,table) => {
         let arr = []
         results.forEach((item) => {
@@ -23,11 +22,11 @@ module.exports = (dbHelper) => {
       const eventsIDs= IDs(results, 'events');
       const pupsIDs = IDs(results, 'pups');
       dbHelper.getAllEventsOfUser(req.params.id).then((allEvents) => {
-        console.log(allEvents)
         allEvents.forEach((event) => {
           dbHelper.countEventAttendants(event.id)
             .then((attendants) => {
               event['count'] = attendants[0].count
+              console.log(allEvents);        
               res.render("owner_profile", {
                 data: results,
                 eventsIDs: eventsIDs,

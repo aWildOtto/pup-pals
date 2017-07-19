@@ -17,10 +17,9 @@ class SideBar extends Component {
     })
   }
 
-  RSVP() {
-    axios.post('/events/:id', {
-      event_id: eventId,
-      user_id: userId
+  RSVP(event_id) {
+    axios.post('/events/rsvp', {
+      event_id
     })
     .then((response) => {
       console.log(response);

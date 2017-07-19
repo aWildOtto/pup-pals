@@ -6,29 +6,33 @@ const bcrypt = require("bcrypt");
 module.exports = (knex) => {
   return{
 
-    getAllEvents: () => {
-      return knex.select().from('events');
-    },
-
     getEventDetailsByEventId: (id) => {
       return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
         .leftJoin('event_pup', 'events.id', '=', 'event_pup.event_id')
         .select(knex.raw('to_json(events.*) as events'), knex.raw('to_json(event_user.user_id) as event_user'), knex.raw('to_json(event_pup.pup_id) as event_pup'))
-        .where({'events.id' : id})
+        .where({'events.id' : id});
     },
 
     getAllEventsOfUser: (id) => {
       return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
         .select ('events.*')
-        .where({'event_user.user_id': id})
+        .where({'event_user.user_id': id});
+    },
+    
+    getAllEvents: () => {
+      return knex('events')
+        .innerJoin('event_user', 'event_user.event_id', '=', 'events.id')
+        .select ('events.*')
+        .count("event_user.id as count")
+        .groupBy('events.id');
     },
 
     countEventAttendants: (event_id) => {
       return knex('event_user')
         .count('event_id')
-        .where({'event_id' : event_id})
+        .where({'event_id' : event_id});
     },
 
     getProfileByUsername: (username) => {
@@ -48,27 +52,27 @@ module.exports = (knex) => {
     getPupsByIds: (ids) => {
       return knex.table('pups')
         .select()
-        .whereIn('id', ids)
+        .whereIn('id', ids);
     },
 
     getUserByIds: (ids) => {
       return knex.table('users')
         .select('id','username', 'name', 'avatar_url')
-        .whereIn('id', ids)
+        .whereIn('id', ids);
     },
 
     getPupsByUserIds: (ids) => {
       return knex.table('pups')
         .select("pups.id",'name', 'breed', 'avatar_url', 'user_id')
         .whereIn('user_id', ids)
-        .groupBy('user_id','pups.id', 'pups.name', 'pups.breed', 'pups.avatar_url')
+        .groupBy('user_id','pups.id', 'pups.name', 'pups.breed', 'pups.avatar_url');
     },
 
     getUserByPupId: (id) => {
       return knex('pups')
         .leftJoin('users', 'pups.user_id', '=', 'users.id')
         .select('users.name', 'users.username', 'users.avatar_url', 'users.id')
-        .where({'pups.id': id})
+        .where({'pups.id': id});
     },
 
     getUserByEmail: (email) => {
@@ -82,7 +86,7 @@ module.exports = (knex) => {
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
         .leftJoin('events', 'users.id', '=', 'events.creator_user_id')
         .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups'), knex.raw('to_json(events.*) as events')])
-        .where({'users.id' : id})
+        .where({'users.id' : id});
     },
 
     createEvent: (event, id) => {
@@ -103,27 +107,27 @@ module.exports = (knex) => {
       return knex.table('event_user'). insert({
         event_id: event_id,
         user_id: user_id
-      })
+      });
     },
 
     getPupsIdsByUserId: (user_id) =>{
       return knex('pups')
         .select('pups.id')
-        .where({'pups.user_id':user_id})
+        .where({'pups.user_id':user_id});
     },
 
     insertEventPups: (pup_id, event_id) => {
       return knex.table('event_pup').insert({
         pup_id: pup_id,
         event_id: event_id
-      })
+      });
     },
 
     test: (id) => {
       return knex('users')
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
         .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
-        .where({'users.id' : id})
+        .where({'users.id' : id});
     },
 
 
@@ -132,7 +136,7 @@ module.exports = (knex) => {
         user_id,
         event_id,
         content
-      }).returning('id')//add media url in here
+      }).returning('id');//add media url in here
     },
 
     savePet: (pup, user_id) => {
@@ -146,7 +150,7 @@ module.exports = (knex) => {
         avatar_url: pup.avatar_url,
         name: pup.name,
         sex: pup.sex
-      }).returning('id')
+      }).returning('id');
     },
 
     getPupsAndEventsById: (id) => {
@@ -161,17 +165,10 @@ module.exports = (knex) => {
             .then((events) => {
               // console.log(events)
               pup.events = events;
-              resolve(pup)
+              resolve(pup);
             })
-          })
-      })
-
-      // return knex()
-      //   .select(['pups.id as puppy_id', 'pups.name', 'pups.breed', 'pups.sex', 'pups.age', 'pups.size', 'pups.neutered', 'pups.temperament', 'events.id as events_id', 'events.title', 'events.description', 'events.location', 'events.event_time', 'events.open_status'])
-      //   .from('pups')
-      //   .leftJoin('event_pup', 'pups.id', '=', 'event_pup.pup_id')
-      //   .leftJoin('events', 'event_pup.event_id', '=', 'events.id')
-      //   .where({'pups.id': id});
+          });
+      });
     },
 
     getUserPupsById: (id) => {
@@ -188,6 +185,7 @@ module.exports = (knex) => {
         .select('users.username', 'users.avatar_url', 'event_posts.*')
         .where({'event_posts.event_id': event_id});
     },
+
     rsvpToEvent: (user_id, event_id) => {
       return knex('event_user')
         .insert({

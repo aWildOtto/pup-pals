@@ -48,6 +48,7 @@ app.set('view engine', 'ejs');
 app.use('/styles', express.static('../styles/'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use('/searchReact', express.static('../search-client/build'));
 app.use('/chatReact', express.static('../chat-client/build'));

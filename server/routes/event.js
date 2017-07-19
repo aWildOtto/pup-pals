@@ -94,14 +94,15 @@ module.exports = (dbHelper) => {
       })
   });
 
-  router.post("/:id", (req, res) => {
+  router.post("/rsvp", (req, res) => {
     if(!req.session){
       res.redirect('/login'); 
       return;
     }
-    dbHelper.rsvpToEvent(req.session.userId, req.body.user_id)
+        console.log("HELLO", req.session.userID, req.body.event_id);
+    dbHelper.rsvpToEvent(req.session.userID, req.body.event_id)
       .then((result)=>{
-        res.redirect("/back");
+        res.redirect("back");
       }
     ).catch((error) => {
       console.log(error);

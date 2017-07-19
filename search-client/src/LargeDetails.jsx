@@ -6,9 +6,9 @@ class LargeDetails extends Component {
     this.props.toggleHidden();
   }
   
-  handleButton1 = (e) => {
+  handleRSVP = (e) => {
     e.stopPropagation();
-    this.props.RSVP();
+    this.props.RSVP(this.props.event.id);
   }
 
   handleButton2 = (e) => {
@@ -42,7 +42,7 @@ class LargeDetails extends Component {
           </div>
           <div className="largedetails-footer">
             <span className="largedetails-rsvp">
-              <button type="button" onClick={this.handleButton1.bind(this)} className="btn btn-primary">RSVP</button>
+              <button type="button" onClick={this.handleRSVP.bind(this)} className="btn btn-primary">RSVP</button>
             </span>
             <span className="largedetails-calender">
               <button type="button" onClick={this.handleButton2.bind(this)} className="btn btn-primary">Calender</button>
