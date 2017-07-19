@@ -128,7 +128,8 @@ app.get('/api/events', (req, res) => {
   dbHelper.getAllEvents().then((results) => {
     res.json(results);
   })
-})
+});
+
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));
 app.use("/", petRoutes(dbHelper));
