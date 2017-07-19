@@ -141,7 +141,7 @@ module.exports = (knex) => {
         breed: pup.breed,
         size: pup.size,
         temperament: pup.temperament,
-        // neutered: "Yes"? true: false,
+        neutered: (pup.neutered === 'yes')? true: false,
         age: pup.age,
         avatar_url: pup.avatar_url,
         name: pup.name,
