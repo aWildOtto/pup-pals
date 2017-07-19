@@ -10,7 +10,7 @@ module.exports = (dbHelper) => {
       console.log(results)
       const IDs = (results,table) => {
         let arr = []
-        results.forEach(function(item){
+        results.forEach((item) => {
           if(item[table]){
             if(!arr.includes(item[table].id)){
               arr.push(item[table].id)
@@ -23,13 +23,20 @@ module.exports = (dbHelper) => {
       const pupsIDs = IDs(results, 'pups');
       dbHelper.getAllEventsOfUser(req.params.id).then((allEvents) => {
         console.log(allEvents)
-        res.render("owner_profile", {
-          data: results,
-          eventsIDs: eventsIDs,
-          pupsIDs: pupsIDs,
-          profileId: req.params.id,
-          allEvents: allEvents
-        });
+        allEvents.forEach((event) => {
+          dbHelper.countEventAttendants(event.id)
+            .then((attendants) => {
+              event['count'] = attendants[0].count
+              res.render("owner_profile", {
+                data: results,
+                eventsIDs: eventsIDs,
+                pupsIDs: pupsIDs,
+                profileId: req.params.id,
+                allEvents: allEvents
+              });
+            })
+        })
+
       })
     });
   });
