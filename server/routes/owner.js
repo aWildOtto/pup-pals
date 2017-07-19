@@ -10,7 +10,7 @@ module.exports = (dbHelper) => {
       console.log(results)
       const IDs = (results,table) => {
         let arr = []
-        results.forEach(function(item){
+        results.forEach((item) => {
           if(item[table]){
             if(!arr.includes(item[table].id)){
               arr.push(item[table].id)
