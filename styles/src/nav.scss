@@ -1,10 +1,13 @@
 .navbar-custom {
-	background-color: #595a6d;
+	background-color: #ffffff;
 	margin-bottom: 0px;
 	z-index: 1000;
 	border: none;
-	color: #333;
+	color: #595a6d;
 	position: fixed;
+  border-bottom: solid;
+  border-width:1px;
+  border-bottom-color:#dddee1;
 	transition: background-color 1s ease-in-out, border 1s ease-in-out;
 	-moz-transition: background-color 1s ease-in-out, border 1s ease-in-out;
 	-webkit-transition: background-color 1s ease-in-out, border 1s ease-in-out;
@@ -27,9 +30,9 @@
 	padding: 15px 0px;
 }
 .navbar-custom .navbar-nav>li>a {
-	color: #f1f1f1;
+	color: 595a6d;
     font-size: 15px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
 }
 .navbar-custom .navbar-nav>.active>a, .navbar-custom .navbar-nav>.active>a:hover, .navbar-custom .navbar-nav>.active>a:focus,
 .navbar-custom .navbar-nav>.open>a, .navbar-custom .navbar-nav>.open>a:hover, .navbar-custom .navbar-nav>.open>a:focus,
