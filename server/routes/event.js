@@ -72,12 +72,24 @@ module.exports = (dbHelper) => {
             // console.log("from getUserById: ", users);
             dbHelper.getPupsByUserIds(userIDs)
               .then((pups) => {
-                // console.log(pups);
                 req.session.eventId = req.params.id;
+
+                console.log(users);
+                console.log(pups);
+                const userWithPup = users.map((user)=>{
+                  user.pups = [];
+                  console.log(user);
+                  for(let pup of pups){
+                    if(pup.user_id === user.id){
+                      user.pups.push(pup);
+                    }
+                  }
+                  return user;
+                });
                 res.render('event_detail', {
                   events: results[0].events,
-                  users: users,
-                  pups: pups})
+                  users: users
+                });
               })
           })
       })

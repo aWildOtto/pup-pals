@@ -126,7 +126,7 @@ module.exports = (knex) => {
         .where({'users.id' : id})
     },
 
-    saveMessage: (content, user_id, msgId, event_id) => {
+    saveMessage: (content, user_id, event_id) => {
        return knex('event_posts').insert({
         user_id,
         event_id,

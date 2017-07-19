@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Message extends Component {
   render(){
-
+    console.log("the url is", this.props.avatar_url);
     return (
       <div >
         <img src={this.props.avatar_url} width={50} />
