@@ -10,11 +10,15 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/pet/:id", (req, res) => {
-    dbHelper.getPupsAndEventsById(req.params.id).then((result) => {
-      console.log("result of getPupsAndEventsById:", result);
-      res.render("pet_profile", {
-        pup: result     
-      });
+    dbHelper.getPupsAndEventsById(req.params.id).then((pup) => {
+      console.log("result of getPupsAndEventsById:", pup);
+      dbHelper.getUserByPupId(req.params.id).then((user) => {
+        console.log(user)
+        res.render("pet_profile", {
+          user: user,
+          pup: pup
+        });
+      })
     })
   });
 
@@ -25,12 +29,12 @@ module.exports = (dbHelper) => {
       res.redirect("/user/login");
       return;
     }
-   
+
     dbHelper.savePet(req.body, req.session.user_id).then((result) => {
       res.redirect(`/pet/${result}`);//to do: insert pet profile to the database and redirect to /pet/id
     });
   })
 
- 
+
   return router;
 }
