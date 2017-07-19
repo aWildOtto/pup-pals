@@ -23,11 +23,11 @@ module.exports = (dbHelper) => {
         })
       })
       console.log(events)
-      dbHelper.getUserByPupId(req.params.id).then((user) => {
-        console.log(user)
+      dbHelper.getUserByPupId(req.params.id).then((person) => {
+        console.log(person)
         res.render("pet_profile", {
-          user: user,
-          pup: pup
+          person,
+          pup
         });
       })
     })
