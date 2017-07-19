@@ -1,21 +1,18 @@
 .detailcontainer {
-  padding: 20px 10px 10px;
-}
+  padding: 20px 10px 10px; }
 
 .smalldetails-container {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   display: block;
   width: 100%;
   background-color: #fff;
   position: relative;
   margin-bottom: 8px;
-  transition: all .1s ease;
-}
+  transition: all .1s ease; }
 
 .smalldetails-container:hover {
-  transform: scale(1.01); 
-}
+  transform: scale(1.01); }
 
 .smalldetails-header {
   border-radius: 4px 4px 0 0;
@@ -24,8 +21,7 @@
   width: 100%;
   align-items: center;
   background: deeppink;
-  height: 2.5em;
-}
+  height: 2.5em; }
 
 .smalldetails-title {
   white-space: nowrap;
@@ -35,62 +31,51 @@
   text-align: left;
   font-size: 1.8rem;
   flex: 1;
-  font-weight: 400;
-}
+  font-weight: 400; }
 
 .smalldetails-body {
   margin: 8px 0;
-  text-align: center;
-}
+  text-align: center; }
 
 .smalldetails-attendees {
   padding-left: 16px;
   color: #fff;
   font-size: 1.4rem;
-  line-height: 1;
-}
+  line-height: 1; }
 
 .smalldetails-date {
-  font-size: 2.5rem;
-}
+  font-size: 2.5rem; }
 
 .smalldetails-time {
   display: block;
-  font-size: 1.6rem;
-}
+  font-size: 1.6rem; }
 
 .smalldetails-location {
   display: block;
-  font-size: 2rem;
-}
+  font-size: 2rem; }
 
 .smalldetails-footer {
   border-radius: 0 0 4px 4px;
   display: flex;
   border-top: 1px solid #ddd;
   align-items: center;
-  justify-content: space-between;
-}
+  justify-content: space-between; }
 
 .smalldetails-rsvp {
   right: 0px;
   margin: 8px 18px 8px 0;
   flex: 1;
-  text-align: center;
-}
+  text-align: center; }
 
 .smalldetails-calender {
   right: 0px;
   margin: 8px;
   flex: 1;
-  text-align: center;
-}
+  text-align: center; }
 
 a.smalldetails-link {
   display: block;
   color: #555;
   text-decoration: none;
   cursor: pointer;
-  zoom: 1;
-}
-
+  zoom: 1; }

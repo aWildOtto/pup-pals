@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const moment = require('moment');
 
 module.exports = (dbHelper) => {
   router.get("/owner/:id", (req, res) => {
@@ -28,7 +29,8 @@ module.exports = (dbHelper) => {
           eventsIDs: eventsIDs,
           pupsIDs: pupsIDs,
           profileId: req.params.id,
-          allEvents: allEvents
+          allEvents: allEvents,
+          moment: moment
         });
       })
     });
