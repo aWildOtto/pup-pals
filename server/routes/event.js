@@ -36,7 +36,7 @@ module.exports = (dbHelper) => {
       // console.log(event);
       dbHelper.createEvent(event,req.session.userID)
         .then((id) => {
-          const event_id = parseInt(id)
+          const event_id = parseInt(id);
           //get all the current user's pups' ids
           dbHelper.getPupsIdsByUserId(req.session.userID).then((ids)=>{
             //run loop through pups' ids, insert each into event_pup table
@@ -46,11 +46,11 @@ module.exports = (dbHelper) => {
                 dbHelper.insertEventUser(event_id, req.session.userID)
                   .then(() => {
                     res.redirect(`/events/${event_id}`);
-                })
-              })
-            })
-          })
-        })
+                });
+              });
+            });
+          });
+        });
     });
 
 
@@ -89,9 +89,9 @@ module.exports = (dbHelper) => {
                   events: results[0].events,
                   users: users
                 });
-              })
-          })
-      })
+              });
+          });
+      });
   });
 
   return router;
