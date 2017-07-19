@@ -16,6 +16,10 @@
   <div class="registerdiv">
     <div class="container-fluid">
       <div class="row">
+        <div class = "col-md-3">
+          <%const owner = user[0]%>
+          <% include partials/_owner.ejs%>
+        </div>
         <div class="col-md-6 text-center">
           <% include partials/_puppy.ejs %>
         </div>
@@ -23,7 +27,6 @@
           <%pup.events.forEach((event) => {%>
             <% include partials/_event.ejs %>
           <%});%>
-
         </div>
       </div>
     </div>
