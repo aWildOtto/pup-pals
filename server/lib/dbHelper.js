@@ -19,10 +19,16 @@ module.exports = (knex) => {
     },
 
     getAllEventsOfUser: (id) => {
-      return knex.select(). from('events')
+      return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
         .select ('events.*')
         .where({'event_user.user_id': id})
+    },
+
+    countEventAttendants: (event_id) => {
+      return knex('event_user')
+        .count('event_id')
+        .where({'event_id' : event_id})
     },
 
     getProfileByUsername: (username) => {
@@ -98,12 +104,6 @@ module.exports = (knex) => {
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
         .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
         .where({'users.id' : id})
-    },
-
-    countEventAttendants: (event_id) => {
-      return knex('event_user')
-        .count('event_id')
-        .where({'event_id' : event_id})
     },
 
     saveMessage: (content, user_id, msgId, event_id) => {
