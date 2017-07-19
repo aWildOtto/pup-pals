@@ -4,8 +4,8 @@
     <span class="smalldetails-attendees"><%= ev.count %> Going</span>
   </div>
   <div class="smalldetails-body">
-    <span class="smalldetails-date"><%= ev.event_time %></span>
-    <span class="smalldetails-location"><%= ev.location %></span>
+    <span class="smalldetails-date"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(ev.date_time).format("dddd MMMM Do YYYY") %></span>
+    <span class="smalldetails-location"><i class="fa fa-map-marker" aria-hidden="true"></i> <%= ev.location %></span>
     <span class="smalldetails-location"><%= ev.description %></span>
   </div>
   <div class="smalldetails-footer">

@@ -3,9 +3,10 @@
 const express = require('express');
 const router  = express.Router();
 const geocoder = require('geocoder');
+const moment = require('moment');
+
 
 module.exports = (dbHelper) => {
-
   router.get("/", (req, res) => {
     dbHelper.getAllEvents()
       .then((results) => {
@@ -31,7 +32,7 @@ module.exports = (dbHelper) => {
         date_time: req.body.date_time,
         restriction: req.body.restriction,
         latitude: data.results[0].geometry.location.lat,
-        longitude: data.results[0].geometry.location.lng
+        longitude: data.results[0].geometry.location.lng,
       };
       // console.log(event);
       dbHelper.createEvent(event,req.session.userID)
@@ -87,7 +88,8 @@ module.exports = (dbHelper) => {
                 });
                 res.render('event_detail', {
                   events: results[0].events,
-                  users: users
+                  users: users,
+                  moment: moment
                 });
               });
           });
