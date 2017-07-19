@@ -35,13 +35,12 @@ module.exports = (dbHelper) => {
 
   router.post("/pet/new", (req, res) => {
     console.log(req.body);
-    console.log(req.session.user_id);
-    if(!req.session.user_id) {
+    console.log(req.session.userID);
+    if(!req.session.userID) {
       res.redirect("/user/login");
       return;
     }
-
-    dbHelper.savePet(req.body, req.session.user_id).then((result) => {
+    dbHelper.savePet(req.body, req.session.userID).then((result) => {
       res.redirect(`/pet/${result}`);
     });
   })

@@ -141,12 +141,12 @@ module.exports = (knex) => {
         breed: pup.breed,
         size: pup.size,
         temperament: pup.temperament,
-        neutered: "Yes"? true: false,
+        // neutered: "Yes"? true: false,
         age: pup.age,
         avatar_url: pup.avatar_url,
         name: pup.name,
         sex: pup.sex
-      }).returning('id');
+      }).returning('id')
     },
 
     getPupsAndEventsById: (id) => {
