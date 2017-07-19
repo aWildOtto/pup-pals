@@ -73,5 +73,18 @@ module.exports = (dbHelper) => {
       })
   });
 
+  router.post("/:id", (req, res) => {
+    if(!req.session){
+      res.redirect('/login'); 
+      return;
+    }
+    dbHelper.rsvpToEvent(req.session.userId, req.params.id)
+      .then((result)=>{
+        res.redirect("/back");
+      }
+    ).catch((error) => {
+      console.log(error);
+    });
+  });
   return router;
 }

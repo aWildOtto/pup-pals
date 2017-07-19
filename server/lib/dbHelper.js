@@ -166,6 +166,13 @@ module.exports = (knex) => {
         .leftJoin('users','event_posts.user_id', '=', 'users.id')
         .select('users.username', 'users.avatar_url', 'event_posts.*')
         .where({'event_posts.event_id': event_id});
+    },
+    rsvpToEvent: (user_id, event_id) => {
+      return knex('event_user')
+        .insert({
+          user_id,
+          event_id
+        });
     }
 
   }
