@@ -28,12 +28,12 @@
       <% users.forEach((item) => {%>
         <% include partials/_event_goer.ejs %>
         <%if(item.pups.length != 0){%>
-          <p>And his/her pups</p>
+          <p>And their pups</p>
           <% item.pups.forEach((item) => {%>
             <% include partials/_event_pup.ejs %>
           <% })%>
         <%}%>
-        <h4>~~~~Some kind of cut-of line~~~~~</h4>
+        <h4>~~~~Some kind of cut-off line~~~~~</h4>
       <% })%>
 
       <div id="react-root">
