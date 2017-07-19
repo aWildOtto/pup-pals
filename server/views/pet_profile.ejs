@@ -13,10 +13,19 @@
 <body>
   <% include partials/_navbar.ejs %>
   <div class="registerdiv">
-    <% include partials/_puppy.ejs %>
-    <%pup.events.forEach((event) => {%>
-      <% include partials/_event.ejs %>
-    <%});%>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6 text-center">
+          <% include partials/_puppy.ejs %>
+        </div>
+        <div class="col-md-3 text-right">
+          <%pup.events.forEach((event) => {%>
+            <% include partials/_event.ejs %>
+          <%});%>
+
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 
