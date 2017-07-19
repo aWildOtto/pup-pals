@@ -20,9 +20,9 @@
   <div id="react-root"></div>
   <script src="/socket.io/socket.io.js"></script>
   <% if (process.env.NODE_ENV === 'production') { %>
-    <script src="/searchReact/bundle.js"></script>
+    <script src="/searchReact/search.js"></script>
   <% } else { %>
-    <script src="http://localhost:10002/bundle.js"></script>
+    <script src="http://localhost:10002/search.js"></script>
   <% } %>
 </body>
 

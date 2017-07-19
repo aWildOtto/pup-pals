@@ -2,7 +2,7 @@
   <div class="smalldetails-container">
     <div class="smalldetails-header">
       <h3 class="smalldetails-title"><%= ev.title %></h3>
-      <span class="smalldetails-attendees">10 Going</span>
+      <span class="smalldetails-attendees"><%= ev.count %> Going</span>
     </div>
     <div class="smalldetails-body">
       <span class="smalldetails-date"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(ev.date_time).format("dddd MMMM Do YYYY") %></span>

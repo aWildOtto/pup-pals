@@ -22,7 +22,8 @@ module.exports = (dbHelper) => {
   }),
 
   router.post("/new", (req, res)=> {
-    geocoder.geocode(`${req.body.location}, Vancouver`, function ( err, data ) {
+    //get coordinates of location
+    geocoder.geocode(`${req.body.location}, Vancouver`, (err, data) => {
       const event = {
         title: req.body.title,
         description: req.body.description,
@@ -32,14 +33,23 @@ module.exports = (dbHelper) => {
         latitude: data.results[0].geometry.location.lat,
         longitude: data.results[0].geometry.location.lng
       };
-      console.log(event);
+      // console.log(event);
       dbHelper.createEvent(event,req.session.userID)
         .then((id) => {
           const event_id = parseInt(id)
-          dbHelper.insertEventUser(event_id, req.session.userID)
-            .then(() => {
-              res.redirect(`/events/${event_id}`);
+          //get all the current user's pups' ids
+          dbHelper.getPupsIdsByUserId(req.session.userID).then((ids)=>{
+            //run loop through pups' ids, insert each into event_pup table
+            ids.forEach((pup_id) => {
+              dbHelper.insertEventPups(pup_id.id, event_id).then(() => {
+                //insert row into event_user table
+                dbHelper.insertEventUser(event_id, req.session.userID)
+                  .then(() => {
+                    res.redirect(`/events/${event_id}`);
+                })
+              })
             })
+          })
         })
     });
 
@@ -51,8 +61,7 @@ module.exports = (dbHelper) => {
     dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
         let userIDs = [];
-        console.log("from getEventDetails: ", results);
-        results.forEach(function(item){
+        results.forEach((item) => {
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
           }
@@ -62,12 +71,24 @@ module.exports = (dbHelper) => {
             // console.log("from getUserById: ", users);
             dbHelper.getPupsByUserIds(userIDs)
               .then((pups) => {
-                console.log(pups);
                 req.session.eventId = req.params.id;
+
+                console.log(users);
+                console.log(pups);
+                const userWithPup = users.map((user)=>{
+                  user.pups = [];
+                  console.log(user);
+                  for(let pup of pups){
+                    if(pup.user_id === user.id){
+                      user.pups.push(pup);
+                    }
+                  }
+                  return user;
+                });
                 res.render('event_detail', {
                   events: results[0].events,
-                  users: users,
-                  pups: pups})
+                  users: users
+                });
               })
           })
       })

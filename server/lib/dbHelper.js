@@ -19,10 +19,16 @@ module.exports = (knex) => {
     },
 
     getAllEventsOfUser: (id) => {
-      return knex.select(). from('events')
+      return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
         .select ('events.*')
         .where({'event_user.user_id': id})
+    },
+
+    countEventAttendants: (event_id) => {
+      return knex('event_user')
+        .count('event_id')
+        .where({'event_id' : event_id})
     },
 
     getProfileByUsername: (username) => {
@@ -58,6 +64,13 @@ module.exports = (knex) => {
         .groupBy('user_id','pups.id', 'pups.name', 'pups.breed', 'pups.avatar_url')
     },
 
+    getUserByPupId: (id) => {
+      return knex('pups')
+        .leftJoin('users', 'pups.user_id', '=', 'users.id')
+        .select('users.name', 'users.username', 'users.avatar_url', 'users.id')
+        .where({'pups.id': id})
+    },
+
     getUserByEmail: (email) => {
       return knex.select()
         .from('users')
@@ -80,17 +93,30 @@ module.exports = (knex) => {
         open_status: true,
         location: event.location,
         date_time: event.date_time,
-        restriction: ""?false:true,
+        event_restriction: event.restriction,
         longitude: event.longitude,
         latitude: event.latitude
       }).returning('id');
     },
 
     insertEventUser: (event_id, user_id) => {
-        return knex.table('event_user'). insert({
-          event_id: event_id,
-          user_id: user_id
-        })
+      return knex.table('event_user'). insert({
+        event_id: event_id,
+        user_id: user_id
+      })
+    },
+
+    getPupsIdsByUserId: (user_id) =>{
+      return knex('pups')
+        .select('pups.id')
+        .where({'pups.user_id':user_id})
+    },
+
+    insertEventPups: (pup_id, event_id) => {
+      return knex.table('event_pup').insert({
+        pup_id: pup_id,
+        event_id: event_id
+      })
     },
 
     test: (id) => {
@@ -100,13 +126,8 @@ module.exports = (knex) => {
         .where({'users.id' : id})
     },
 
-    countEventAttendants: (event_id) => {
-      return knex('event_user')
-        .count('event_id')
-        .where({'event_id' : event_id})
-    },
 
-    saveMessage: (content, user_id, msgId, event_id) => {
+    saveMessage: (content, user_id, event_id) => {
        return knex('event_posts').insert({
         user_id,
         event_id,
@@ -120,12 +141,12 @@ module.exports = (knex) => {
         breed: pup.breed,
         size: pup.size,
         temperament: pup.temperament,
-        neutered: "Yes"? true: false,
+        neutered: (pup.neutered === 'yes')? true: false,
         age: pup.age,
         avatar_url: pup.avatar_url,
         name: pup.name,
         sex: pup.sex
-      }).returning('id');
+      }).returning('id')
     },
 
     getPupsAndEventsById: (id) => {

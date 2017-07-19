@@ -7,16 +7,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="/styles/build/main.css" rel="stylesheet">
 </head>
 
 <body>
   <% include partials/_navbar.ejs %>
   <div class="registerdiv">
-    <% include partials/_puppy.ejs %>
-    <%pup.events.forEach((event) => {%>
-      <% include partials/_event.ejs %>
-    <%});%>
+    <div class="container-fluid">
+      <div class="row">
+        <div class = "col-md-3">
+          <%const owner = person[0]%>
+          <% include partials/_owner.ejs%>
+        </div>
+        <div class="col-md-6 text-center">
+          <% include partials/_puppy.ejs %>
+        </div>
+        <div class="col-md-3 text-right">
+          <%pup.events.forEach((event) => {%>
+            <% include partials/_event.ejs %>
+          <%});%>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 

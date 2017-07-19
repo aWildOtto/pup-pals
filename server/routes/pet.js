@@ -10,27 +10,41 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/pet/:id", (req, res) => {
-    dbHelper.getPupsAndEventsById(req.params.id).then((result) => {
-      console.log("result of getPupsAndEventsById:", result);
-      res.render("pet_profile", {
-        pup: result     
-      });
+    dbHelper.getPupsAndEventsById(req.params.id).then((pup) => {
+      console.log("result of getPupsAndEventsById:", pup);
+      let events = [];
+      pup.events.forEach((event) => {
+        dbHelper.countEventAttendants(event.id).then((result) => {
+          console.log(result[0].count, 'is result')
+          console.log('event begins',event,'event ends')
+          event.count = result[0].count
+          console.log('event and count', event)
+          events.push(event)
+        })
+      })
+      console.log(events)
+      dbHelper.getUserByPupId(req.params.id).then((person) => {
+        console.log(person)
+        res.render("pet_profile", {
+          person,
+          pup
+        });
+      })
     })
   });
 
   router.post("/pet/new", (req, res) => {
     console.log(req.body);
-    console.log(req.session.user_id);
-    if(!req.session.user_id) {
+    console.log(req.session.userID);
+    if(!req.session.userID) {
       res.redirect("/user/login");
       return;
     }
-   
-    dbHelper.savePet(req.body, req.session.user_id).then((result) => {
-      res.redirect(`/pet/${result}`);//to do: insert pet profile to the database and redirect to /pet/id
+    dbHelper.savePet(req.body, req.session.userID).then((result) => {
+      res.redirect(`/pet/${result}`);
     });
   })
 
- 
+
   return router;
 }
