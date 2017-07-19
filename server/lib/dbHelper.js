@@ -80,7 +80,7 @@ module.exports = (knex) => {
         open_status: true,
         location: event.location,
         date_time: event.date_time,
-        restriction: ""?false:true,
+        event_restriction: ""?false:true,
         longitude: event.longitude,
         latitude: event.latitude
       }).returning('id');
