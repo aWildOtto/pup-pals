@@ -78,7 +78,7 @@ module.exports = (dbHelper) => {
       res.redirect('/login'); 
       return;
     }
-    dbHelper.rsvpToEvent(req.session.userId, req.params.id)
+    dbHelper.rsvpToEvent(req.session.userId, req.body.user_id)
       .then((result)=>{
         res.redirect("/back");
       }
