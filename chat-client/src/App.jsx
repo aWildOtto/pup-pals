@@ -20,7 +20,12 @@ class App extends Component {
   componentDidMount () {
     this.socket = io();
     this.socket.on('incomingMessage',(e)=>{
-      console.log("caitlin",e);
+      const newMessages = this.state.messages.concat(e);
+      this.setState({
+        messages: newMessages
+      });
+    });
+    this.socket.on('notification', (e) => {
       const newMessages = this.state.messages.concat(e);
       this.setState({
         messages: newMessages
@@ -31,7 +36,7 @@ class App extends Component {
   render(){
     return(
       <div>
-        <MessageList username = {this.state.username} messages = {this.state.messages}/>
+        <MessageList messages = {this.state.messages}/>
         <ChatBar addNewMessage={this.addNewMessage}/>
       </div>
     )
