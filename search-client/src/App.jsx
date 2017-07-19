@@ -7,15 +7,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: []
+      events: [],
     }
   }
 
   componentDidMount() {
-   axios.get('/api/events').then((events)=>{
-     console.log(events.data);
-     this.setState({events: events.data});
-   })
+    axios.get('/api/events').then((events)=>{
+      console.log(events.data);
+      this.setState({events: events.data});
+    })
   }
 
   render() {

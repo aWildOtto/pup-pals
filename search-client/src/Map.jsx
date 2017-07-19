@@ -52,16 +52,18 @@ const SearchBoxExampleGoogleMap = withGoogleMap(props => (
 ));
 
 class Map extends Component {
-
-  state = {
-    bounds: null,
-    center: {
-      lat: 49.2828082,
-      lng: -123.10668750000002,
-    },
-    markers: []
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      bounds: null,
+      center: {
+        lat: 49.2828082,
+        lng: -123.10668750000002,
+      },
+      markers: []
+    };
+  }
+  
   handleMapMounted = this.handleMapMounted.bind(this);
   handleBoundsChanged = this.handleBoundsChanged.bind(this);
   handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);

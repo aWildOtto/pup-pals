@@ -6,12 +6,12 @@ class SmallDetails extends Component {
     this.props.toggleHidden();
   }
 
-  handleButton1 = (e) => {
+  handleRsvp = (e) => {
     e.stopPropagation();
     this.props.RSVP();
   }
 
-  handleButton2 = (e) => {
+  handleCalender = (e) => {
     e.stopPropagation();
     this.props.AddToCalender();
   }
@@ -32,10 +32,10 @@ class SmallDetails extends Component {
             </div>
             <div className="smalldetails-footer">
               <span className="smalldetails-rsvp">
-                <button type="button" onClick={this.handleButton1.bind(this)} className="btn btn-primary">RSVP</button>
+                <button type="button" onClick={this.handleRsvp.bind(this)} className="btn btn-primary">RSVP</button>
               </span>
               <span className="smalldetails-calender">
-                <button type="button" onClick={this.handleButton2.bind(this)} className="btn btn-primary">Calender</button>
+                <button type="button" onClick={this.handleCalender.bind(this)} className="btn btn-primary">Calender</button>
               </span>
             </div>
           </div>

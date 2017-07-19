@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import SmallDetails from './SmallDetails.jsx'
 import LargeDetails from './LargeDetails.jsx'
+import axios from 'axios';
 
 class SideBar extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       selectedEvent: null
     }
@@ -16,8 +17,14 @@ class SideBar extends Component {
     })
   }
 
-  RSVP() {
-    alert('RSVP');
+  RSVP(eventId, userId) {
+    axios.post('/events/:id', {
+      event_id: eventId,
+      user_id: userId
+    })
+    .then((response) => {
+      console.log(response);
+    })
   }
 
   AddToCalender() {
