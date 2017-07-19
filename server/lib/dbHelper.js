@@ -113,8 +113,6 @@ module.exports = (knex) => {
       })
     },
 
-
-
     test: (id) => {
       return knex('users')
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
