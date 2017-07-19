@@ -1,5 +1,5 @@
 .navbar-custom {
-  background-color: deeppink;
+  background-color: black;
   margin-bottom: 0px;
   z-index: 1000;
   border: none;
@@ -8,16 +8,17 @@
   transition: background-color 1s ease-in-out, border 1s ease-in-out;
   -moz-transition: background-color 1s ease-in-out, border 1s ease-in-out;
   -webkit-transition: background-color 1s ease-in-out, border 1s ease-in-out;
-  -o-transition: background-color 1s ease-in-out, border 1s ease-in-out; }
+  -o-transition: background-color 1s ease-in-out, border 1s ease-in-out;
+  font-family: Helvetica Neue; }
 
 .navbar-custom .navbar-brand {
-  font-size: 22px;
+  font-size: 3em;
   text-transform: uppercase;
   color: #ffffff !important;
   font-weight: 800;
   letter-spacing: 0.15em;
-  margin: 15px 0 0;
-  font-family: 'Roboto Slab', serif; }
+  margin: 10px 0 0;
+  font-family: 'Roboto', sans-serif; }
 
 .navbar-custom .navbar-brand:hover {
   color: #ffffff; }

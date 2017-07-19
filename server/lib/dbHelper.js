@@ -18,6 +18,13 @@ module.exports = (knex) => {
         .where({'events.id' : id})
     },
 
+    getAllEventsOfUser: (id) => {
+      return knex.select(). from('events')
+        .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
+        .select ('events.*')
+        .where({'event_user.user_id': id})
+    },
+
     getProfileByUsername: (username) => {
       return knex.select().from('users').where({username});
     },
@@ -73,7 +80,7 @@ module.exports = (knex) => {
         open_status: true,
         location: event.location,
         date_time: event.date_time,
-        restriction: ""?false:true,
+        event_restriction: ""?false:true,
         longitude: event.longitude,
         latitude: event.latitude
       }).returning('id');
@@ -93,11 +100,10 @@ module.exports = (knex) => {
         .where({'users.id' : id})
     },
 
-    testCount: (id) => {
-      return knex('pups')
-        .count('user_id')
-        .count('')
-        .where({'user_id' : id})
+    countEventAttendants: (event_id) => {
+      return knex('event_user')
+        .count('event_id')
+        .where({'event_id' : event_id})
     },
 
     saveMessage: (content, user_id, msgId, event_id) => {
@@ -160,6 +166,13 @@ module.exports = (knex) => {
         .leftJoin('users','event_posts.user_id', '=', 'users.id')
         .select('users.username', 'users.avatar_url', 'event_posts.*')
         .where({'event_posts.event_id': event_id});
+    },
+    rsvpToEvent: (user_id, event_id) => {
+      return knex('event_user')
+        .insert({
+          user_id,
+          event_id
+        });
     }
 
   }

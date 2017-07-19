@@ -21,13 +21,16 @@ module.exports = (dbHelper) => {
       }
       const eventsIDs= IDs(results, 'events');
       const pupsIDs = IDs(results, 'pups');
-      console.log(pupsIDs, eventsIDs)
-      res.render("owner_profile", {
-        data : results,
-        eventsIDs: eventsIDs,
-        pupsIDs: pupsIDs,
-        profileId: req.params.id
-      });
+      dbHelper.getAllEventsOfUser(req.params.id).then((allEvents) => {
+        console.log(allEvents)
+        res.render("owner_profile", {
+          data: results,
+          eventsIDs: eventsIDs,
+          pupsIDs: pupsIDs,
+          profileId: req.params.id,
+          allEvents: allEvents
+        });
+      })
     });
   });
 

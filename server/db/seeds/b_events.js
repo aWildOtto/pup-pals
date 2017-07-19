@@ -11,7 +11,6 @@ exports.seed = function(knex, Promise) {
           location: 'Sunset Beach Park',
           date_time: '2017-08-02T12:00',
           open_status: true,
-          restriction: false,
           latitude: 49.279948,
           longitude: -123.1386941
         }),
@@ -23,7 +22,7 @@ exports.seed = function(knex, Promise) {
           location: 'Burnaby Heights Off-leash Park',
           date_time: '2017-06-05 19:48:31.893241-07' ,
           open_status: true,
-          restriction: true,
+          event_restriction: 'Small Pups Only',
           latitude: 49.2825969,
           longitude: -123.1293743
         })

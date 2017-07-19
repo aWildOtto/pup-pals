@@ -51,7 +51,7 @@ module.exports = (dbHelper) => {
     dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
         let userIDs = [];
-        // console.log("from getEventDetails: ", results);
+        console.log("from getEventDetails: ", results);
         results.forEach(function(item){
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
@@ -73,5 +73,18 @@ module.exports = (dbHelper) => {
       })
   });
 
+  router.post("/:id", (req, res) => {
+    if(!req.session){
+      res.redirect('/login'); 
+      return;
+    }
+    dbHelper.rsvpToEvent(req.session.userId, req.params.id)
+      .then((result)=>{
+        res.redirect("/back");
+      }
+    ).catch((error) => {
+      console.log(error);
+    });
+  });
   return router;
 }
