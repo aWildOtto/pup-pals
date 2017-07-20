@@ -99,5 +99,9 @@ module.exports = (dbHelper) => {
       });
   });
 
+  router.post('/:id', (req,res) => {
+    console.log
+  })
+
   return router;
 }
