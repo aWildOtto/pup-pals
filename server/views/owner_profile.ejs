@@ -35,13 +35,11 @@
           </div>
           <div class="col-md-6 text-center">
             <% const owner = person %>
-              <%= person.name%>
                 <% include partials/_owner.ejs %>
           </div>
-          <div class="col-md-3 text-right">
+          <div class="col-md-3 text-center">
             <div class="profile_sidebar">
-              <h3>
-                <%= person.username%> is going to these pup-parties </h3>
+              <h3>Attending events </h3>
                 <% events.forEach (function(event){ %>
                   <% include partials/_event.ejs %>
                 <% }) %>
