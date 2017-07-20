@@ -9,8 +9,8 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
-
   <link href="/styles/build/main.css" rel="stylesheet">
+  <script type="text/javascript" src="/scripts/owner_profile.js"></script>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
             <div class="left_sidebar">
               <% pups.forEach(function(item){ %>
                 <% const pup = item; %>
-                  <a href="/pet/<%=pup.id%>"> 
+                  <a href="/pet/<%=pup.id%>">
                 <img class="pup-pic"src="<%= pup.avatar_url %>" style="width:100px">
                 <h2><%= pup.name %></h2>
                 </a>
