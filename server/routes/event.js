@@ -92,7 +92,9 @@ module.exports = (dbHelper) => {
                   events: results[0].events,
                   users: users,
                   moment: moment,
-                  mapUrl
+                  mapUrl,
+                  error:'',
+                  id: req.params.id
                 });
               });
           });
@@ -100,7 +102,14 @@ module.exports = (dbHelper) => {
   });
 
   router.post('/:id', (req,res) => {
-    console.log
+    console.log(req.app.locals.user)
+    const user = req.app.locals.user;
+    if(user) {
+      console.log('query here')
+    } else {
+      console.log(req.params.id)
+      res.redirect('/events/32')
+    }
   })
 
   return router;

@@ -36,7 +36,14 @@
         <%}%>
         <h4>~~~~Some kind of cut-off line~~~~~</h4>
       <% })%>
-
+      <% if (error) {%>
+        <%= error %>
+      <% } %>
+      <%= id %>
+      <form action="/events/:id" method="POST" >
+          <input type="hidden" name="event_id" value="<%= id %>">
+          <button type="submit" class="btn btn-primary">RSVP</button>
+      </form>
       <div id="react-root">
 
       </div>
