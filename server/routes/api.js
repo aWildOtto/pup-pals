@@ -9,5 +9,16 @@ module.exports = (dbHelper) => {
       res.json(results);
     })
   });
+
+  router.get("/api/user", (req, res) => {
+    res.json(req.app.locals.user);
+  });
+
+  router.get("/api/attend/:id", (req, res) => {
+    dbHelper.getEventUserIdByEventId(req.params.id)
+      .then((results)=>{
+        res.json(results);
+      })
+  });
   return router;
 }
