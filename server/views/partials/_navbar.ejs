@@ -1,3 +1,10 @@
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="/styles/js/bootstrap.min.js"></script>
+
+
 <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
   <div class="container">
     <div class="navbar-header">
@@ -33,7 +40,7 @@
               <%=user.username%>
             </a>
             </li>
-            <li><a href='#' data-toggle="modal" data-target="#myModal">Create Event</a></li>
+            <li><a href='#' class="create_event">Create Event</a></li>
             <li><a href="/user/logout">Log out</a></li>
             <div class="row">
               <div id="myModal" class="modal fade" role="dialog">
@@ -86,4 +93,10 @@
 
       </div>
     </div>
+    <script>
+      console.log($('.create_event'));
+      $('.create_event').on('click',function (e){
+        $('#myModal').modal("show");
+      });
+    </script>
 </nav>
