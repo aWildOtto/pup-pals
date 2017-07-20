@@ -84,11 +84,11 @@ module.exports = (dbHelper) => {
               .then((pups) => {
                 req.session.eventId = req.params.id;
 
-                console.log(users);
-                console.log(pups);
+                // console.log(users);
+                // console.log(pups);
                 const userWithPup = users.map((user)=>{
                   user.pups = [];
-                  console.log(user);
+                  // console.log(user);
                   for(let pup of pups){
                     if(pup.user_id === user.id){
                       user.pups.push(pup);
@@ -96,12 +96,33 @@ module.exports = (dbHelper) => {
                   }
                   return user;
                 });
-                res.render('event_detail', {
-                  events: results[0].events,
-                  users: users,
-                  moment: moment,
-                  mapUrl
-                });
+                let message = 'placeholder';
+                let templateVars = {
+                    events: results[0].events,
+                    users: users,
+                    moment: moment,
+                    mapUrl,
+                    id: req.params.id,
+                    message
+                  };
+                console.log(req.query)
+                if (req.query.status == 'success') {
+                  console.log(req.query.status)
+                  templateVars.message = 'Successfully RSVP\'ed to event!'
+                  res.render('event_detail', templateVars );
+                }
+
+                else if (req.query.status == 'error') {
+                  console.log('error')
+                  templateVars.message = 'Oops! You must log in before you can RSVP.'
+                  res.render('event_detail', templateVars);
+                }
+
+                else {
+                console.log(templateVars.message)
+                res.render('event_detail', templateVars);
+                }
+
               });
           });
       })
@@ -110,10 +131,29 @@ module.exports = (dbHelper) => {
        res.status(404).render('404');
       });
   });
+  //pass along in http
 
   router.post('/:id', (req,res) => {
-    console.log
+    const user = req.app.locals.user;
+    if(user) {
+      const userPromise = dbHelper.insertEventUser(req.body.eventId, user.id)
+      const pupIdPromise = dbHelper.getPupsIdsByUserId(user.id)
+      const insertPupPromise = pupIdPromise.then((pupIds) => {
+        console.log('pupids',pupIds)
+        pupIds.forEach((pupId) => {
+          console.log(pupId.id, 'is id')
+          dbHelper.insertEventPups(pupId.id, req.body.eventId).then(() => {
+            return
+          })
+        })
+      })
+      Promise.all([userPromise, insertPupPromise])
+        .then(() => {
+          res.redirect(`/events/${req.body.eventId}/?status=success`)
+        })
+    } else {
+      res.redirect(`/events/${req.body.eventId}/?status=error`)
+    }
   })
-
   return router;
 }

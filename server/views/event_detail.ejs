@@ -14,7 +14,6 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <% include partials/_navbar.ejs %>
-
     <div id="map"></div>
     <div class="registerdiv">
       <img src=<%=mapUrl%>></img>
@@ -36,9 +35,12 @@
         <%}%>
         <h4>~~~~Some kind of cut-off line~~~~~</h4>
       <% })%>
-
+      <p><%= message %></p>
+      <form action="/events/:id" method="POST" >
+          <input type="hidden" name="eventId" value="<%= id %>">
+          <button type="submit" class="btn btn-primary">RSVP</button>
+      </form>
       <div id="react-root">
-
       </div>
     </div>
 
