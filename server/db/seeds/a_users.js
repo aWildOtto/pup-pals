@@ -28,6 +28,38 @@ exports.seed = function(knex, Promise) {
           status: 'Boop all the snoots!',
           avatar_url: 'https://lighthouselabs.ca/uploads/team_member/avatar/77/medium_rosy_2x.jpg'
         }),
+        knex('users').insert({id: 4,
+          username: 'Lyla',
+          name: 'Lyla Barret',
+          email: 'lylabarret@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Cannot wait for my pups birthday party',
+          avatar_url: 'https://s-media-cache-ak0.pinimg.com/236x/b0/90/2d/b0902dfc80e18605421edf58e8f3e0e0--best-eyeglasses-glasses-frames.jpg'
+        }),
+        knex('users').insert({id: 5,
+          username: 'Emma',
+          name: 'Emma Johnson',
+          email: 'emmajohnson@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Looking for some golden retriever pups to play with Gizmo',
+          avatar_url: 'https://c1.staticflickr.com/6/5252/5403292396_0804de9bcf_b.jpg'
+        }),
+        knex('users').insert({id: 6,
+          username: 'Matt',
+          name: 'Matt Baxley',
+          email: 'mbaxley@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Just went to my first meetup with Jack, so fun!!',
+          avatar_url: 'http://thetrashcan.co/wp-content/uploads/2016/05/election.jpg'
+        }),
+        knex('users').insert({id: 7,
+          username: 'Chad',
+          name: 'Chad Bohlman',
+          email: 'chadbohlman@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Going to the park with my puppy',
+          avatar_url: 'http://thetrashcan.co/wp-content/uploads/2016/05/election.jpg'
+        })
       ]);
     });
 };

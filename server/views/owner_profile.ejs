@@ -18,11 +18,15 @@
   <div class="registerdiv">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 text-center">
           <div class="left_sidebar">
             <% for (var i = 0; i < pupsIDs.length; i++) { %>
               <% const pup = data[i].pups; %>
-              <% include partials/_puppy.ejs %>
+                 <a href="/pet/<%=pup.id%>"> 
+                <img class="pup-pic"src="<%= pup.avatar_url %>" style="width:100px">
+                <h2><%= pup.name %></h2>
+                </a>
+                <hr>
             <% } %>
             <%if(user && user.id == profileId){%>
               <a href="/pet/new">Add New Pups</a>

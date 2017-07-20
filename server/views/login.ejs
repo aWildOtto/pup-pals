@@ -14,23 +14,33 @@
 
 <body>
   <% include partials/_navbar.ejs%>
-  <div class="registerdiv">
-    <h2>Log in</h2>
-    <%if(error){%>
-      <h4><%= error%></h4>
-    <%}%>
-    <form method="POST" action="/user/login" class="register-form">
-      <p>
-        <label for="email-input">Enter your email to log in</label>
-        <input class="input email-input" type="email" name="email">
-      </p>
-      <p>
-        <label for="password-input">Enter your password:</label>
-        <input class="input password-input" type="password" name="password">
-      </p>
-      <button type="submit" class="formbtn">Submit</button>
-    </form>
-  </div>
+    <div class="container">
+      <div class="row">
+        <div class="registerdiv">
+          <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
+            <div class="create-event form-group">
+              <h2>Log in</h2>
+              <%if(error){%>
+                <h4>
+                  <%= error%>
+                </h4>
+                <%}%>
+                  <form method="POST" action="/user/login" class="register-form">
+                    <p>
+                      <label for="email-input">Email:</label>
+                      <input class="input email-input" type="email" name="email">
+                    </p>
+                    <p>
+                      <label for="password-input">Password:</label>
+                      <input class="input password-input" type="password" name="password">
+                    </p>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 
 </html>

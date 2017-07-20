@@ -1,17 +1,12 @@
 .navbar-custom {
-	background-color: #ffffff;
+	background-color: $navbar-color;
 	margin-bottom: 0px;
 	z-index: 1000;
 	border: none;
-	color: #595a6d;
 	position: fixed;
   border-bottom: solid;
   border-width:1px;
   border-bottom-color:#dddee1;
-	transition: background-color 1s ease-in-out, border 1s ease-in-out;
-	-moz-transition: background-color 1s ease-in-out, border 1s ease-in-out;
-	-webkit-transition: background-color 1s ease-in-out, border 1s ease-in-out;
-	-o-transition: background-color 1s ease-in-out, border 1s ease-in-out;
   font-family: Helvetica Neue;
 }
 .navbar-custom .navbar-brand {
@@ -30,7 +25,7 @@
 	padding: 15px 0px;
 }
 .navbar-custom .navbar-nav>li>a {
-	color: 595a6d;
+	color: $navbar-text;
     font-size: 15px;
     font-family: 'Helvetica Neue', sans-serif;
 }
@@ -43,12 +38,19 @@
 	color: #444  !important;
 }
 nav.small {
-   background-color: #ffffff;
+   background-color: $navbar-color;
    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.1);
    -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.1);
    box-shadow: 0 2px 2px rgba(0,0,0,.1);
 }
 
+.nav-default {
+	color: $navbar-text;
+}
 .small .navbar-nav>li>a {
-	color: #666;
+	color: $navbar-text;;
+}
+
+.logo {
+	color: $navbar-text;
 }
