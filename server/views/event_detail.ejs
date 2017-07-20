@@ -19,7 +19,8 @@
       <img src=<%=mapUrl%>></img>
       <h1><%= events.title %></h1>
       <h3>Location: <%= events.location%></h3>
-      <h3>Time: <i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(events.date_time).format("dddd MMMM Do YYYY") %></h3>
+      <h3>Date: <i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(events.date_time).format("dddd MMMM Do YYYY") %></h3>
+       <h3>Time:<%= moment(events.date_time).format("h:mm a") %></h3>
       <h3>Description: <%= events.description %></p>
       <%if (events.event_restriction) { %>
         <h3><%= events.event_restriction%></h3>
@@ -35,7 +36,9 @@
         <%}%>
         <h4>~~~~Some kind of cut-off line~~~~~</h4>
       <% })%>
-      <p><%= message %></p>
+      <% if (message) { %>
+        <p><%= message %></p>
+      <% } %>
       <form action="/events/:id" method="POST" >
           <input type="hidden" name="eventId" value="<%= id %>">
           <button type="submit" class="btn btn-primary">RSVP</button>

@@ -96,14 +96,13 @@ module.exports = (dbHelper) => {
                   }
                   return user;
                 });
-                let message = 'placeholder';
                 let templateVars = {
                     events: results[0].events,
                     users: users,
                     moment: moment,
                     mapUrl,
                     id: req.params.id,
-                    message
+                    message:''
                   };
                 console.log(req.query)
                 if (req.query.status == 'success') {
