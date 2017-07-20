@@ -23,6 +23,10 @@ module.exports = (dbHelper) => {
          profileId: req.params.id
        })
      })
+     .catch((errors) => {
+       console.log(errors);
+       res.status(404).render('404');
+     });
   });
 
   return router;

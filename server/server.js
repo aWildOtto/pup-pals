@@ -14,7 +14,13 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 const uuid = require('uuid');
+const eventRoutes = require("./routes/event");
+const userRoutes = require("./routes/user");
+const petRoutes = require("./routes/pet");
+const ownerRoutes = require("./routes/owner");
+const apiRoutes = require("./routes/api");
 
+const dbHelper = require("./lib/dbHelper")(knex);
 const session = require("express-session")({
     secret: "My socks are not matching.",
     resave: false,
@@ -30,15 +36,6 @@ app.use(session);
 io.use(sharedsession(session, {
     autoSave:true
 }));
-
-const eventRoutes = require("./routes/event");
-const userRoutes = require("./routes/user");
-const petRoutes = require("./routes/pet");
-const ownerRoutes = require("./routes/owner");
-const apiRoutes = require("./routes/api");
-
-const dbHelper = require("./lib/dbHelper")(knex);
-
 
 app.use(morgan('dev'));
 
@@ -58,7 +55,6 @@ app.locals.user = null;//prepare the object for nav bar, add data to user when l
 app.get('/', (req, res) => {
   res.render('index');
 });
-
 
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));
@@ -130,6 +126,10 @@ io.on('connection', function (socket) {
     console.log("a user left: " + userCount + " users");
   });
 });
+
+app.use((req, res, next) => {
+  res.status(404).render("404");
+})
 
 server.listen( process.env.PORT || 3000, () => {
   console.log('Server running');

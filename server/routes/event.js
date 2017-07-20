@@ -10,6 +10,10 @@ module.exports = (dbHelper) => {
     dbHelper.getAllEvents()
       .then((results) => {
         res.render('search', {results});
+      })
+      .catch((errors) => {
+       console.log(errors);
+       res.status(404).render('404');
       });
   }),
 
@@ -50,6 +54,10 @@ module.exports = (dbHelper) => {
               });
             });
           });
+        })
+        .catch((errors) => {
+          console.log(errors);
+          res.status(404).render('404');
         });
     });
 
@@ -96,6 +104,10 @@ module.exports = (dbHelper) => {
                 });
               });
           });
+      })
+      .catch((errors) => {
+       console.log(errors);
+       res.status(404).render('404');
       });
   });
 
