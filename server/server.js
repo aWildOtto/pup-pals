@@ -35,6 +35,7 @@ const eventRoutes = require("./routes/event");
 const userRoutes = require("./routes/user");
 const petRoutes = require("./routes/pet");
 const ownerRoutes = require("./routes/owner");
+const apiRoutes = require("./routes/api");
 
 const dbHelper = require("./lib/dbHelper")(knex);
 
@@ -58,16 +59,12 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/api/events', (req, res) => {
-  dbHelper.getAllEvents().then((results) => {
-    res.json(results);
-  })
-});
 
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));
 app.use("/", petRoutes(dbHelper));
 app.use("/", ownerRoutes(dbHelper));
+app.use("/api", apiRoutes(dbHelper));
 
 io.set('authorization', function (handshakeData, callback) {
   // console.log(handshakeData, 'is handshakeData')
