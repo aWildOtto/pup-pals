@@ -27,16 +27,13 @@ module.exports = (dbHelper) => {
       })
       dbHelper.getUserByPupId(req.params.id).then((person) => {
         console.log(person)
-        dbHelper.getPupAndEventsWithAttendanceByPupId(5).then((results) => {
-          console.log('long query', results)
-        })
         res.render("pet_profile", {
           person,
           pup,
           moment
         });
-      })
-    })
+      });
+    });
   });
 
   router.post("/pet/new", (req, res) => {
