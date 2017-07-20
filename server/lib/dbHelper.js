@@ -19,7 +19,7 @@ module.exports = (knex) => {
       .where({'event_user.user_id': userId})
     },
 
-    eventsForpup : (id) => {
+    eventsForPup : (id) => {
       const sq = () =>  knex('events')
         .leftOuterJoin('event_user', 'events.id', 'event_user.event_id')
         .groupBy('events.id')
