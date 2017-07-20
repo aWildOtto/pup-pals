@@ -27,7 +27,7 @@ const INPUT_STYLE = {
   opacity: `0.8`,
 };
 
-const SearchBoxExampleGoogleMap = withGoogleMap(props => (
+const SearchBoxGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapMounted}
     defaultZoom={14}
@@ -118,7 +118,6 @@ class Map extends Component {
       if (Math.abs(lat - event_lat) < threshold && Math.abs(lng - event_lng) < threshold) {
         this.refs.sidebar.toggleHidden(event);       
       }
-      //render the large details of that event   
     })
     // console.log('lat: ' + lat + '\nlng: ' + lng)
   }
@@ -126,7 +125,7 @@ class Map extends Component {
   render() {
     return (
       <div className="mapcontainer">
-        <SearchBoxExampleGoogleMap
+        <SearchBoxGoogleMap
           containerElement={
             <div style={{ height: '100%'}} />
           }

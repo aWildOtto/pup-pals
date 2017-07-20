@@ -39,7 +39,7 @@ class LargeDetails extends Component {
     });
   }
 
-  handleButton2 = (e) => {
+  handleCalender = (e) => {
     e.stopPropagation();
     this.props.AddToCalender();
   }
@@ -77,7 +77,7 @@ class LargeDetails extends Component {
               <button disabled={this.state.disabled} type="button" onClick={this.handleRSVP.bind(this)} className="btn btn-primary">RSVP</button>
             </span>
             <span className="largedetails-calender">
-              <button type="button" onClick={this.handleButton2.bind(this)} className="btn btn-primary">Calender</button>
+              <button type="button" onClick={this.handleCalender.bind(this)} className="btn btn-primary">Calender</button>
             </span>
           </div>
         </div>  
