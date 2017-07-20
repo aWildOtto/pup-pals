@@ -2,6 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
+const moment = require('moment');
 
 module.exports = (dbHelper) => {
   router.get("/pet/new", (req, res) => {
@@ -15,22 +16,19 @@ module.exports = (dbHelper) => {
       let events = [];
       pup.events.forEach((event) => {
         dbHelper.countEventAttendants(event.id).then((result) => {
-          console.log(result[0].count, 'is result')
-          console.log('event begins',event,'event ends')
-          event.count = result[0].count
-          console.log('event and count', event)
-          events.push(event)
-        })
-      })
-      console.log(events)
+          event.count = result[0].count;
+          events.push(event);
+        });
+      });
       dbHelper.getUserByPupId(req.params.id).then((person) => {
-        console.log(person)
+        console.log(person);
         res.render("pet_profile", {
           person,
-          pup
+          pup,
+          moment
         });
-      })
-    })
+      });
+    });
   });
 
   router.post("/pet/new", (req, res) => {

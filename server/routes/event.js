@@ -3,9 +3,10 @@
 const express = require('express');
 const router  = express.Router();
 const geocoder = require('geocoder');
+const moment = require('moment');
+
 
 module.exports = (dbHelper) => {
-
   router.get("/", (req, res) => {
     dbHelper.getAllEvents()
       .then((results) => {
@@ -31,12 +32,12 @@ module.exports = (dbHelper) => {
         date_time: req.body.date_time,
         restriction: req.body.restriction,
         latitude: data.results[0].geometry.location.lat,
-        longitude: data.results[0].geometry.location.lng
+        longitude: data.results[0].geometry.location.lng,
       };
       // console.log(event);
       dbHelper.createEvent(event,req.session.userID)
         .then((id) => {
-          const event_id = parseInt(id)
+          const event_id = parseInt(id);
           //get all the current user's pups' ids
           dbHelper.getPupsIdsByUserId(req.session.userID).then((ids)=>{
             //run loop through pups' ids, insert each into event_pup table
@@ -46,11 +47,11 @@ module.exports = (dbHelper) => {
                 dbHelper.insertEventUser(event_id, req.session.userID)
                   .then(() => {
                     res.redirect(`/events/${event_id}`);
-                })
-              })
-            })
-          })
-        })
+                });
+              });
+            });
+          });
+        });
     });
 
 
@@ -87,11 +88,12 @@ module.exports = (dbHelper) => {
                 });
                 res.render('event_detail', {
                   events: results[0].events,
-                  users: users
+                  users: users,
+                  moment: moment
                 });
-              })
-          })
-      })
+              });
+          });
+      });
   });
 
   router.post("/rsvp", (req, res) => {
