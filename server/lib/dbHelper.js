@@ -95,13 +95,8 @@ module.exports = (knex) => {
 
     getUserByIds: (ids) => {
       return knex.table('users')
-<<<<<<< HEAD
-        .select('id','username', 'name', 'avatar_url')
-        .whereIn('id', ids);
-=======
         .select('id','username', 'name', 'avatar_url','status')
         .whereIn('id', ids)
->>>>>>> 1012df7ff6a2f0150cbbd2026db0e9b77296595e
     },
 
     getPupsByUserIds: (ids) => {
@@ -166,17 +161,6 @@ module.exports = (knex) => {
       });
     },
 
-<<<<<<< HEAD
-    test: (id) => {
-      return knex('users')
-        .leftJoin('pups', 'users.id', '=', 'pups.user_id')
-        .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
-        .where({'users.id' : id});
-    },
-
-
-=======
->>>>>>> 1012df7ff6a2f0150cbbd2026db0e9b77296595e
     saveMessage: (content, user_id, event_id) => {
        return knex('event_posts').insert({
         user_id,
