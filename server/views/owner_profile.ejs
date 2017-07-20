@@ -30,7 +30,7 @@
                   <% }) %>
                     <%if(user && user.id == profileId){%>
                       <a href="/pet/new">Add New Pups</a>
-                      <%}%>
+                    <%}%>
             </div>
           </div>
           <div class="col-md-6 text-center">
@@ -42,9 +42,9 @@
             <div class="profile_sidebar">
               <h3>
                 <%= person.username%> is going to these pup-parties </h3>
-              <% events.forEach (function(ev){ %>
-                <% include partials/_event_2.ejs %>
-                  <% }) %>
+                <% events.forEach (function(event){ %>
+                  <% include partials/_event.ejs %>
+                <% }) %>
             </div>
           </div>
         </div>

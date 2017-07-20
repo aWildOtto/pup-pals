@@ -101,7 +101,8 @@ io.on('connection', function (socket) {
 
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
-    if(socket.handshake.session.userId){
+    console.log(socket.handshake.session);
+    if(socket.handshake.session.userID){
       console.log("username is", socket.handshake.session);
       console.log("current event id is", eventId);
       dbHelper.saveMessage(data.message, socket.handshake.session.userID, eventId)
