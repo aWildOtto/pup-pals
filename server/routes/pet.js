@@ -11,9 +11,11 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/pet/:id", (req, res) => {
+    //Gget the pup's infor and info of events pup is going to
     dbHelper.getPupsAndEventsById(req.params.id).then((pup) => {
       console.log("result of getPupsAndEventsById:", pup);
       let events = [];
+      //run loop through array of objects
       pup.events.forEach((event) => {
         dbHelper.countEventAttendants(event.id).then((result) => {
           console.log(result[0].count, 'is result')
@@ -21,11 +23,13 @@ module.exports = (dbHelper) => {
           event.count = result[0].count
           console.log('event and count', event)
           events.push(event)
-        })
+        }).then(console.log(events, 'are the events'))
       })
-      console.log(events)
       dbHelper.getUserByPupId(req.params.id).then((person) => {
         console.log(person)
+        dbHelper.getPupAndEventsWithAttendanceByPupId(5).then((results) => {
+          console.log('long query', results)
+        })
         res.render("pet_profile", {
           person,
           pup,

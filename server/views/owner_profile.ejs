@@ -19,32 +19,22 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
-          <% for (var i = 0; i < pupsIDs.length; i++) { %>
-            <% const pup = data[i].pups; %>
+          <% pups.forEach(function(item){ %>
+            <% const pup = item; %>
             <% include partials/_puppy.ejs %>
-          <% } %>
+          <% }) %>
           <%if(user && user.id == profileId){%>
             <a href="/pet/new">Add New Pups</a>
           <%}%>
         </div>
         <div class="col-md-6 text-center">
-          <% const owner = data[0];%>
+          <% const owner = person %>
+          <%= person.name%>
           <% include partials/_owner.ejs %>
         </div>
         <div class="col-md-3 text-right">
-        <h3> Pup-parties created by <%= data[0].username%></h3>
-          <% if(data[0].events) { %>
-            <% for (var i = 0; i < eventsIDs.length; i++)  { %>
-              <%const event = data[i].events%>
-              <% include partials/_event.ejs %>
-            <% } %>
-          <% } else { %>
-            This user has not created any events yet.
-          <% } %>
-        </div>
-        <div class="col-md-3 text-right">
-          <h3> <%= data[0].username%> is going to these pup-parties </h3>
-             <% allEvents.forEach ((ev) => { %>
+          <h3> <%= person.username%> is going to these pup-parties </h3>
+             <% events.forEach (function(ev){ %>
                <% include partials/_event_2.ejs %>
              <% }) %>
         </div>

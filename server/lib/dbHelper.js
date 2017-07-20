@@ -6,6 +6,32 @@ const bcrypt = require("bcrypt");
 module.exports = (knex) => {
   return{
 
+    eventsForUser: (userId) => {
+      const sq = () =>  knex('events')
+        .leftOuterJoin('event_user', 'events.id', 'event_user.event_id')
+        .groupBy('events.id')
+        .select('events.id', knex.raw('count(event_user.*)'))
+      const eventsWithCount = () => knex('events')
+        .leftOuterJoin(sq().as('sq'), 'events.id', 'sq.id')
+        .select('events.*', 'sq.count')
+      return eventsWithCount()
+      .join('event_user', 'events.id', 'event_user.event_id')
+      .where({'event_user.user_id': userId})
+    },
+
+    eventsForpup : (id) => {
+      const sq = () =>  knex('events')
+        .leftOuterJoin('event_user', 'events.id', 'event_user.event_id')
+        .groupBy('events.id')
+        .select('events.id', knex.raw('count(event_user.*)'))
+      const eventsWithCount = () => knex('events')
+        .leftOuterJoin(sq().as('sq'), 'events.id', 'sq.id')
+        .select('events.*', 'sq.count')
+      return eventsWithCount()
+        .join('event_pup', 'events.id', 'event_pup.event_id')
+        .where({'event_pup.pup_id': id});
+    },
+
     getAllEvents: () => {
       return knex.select().from('events');
     },
@@ -53,7 +79,7 @@ module.exports = (knex) => {
 
     getUserByIds: (ids) => {
       return knex.table('users')
-        .select('id','username', 'name', 'avatar_url')
+        .select('id','username', 'name', 'avatar_url','status')
         .whereIn('id', ids)
     },
 
@@ -118,14 +144,6 @@ module.exports = (knex) => {
         event_id: event_id
       })
     },
-
-    test: (id) => {
-      return knex('users')
-        .leftJoin('pups', 'users.id', '=', 'pups.user_id')
-        .select(['users.username', 'users.name', 'users.avatar_url', 'users.status', knex.raw('to_json(pups.*) as pups')])
-        .where({'users.id' : id})
-    },
-
 
     saveMessage: (content, user_id, event_id) => {
        return knex('event_posts').insert({

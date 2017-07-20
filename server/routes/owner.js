@@ -6,41 +6,23 @@ const moment = require('moment');
 
 module.exports = (dbHelper) => {
   router.get("/owner/:id", (req, res) => {
-
-    dbHelper.getUserAndPupsById(req.params.id).then((results) => {
-      console.log(results)
-      const IDs = (results,table) => {
-        let arr = []
-        results.forEach((item) => {
-          if(item[table]){
-            if(!arr.includes(item[table].id)){
-              arr.push(item[table].id)
-            }
-          }
-        });
-        return arr
-      }
-      const eventsIDs= IDs(results, 'events');
-      const pupsIDs = IDs(results, 'pups');
-      dbHelper.getAllEventsOfUser(req.params.id).then((allEvents) => {
-        console.log(allEvents)
-        allEvents.forEach((event) => {
-          dbHelper.countEventAttendants(event.id)
-            .then((attendants) => {
-              event['count'] = attendants[0].count
-              res.render("owner_profile", {
-                data: results,
-                eventsIDs: eventsIDs,
-                pupsIDs: pupsIDs,
-                profileId: req.params.id,
-                allEvents: allEvents,
-                moment: moment
-              });
-            })
-        })
-
-      })
-    });
+   const eventsPromise = dbHelper.eventsForUser(req.params.id)
+   const userPromise = dbHelper.getUserByIds(req.params.id)
+   const pupsPromise = dbHelper.getPupsByUserIds(req.params.id)
+   Promise.all([eventsPromise, userPromise, pupsPromise])
+     .then((result) => {
+       const events = result[0];
+       const person = result[1][0];
+       const pups = result[2];
+       console.log('person is', person.name)
+       res.render("owner_profile", {
+         person,
+         events,
+         pups,
+         moment,
+         profileId: req.params.id
+       })
+     })
   });
 
   return router;
