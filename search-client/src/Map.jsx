@@ -122,7 +122,7 @@ class Map extends Component {
     })
     // console.log('lat: ' + lat + '\nlng: ' + lng)
   }
-
+  
   render() {
     return (
       <div className="mapcontainer">
@@ -145,6 +145,8 @@ class Map extends Component {
         />
         <SideBar          
           events={this.props.events}
+          user={this.props.user}
+          fetchAppData={this.props.fetchAppData}
           ref="sidebar"
         />
       </div>

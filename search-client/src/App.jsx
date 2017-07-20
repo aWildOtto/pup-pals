@@ -8,20 +8,36 @@ class App extends React.Component {
     super(props);
     this.state = {
       events: [],
+      user: {}
     }
   }
 
+  fetchData = () => {
+    const getEvents = () => {
+      return axios.get('/api/events');
+    }
+ 
+    const getUser = () => {
+      return axios.get('/api/user');
+    }
+ 
+    axios.all([getEvents(), getUser()])
+      .then(axios.spread((events, user) => {
+        this.setState({events: events.data});
+        this.setState({user: user.data});
+        console.log("Events data from server:", events.data)        
+        console.log("User data from server:", user.data)
+      }));
+  }
+
   componentDidMount() {
-    axios.get('/api/events').then((events)=>{
-      console.log(events.data);
-      this.setState({events: events.data});
-    })
+    this.fetchData();
   }
 
   render() {
     return (
       <div>
-        <Map events={this.state.events} />
+        <Map events={this.state.events} user={this.state.user} fetchAppData={this.fetchData}/>
         <SearchBar />
       </div>
     );

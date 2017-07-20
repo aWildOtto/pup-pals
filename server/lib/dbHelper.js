@@ -24,9 +24,17 @@ module.exports = (knex) => {
     getAllEvents: () => {
       return knex('events')
         .innerJoin('event_user', 'event_user.event_id', '=', 'events.id')
-        .select ('events.*')
+        .select('events.*')
         .count("event_user.id as count")
         .groupBy('events.id');
+    },
+    
+    getEventUserIdByEventId: (event_id) => {
+      return knex('event_user')
+        .select('user_id')
+        .where({
+          'event_id' : event_id
+        })
     },
 
     countEventAttendants: (event_id) => {

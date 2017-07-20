@@ -65,6 +65,17 @@ app.get('/api/events', (req, res) => {
   })
 });
 
+app.get("/api/user", (req, res) => {
+  res.json(app.locals.user);
+});
+
+app.get("/api/attend/:id", (req, res) => {
+  dbHelper.getEventUserIdByEventId(req.params.id)
+    .then((results)=>{
+      res.json(results);
+    })
+});
+
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));
 app.use("/", petRoutes(dbHelper));
