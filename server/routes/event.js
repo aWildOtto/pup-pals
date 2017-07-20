@@ -5,12 +5,15 @@ const router  = express.Router();
 const geocoder = require('geocoder');
 const moment = require('moment');
 
-
 module.exports = (dbHelper) => {
   router.get("/", (req, res) => {
     dbHelper.getAllEvents()
       .then((results) => {
         res.render('search', {results});
+      })
+      .catch((errors) => {
+       console.log(errors);
+       res.status(404).render('404');
       });
   }),
 
@@ -51,6 +54,10 @@ module.exports = (dbHelper) => {
               });
             });
           });
+        })
+        .catch((errors) => {
+          console.log(errors);
+          res.status(404).render('404');
         });
     });
 
@@ -58,9 +65,12 @@ module.exports = (dbHelper) => {
   }),
 
   router.get("/:id", (req, res) => {
-    // console.log(req.session);
+
     dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
+        const longitude = results[0].events.longitude
+        const latitude = results[0].events.latitude
+        const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=13&size=400x400&markers=color:blue%7C${latitude},${longitude}&key=AIzaSyDkfH1vIxG1NVhhTaELFJH_m6QE-LOEnGI`
         let userIDs = [];
         results.forEach((item) => {
           if(!userIDs.includes(item.event_user)){
@@ -89,10 +99,15 @@ module.exports = (dbHelper) => {
                 res.render('event_detail', {
                   events: results[0].events,
                   users: users,
-                  moment: moment
+                  moment: moment,
+                  mapUrl
                 });
               });
           });
+      })
+      .catch((errors) => {
+       console.log(errors);
+       res.status(404).render('404');
       });
   });
 
@@ -110,5 +125,10 @@ module.exports = (dbHelper) => {
       console.log(error);
     });
   });
+  
+  router.post('/:id', (req,res) => {
+    console.log
+  })
+
   return router;
 }

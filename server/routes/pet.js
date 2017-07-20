@@ -11,24 +11,26 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/pet/:id", (req, res) => {
-    dbHelper.getPupsAndEventsById(req.params.id).then((pup) => {
-      console.log("result of getPupsAndEventsById:", pup);
-      let events = [];
-      pup.events.forEach((event) => {
-        dbHelper.countEventAttendants(event.id).then((result) => {
-          event.count = result[0].count;
-          events.push(event);
-        });
-      });
-      dbHelper.getUserByPupId(req.params.id).then((person) => {
-        console.log(person);
-        res.render("pet_profile", {
+    const userPromise = dbHelper.getUserByPupId(req.params.id);
+    const pupPromise = dbHelper.getPupsByIds(req.params.id);
+    const eventsPromise = dbHelper.eventsForPup(req.params.id);
+    Promise.all([userPromise, pupPromise, eventsPromise])
+      .then((result) => {
+        const person = result[0]
+        const pup = result[1][0]
+        const events = result[2]
+        console.log(pup)
+        res.render("pet_profile",  {
           person,
           pup,
+          events,
           moment
-        });
+        })
+      })
+      .catch((errors) => {
+       console.log(errors);
+       res.status(404).render('404');
       });
-    });
   });
 
   router.post("/pet/new", (req, res) => {
@@ -38,8 +40,13 @@ module.exports = (dbHelper) => {
       res.redirect("/user/login");
       return;
     }
-    dbHelper.savePet(req.body, req.session.userID).then((result) => {
+    dbHelper.savePet(req.body, req.session.userID)
+    .then((result) => {
       res.redirect(`/pet/${result}`);
+    })
+    .catch((errors) => {
+      console.log(errors);
+      res.status(404).render('404');
     });
   })
 

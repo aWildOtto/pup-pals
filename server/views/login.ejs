@@ -14,24 +14,37 @@
 
 <body>
   <% include partials/_navbar.ejs%>
-  <div class="registerdiv">
-    <h2>Log in</h2>
-    <%if(error){%>
-      <h4><%= error%></h4>
-    <%}%>
-    <form method="POST" action="/user/login" class="register-form">
-      <p>
-        <label for="email-input">Enter your email to log in</label>
-        <input class="input email-input" type="email" name="email">
-      </p>
-      <p>
-        <label for="password-input">Enter your password:</label>
-        <input class="input password-input" type="password" name="password">
-      </p>
-      <button type="submit" class="formbtn">Submit</button>
-    </form>
-  </div>
-  
+    <div class="container">
+      <div class="row">
+        <div class="registerdiv">
+          <div class="col-md-6 col-md-offset-3 well well-sm">
+            <div class="create-event form-group">
+              <h2><i class="fa fa-paw" aria-hidden="true"></i> Log in</h2>
+              <%if(error){%>
+                <h4>
+                  <%= error%>
+                </h4>
+                <%}%>
+                  <form method="POST" action="/user/login" class="form-group">
+                    <p>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                        <input class="form-control" type="email" name="email" placeholder="Email">
+                      </div>
+                    </p>
+                    <p>
+                      <div class="input-group">                      
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                      </div>
+                    </p>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 
 </html>

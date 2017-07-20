@@ -6,6 +6,36 @@ const bcrypt = require("bcrypt");
 module.exports = (knex) => {
   return{
 
+    eventsForUser: (userId) => {
+      const sq = () =>  knex('events')
+        .leftOuterJoin('event_user', 'events.id', 'event_user.event_id')
+        .groupBy('events.id')
+        .select('events.id', knex.raw('count(event_user.*)'))
+      const eventsWithCount = () => knex('events')
+        .leftOuterJoin(sq().as('sq'), 'events.id', 'sq.id')
+        .select('events.*', 'sq.count')
+      return eventsWithCount()
+      .join('event_user', 'events.id', 'event_user.event_id')
+      .where({'event_user.user_id': userId})
+    },
+
+    eventsForPup : (id) => {
+      const sq = () =>  knex('events')
+        .leftOuterJoin('event_user', 'events.id', 'event_user.event_id')
+        .groupBy('events.id')
+        .select('events.id', knex.raw('count(event_user.*)'))
+      const eventsWithCount = () => knex('events')
+        .leftOuterJoin(sq().as('sq'), 'events.id', 'sq.id')
+        .select('events.*', 'sq.count')
+      return eventsWithCount()
+        .join('event_pup', 'events.id', 'event_pup.event_id')
+        .where({'event_pup.pup_id': id});
+    },
+
+    getAllEvents: () => {
+      return knex.select().from('events');
+    },
+
     getEventDetailsByEventId: (id) => {
       return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
@@ -65,8 +95,13 @@ module.exports = (knex) => {
 
     getUserByIds: (ids) => {
       return knex.table('users')
+<<<<<<< HEAD
         .select('id','username', 'name', 'avatar_url')
         .whereIn('id', ids);
+=======
+        .select('id','username', 'name', 'avatar_url','status')
+        .whereIn('id', ids)
+>>>>>>> 1012df7ff6a2f0150cbbd2026db0e9b77296595e
     },
 
     getPupsByUserIds: (ids) => {
@@ -131,6 +166,7 @@ module.exports = (knex) => {
       });
     },
 
+<<<<<<< HEAD
     test: (id) => {
       return knex('users')
         .leftJoin('pups', 'users.id', '=', 'pups.user_id')
@@ -139,6 +175,8 @@ module.exports = (knex) => {
     },
 
 
+=======
+>>>>>>> 1012df7ff6a2f0150cbbd2026db0e9b77296595e
     saveMessage: (content, user_id, event_id) => {
        return knex('event_posts').insert({
         user_id,

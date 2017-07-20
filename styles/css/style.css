@@ -204,10 +204,6 @@ section {
 	border: none;
 	color: #333;
 	position: fixed;
-	transition: background-color 1s ease-in-out, border 1s ease-in-out;
-	-moz-transition: background-color 1s ease-in-out, border 1s ease-in-out;
-	-webkit-transition: background-color 1s ease-in-out, border 1s ease-in-out;
-	-o-transition: background-color 1s ease-in-out, border 1s ease-in-out;
 }
 .navbar-custom .navbar-brand {
 	font-size: 22px;

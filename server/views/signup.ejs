@@ -14,35 +14,53 @@
 
 <body>
   <% include partials/_navbar.ejs%>
-  <div class="registerdiv">
-    <h2>Sign Up</h2>
-    <%if(error){%>
-      <h4><%= error%></h4>
-    <%}%>
-    <form method="POST" action="/user/signup" class="register-form">
-      <p>
-        <label for="avatar-input">Enter a url for your avatar:</label>
-        <input class="input avatar-input" type="text" name="avatar_url">
-      </p>
-      <p>
-        <label for="username-input">Enter a username:</label>
-        <input class="input username-input" type="text" name="username">
-      </p>
-      <p>
-        <label for="name-input">Enter your name:</label>
-        <input class="input name-input" type="text" name="name">
-      </p>
-      <p>
-        <label for="email-input">Enter your email:</label>
-        <input class="input email-input" type="email" name="email">
-      </p>
-      <p>
-        <label for="password-input">Enter your password:</label>
-        <input class="input password-input" type="password" name="password">
-      </p>
-      <button type="submit" class="formbtn">Submit</button>
-    </form>
-  </div>
+    <div class="container">
+      <div class="row">
+        <div class="registerdiv">
+          <div class="col-md-6 col-md-offset-3 well well-sm">
+            <h2><i class="fa fa-paw" aria-hidden="true"></i> Sign Up</h2>
+            <%if(error){%>
+              <h4>
+                <%= error%>
+              </h4>
+              <%}%>
+                <form method="POST" action="/user/signup" class="form-group">
+                  <p>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-address-book fa" aria-hidden="true"></i></span>
+                      <input class="form-control" type="text" name="avatar_url" placeholder="Avatar URL">
+                    </div>
+                  </p>
+                  <p>
+                    <div class="input-group">  
+                      <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>                                        
+                      <input class="form-control" type="text" name="username" placeholder="Username">
+                    </div>                    
+                  </p>
+                  <p>
+                    <div class="input-group">  
+                      <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>                                        
+                      <input class="form-control" type="text" name="name" placeholder="Name">
+                    </div>    
+                  </p>
+                  <p>
+                    <div class="input-group">  
+                      <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>                                        
+                      <input class="form-control" type="text" name="email" placeholder="Email">
+                    </div>  
+                  </p>
+                  <p>
+                    <div class="input-group">  
+                      <span class="input-group-addon"><i class="fa fa-lock fa" aria-hidden="true"></i></span>                                        
+                      <input class="form-control" type="text" name="password" placeholder="Password">
+                    </div>  
+                  </p>
+                  <button type="submit" class="btn btn-lg btn-primary btn-block">Sign Up</button>
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 
 </html>
