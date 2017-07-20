@@ -29,5 +29,9 @@ module.exports = (dbHelper) => {
      });
   });
 
+  router.post("/owner/:id", (req,res) => {
+    console.log(req.body)
+  })
+
   return router;
 }
