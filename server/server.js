@@ -14,7 +14,13 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 const uuid = require('uuid');
+const eventRoutes = require("./routes/event");
+const userRoutes = require("./routes/user");
+const petRoutes = require("./routes/pet");
+const ownerRoutes = require("./routes/owner");
+const apiRoutes = require("./routes/api");
 
+const dbHelper = require("./lib/dbHelper")(knex);
 const session = require("express-session")({
     secret: "My socks are not matching.",
     resave: false,
@@ -30,14 +36,6 @@ app.use(session);
 io.use(sharedsession(session, {
     autoSave:true
 }));
-
-const eventRoutes = require("./routes/event");
-const userRoutes = require("./routes/user");
-const petRoutes = require("./routes/pet");
-const ownerRoutes = require("./routes/owner");
-
-const dbHelper = require("./lib/dbHelper")(knex);
-
 
 app.use(morgan('dev'));
 
@@ -58,16 +56,11 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/api/events', (req, res) => {
-  dbHelper.getAllEvents().then((results) => {
-    res.json(results);
-  })
-});
-
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));
 app.use("/", petRoutes(dbHelper));
 app.use("/", ownerRoutes(dbHelper));
+app.use("/api", apiRoutes(dbHelper));
 
 io.set('authorization', function (handshakeData, callback) {
   // console.log(handshakeData, 'is handshakeData')
@@ -101,7 +94,8 @@ io.on('connection', function (socket) {
 
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
-    if(socket.handshake.session.userId){
+    console.log(socket.handshake.session);
+    if(socket.handshake.session.userID){
       console.log("username is", socket.handshake.session);
       console.log("current event id is", eventId);
       dbHelper.saveMessage(data.message, socket.handshake.session.userID, eventId)
@@ -132,6 +126,10 @@ io.on('connection', function (socket) {
     console.log("a user left: " + userCount + " users");
   });
 });
+
+app.use((req, res, next) => {
+  res.status(404).render("404");
+})
 
 server.listen( process.env.PORT || 3000, () => {
   console.log('Server running');

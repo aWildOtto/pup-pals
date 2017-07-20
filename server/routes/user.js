@@ -12,10 +12,11 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/login", (req, res) => {
+    console.log(req.body);
     dbHelper.getUserByEmail(req.body.email)
     .then((result)=>{
       console.log(result);
-      if(result){
+      if(result.length != 0){
         if(bcrypt.compareSync(req.body.password, result[0].password)){
           req.session.username = result[0].username;
           req.session.userID = result[0].id;
@@ -38,6 +39,7 @@ module.exports = (dbHelper) => {
       }
     })
     .catch((error) => {
+      console.log(error);
       res.render('login', {
         error: "Unexpected turnout, report to Otto"
       });

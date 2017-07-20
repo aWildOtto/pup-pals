@@ -27,6 +27,10 @@ module.exports = (dbHelper) => {
           moment
         })
       })
+      .catch((errors) => {
+       console.log(errors);
+       res.status(404).render('404');
+      });
   });
 
   router.post("/pet/new", (req, res) => {
@@ -36,8 +40,13 @@ module.exports = (dbHelper) => {
       res.redirect("/user/login");
       return;
     }
-    dbHelper.savePet(req.body, req.session.userID).then((result) => {
+    dbHelper.savePet(req.body, req.session.userID)
+    .then((result) => {
       res.redirect(`/pet/${result}`);
+    })
+    .catch((errors) => {
+      console.log(errors);
+      res.status(404).render('404');
     });
   })
 
