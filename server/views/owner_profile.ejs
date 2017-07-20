@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title></title>
+  <title>Pup-Pals</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap core CSS -->
@@ -18,14 +18,20 @@
   <div class="registerdiv">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 text-center">
+          <div class="left_sidebar">
           <% pups.forEach(function(item){ %>
             <% const pup = item; %>
-            <% include partials/_puppy.ejs %>
+            <a href="/pet/<%=pup.id%>"> 
+                <img class="pup-pic"src="<%= pup.avatar_url %>" style="width:100px">
+                <h2><%= pup.name %></h2>
+                </a>
+                <hr>
           <% }) %>
           <%if(user && user.id == profileId){%>
             <a href="/pet/new">Add New Pups</a>
           <%}%>
+          </div>
         </div>
         <div class="col-md-6 text-center">
           <% const owner = person %>
@@ -33,6 +39,7 @@
           <% include partials/_owner.ejs %>
         </div>
         <div class="col-md-3 text-right">
+          <div class="profile_sidebar">
           <h3> <%= person.username%> is going to these pup-parties </h3>
              <% events.forEach (function(ev){ %>
                <% include partials/_event_2.ejs %>

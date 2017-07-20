@@ -14,35 +14,43 @@
 
 <body>
   <% include partials/_navbar.ejs%>
-  <div class="registerdiv">
-    <h2>Sign Up</h2>
-    <%if(error){%>
-      <h4><%= error%></h4>
-    <%}%>
-    <form method="POST" action="/user/signup" class="register-form">
-      <p>
-        <label for="avatar-input">Enter a url for your avatar:</label>
-        <input class="input avatar-input" type="text" name="avatar_url">
-      </p>
-      <p>
-        <label for="username-input">Enter a username:</label>
-        <input class="input username-input" type="text" name="username">
-      </p>
-      <p>
-        <label for="name-input">Enter your name:</label>
-        <input class="input name-input" type="text" name="name">
-      </p>
-      <p>
-        <label for="email-input">Enter your email:</label>
-        <input class="input email-input" type="email" name="email">
-      </p>
-      <p>
-        <label for="password-input">Enter your password:</label>
-        <input class="input password-input" type="password" name="password">
-      </p>
-      <button type="submit" class="formbtn">Submit</button>
-    </form>
-  </div>
+    <div class="container">
+      <div class="row">
+        <div class="registerdiv">
+          <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
+            <h2>Sign Up</h2>
+            <%if(error){%>
+              <h4>
+                <%= error%>
+              </h4>
+              <%}%>
+                <form method="POST" action="/user/signup" class="register-form">
+                  <p>
+                    <label for="avatar-input">Enter a url for your avatar:</label>
+                    <input class="input avatar-input" type="text" name="avatar_url">
+                  </p>
+                  <p>
+                    <label for="username-input">Enter a username:</label>
+                    <input class="input username-input" type="text" name="username">
+                  </p>
+                  <p>
+                    <label for="name-input">Enter your name:</label>
+                    <input class="input name-input" type="text" name="name">
+                  </p>
+                  <p>
+                    <label for="email-input">Enter your email:</label>
+                    <input class="input email-input" type="email" name="email">
+                  </p>
+                  <p>
+                    <label for="password-input">Enter your password:</label>
+                    <input class="input password-input" type="password" name="password">
+                  </p>
+                  <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
+                </form>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 
 </html>

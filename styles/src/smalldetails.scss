@@ -1,5 +1,4 @@
 .detailcontainer {
-  background: #f7f7f7;
   padding: 20px 10px 10px;
 }
 
@@ -24,7 +23,7 @@
   padding: 6px 12px;
   width: 100%;
   align-items: center;
-  background: #595a6d;
+  background: $event-header;
   height: 2.5em;
 }
 
@@ -94,3 +93,4 @@ a.smalldetails-link {
   cursor: pointer;
   zoom: 1;
 }
+
