@@ -79,6 +79,15 @@ class Map extends Component {
       bounds: this._map.getBounds(),
       center: this._map.getCenter(),
     });
+    const bound_a = {
+      lat: this.state.bounds.f.b,
+      lng: this.state.bounds.b.b
+    }
+    const bound_b = {
+      lat: this.state.bounds.f.f,
+      lng: this.state.bounds.b.f
+    } 
+    this.props.locationFilter(bound_a, bound_b);
   }
 
   handleSearchBoxMounted(searchBox) {
@@ -95,12 +104,6 @@ class Map extends Component {
 
     // Set markers; set map center to first search result
     const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
-    
-    markers.forEach((marker) => {
-      const lat = marker.position.lat();
-      const lng = marker.position.lng();
-      console.log('lat: ' + lat + '\nlng: ' + lng)
-    })
 
     this.setState({
       center: mapCenter,
@@ -119,9 +122,8 @@ class Map extends Component {
         this.refs.sidebar.toggleHidden(event);       
       }
     })
-    // console.log('lat: ' + lat + '\nlng: ' + lng)
   }
-  
+ 
   render() {
     return (
       <div className="mapcontainer">
@@ -143,10 +145,11 @@ class Map extends Component {
           onMarkerClick={this.handleMarkerClick}
         />
         <SideBar          
+          ref="sidebar"
           events={this.props.events}
           user={this.props.user}
           fetchAppData={this.props.fetchAppData}
-          ref="sidebar"
+          dates={this.props.dates}
         />
       </div>
     );

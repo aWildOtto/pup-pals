@@ -8,7 +8,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       events: [],
-      user: {}
+      user: {},
+      dates: {
+        startDate: "",
+        endDate: ""
+      }
     }
   }
 
@@ -30,6 +34,28 @@ class App extends React.Component {
       }));
   }
 
+  locationFilter = (bound_a, bound_b) => {
+    return axios.get(`/api/events/radius?boundalat=${bound_a.lat}&boundalng=${bound_a.lng}&boundblat=${bound_b.lat}&boundblng=${bound_b.lng}`)
+      .then((response) => {
+          this.setState({events: response.data})
+        }
+      );
+  }
+
+  handleDayChange = (startDate, endDate) => {
+    if(startDate && endDate) {
+      this.setState({dates: {
+        startDate: startDate,
+        endDate: endDate
+      }})
+    } else {
+      this.setState({dates: {
+        startDate: "",
+        endDate: ""
+      }})
+    }
+  }
+
   componentDidMount() {
     this.fetchData();
   }
@@ -37,8 +63,13 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Map events={this.state.events} user={this.state.user} fetchAppData={this.fetchData}/>
-        <SearchBar />
+        <Map events={this.state.events} 
+        user={this.state.user} 
+        fetchAppData={this.fetchData}
+        locationFilter={this.locationFilter} 
+        dates={this.state.dates}
+        />
+        <SearchBar dates={this.state.dates} handleDayChange={this.handleDayChange}/>
       </div>
     );
   }

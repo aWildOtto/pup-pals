@@ -10,14 +10,21 @@ module.exports = (dbHelper) => {
     })
   });
 
-  router.get("/api/user", (req, res) => {
+  router.get("/user", (req, res) => {
     res.json(req.app.locals.user);
   });
 
-  router.get("/api/attend/:id", (req, res) => {
+  router.get("/attend/:id", (req, res) => {
     dbHelper.getEventUserIdByEventId(req.params.id)
-      .then((results)=>{
+      .then((results)=> {
         res.json(results);
+      })
+  });
+  router.get("/events/radius", (req, res) => {
+    dbHelper.searchEventInABox(req.query.boundalat, req.query.boundalng, req.query.boundblat, req.query.boundblng)
+      .then((results) => {
+        console.log(results.rows);
+        res.json(results.rows);
       })
   });
   return router;

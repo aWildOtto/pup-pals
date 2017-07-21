@@ -222,6 +222,21 @@ module.exports = (knex) => {
           user_id,
           event_id
         });
+    },
+    
+    searchEventInABox: (bound_a_lat, bound_a_lng, bound_b_lat, bound_b_lng) => {
+      bound_a_lat = parseFloat(bound_a_lat);
+      bound_a_lng = parseFloat(bound_a_lng);
+      bound_b_lat = parseFloat(bound_b_lat);
+      bound_b_lng = parseFloat(bound_b_lng);
+      return knex.raw(`
+          select events.*
+          FROM events 
+          WHERE box '((${bound_a_lat}, ${bound_a_lng}), (${bound_b_lat}, ${bound_b_lng}))' 
+          @> point(events.latitude, events.longitude);
+          `
+          //TODO(prevent sql injection): validate that bounds are floats and nothing else
+        )
     }
 
   }
