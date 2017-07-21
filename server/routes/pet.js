@@ -50,13 +50,5 @@ module.exports = (dbHelper) => {
       });
   });
 
-  router.post("/pet/:id", (req, res) => {
-    dbHelper.makePupStatus(req.params.id, req.body.text)
-      .then(() => {
-        res.redirect(`/pet/${req.params.id}`)
-      })
-  })
-
-
   return router;
 }
