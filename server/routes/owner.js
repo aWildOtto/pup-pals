@@ -29,5 +29,13 @@ module.exports = (dbHelper) => {
      });
   });
 
+  router.post("/owner/:id", (req,res) => {
+    dbHelper.makeOwnerStatus(req.app.locals.user.id, req.body.text)
+      .then(() => {
+        res.redirect(`/owner/${req.app.locals.user.id}`)
+      })
+
+  })
+
   return router;
 }
