@@ -29,12 +29,12 @@ module.exports = (dbHelper) => {
           res.redirect('/');
         } else {
           res.render('login', {
-            error: "wrong password"
+            error: "Wrong Information"
           });
         }
       } else {
         res.render('login', {
-            error: "Email not in the system"
+            error: "Wrong information"
           });
       }
     })
@@ -64,7 +64,7 @@ module.exports = (dbHelper) => {
     .catch((error) => {
       console.log(error);
       res.render('signup', {
-        error: "username or email was taken"
+        error: "Username or email was taken"
       })
     });
   });

@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 module.exports = (knex) => {
   return{
 
+
     eventsForUser: (userId) => {
       const sq = () =>  knex('events')
         .leftOuterJoin('event_user', 'events.id', 'event_user.event_id')
