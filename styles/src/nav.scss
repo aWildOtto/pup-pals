@@ -63,6 +63,11 @@
 	color: $navbar-text;
 }
 
+
+.small .navbar-nav>li>a {
+  color: $navbar-text;
+}
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -104,4 +109,8 @@
     font-size: 15px;
     display: block;
     line-height: 33px;
+}
+
+footer {
+    height: 60px;
 }
