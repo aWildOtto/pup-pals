@@ -30,12 +30,11 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/pet/:id", (req, res) => {
-    console.log(req.params.id)
     dbHelper.makePupStatus(req.params.id, req.body.text)
       .then(() => {
         res.redirect(`/pet/${req.params.id}`)
       })
-  })
+  });
 
   return router;
 }

@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 
    console.log('running')
@@ -18,8 +19,11 @@ $(document).ready(function(){
   function createStatusesElements(statuses) {
     var $section = $('<section>')
     statuses.forEach((status) => {
-      var $p = $('<p>', {class: 'rendered', text: status.content});
-      $section.prepend($p)
+      var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at, "YYYY-MM-DD")})
+      var $textSpan = $('<span>', {class: 'status-text',text: status.content});
+      var $div = $('<div>')
+      $div.append($timeSpan).append($textSpan)
+      $section.prepend($div)
     })
     return $section;
   }
