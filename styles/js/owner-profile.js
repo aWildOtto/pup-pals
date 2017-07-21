@@ -1,8 +1,14 @@
 $(document).ready(function(){
+
+  function renderStatus(status) {
+    var $p = $("<p>", {text: status});
+    $(.status).append($p)
+  }
+
   $('.status-form').on('submit', function(event){
     event.preventDefault();
     var $inputLength = $('.status-form textarea').val().length;
-    if($inputlength === 0) {
+    if($inputLength === 0) {
       alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
       return;
     }else if($inputLength > 140) {
