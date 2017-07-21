@@ -1,9 +1,16 @@
 $(document).ready(function(){
 
-  function renderStatus(status) {
-    var $p = $("<p>", {text: status});
-    $(.status).append($p)
-  }
+  $(".new-status textarea").on("input", function(event){
+    var length = $(this).val().length;
+    var remaining = 100 - length;
+    var $counter = $(this).parent().children('.counter');
+    $counter.text(remaining);
+    if (remaining < 0) {
+      $counter.addClass('changeRed');
+    } else {
+      $counter.removeClass('changeRed');
+    }
+  });
 
   $('.status-form').on('submit', function(event){
     event.preventDefault();

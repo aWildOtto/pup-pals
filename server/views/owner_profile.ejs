@@ -46,12 +46,12 @@
             <% const owner = person %>
                 <% include partials/_owner.ejs %>
             <% if (user && user.id == profileId) { %>
-            <section class="new-tweet">
+            <section class="new-status">
               <h2>Update your status</h2>
               <form class="status-form" method="POST" action= "/owner/<%= person.id %>">
                 <textarea name="text" placeholder="Ehhh What's up Doc?"></textarea>
                 <input type="submit" value="Update">
-                <span class="counter">140</span>
+                <span class="counter">100</span>
               </form>
             </section>
             <% } %>
