@@ -16,12 +16,13 @@
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
   <script src="/styles/js/owner-profile.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/ca.js">
 
 </head>
 
 <body>
   <% include partials/_navbar.ejs %>
-  <script>var status = <%- JSON.stringify(person.status) %></script>
+  <script>var id = <%- JSON.stringify(person.id) %></script>
   <div>
 
   </div>
@@ -46,6 +47,7 @@
           <div class="col-md-6 text-center">
             <% const owner = person %>
             <% include partials/_owner.ejs %>
+            <div class='status'></div>
             <style>
               .owner-avatar {width: 300px!important;}
             </style>
