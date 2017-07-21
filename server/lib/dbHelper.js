@@ -249,10 +249,12 @@ module.exports = (knex) => {
       bound_b_lat = parseFloat(bound_b_lat);
       bound_b_lng = parseFloat(bound_b_lng);
       return knex.raw(`
-          select events.*
-          FROM events 
-          WHERE box '((${bound_a_lat}, ${bound_a_lng}), (${bound_b_lat}, ${bound_b_lng}))' 
-          @> point(events.latitude, events.longitude);
+          select events.*, count(event_user.id) as count
+          from events
+          inner join event_user on event_user.event_id = events.id
+          where box '((${bound_a_lat}, ${bound_a_lng}), (${bound_b_lat}, ${bound_b_lng}))' 
+          @> point(events.latitude, events.longitude)
+          group by events.id;
           `
           //TODO(prevent sql injection): validate that bounds are floats and nothing else
         )

@@ -7,14 +7,7 @@ const moment = require('moment');
 
 module.exports = (dbHelper) => {
   router.get("/", (req, res) => {
-    dbHelper.getAllEvents()
-      .then((results) => {
-        res.render('search', {results});
-      })
-      .catch((errors) => {
-       console.log(errors);
-       res.status(404).render('404');
-      });
+    res.render('search');
   }),
 
   router.get("/new", (req, res) => {

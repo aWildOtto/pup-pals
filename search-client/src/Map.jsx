@@ -30,7 +30,7 @@ const INPUT_STYLE = {
 const SearchBoxGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={14}
+    zoom={props.zoom}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
   >
@@ -47,6 +47,10 @@ const SearchBoxGoogleMap = withGoogleMap(props => (
       key={e.id}
       position={{ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }} 
       onClick={props.onMarkerClick}
+      icon={{
+        url: 'http://i.imgur.com/sWlsDsZ.png',
+        scaledSize : new google.maps.Size(55, 65)
+      }}
       /> })}
   </GoogleMap>
 ));
@@ -55,12 +59,13 @@ class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      zoom: 10,
       bounds: null,
       center: {
-        lat: 49.2828082,
-        lng: -123.10668750000002,
+        lat: 49.2827291,
+        lng: -123.12073750000002,
       },
-      markers: []
+      markers: [],
     };
   }
   
@@ -106,6 +111,7 @@ class Map extends Component {
     const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
 
     this.setState({
+      zoom: 15,
       center: mapCenter,
     });
   }
@@ -143,6 +149,7 @@ class Map extends Component {
           markers={this.state.markers}
           events={this.props.events}
           onMarkerClick={this.handleMarkerClick}
+          zoom={this.state.zoom}
         />
         <SideBar          
           ref="sidebar"
