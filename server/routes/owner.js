@@ -35,7 +35,6 @@ module.exports = (dbHelper) => {
       .then(() => {
         res.redirect(`/owner/${req.app.locals.user.id}`)
       })
-
   })
 
   return router;
