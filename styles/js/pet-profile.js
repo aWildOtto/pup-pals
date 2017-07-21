@@ -5,7 +5,7 @@ $(document).ready(function(){
 
   $(".new-status textarea").on("input", function(event){
     var length = $(this).val().length;
-    var remaining = 100 - length;
+    var remaining = 140 - length;
     var $counter = $(this).parent().children('.counter');
     $counter.text(remaining);
     if (remaining < 0) {
@@ -15,22 +15,26 @@ $(document).ready(function(){
     }
   });
 
-  function createStatusElement(status) {
-    var $p = $('<p>', {class: 'rendered', text: status});
-    return $p;
+  function createStatusesElements(statuses) {
+    var $section = $('<section>')
+    statuses.forEach((status) => {
+      var $p = $('<p>', {class: 'rendered', text: status.content});
+      $section.prepend($p)
+    })
+    return $section;
   }
 
-  function renderStatus(statusData){
-    $('.status').empty();
-    var $newStatus = createStatusElement(statusData[0].status)
-    $('.status').prepend($newStatus);
+  function renderStatuses(statusesData){
+    $('.statuses').empty();
+    var $newStatuses = createStatusesElements(statusesData)
+    $('.statuses').prepend($newStatuses);
   }
 
-  function loadStatus(){
+  function loadStatuses(){
     $.ajax({
-      url: `/api/owner/${id}`
-    }).done(function(status){
-      renderStatus(status);
+      url: `/api/pet/${id}`
+    }).done(function(statuses){
+      renderStatuses(statuses);
     })
   }
 
@@ -41,20 +45,20 @@ $(document).ready(function(){
       alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
       return;
     } else if($inputLength > 140) {
-      alert('Whoa there friendo, your status is over 100 characters ◔_◔');
+      alert('Whoa there friendo, your status is over 140 characters ◔_◔');
       return;
     } else {
       $.ajax({
         method: 'POST',
-        url: '/api/owner/:id',
+        url: `/api/pet/${id}`,
         data: $(this).serialize()
       }).done(function(){
         $('.status-form textarea').val('');
-        loadStatus();
+        loadStatuses();
       });
     }
   });
 
-  loadStatus();
+  loadStatuses();
 
 })
