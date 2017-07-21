@@ -9,6 +9,22 @@ module.exports = (dbHelper) => {
     res.render("pet_register");
   });
 
+
+  router.post("/pet/new", (req, res) => {
+    if(!req.session.userID) {
+      res.redirect("/user/login");
+      return;
+    }
+    dbHelper.savePet(req.body, req.session.userID)
+    .then((result) => {
+      res.redirect(`/pet/${result}`);
+    })
+    .catch((errors) => {
+      console.log(errors);
+      res.status(404).render('404');
+    });
+  })
+
   router.get("/pet/:id", (req, res) => {
     const userPromise = dbHelper.getUserByPupId(req.params.id);
     const pupPromise = dbHelper.getPupsByIds(req.params.id);
@@ -39,21 +55,6 @@ module.exports = (dbHelper) => {
       .then(() => {
         res.redirect(`/pet/${req.params.id}`)
       })
-  })
-
-  router.post("/pet/new", (req, res) => {
-    if(!req.session.userID) {
-      res.redirect("/user/login");
-      return;
-    }
-    dbHelper.savePet(req.body, req.session.userID)
-    .then((result) => {
-      res.redirect(`/pet/${result}`);
-    })
-    .catch((errors) => {
-      console.log(errors);
-      res.status(404).render('404');
-    });
   })
 
 
