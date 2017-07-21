@@ -33,9 +33,8 @@
           <style>
             .pup-pic {width: 300px!important;}
           </style>
-          <% statuses.forEach ((status) => {%>
-            <p> <%= moment(status.created_at).format("ddd MMMM Do YYYY") %> <%= moment(status.created_at).format("h:mm a") %> <%= status.content %>
-          <% })%>
+          <div class='statuses'> </div>
+
           <% if (user && user.id == person[0].id) { %>
           <section class="new-status">
             <h2>Update pup's status</h2>

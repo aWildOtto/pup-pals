@@ -21,7 +21,7 @@
 
 <body>
   <% include partials/_navbar.ejs %>
-  <script>var status = <%- JSON.stringify(person.status) %></script>
+  <script>var id = <%- JSON.stringify(person.id) %></script>
   <div>
 
   </div>
@@ -46,6 +46,7 @@
           <div class="col-md-6 text-center">
             <% const owner = person %>
             <% include partials/_owner.ejs %>
+            <div class='status'></div>
             <style>
               .owner-avatar {width: 300px!important;}
             </style>
