@@ -1,13 +1,21 @@
 .navbar-custom {
-	background-color: $navbar-color;
+  background-color: rgba($navbar-color, 0);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
 	margin-bottom: 0px;
 	z-index: 1000;
 	border: none;
-	position: fixed;
-  border-bottom: solid;
+	position: fixed; 
   border-width:1px;
   border-bottom-color:#dddee1;
   font-family: Helvetica Neue;
+  &.small {
+    background-color: $navbar-color;
+    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+  }
+
 }
 .navbar-custom .navbar-brand {
 	font-size: 3em;
@@ -26,8 +34,8 @@
 }
 .navbar-custom .navbar-nav>li>a {
 	color: $navbar-text;
-    font-size: 15px;
-    font-family: 'Helvetica Neue', sans-serif;
+  font-size: 15px;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 .navbar-custom .navbar-nav>.active>a, .navbar-custom .navbar-nav>.active>a:hover, .navbar-custom .navbar-nav>.active>a:focus,
 .navbar-custom .navbar-nav>.open>a, .navbar-custom .navbar-nav>.open>a:hover, .navbar-custom .navbar-nav>.open>a:focus,
@@ -37,12 +45,12 @@
 .small .navbar-brand,.small .navbar-brand:hover{
 	color: #444  !important;
 }
-nav.small {
-   background-color: $navbar-color;
-   -moz-box-shadow: 0 2px 2px rgba(0,0,0,.1);
-   -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.1);
-   box-shadow: 0 2px 2px rgba(0,0,0,.1);
-}
+// nav.small {
+//    background-color: $navbar-color;
+//    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.1);
+//    -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.1);
+//    box-shadow: 0 2px 2px rgba(0,0,0,.1);
+// }
 
 .nav-default {
 	color: $navbar-text;
@@ -53,6 +61,11 @@ nav.small {
 
 .logo {
 	color: $navbar-text;
+}
+
+
+.small .navbar-nav>li>a {
+  color: $navbar-text;
 }
 
 .modal-backdrop {
@@ -69,3 +82,35 @@ nav.small {
   .modal-backdrop.in {
     opacity: 0.5;
     filter: alpha(opacity=50); }
+
+.slidero {
+	top: 50%;
+	transform: translateY(-50%); -moz-transform: translateY(-50%); -ms-transform: translateY(-50%); -o-transform: translateY(-50%); -webkit-transform: translateY(-50%);
+	position:absolute;
+	width:100%;
+	z-index:100;
+}
+
+.back-to-top {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    display: none;
+    text-align: center;
+    z-index: 10000;
+    -webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.back-to-top i {
+    color: $navbar-color;
+    font-size: 15px;
+    display: block;
+    line-height: 33px;
+}
+
+footer {
+    height: 60px;
+}

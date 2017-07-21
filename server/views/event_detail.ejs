@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="/styles/build/main.css" rel="stylesheet">
-  </head>
-  <body>
-    <script src="/socket.io/socket.io.js"></script>
-
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
+  <!-- Bootstrap core CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="/styles/build/main.css" rel="stylesheet">
+  <link href="/styles/css/style.css" rel="stylesheet">
+</head>
     <% include partials/_navbar.ejs %>
-
     <div id="map"></div>
     <div class="registerdiv">
       <img src=<%=mapUrl%>></img>
       <h1><%= events.title %></h1>
       <h3>Location: <%= events.location%></h3>
-      <h3>Time: <i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(events.date_time).format("dddd MMMM Do YYYY") %></h3>
+      <h3>Date: <i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(events.date_time).format("dddd MMMM Do YYYY") %></h3>
+       <h3>Time:<%= moment(events.date_time).format("h:mm a") %></h3>
       <h3>Description: <%= events.description %></p>
       <%if (events.event_restriction) { %>
         <h3><%= events.event_restriction%></h3>
@@ -36,17 +34,23 @@
         <%}%>
         <h4>~~~~Some kind of cut-off line~~~~~</h4>
       <% })%>
-
+      <% if (message) { %>
+        <p><%= message %></p>
+      <% } %>
+      <form action="/events/:id" method="POST" >
+          <input type="hidden" name="eventId" value="<%= id %>">
+          <button type="submit" class="btn btn-primary">RSVP</button>
+      </form>
       <div id="react-root">
-
       </div>
     </div>
 
     <% if (process.env.NODE_ENV === 'production') { %>
       <script src="/chatReact/chat.js"></script>
-    <% } else { %>
-      <script src="http://localhost:10001/chat.js"></script>
-    <% } %>
+      <% } else { %>
+        <script src="http://localhost:10001/chat.js"></script>
+      <% } %>
+      <% include partials/_footer.ejs %>
+</body>
 
-  </body>
 </html>

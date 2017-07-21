@@ -6,6 +6,12 @@ const bcrypt = require("bcrypt");
 module.exports = (knex) => {
   return{
 
+    makeOwnerStatus: (userId, content) => {
+      return knex.table('users')
+        .update({status: content})
+        .where({'id': userId})
+    },
+
     eventsForUser: (userId) => {
       const sq = () =>  knex('events')
         .leftOuterJoin('event_user', 'events.id', 'event_user.event_id')
