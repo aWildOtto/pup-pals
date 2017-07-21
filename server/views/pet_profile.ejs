@@ -8,12 +8,21 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-   <link href="/styles/css/style.css" rel="stylesheet">
+
   <link href="/styles/build/main.css" rel="stylesheet">
+  <link href="/styles/css/style.css" rel="stylesheet">
+  <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="/styles/js/pet-profile.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
+
 </head>
 
 <body>
   <% include partials/_navbar.ejs %>
+  <script>var id = <%- JSON.stringify(pup.id) %></script>
   <div class="registerdiv">
     <div class="container-fluid">
       <div class="row">
@@ -33,9 +42,8 @@
           <style>
             .pup-pic {width: 300px!important;}
           </style>
-          <% statuses.forEach ((status) => {%>
-            <p> <%= moment(status.created_at).format("ddd MMMM Do YYYY") %> <%= moment(status.created_at).format("h:mm a") %> <%= status.content %>
-          <% })%>
+          <div class='statuses'> </div>
+
           <% if (user && user.id == person[0].id) { %>
           <section class="new-status">
             <h2>Update pup's status</h2>

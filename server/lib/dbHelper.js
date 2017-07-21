@@ -6,6 +6,12 @@ const bcrypt = require("bcrypt");
 module.exports = (knex) => {
   return{
 
+    getUserStatus: (userId) => {
+      return knex.table('users')
+        .select('status')
+        .where({'id': userId})
+    },
+
     getPupStatuses: (pupId) => {
       return knex.table('pup_updates')
         .select()
