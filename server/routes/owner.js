@@ -9,12 +9,13 @@ module.exports = (dbHelper) => {
    const eventsPromise = dbHelper.eventsForUser(req.params.id);
    const userPromise = dbHelper.getUserByIds(req.params.id);
    const pupsPromise = dbHelper.getPupsByUserIds(req.params.id);
+   eventsPromise.then((results)=>{
+     console.log('events', results)})
    Promise.all([eventsPromise, userPromise, pupsPromise])
      .then((result) => {
        const events = result[0];
        const person = result[1][0];
        const pups = result[2];
-       console.log('person is', person.name)
        res.render("owner_profile", {
          person,
          events,
