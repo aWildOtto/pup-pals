@@ -19,7 +19,7 @@ $(document).ready(function(){
   function createStatusesElements(statuses) {
     var $section = $('<section>')
     statuses.forEach((status) => {
-      var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at, "YYYY-MM-DD")})
+      var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at).format("YYYY-MM-DD HH:mm")})
       var $textSpan = $('<span>', {class: 'status-text',text: status.content});
       var $div = $('<div>')
       $div.append($timeSpan).append($textSpan)
