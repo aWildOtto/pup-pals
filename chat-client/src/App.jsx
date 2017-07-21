@@ -35,9 +35,13 @@ class App extends Component {
 
   render(){
     return(
-      <div>
-        <MessageList messages = {this.state.messages}/>
-        <ChatBar addNewMessage={this.addNewMessage}/>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-6 col-md-3-offset">
+            <MessageList messages = {this.state.messages}/>
+            <ChatBar addNewMessage={this.addNewMessage}/>
+          </div>
+        </div>
       </div>
     );
   }

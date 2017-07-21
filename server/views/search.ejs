@@ -13,6 +13,7 @@
   <!-- Custom styles for this template -->
   <link href="/styles/build/main.css" rel="stylesheet">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq0Obk9dvvsHnE4vJit1vSuaNozXMMjBE&libraries=places"></script>
+   <link href="/styles/css/style.css" rel="stylesheet">
 </head>
 
 <body>   
@@ -24,6 +25,8 @@
   <% } else { %>
     <script src="http://localhost:10002/search.js"></script>
   <% } %>
+  <% include partials/_footer.ejs %>
 </body>
+
 
 </html>

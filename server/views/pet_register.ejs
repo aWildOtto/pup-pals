@@ -9,86 +9,105 @@
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="/styles/build/main.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+   <link href="/styles/css/style.css" rel="stylesheet">
 </head>
 
 <body>
   <% include partials/_navbar.ejs%>
-    <div class="registerdiv">
-      <h2>Pet Registration</h2>
-      <form method="POST" action="/pet/new" class="register-form">
-        <p>
-          <label for="url-input">Avatar URL:</label>
-          <input class="input url-input" type="text" name="avatar_url">
-        </p>
-        <p>
-          <label for="name-input">Name:</label>
-          <input class="input name-input" type="text" name="name">
-        </p>
-        <p>
-          <label for="breed-input">Breed:</label>
-          <input class="input breed-input" type="text" name="breed">
-        </p>
-        <p>
-          <label for="age-input">Age:</label>
-          <input class="input age-input" type="number" name="age">
-        </p>
-        <p>
-          <label for="temperament-input">Temperament:</label>
-          <input class="input temperament-input" type="text" maxlength="15" name="temperament">
-        </p>
-        <p>
-          <div class="col-md-1">
-            <label class="row">Sex:</label>
-          </div>
-          <div class="row">
-            <div class="col-md-1">
-              <label class="radio-inline">
+    <div class="container">
+      <div class="row">
+        <div class="registerdiv">
+          <div class="col-md-6 col-md-offset-3 well well-sm">
+            <h2><i class="fa fa-paw" aria-hidden="true"></i> Pet Registration</p>
+            </h2>
+            <form method="POST" action="/pet/new" class="register-form">
+              <p>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-address-book fa" aria-hidden="true"></i></span>
+                  <input class="form-control" type="text" name="avatar_url" placeholder="Avatar URL">
+                </div>
+              </p>
+              <p>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                  <input class="form-control" type="text" name="name" placeholder="Name">
+                </div>
+              </p>
+              <p>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-certificate" aria-hidden="true"></i></span>
+                  <input class="form-control" type="text" name="breed" placeholder="Breed">
+                </div>
+              </p>
+              <p>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></span>
+                  <input class="form-control" type="number" name="age" placeholder="Age">
+                </div>
+              </p>
+              <p>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-smile-o" aria-hidden="true"></i></span>
+                  <input class="form-control" type="text" maxlength="15" name="temperament" placeholder="Temperament">
+                </div>
+              </p>
+              <p>
+                <div class="col-md-1">
+                  <label class="row">Sex:</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-1">
+                    <label class="radio-inline">
               <input name="sex" id="input-sex-male" value="Male" type="radio" />Male</label>
-            </div>
-            <div class="col-md-1">
-              <label class="radio-inline">
+                  </div>
+
+                  <div class="col-md-1">
+                    <label class="radio-inline">
               <input name="sex" id="input-sex-female" value="Female" type="radio" />Female</label>
-            </div>
-          </div>
-        </p>
-        <p>
-          <div class="col-md-1">
-            <label class="row">Neutered:</label>
-          </div>
-          <div class="row">
-            <div class="col-md-1">
-              <label class="radio-inline">
+                  </div>
+                </div>
+              </p>
+              <p>
+                <div class="col-md-1">
+                  <label class="row">Neutered:</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-1">
+                    <label class="radio-inline">
               <input name="neutered" id="input-neutered" value="Yes" type="radio" />Yes</label>
-            </div>
-            <div class="col-md-1">
-              <label class="radio-inline">
+                  </div>
+                  <div class="col-md-1">
+                    <label class="radio-inline">
               <input name="neutered" id="input-neutered" value="No" type="radio" />No</label>
-            </div>
-          </div>
-        </p>
-        <p>
-          <div class="col-md-1">
-            <label class="row">Size:</label>
-          </div>
-          <div class="row">
-            <div class="col-md-1">
-              <label class="radio-inline">
+                  </div>
+                </div>
+              </p>
+              <p>
+                <div class="col-md-1">
+                  <label class="row">Size:</label>
+                </div>
+                <div class="row">
+                  <div class="col-md-1">
+                    <label class="radio-inline">
               <input name="size" id="input-size" value="small" type="radio" />Small</label>
-            </div>
-            <div class="col-md-1">
-              <label class="radio-inline">
+                  </div>
+                  <div class="col-md-1">
+                    <label class="radio-inline">
               <input name="size" id="input-size" value="medium" type="radio" />Medium</label>
-            </div>
-            <div class="col-md-1">
-              <label class="radio-inline">
+                  </div>
+                  <div class="col-md-1">
+                    <label class="radio-inline">
               <input name="size" id="input-size" value="large" type="radio" />Large</label>
-            </div>
+                  </div>
+                </div>
+              </p>
+              <button type="submit" class="btn btn-lg btn-primary btn-block">Sign Up</button>
+            </form>
           </div>
-        </p>
-        <button type="submit" class="formbtn">Submit</button>
-      </form>
+        </div>
+      </div>
     </div>
+    <% include partials/_footer.ejs %>
 </body>
 
 </html>
