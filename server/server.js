@@ -46,6 +46,7 @@ app.set('view engine', 'ejs');
 app.use('/styles', express.static('../styles/'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use('/searchReact', express.static('../search-client/build'));
 app.use('/chatReact', express.static('../chat-client/build'));
@@ -55,6 +56,7 @@ app.locals.user = null;//prepare the object for nav bar, add data to user when l
 app.get('/', (req, res) => {
   res.render('index');
 });
+
 
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));

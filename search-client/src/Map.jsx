@@ -27,10 +27,10 @@ const INPUT_STYLE = {
   opacity: `0.8`,
 };
 
-const SearchBoxExampleGoogleMap = withGoogleMap(props => (
+const SearchBoxGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={14}
+    zoom={props.zoom}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
   >
@@ -47,21 +47,28 @@ const SearchBoxExampleGoogleMap = withGoogleMap(props => (
       key={e.id}
       position={{ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }} 
       onClick={props.onMarkerClick}
+      icon={{
+        url: 'http://i.imgur.com/sWlsDsZ.png',
+        scaledSize : new google.maps.Size(55, 65)
+      }}
       /> })}
   </GoogleMap>
 ));
 
 class Map extends Component {
-
-  state = {
-    bounds: null,
-    center: {
-      lat: 49.2828082,
-      lng: -123.10668750000002,
-    },
-    markers: []
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      zoom: 10,
+      bounds: null,
+      center: {
+        lat: 49.2827291,
+        lng: -123.12073750000002,
+      },
+      markers: [],
+    };
+  }
+  
   handleMapMounted = this.handleMapMounted.bind(this);
   handleBoundsChanged = this.handleBoundsChanged.bind(this);
   handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
@@ -77,6 +84,15 @@ class Map extends Component {
       bounds: this._map.getBounds(),
       center: this._map.getCenter(),
     });
+    const bound_a = {
+      lat: this.state.bounds.f.b,
+      lng: this.state.bounds.b.b
+    }
+    const bound_b = {
+      lat: this.state.bounds.f.f,
+      lng: this.state.bounds.b.f
+    } 
+    this.props.locationFilter(bound_a, bound_b);
   }
 
   handleSearchBoxMounted(searchBox) {
@@ -93,14 +109,9 @@ class Map extends Component {
 
     // Set markers; set map center to first search result
     const mapCenter = markers.length > 0 ? markers[0].position : this.state.center;
-    
-    markers.forEach((marker) => {
-      const lat = marker.position.lat();
-      const lng = marker.position.lng();
-      console.log('lat: ' + lat + '\nlng: ' + lng)
-    })
 
     this.setState({
+      zoom: 15,
       center: mapCenter,
     });
   }
@@ -116,15 +127,13 @@ class Map extends Component {
       if (Math.abs(lat - event_lat) < threshold && Math.abs(lng - event_lng) < threshold) {
         this.refs.sidebar.toggleHidden(event);       
       }
-      //render the large details of that event   
     })
-    // console.log('lat: ' + lat + '\nlng: ' + lng)
   }
-
+ 
   render() {
     return (
       <div className="mapcontainer">
-        <SearchBoxExampleGoogleMap
+        <SearchBoxGoogleMap
           containerElement={
             <div style={{ height: '100%'}} />
           }
@@ -140,10 +149,14 @@ class Map extends Component {
           markers={this.state.markers}
           events={this.props.events}
           onMarkerClick={this.handleMarkerClick}
+          zoom={this.state.zoom}
         />
         <SideBar          
-          events={this.props.events}
           ref="sidebar"
+          events={this.props.events}
+          user={this.props.user}
+          fetchAppData={this.props.fetchAppData}
+          dates={this.props.dates}
         />
       </div>
     );
