@@ -17,17 +17,29 @@
   <div class="registerdiv">
     <div class="container-fluid">
       <div class="row">
-        <div class = "col-md-3">
+        <div class = "col-md-3 text-center">
+          <div class="left_sidebar">
           <%const owner = person[0]%>
           <% include partials/_owner.ejs%>
+          <hr>
+          <style>
+            .owner-avatar {width: 100px!important;}
+          </style> 
+
+          </div>
         </div>
         <div class="col-md-6 text-center">
           <% include partials/_puppy.ejs %>
+          <style>
+            .pup-pic {width: 300px!important;}
+          </style> 
         </div>
         <div class="col-md-3 text-right">
+          <div class="profile_sidebar">
           <%events.forEach((event) => {%>
             <% include partials/_event.ejs %>
           <%});%>
+          </div>
         </div>
       </div>
     </div>
