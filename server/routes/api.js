@@ -49,12 +49,12 @@ module.exports = (dbHelper) => {
       })
   });
 
-  router.get("/owner/pic/:id", (req, res) => {
+  router.get("/owner/edit/:id", (req, res) => {
 
 
   })
 
-  router.post("/owner/pic/:id", (req, res) => {
+  router.post("/owner/edit/:id", (req, res) => {
 
   })
 

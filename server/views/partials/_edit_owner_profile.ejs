@@ -1,0 +1,22 @@
+
+<form method="POST" action="/api/owner/edit/" class="edit-form form-group">
+  <p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-address-book fa" aria-hidden="true"></i></span>
+      <input class="form-control" type="text" name="avatar_url" placeholder="<%= owner.avatar_url%>">
+    </div>
+  </p>
+  <p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+      <input class="form-control" type="text" name="username" placeholder="<%= owner.username%>">
+    </div>
+  </p>
+  <p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+      <input class="form-control" type="text" name="name" placeholder="<%=owner.name%>">
+    </div>
+  </p>
+  <button type="submit" class="btn btn-lg btn-primary btn-block">Update </button>
+</form>

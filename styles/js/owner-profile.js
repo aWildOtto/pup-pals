@@ -1,8 +1,13 @@
 $(document).ready(function(){
 
-   console.log('running')
-
 //edit profile picture
+  $(".edit").on('click', function(event){
+    $('.owner-box').slideToggle('fast');
+    $('.status').slideToggle('fast');
+    $('.new-status').slideToggle('fast');
+    $('.edit-profile').slideToggle('fast');
+  });
+
 
 
 
