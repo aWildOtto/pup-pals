@@ -15,7 +15,7 @@
     -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
     box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
   }
-
+  height: 70px
 }
 .navbar-custom .navbar-brand {
 	font-size: 3em;
@@ -45,12 +45,6 @@
 .small .navbar-brand,.small .navbar-brand:hover{
 	color: #444  !important;
 }
-// nav.small {
-//    background-color: $navbar-color;
-//    -moz-box-shadow: 0 2px 2px rgba(0,0,0,.1);
-//    -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.1);
-//    box-shadow: 0 2px 2px rgba(0,0,0,.1);
-// }
 
 .nav-default {
 	color: $navbar-text;
