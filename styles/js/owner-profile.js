@@ -81,7 +81,7 @@ $(document).ready(function(){
   });
 
   function createStatusElement(status) {
-    var $p = $('<p>', {class: 'rendered', text: status});
+    var $p = $('<span>', {class: 'rendered', text: status});
     return $p;
   }
 

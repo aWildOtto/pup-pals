@@ -2,6 +2,19 @@ import React, {Component} from 'react';
 import Moment from 'react-moment';
 
 class Message extends Component {
+  
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView();
+  } 
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+  
   render(){
     console.log("the url is", this.props.avatar_url);
     return (
@@ -15,6 +28,8 @@ class Message extends Component {
           <small className="text-muted">{this.props.username} | <Moment format="ddd MMMM Do YYYY">{this.props.created_at}</Moment> at <Moment format="h:mm a">{this.props.created_at}</Moment></small>
           <hr />
         </div>
+        <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }} />
       </div>
     );
   }

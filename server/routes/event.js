@@ -141,7 +141,7 @@ module.exports = (dbHelper) => {
   });
   
   router.post('/:id', (req,res) => {
-    const user = req.app.locals.user;
+    const user = req.session.userID;
     if(user) {
       const userPromise = dbHelper.insertEventUser(req.body.eventId, user.id)
       const pupIdPromise = dbHelper.getPupsIdsByUserId(user.id)
