@@ -4,6 +4,7 @@
     <img class="pup-pic"src="<%= pup.avatar_url %>" style="width:200px">
       <h2><%= pup.name %></h2>
     </a>
+    <div class="pup-info">
     <p><%= pup.breed %></p>
     <p>Age: <%= pup.age %> yrs</p>
     <% if (pup.sex == 'male') {%>
@@ -16,5 +17,6 @@
     <% } else  { %>
       <p> Not Neutered </p>
     <% } %>
+    </div>
   </div>
 </div>
