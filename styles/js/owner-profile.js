@@ -2,7 +2,12 @@ $(document).ready(function(){
 
    console.log('running')
 
+//edit profile picture
 
+
+
+
+//post/render status
   $(".new-status textarea").on("input", function(event){
     var length = $(this).val().length;
     var remaining = 100 - length;

@@ -45,8 +45,14 @@
             </div>
           </div>
           <div class="col-md-6 text-center">
+
             <% const owner = person %>
             <% include partials/_owner.ejs %>
+            <% if (user && user.id == profileId) { %>
+             <div class="edit-profile">
+               <% include partials/_edit_owner_profile.ejs%>
+             <div>
+            <% } %>
             <div class='status'></div>
             <style>
               .owner-avatar {width: 300px!important;}
