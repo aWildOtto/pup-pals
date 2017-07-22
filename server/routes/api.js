@@ -49,12 +49,15 @@ module.exports = (dbHelper) => {
       })
   });
 
-  router.get("/owner/edit/:id", (req, res) => {
-
-
+  router.get("/owner/profile/:id", (req, res) => {
+    dbHelper.getUserByIds(req.params.id)
+      .then((results) => {
+        console.log(results, 'results')
+        res.json(results)
+      })
   })
 
-  router.post("/owner/edit/:id", (req, res) => {
+  router.post("/owner/profile/:id", (req, res) => {
 
   })
 
@@ -70,8 +73,8 @@ module.exports = (dbHelper) => {
 
   router.post("/pet/:id", (req, res) => {
     dbHelper.makePupStatus(req.params.id, req.body.text)
-      .then(() => {
-        res.redirect(`/pet/${req.params.id}`)
+      .then((results) => {
+        res.json(results)
       })
   });
 

@@ -16,7 +16,7 @@
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
   <script src="/styles/js/owner-profile.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/ca.js">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
 
 </head>
 
@@ -48,7 +48,8 @@
              <button class="edit btn">Update profile</button>
 
             <% const owner = person %>
-            <% include partials/_owner.ejs %>
+            <div class="profile">
+            </div>
 
              <div class="edit-profile">
                <% include partials/_edit_owner_profile.ejs%>

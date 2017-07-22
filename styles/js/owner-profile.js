@@ -8,8 +8,30 @@ $(document).ready(function(){
     $('.edit-profile').slideToggle('fast');
   });
 
+  function createProfileElements(profile) {
+    var $img = $("<img>", {class:"owner-avatar", src:profile.avatar_url});
+    var $h2 = $("<h2>", {class:"listContent",text: profile.username});
+    var $h4 = $("<h4>", {text: profile.name});
+    var $div = $("<div>", {class:"owner-box"});
+    $div.append($img).append($h2).append($h4);
+    return $div;
+  }
 
+  function renderProfile(profileData) {
+    $('.profile').empty()
+    var $profile = createProfileElements(profileData)
+    $('.profile').append($profile)
+  }
 
+  function loadProfile(){
+    $.ajax({
+      url: `/api/owner/profile/${id}`
+    }).done(function(profile){
+      renderProfile(profile[0]);
+    });
+  }
+
+  loadProfile()
 
 
 //post/render status
