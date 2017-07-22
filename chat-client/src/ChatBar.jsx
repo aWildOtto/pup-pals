@@ -6,7 +6,8 @@ class ChatBar extends Component {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = {
-      message: ''
+      message: '',
+      isHidden: true
     }
   }
 
@@ -23,18 +24,35 @@ class ChatBar extends Component {
   }
 
   addEmoji = (emoji) => {
-    console.log('caitlin', emoji);
     this.setState({
       message: this.state.message.concat(emoji)
     });
   }
 
+  toggleHidden = () => {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
+  }
   render(){
     return(
-      <footer className="">
-        <input value={this.state.message} placeholder={"Leave a message"} onChange={this.handleKeyPress} onKeyPress={this.handleKeyPress}/>
-        <Emoji addEmoji={this.addEmoji}/>
-      </footer>
+      <div className="row current-chat-footer">
+        <div className="panel-footer">
+          <div className="input-group">
+            <input 
+            type="text" 
+            className="form-control"
+            value={this.state.message} 
+            placeholder={"Leave a message"} 
+            onChange={this.handleKeyPress} 
+            onKeyPress={this.handleKeyPress}/>
+            <span className="input-group-btn" >
+              <button onClick={this.toggleHidden} className="btn btn-default emoji-toggle" type="button"><i className="fa fa-smile-o" aria-hidden="true"></i></button>
+            </span>
+          </div>
+            { !this.state.isHidden && <Emoji addEmoji={this.addEmoji}/> } 
+        </div>
+      </div>
     );
   }
 }

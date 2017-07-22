@@ -56,17 +56,19 @@
           </form>    
         </div>
         <div class="col-md-3 text-center">
-          <div class="right_sidebar">
-            <% if (message) { %>
-              <p><%= message %></p>
-            <% } %>
-            <div id="react-root">
+          <div class="detail_right_sidebar">
+            <div class="chat-container">
+              <% if (message) { %>
+                <p><%= message %></p>
+              <% } %>
+              <div id="react-root">
+              </div>
+              <% if (process.env.NODE_ENV === 'production') { %>
+                <script src="/chatReact/chat.js"></script>
+              <% } else { %>
+                <script src="http://localhost:10001/chat.js"></script>
+              <% } %>
             </div>
-            <% if (process.env.NODE_ENV === 'production') { %>
-              <script src="/chatReact/chat.js"></script>
-            <% } else { %>
-              <script src="http://localhost:10001/chat.js"></script>
-            <% } %>
           </div>
         </div>
       </div>
