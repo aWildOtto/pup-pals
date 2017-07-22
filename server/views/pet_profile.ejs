@@ -38,7 +38,13 @@
           </div>
         </div>
         <div class="col-md-6 text-center">
-          <% include partials/_puppy.ejs %>
+          <button class="edit btn">Update profile</button>
+          <button class="back btn">Back to profile</button>
+          <div class="edit-profile" style="display: none">
+          <% include partials/_edit_pet_profile.ejs %>
+          </div>
+          <div class="profile">
+          </div>
           <style>
             .pup-pic {width: 300px!important;}
           </style>

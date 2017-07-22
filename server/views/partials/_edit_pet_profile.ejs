@@ -1,0 +1,83 @@
+<form method="POST" action="/pet/new" class="edit-form">
+  <p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-address-book fa" aria-hidden="true"></i></span>
+      <input class="form-control" type="text" name="avatar_url" placeholder="<%= pup.avatar_url %>">
+    </div>
+  </p>
+  <p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+      <input class="form-control" type="text" name="name" placeholder="<%= pup.name %>">
+    </div>
+  </p>
+  <p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-certificate" aria-hidden="true"></i></span>
+      <input class="form-control" type="text" name="breed" placeholder="<%= pup.breed%>">
+    </div>
+  </p>
+  <p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></span>
+      <input class="form-control" type="number" name="age" placeholder="<%= pup.age%>">
+    </div>
+  </p>
+  <p>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="fa fa-smile-o" aria-hidden="true"></i></span>
+      <input class="form-control" type="text" maxlength="15" name="temperament" placeholder="<%= pup.temperament %>">
+    </div>
+  </p>
+  <p>
+    <div class="col-md-2">
+      <label class="row">Sex:</label>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label class="radio-inline">
+  <input name="sex" id="input-sex-male" value="Male" type="radio" />Male</label>
+      </div>
+
+      <div class="col-md-2">
+        <label class="radio-inline">
+  <input name="sex" id="input-sex-female" value="Female" type="radio" />Female</label>
+      </div>
+    </div>
+  </p>
+  <p>
+    <div class="col-md-2">
+      <label class="row">Neutered:</label>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label class="radio-inline">
+  <input name="neutered" id="input-neutered" value="Yes" type="radio" />Yes</label>
+      </div>
+      <div class="col-md-2">
+        <label class="radio-inline">
+  <input name="neutered" id="input-neutered" value="No" type="radio" />No</label>
+      </div>
+    </div>
+  </p>
+  <p>
+    <div class="col-md-2">
+      <label class="row">Size:</label>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <label class="radio-inline">
+  <input name="size" id="input-size" value="small" type="radio" />Small</label>
+      </div>
+      <div class="col-md-2">
+        <label class="radio-inline">
+  <input name="size" id="input-size" value="medium" type="radio" />Medium</label>
+      </div>
+      <div class="col-md-2">
+        <label class="radio-inline">
+  <input name="size" id="input-size" value="large" type="radio" />Large</label>
+      </div>
+    </div>
+  </p>
+  <button type="submit" class="btn btn-lg btn-primary btn-block">Update</button>
+</form>
