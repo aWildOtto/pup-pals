@@ -54,7 +54,6 @@ $(document).ready(function(){
       data: $(this).serialize()
     }).done(function(){
       loadProfile();
-      console.log('hello')
       $('.edit-form .input').val('');
       $('.edit-profile').slideToggle();
       $('.owner-box').slideToggle();

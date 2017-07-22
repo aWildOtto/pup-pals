@@ -12,6 +12,12 @@ module.exports = (knex) => {
         .where({'id': id})
     },
 
+    updatePupProfile: (id, profile) => {
+      return knex.table('pups')
+        .update(profile)
+        .where({'id': id})
+    },
+
     getUserStatus: (userId) => {
       return knex.table('users')
         .select('status')
@@ -22,6 +28,7 @@ module.exports = (knex) => {
       return knex.table('pup_updates')
         .select()
         .whereIn('pup_id', pupId)
+        .limit(5)
     },
 
     makeOwnerStatus: (userId, content) => {
