@@ -55,11 +55,15 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/owner/profile/:id", (req, res) => {
+    if(req.xhr) {
     dbHelper.getUserByIds(req.params.id)
       .then((results) => {
         console.log(results, 'results')
         res.json(results)
       })
+    } else {
+      res.render('404')
+    }
   })
 
   router.post("/owner/profile/:id", (req, res) => {
@@ -89,6 +93,35 @@ module.exports = (dbHelper) => {
         res.json(results)
       })
   });
+
+  router.get("/pet/profile/:id", (req, res) => {
+    // if(req.xhr) {
+    console.log(req.params.id)
+    dbHelper.getPupsByIds(req.params.id)
+      .then((results) => {
+        console.log(results, 'results')
+        res.json(results)
+      })
+    // } else {
+      // res.render('404')
+    // }
+  })
+
+  router.post("/pet/profile/:id", (req, res) => {
+    console.log(req.body)
+    dbHelper.getPupsByIds(req.params.id)
+      .then((results) => {
+        let avatar_url = req.body.avatar_url || results[0].avatar_url;
+        let name = req.body.name || results[0].name;
+        let breed = req.body.breed || results[0]. breed;
+        let size = req.body.size || results[0]. size;
+        let temperament = req.body.temperament || results[0]. temperament;
+        neutered,age,sex
+
+        dbHelper.updatePupProfile(req.params.id, req.body)
+          .then(()=> {res.sendStatus(204)})
+      })
+  })
 
 
   return router;

@@ -1,8 +1,86 @@
 
 $(document).ready(function(){
 
-   console.log('running')
+//profile update
 
+  $(".edit").on('click', function(){
+    $('.puppy-card').slideToggle('fast');
+    $('.statuses').slideToggle('fast');
+    $('.new-status').slideToggle('fast');
+    $('.edit-profile').slideToggle('fast');
+    $('.back').slideToggle('fast');
+    $('.edit').hide();
+  });
+
+  $(".back").on('click', function(event){
+    $('.puppy-card').slideToggle('fast');
+    $('.statuses').slideToggle('fast');
+    $('.new-status').slideToggle('fast');
+    $('.edit-profile').slideToggle('fast');
+    $('.back').hide();
+    $('.edit').slideToggle('fast');
+  });
+
+  function createProfileElements(profile) {
+
+    var sex = (profile.sex == "male") ? 'boy' : 'girl'
+    var neutered = (profile.neutered == true) ? 'Neutered': 'Not Neutered'
+
+    var $div1 = $("<div>", {class: "puppy-card"})
+    var $div2 = $("<div>", {class: "puppy-box"})
+
+    var $img = $("<img>", {class:"pup-pic", src:profile.avatar_url});
+    var $h2 = $("<h2>", {class:"listContent",text: profile.name});
+
+    var $div3 = $("<div>", {class:"pup-info"})
+
+    var $pBreed = $("<p>", {text:profile.breed})
+    var $pAge = $("<p>", {text: `${profile['age']} years old`})
+    var $pSex = $("<p>", {text: `${sex}`})
+    var $pNeutered = $("<p>", {text: `${neutered}`})
+
+    $div3.append($pBreed).append($pAge).append($pSex).append($pNeutered)
+    $div2.append($img).append($h2).append($div3)
+    $div1.append($div2)
+    return $div1;
+  }
+
+  function renderProfile(profileData) {
+    $('.profile').empty()
+    var $profile = createProfileElements(profileData)
+    $('.profile').append($profile)
+  }
+
+  function loadProfile(){
+    $.ajax({
+      url: `/api/pet/profile/${id}`
+    }).done(function(profile){
+      renderProfile(profile[0]);
+      console.log('watch me load')
+      console.log(profile[0].name)
+    });
+  }
+
+  loadProfile()
+
+  $('.edit-form').on('submit', function(event){
+    event.preventDefault();
+    $.ajax({
+      method:'POST',
+      url: `/api/pet/profile/${id}`,
+      data: $(this).serialize()
+    }).done(function(){
+      loadProfile()
+      $('.edit-form .input').val('');
+      $('.edit-profile').slideToggle();
+      $('.puppy-card').slideToggle();
+      $('.statuses').slideToggle();
+      $('.back').hide();
+      $('.edit').slideToggle();
+    })
+  })
+
+//status updates
 
   $(".new-status textarea").on("input", function(event){
     var length = $(this).val().length;
