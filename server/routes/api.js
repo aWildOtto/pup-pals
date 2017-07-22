@@ -12,7 +12,12 @@ module.exports = (dbHelper) => {
 
   router.get("/user", (req, res) => {
     if (req.xhr) {
-      res.json(req.app.locals.user);
+      console.log(req.session)
+      const user = {
+        id: req.session.userID,
+        username: req.session.username
+      }
+      res.json(user);
     } else {
       res.render('404');
     }
@@ -49,13 +54,23 @@ module.exports = (dbHelper) => {
       })
   });
 
-  router.get("/owner/pic/:id", (req, res) => {
-
-
+  router.get("/owner/profile/:id", (req, res) => {
+    dbHelper.getUserByIds(req.params.id)
+      .then((results) => {
+        console.log(results, 'results')
+        res.json(results)
+      })
   })
 
-  router.post("/owner/pic/:id", (req, res) => {
-
+  router.post("/owner/profile/:id", (req, res) => {
+    console.log(req.body)
+    dbHelper.getUserByIds(req.params.id)
+      .then((results) => {
+        let avatar_url = req.body.avatar_url || results[0].avatar_url;
+        let name = req.body.name || results[0].name;
+        dbHelper.updateOwnerProfile(req.params.id, avatar_url, name)
+          .then(()=> {res.sendStatus(204)})
+      })
   })
 
   router.get('/pet/:id', (req, res) => {
@@ -70,8 +85,8 @@ module.exports = (dbHelper) => {
 
   router.post("/pet/:id", (req, res) => {
     dbHelper.makePupStatus(req.params.id, req.body.text)
-      .then(() => {
-        res.redirect(`/pet/${req.params.id}`)
+      .then((results) => {
+        res.json(results)
       })
   });
 

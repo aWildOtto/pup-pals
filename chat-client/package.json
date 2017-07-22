@@ -17,6 +17,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "dotenv": "^4.0.0",
+    "emoji-mart": "^1.0.1",
     "react": "^15.6.1",
     "react-cookie": "^2.0.8",
     "react-dom": "^15.6.1",
