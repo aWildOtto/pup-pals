@@ -95,16 +95,16 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/pet/profile/:id", (req, res) => {
-    // if(req.xhr) {
+    if(req.xhr) {
     console.log(req.params.id)
     dbHelper.getPupsByIds(req.params.id)
       .then((results) => {
         console.log(results, 'results')
         res.json(results)
       })
-    // } else {
-      // res.render('404')
-    // }
+    } else {
+      res.render('404')
+    }
   })
 
   router.post("/pet/profile/:id", (req, res) => {
