@@ -11,45 +11,68 @@
   <link href="/styles/css/style.css" rel="stylesheet">
   <link href="/styles/build/main.css" rel="stylesheet">
 </head>
-    <% include partials/_navbar.ejs %>
-    <div id="map"></div>
-    <div class="registerdiv">
-      <img src=<%=mapUrl%>></img>
-      <h1><%= events.title %></h1>
-      <h3>Location: <%= events.location%></h3>
-      <h3>Date: <i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(events.date_time).format("dddd MMMM Do YYYY") %></h3>
-       <h3>Time:<%= moment(events.date_time).format("h:mm a") %></h3>
-      <h3>Description: <%= events.description %></p>
-      <%if (events.event_restriction) { %>
-        <h3><%= events.event_restriction%></h3>
-      <% } %>
-      <h3>Pup-pals coming</h3>
-      <% users.forEach((item) => {%>
-        <% include partials/_event_goer.ejs %>
-        <%if(item.pups.length != 0){%>
-          <p>And their pups</p>
-          <% item.pups.forEach((item) => {%>
-            <% include partials/_event_pup.ejs %>
-          <% })%>
-        <%}%>
-        <h4>~~~~Some kind of cut-off line~~~~~</h4>
-      <% })%>
-      <% if (message) { %>
-        <p><%= message %></p>
-      <% } %>
-      <form action="/events/:id" method="POST" >
-          <input type="hidden" name="eventId" value="<%= id %>">
-          <button type="submit" class="btn btn-primary">RSVP</button>
-      </form>
-      <div id="react-root">
+<body>
+  <% include partials/_navbar.ejs %>
+  <div class="event_detail_container">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <div class="left_sidebar">
+            <h3>Pup-pals attending</h3>
+            <div class="seperator"></div>            
+            <div>
+              <% users.forEach((item) => {%>
+                <% include partials/_event_goer.ejs %>
+                <%if(item.pups.length != 0){%>
+                  <p>And their pups</p>
+                  <% item.pups.forEach((item) => {%>
+                    <% include partials/_event_pup.ejs %>
+                  <% })%>
+                <%}%>
+              <div class="seperator"></div>
+              <% })%>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 text-left">
+          <img class="map" src=<%=mapUrl%> />
+          <h1><%= events.title %></h1>    
+          <div class="seperator"></div>          
+          <h3><i class="fa fa-calendar-o" aria-hidden="true"></i> Date: <%= moment(events.date_time).format("dddd MMMM Do YYYY") %></h3>
+          <div class="seperator"></div>
+          <h3><i class="fa fa-clock-o" aria-hidden="true"></i> Time: <%= moment(events.date_time).format("h:mm a") %></h3>
+          <div class="seperator"></div>          
+          <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Location: <%= events.location%></h3>
+          <div class="seperator"></div>          
+          <h3>Description: <%= events.description %></p>
+          <%if (events.event_restriction) { %>
+            <h3><%= events.event_restriction%></h3>
+          <% } %>
+          <div class="seperator"></div> 
+          <br>                   
+          <form class="detail-rsvp" action="/events/:id" method="POST" >
+              <input type="hidden" name="eventId" value="<%= id %>">
+              <button type="submit" class="btn btn-primary">RSVP</button>
+          </form>    
+        </div>
+        <div class="col-md-3 text-center">
+          <div class="detail_right_sidebar">
+            <div class="chat-container">
+              <% if (message) { %>
+                <p><%= message %></p>
+              <% } %>
+              <div id="react-root">
+              </div>
+              <% if (process.env.NODE_ENV === 'production') { %>
+                <script src="/chatReact/chat.js"></script>
+              <% } else { %>
+                <script src="http://localhost:10001/chat.js"></script>
+              <% } %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <% if (process.env.NODE_ENV === 'production') { %>
-      <script src="/chatReact/chat.js"></script>
-      <% } else { %>
-        <script src="http://localhost:10001/chat.js"></script>
-      <% } %>
+  </div>
 </body>
-
 </html>

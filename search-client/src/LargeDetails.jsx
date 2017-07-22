@@ -62,8 +62,8 @@ class LargeDetails extends Component {
         </div>
         <div className="largedetails-content">
           <div className="largedetails-section">
-            <span className="largedetails-date"><i className="fa fa-clock-o" aria-hidden="true"></i> <Moment format="ddd MMMM Do YYYY">{this.props.event.date_time}</Moment></span>
-            <span className="largedetails-time"><Moment format="h:mm a">{this.props.event.date_time}</Moment></span>
+            <span className="largedetails-date"><i className="fa fa-calendar-o" aria-hidden="true"></i> <Moment format="ddd MMMM Do YYYY">{this.props.event.date_time}</Moment></span>
+            <span className="largedetails-time"><i className="fa fa-clock-o" aria-hidden="true"></i> <Moment format="h:mm a">{this.props.event.date_time}</Moment></span>
             <span className="largedetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i> {this.props.event.location}</span>
             <br />
             <br />

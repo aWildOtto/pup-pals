@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import SearchBar from './SearchBar.jsx';
 import Map from './Map.jsx';
 import axios from 'axios';
+import Moment from 'moment';
+import momentRange from 'moment-range';
+import { extendMoment } from 'moment-range';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,12 +30,25 @@ class App extends React.Component {
  
     axios.all([getEvents(), getUser()])
       .then(axios.spread((events, user) => {
-        this.setState({events: events.data});
-        this.setState({user: user.data});
-        console.log("Events data from server:", events.data)        
-        console.log("User data from server:", user.data)
-      }));
-  }
+        let eventsData = events.data;
+        let userData = user.data;        
+        if(this.state.dates.startDate || this.state.dates.endDate) {
+          eventsData = eventsData.filter(event => {
+            const startDate = Moment(this.state.dates.startDate, "DD-MM-YYYY");
+            const endDate = Moment(this.state.dates.endDate, "DD-MM-YYYY");  
+            const eventDate = Moment(event.date_time.split('t')[0], 'YYYY-MM-DD');
+            const range = Moment().range(startDate, endDate);
+            return(range.contains(eventDate))
+          })
+        }
+          this.setState({
+            events: eventsData,
+            user: userData
+          });                
+        console.log("Events data from server:", eventsData)        
+        console.log("User data from server:", userData)
+      })); 
+  }    
 
   locationFilter = (bound_a, bound_b) => {
     return axios.get(`/api/events/radius?boundalat=${bound_a.lat}&boundalng=${bound_a.lng}&boundblat=${bound_b.lat}&boundblng=${bound_b.lng}`)
@@ -47,7 +63,7 @@ class App extends React.Component {
       this.setState({dates: {
         startDate: startDate,
         endDate: endDate
-      }})
+      }}, this.fetchData)
     } else {
       this.setState({dates: {
         startDate: "",

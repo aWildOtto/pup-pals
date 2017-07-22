@@ -1,0 +1,56 @@
+.event_detail_container {
+  padding-top: 120px
+}
+
+.detail_right_sidebar {
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+  position: fixed;
+  top: 70px;
+  right: 0;
+  bottom: 0px;
+  z-index: 100;
+  background: #fff;
+  left: auto;
+  display: block;
+  width: 380px;
+  overflow-y: auto;
+}
+
+.seperator {
+  border-bottom: 1px solid #ddd;
+}
+
+.detail-rsvp {
+  text-align: center
+}
+
+.chat-container {
+  margin-top: 30px;
+  padding-right: 10px;  
+}
+
+.current-chat-area {
+  max-width: 370px;
+  padding-top: 10px;
+  height: 10vh;
+}
+
+.current-chat-footer {
+  position: fixed;
+  bottom: 0;
+  max-width: 370px;
+}
+
+.pup-avatar {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.media-list {
+  padding-bottom: 20px;  
+}
+
+.emoji-toggle {
+  height: 34px;
+}

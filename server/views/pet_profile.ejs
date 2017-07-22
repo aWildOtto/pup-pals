@@ -16,13 +16,13 @@
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
   <script src="/styles/js/pet-profile.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" />
 
 </head>
 
 <body>
   <% include partials/_navbar.ejs %>
-  <script>var id = <%- JSON.stringify(pup.id) %></script>
+  <script>var id =  <%- JSON.stringify(pup.id) %></script>
   <div class="registerdiv">
     <div class="container-fluid">
       <div class="row">
@@ -32,7 +32,7 @@
           <% include partials/_owner.ejs%>
           <hr>
           <style>
-            .owner-avatar {width: 100px!important;}
+            .owner-avatar {width: 200px!important;}
           </style>
 
           </div>
@@ -55,11 +55,13 @@
           </section>
           <% } %>
         </div>
-        <div class="col-md-3 text-right">
-          <div class="profile_sidebar">
-          <%events.forEach((event) => {%>
-            <% include partials/_event.ejs %>
-          <%});%>
+        <div class="col-md-3 text-center">
+          <div class="right_sidebar">
+            <h3>Attending events </h3>
+            <div class="seperator"></div>
+            <% events.forEach((event) => { %>
+              <% include partials/_event.ejs %>
+            <% });%>
           </div>
         </div>
       </div>

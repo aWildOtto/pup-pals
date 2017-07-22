@@ -43,15 +43,16 @@ const SearchBoxGoogleMap = withGoogleMap(props => (
       inputStyle={INPUT_STYLE}
     />
     { props.events.map((e) => {
-      return <Marker 
-      key={e.id}
-      position={{ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }} 
-      onClick={props.onMarkerClick}
-      icon={{
-        url: 'http://i.imgur.com/sWlsDsZ.png',
-        scaledSize : new google.maps.Size(55, 65)
-      }}
-      /> })}
+        return <Marker 
+        key={e.id}
+        position={{ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }} 
+        onClick={props.onMarkerClick}
+        icon={{
+          url: 'http://i.imgur.com/sWlsDsZ.png',
+          scaledSize : new google.maps.Size(55, 65)
+        }}
+        /> 
+      })}
   </GoogleMap>
 ));
 

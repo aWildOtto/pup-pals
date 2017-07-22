@@ -11,8 +11,8 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/user", (req, res) => {
+    console.log(req.xhr)
     if (req.xhr) {
-      console.log(req.session)
       const user = {
         id: req.session.userID,
         username: req.session.username
