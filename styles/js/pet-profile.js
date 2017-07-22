@@ -23,7 +23,7 @@ $(document).ready(function(){
 
   function createProfileElements(profile) {
 
-    var sex = (profile.sex == "male") ? 'boy' : 'girl'
+    var sex = (profile.sex == "Male") ? 'Boy' : 'Girl'
     var neutered = (profile.neutered == true) ? 'Neutered': 'Not Neutered'
 
     var $div1 = $("<div>", {class: "puppy-card"})

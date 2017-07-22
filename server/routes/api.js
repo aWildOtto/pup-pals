@@ -111,14 +111,27 @@ module.exports = (dbHelper) => {
     console.log(req.body)
     dbHelper.getPupsByIds(req.params.id)
       .then((results) => {
+        console.log(results)
         let avatar_url = req.body.avatar_url || results[0].avatar_url;
         let name = req.body.name || results[0].name;
-        let breed = req.body.breed || results[0]. breed;
-        let size = req.body.size || results[0]. size;
-        let temperament = req.body.temperament || results[0]. temperament;
-        neutered,age,sex
-
-        dbHelper.updatePupProfile(req.params.id, req.body)
+        let breed = req.body.breed || results[0].breed;
+        let size = req.body.size || results[0].size;
+        let temperament = req.body.temperament || results[0].temperament;
+        let neutered = req.body.neutered || results[0].neutered;
+        let age = req.body.age || results[0].age;
+        let sex = req.body.sex || results[0].sex;
+        const pup = {
+          avatar_url,
+          name,
+          breed,
+          size,
+          temperament,
+          neutered,
+          age,
+          sex
+        }
+        console.log(pup)
+        dbHelper.updatePupProfile(req.params.id, pup)
           .then(()=> {res.sendStatus(204)})
       })
   })
