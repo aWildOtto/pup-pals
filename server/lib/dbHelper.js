@@ -6,6 +6,12 @@ const bcrypt = require("bcrypt");
 module.exports = (knex) => {
   return{
 
+    updateOwnerProfile: (id, avatar_url, name) => {
+      return knex.table('users')
+        .update({avatar_url, name})
+        .where({'id': id})
+    },
+
     getUserStatus: (userId) => {
       return knex.table('users')
         .select('status')
@@ -75,7 +81,7 @@ module.exports = (knex) => {
         .select ('events.*')
         .where({'event_user.user_id': id});
     },
-    
+
     getAllEvents: () => {
       return knex('events')
         .innerJoin('event_user', 'event_user.event_id', '=', 'events.id')
@@ -83,7 +89,7 @@ module.exports = (knex) => {
         .count("event_user.id as count")
         .groupBy('events.id');
     },
-    
+
     getEventUserIdByEventId: (event_id) => {
       return knex('event_user')
         .select('user_id')
@@ -248,7 +254,7 @@ module.exports = (knex) => {
           event_id
         });
     },
-    
+
     searchEventInABox: (bound_a_lat, bound_a_lng, bound_b_lat, bound_b_lng) => {
       bound_a_lat = parseFloat(bound_a_lat);
       bound_a_lng = parseFloat(bound_a_lng);
@@ -258,7 +264,7 @@ module.exports = (knex) => {
           select events.*, count(event_user.id) as count
           from events
           inner join event_user on event_user.event_id = events.id
-          where box '((${bound_a_lat}, ${bound_a_lng}), (${bound_b_lat}, ${bound_b_lng}))' 
+          where box '((${bound_a_lat}, ${bound_a_lng}), (${bound_b_lat}, ${bound_b_lng}))'
           @> point(events.latitude, events.longitude)
           group by events.id;
           `

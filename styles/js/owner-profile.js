@@ -1,11 +1,22 @@
 $(document).ready(function(){
 
-//edit profile picture
-  $(".edit").on('click', function(event){
+//edit profile
+  $(".edit").on('click', function(){
     $('.owner-box').slideToggle('fast');
     $('.status').slideToggle('fast');
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
+    $('.back').slideToggle('fast');
+    $('.edit').hide();
+  });
+
+  $(".back").on('click', function(event){
+    $('.owner-box').slideToggle('fast');
+    $('.status').slideToggle('fast');
+    $('.new-status').slideToggle('fast');
+    $('.edit-profile').slideToggle('fast');
+    $('.back').hide();
+    $('.edit').slideToggle('fast');
   });
 
   function createProfileElements(profile) {
@@ -28,10 +39,32 @@ $(document).ready(function(){
       url: `/api/owner/profile/${id}`
     }).done(function(profile){
       renderProfile(profile[0]);
+      console.log('watch me load')
+      console.log(profile[0].name)
     });
   }
 
   loadProfile()
+
+  $('.edit-form').on('submit', function(event) {
+    event.preventDefault();
+    $.ajax({
+      method: 'POST',
+      url: `/api/owner/profile/${id}`,
+      data: $(this).serialize()
+    }).done(function(){
+      loadProfile();
+      console.log('hello')
+      $('.edit-form .input').val('');
+      $('.edit-profile').slideToggle();
+      $('.owner-box').slideToggle();
+      $('.status').slideToggle();
+      $('.new-status').slideToggle();
+      $('.back').hide();
+      $('.edit').slideToggle();
+    })
+  })
+
 
 
 //post/render status
