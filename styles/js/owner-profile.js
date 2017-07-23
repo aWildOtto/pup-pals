@@ -2,7 +2,7 @@ $(document).ready(function(){
   function createProfileElements(profile) {
     var $img = $("<img>", {class:"owner-avatar", src:profile.avatar_url});
     var $h2 = $("<h2>", {class:"listContent",text: profile.username});
-    var $h4 = $("<h4>", {text: profile.name});
+    var $h4 = $("<h4>", {class:"owner-name",text: profile.name});
     var $div = $("<div>", {class:"owner-box"});
     $div.append($img).append($h2).append($h4);
     return $div;
