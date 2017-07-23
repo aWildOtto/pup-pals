@@ -2,7 +2,7 @@ $(document).ready(function(){
   function createProfileElements(profile) {
     var $img = $("<img>", {class:"owner-avatar", src:profile.avatar_url});
     var $h2 = $("<h2>", {class:"listContent",text: profile.username});
-    var $h4 = $("<h4>", {text: profile.name});
+    var $h4 = $("<h4>", {class:"owner-name",text: profile.name});
     var $div = $("<div>", {class:"owner-box"});
     $div.append($img).append($h2).append($h4);
     return $div;
@@ -87,7 +87,7 @@ $(document).ready(function(){
     var length = $(this).val().length;
     var remaining = 100 - length;
     var $counter = $(this).parent().children('.counter');
-    $counter.text(remaining);
+    $counter.text(remaining);    
     if (remaining < 0) {
       $counter.addClass('changeRed');
     } else {

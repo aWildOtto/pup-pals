@@ -8,7 +8,6 @@
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
   <!-- Bootstrap core CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-  <link href="/styles/css/style.css" rel="stylesheet">
   <link href="/styles/build/main.css" rel="stylesheet">
   <link rel="icon" href="/styles/pictures/dog-paw.png" type="image/png">
 </head>
@@ -58,7 +57,7 @@
             </form>    
           <%}else{%>
             <form class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
-              <button type="submit" class="btn btn-primary">Cancel</button>
+              <button type="submit" class="btn btn-danger">Cancel</button>
             </form>    
           <%}%>
         </div>
