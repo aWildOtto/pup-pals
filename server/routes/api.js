@@ -39,9 +39,9 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/owner/:id", (req, res) => {
-    dbHelper.makeOwnerStatus(req.app.locals.user.id, req.body.text)
+    dbHelper.makeOwnerStatus(res.locals.user.id, req.body.text)
       .then(() => {
-        res.redirect(`/owner/${req.app.locals.user.id}`)
+        res.redirect(`/owner/${res.locals.user.id}`)
       })
   });
 

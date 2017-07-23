@@ -51,9 +51,13 @@ app.use(bodyParser.json());
 app.use('/searchReact', express.static('../search-client/build'));
 app.use('/chatReact', express.static('../chat-client/build'));
 
-app.locals.user = null;//prepare the object for nav bar, add data to user when logged in and signed up
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
 
 app.get('/', (req, res) => {
+  console.log(res.locals.user);
   res.render('index');
 });
 
@@ -106,7 +110,7 @@ io.on('connection', function (socket) {
             message:data.message,
             username: socket.handshake.session.username,
             id:id[0],
-            avatar_url: app.locals.user.avatar_url
+            avatar_url: socket.handshake.session.avatar_url
           });
       });
     }else{
