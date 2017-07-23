@@ -7,11 +7,11 @@ const bcrypt = require("bcrypt");
 
 module.exports = (dbHelper) => {
 
-  router.get("/login", (req, res) => {
+  router.get('/login', (req, res) => {
     res.render('login', {error: null});
   });
 
-  router.post("/login", (req, res) => {
+  router.post('/login', (req, res) => {
     console.log(req.body);
     dbHelper.getUserByEmail(req.body.email)
     .then((result)=>{

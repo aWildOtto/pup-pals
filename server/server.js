@@ -12,6 +12,7 @@ const bodyParser  = require("body-parser");
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
+const aws = require('aws-sdk');
 const knexLogger = require('knex-logger');
 const uuid = require('uuid');
 const eventRoutes = require("./routes/event");
@@ -28,14 +29,20 @@ const session = require("express-session")({
 });
 const sharedsession = require("express-socket.io-session");
 
+const S3_BUCKET = process.env.S3_BUCKET;
+
 // Use express-session middleware for express
 app.use(session);
 
 // Use shared session middleware for socket.io
 // setting autoSave:true
 io.use(sharedsession(session, {
-    autoSave:true
+    reSave:true,
+    secret: "my-secret-is-no-secret",
+    saveUninitialized: true
 }));
+
+
 
 app.use(morgan('dev'));
 
@@ -43,7 +50,7 @@ app.use(knexLogger(knex));
 
 app.set('view engine', 'ejs');
 
-app.use('/styles', express.static('../styles/'));
+app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -54,9 +61,10 @@ app.use('/chatReact', express.static('../chat-client/build'));
 app.locals.user = null;//prepare the object for nav bar, add data to user when logged in and signed up
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render(__dirname + '/public/views/index');
 });
 
+app.set('views','./public/views');
 
 app.use("/events", eventRoutes(dbHelper));
 app.use("/user", userRoutes(dbHelper));
@@ -67,6 +75,32 @@ app.use("/api", apiRoutes(dbHelper));
 io.set('authorization', function (handshakeData, callback) {
   // console.log(handshakeData, 'is handshakeData')
   callback(null, true);
+});
+
+app.get('/sign-s3', (req, res) => {
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
 });
 
 let userCount = 0;

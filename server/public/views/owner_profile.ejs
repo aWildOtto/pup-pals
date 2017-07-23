@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title><%= person.username %></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap core CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
+  <link href="/styles/style.css" rel="stylesheet">
+  <link href="/styles/main.css" rel="stylesheet">
+  <script
+    src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+  <script src="/scripts/owner-profile.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <link rel="icon" href="/styles/pictures/dog-paw.png" type="image/png">
+</head>
+
+<body>
+  <% include partials/_navbar.ejs %>
+  <script>var id = <%- JSON.stringify(person.id) %>;</script>
+    <div class="registerdiv">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 text-center">
+            <div class="left_sidebar">
+              <% pups.forEach(function(item){ %>
+                <% const pup = item; %>
+                  <a href="/pet/<%=pup.id%>">
+                    <img class="pup-pic"src="<%= pup.avatar_url %>" style="width:100px">
+                    <h2><%= pup.name %></h2>
+                  </a>
+                  <hr>
+                  <% }) %>
+              <%if(user && user.id == profileId){%>
+                <a href="/pet/new">Add New Pups</a>
+              <%}%>
+            </div>
+          </div>
+          <div class="col-md-6 text-center">
+          <%if(user && user.id == profileId){%>
+             <button class="edit btn">Update profile</button>
+             <button class="back btn">Back to profile</button>
+          <%}%>
+            <div class="profile">
+            </div>
+             <%if(user && user.id == profileId){%>
+             <div class="edit-profile">
+               <% include partials/_edit_owner_profile.ejs%>
+             </div>
+             <%}%>
+            <i class="fa quote fa-quote-left" aria-hidden="true"></i>
+            &nbsp;&nbsp;
+            <i class='status'></i>
+            &nbsp;&nbsp;
+            <i class="fa quote fa-quote-right" aria-hidden="true"></i>
+            <style>
+              .owner-avatar {width: 300px!important;}
+            </style>
+            <% if (user && user.id == profileId) { %>
+            <section class="new-status">
+              <h2>Update your status</h2>
+              <form class="status-form" method="POST" action= "/owner/<%= person.id %>">
+                <textarea name="text" placeholder="Ehhh What's up Doc?"></textarea>
+                <input type="submit" value="Update">
+                <span class="counter">100</span>
+              </form>
+            </section>
+            <% } %>
+          </div>
+
+          <div class="col-md-3 text-center">
+            <div class="right_sidebar">
+              <h3>Attending events </h3>
+              <div class="seperator"></div>
+                <% events.forEach (function(event){ %>
+                  <% include partials/_event.ejs %>
+                <% }) %>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
