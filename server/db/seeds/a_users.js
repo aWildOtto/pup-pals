@@ -4,62 +4,136 @@ exports.seed = function(knex, Promise) {
   return knex('users').del()
     .then(function () {
       return Promise.all([
-        knex('users').insert({id: 1,
-          username: 'Fluffers',
-          name: 'Bunny Fluffyface',
-          email: 'fluffyface@gmail.com',
+        knex('users').insert({
+          username: 'nikki915',
+          name: 'Nikki Seidel',
+          email: 'nikkis@gmail.com',
           password: bcrypt.hashSync('123', 10),
-          status: 'Looking for a pup-pal for my pup-pal.',
-          avatar_url: 'http://t12.deviantart.net/ATRNlWu5I22v95V2GRGNyF2B6xM=/fit-in/700x350/filters:fixed_height(100,100):origin()/pre06/c01e/th/pre/f/2016/231/e/5/bunny_emoticon_2_by_kiimarie-dael0o8.png'
+          status: 'Looking for a new puppy! Let me know if you know of anyone selling!!',
+          avatar_url: '/styles/pictures/nikki.jpg'
+        })
+        .returning((id) => {
+          knex('pups').insert({
+            user_id: id,
+            breed: 'Bull Terrier',
+            size: 'Medium',
+            temperament: 'Playful',
+            neutered: true,
+            age: '1',
+            avatar_url: '/styles/pictures/bull.jpg',
+            name: 'Tucker',
+            sex: 'male'
+          })
+          .then(()=> {
+            knex('pups').insert({
+                user_id: id,
+                breed: 'Boston Terrier',
+                size: 'Small',
+                temperament: 'Energetic',
+                neutered: true,
+                age: '3',
+                avatar_url: '/styles/pictures/boston.jpg',
+                name: 'Brodie',
+                sex: 'male'
+              });
+            })
         }),
-        knex('users').insert({id: 2,
-          username: 'DV',
-          name: 'David van Dusen',
-          email: 'davidvandusen@gmail.com',
+        knex('users').insert({
+          username: 'ottoMatic',
+          name: 'Otto Hu',
+          email: 'ottohu@gmail.com',
           password: bcrypt.hashSync('123', 10),
-          status: 'Pugface is looking for a pup party!',
-          avatar_url: 'https://s-media-cache-ak0.pinimg.com/736x/8b/cd/29/8bcd29ea00df24c2ae478886989a82a5--ice-bear-cartoon-bear-mascot.jpg'
+          status: 'Darn dogs',
+          avatar_url: '/styles/pictures/otto.jpg'
+        })
+        .returning((id) => {
+          knex('pups').insert({
+          user_id: id,
+          breed: 'Husky',
+          size: 'Medium-Large',
+          temperament: 'Cheerful',
+          neutered: true,
+          age: '5',
+          avatar_url:'/styles/pictures/husky.jpg',
+          name: 'Molly',
+          sex: 'female'
         }),
-        knex('users').insert({id: 3,
-          username: 'Rosy',
-          name: 'Rosy Lee',
-          email: 'rosylee@gmail.com',
+        })
+
+        knex('users').insert({
+          username: 'caitlinquon',
+          name: 'Caitlin Quon',
+          email: 'caitlin.quon@gmail.com',
           password: bcrypt.hashSync('123', 10),
-          status: 'Boop all the snoots!',
-          avatar_url: 'https://lighthouselabs.ca/uploads/team_member/avatar/77/medium_rosy_2x.jpg'
+          status: 'Looking forward to National Dog Day!',
+          avatar_url: '/styles/pictures/caitlin.jpg'
         }),
         knex('users').insert({id: 4,
-          username: 'Lyla',
-          name: 'Lyla Barret',
-          email: 'lylabarret@gmail.com',
+          username: 'donaldma',
+          name: 'Donald Ma',
+          email: 'donaldma@gmail.com',
           password: bcrypt.hashSync('123', 10),
           status: 'Cannot wait for my pups birthday party',
-          avatar_url: 'https://s-media-cache-ak0.pinimg.com/236x/b0/90/2d/b0902dfc80e18605421edf58e8f3e0e0--best-eyeglasses-glasses-frames.jpg'
+          avatar_url: '/styles/pictures/donald.jpg'
         }),
         knex('users').insert({id: 5,
-          username: 'Emma',
-          name: 'Emma Johnson',
-          email: 'emmajohnson@gmail.com',
+          username: 'tizhang',
+          name: 'Ti Zhang',
+          email: 'tizhng@gmail.com',
           password: bcrypt.hashSync('123', 10),
-          status: 'Looking for some golden retriever pups to play with Gizmo',
-          avatar_url: 'https://c1.staticflickr.com/6/5252/5403292396_0804de9bcf_b.jpg'
+          status: 'Had a great time at the sunset beach meetup!',
+          avatar_url: '/styles/pictures/ti.jpg'
         }),
         knex('users').insert({id: 6,
-          username: 'Matt',
+          username: 'mattyb',
           name: 'Matt Baxley',
           email: 'mbaxley@gmail.com',
           password: bcrypt.hashSync('123', 10),
           status: 'Just went to my first meetup with Jack, so fun!!',
-          avatar_url: 'http://thetrashcan.co/wp-content/uploads/2016/05/election.jpg'
+          avatar_url: '/styles/pictures/david.jpg'
         }),
         knex('users').insert({id: 7,
-          username: 'Chad',
-          name: 'Chad Bohlman',
-          email: 'chadbohlman@gmail.com',
+          username: 'alicat',
+          name: 'Alison Johnson',
+          email: 'alijohnson@gmail.com',
           password: bcrypt.hashSync('123', 10),
           status: 'Going to the park with my puppy',
-          avatar_url: 'http://thetrashcan.co/wp-content/uploads/2016/05/election.jpg'
-        })
+          avatar_url: '/styles/pictures/morgan.jpg'
+        }),
+        knex('users').insert({id: 8,
+          username: 'alecthom',
+          name: 'Alec Thompson',
+          email: 'alecthompson@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Found out my pup Sasha is going to be having puppies! So excited :)',
+          avatar_url: '/styles/pictures/alec.jpg'
+        }),
+          knex('users').insert({id: 9,
+          username: 'emmab024',
+          name: 'Emma Barret',
+          email: 'emmab@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Taking my pups to the beach today. They cannot wait!',
+          avatar_url: '/styles/pictures/emma.jpg'
+        }),
+          knex('users').insert({id: 10,
+          username: 'benk',
+          name: 'Ben Kaster',
+          email: 'benk@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Met soo many nice pups at the meetup last weekend!',
+          avatar_url: '/styles/pictures/mike.jpg'
+        }),
+          knex('users').insert({id: 11,
+            username: 'aishaaa',
+            name: 'Aisha Ramachandran',
+            email: 'aisha@gmail.com',
+            password: bcrypt.hashSync('123', 10),
+            status: 'Looking for owners that love a game of fooseball!',
+            avatar_url: '/styles/pictures/aisha.jpg'
+          })
+        
+        
       ]);
     });
 };
