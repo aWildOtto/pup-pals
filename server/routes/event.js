@@ -119,28 +119,10 @@ module.exports = (dbHelper) => {
     const user_id = req.session.userID;
     if(user_id) {
       const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
-      if(req.body.cancel){//cancel rsvp
-        const userCancelPromise = dbHelper.cancelRSVP(req.body.eventId, user_id);
-        const cancelPupPromise = pupIdPromise
-          .then((pupIds) => {
-            pupIds.forEach((pupId) => {
-              dbHelper.deleteEventPups(pupId.id, req.body.eventId).then(()=>{
-                return;
-              });
-            });
-        });
-        Promise.all([userCancelPromise, cancelPupPromise])
-        .then(() => {
-          res.redirect('back');
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      }
-      const userPromise = dbHelper.insertEventUser(req.body.eventId, user_id);
+      const userPromise = dbHelper.insertEventUser(req.params.id, user_id);
       const insertPupPromise = pupIdPromise.then((pupIds) => {
         pupIds.forEach((pupId) => {
-          dbHelper.insertEventPups(pupId.id, req.body.eventId).then(() => {
+          dbHelper.insertEventPups(pupId.id, req.params.id).then(() => {
             return;
           })
         })
@@ -155,6 +137,33 @@ module.exports = (dbHelper) => {
     } else {
       res.redirect('/user/login');
     }
-  })
+  });
+
+  router.post('/:id/cancel', (req, res, next) => {
+    const user_id = req.session.userID;
+    if(user_id) {
+      console.log(user_id, "and shit");
+      console.log(req.params.id, "and shit");
+      const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
+      const userCancelPromise = dbHelper.cancelRSVP(req.params.id, user_id);
+      const cancelPupPromise = pupIdPromise
+        .then((pupIds) => {
+          pupIds.forEach((pupId) => {
+            dbHelper.deleteEventPups(pupId.id, req.params.id).then(()=>{
+              return;
+            });
+          });
+      });
+      Promise.all([userCancelPromise, cancelPupPromise])
+      .then(() => {
+        res.redirect('back');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }else{
+      res.json('cancel failed');
+    }
+  });
   return router;
 }
