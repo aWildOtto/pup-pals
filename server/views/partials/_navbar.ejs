@@ -29,11 +29,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
           <li><a href="/events"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></a></li>
-          <li><a href='#' class="create_event"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></a></li>
           <% if(!user){%>
+            <li><a href='/user/login' class="create_event"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></a></li>
             <li><a href="/user/login">Login</a></li>
             <li><a href="/user/signup">Sign Up</a></li>
           <%}else{%>
+            <li><a href='#' class="create_event"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></a></li>
             <li>
               <a href="/owner/<%=user.id%>">
               <img src="<%=user.avatar_url%>" style="width:20px; height:20px">
