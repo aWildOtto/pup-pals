@@ -45,3 +45,18 @@
 .btn-primary {
   background-color: $accent-color;
 }
+
+a.error-link {
+  color: white;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.error-btn {
+  border-radius: 25px;
+}
+
+.oops{
+  
+  font-size: 150px;
+}
