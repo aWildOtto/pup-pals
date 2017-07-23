@@ -58,8 +58,6 @@ $(document).ready(function(){
       url: `/api/pet/profile/${id}`
     }).done(function(profile){
       renderProfile(profile[0]);
-      console.log('watch me load')
-      console.log(profile[0].name)
     });
   }
 
