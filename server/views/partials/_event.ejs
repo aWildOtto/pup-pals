@@ -14,9 +14,8 @@
     <div class="smalldetails-footer">
       <span class="smalldetails-rsvp">
       <% if (user) { %>
-      <form action="/events/:id" method="POST" >
-          <input type="hidden" name="eventId" value="<%= event.id %>">
-          <button type="submit" class="btn btn-primary">RSVP</button>
+      <form action="/events/<%=event.id%>/cancel" method="POST" >
+          <button type="submit" class="btn btn-primary">CANCEL</button>
       </form>
       </span>
       <span class="smalldetails-calender">

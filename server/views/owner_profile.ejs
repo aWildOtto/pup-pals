@@ -37,7 +37,7 @@
                   <hr>
                   <% }) %>
               <%if(user && user.id == profileId){%>
-                <a href="/pet/new">Add New Pups</a>
+                <a href="/pet/new"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add New Pups</a>
               <%}%>
             </div>
           </div>
@@ -53,11 +53,13 @@
                <% include partials/_edit_owner_profile.ejs%>
              </div>
              <%}%>
-            <i class="fa quote fa-quote-left" aria-hidden="true"></i>
-            &nbsp;&nbsp;
-            <i class='status'></i>
-            &nbsp;&nbsp;            
-            <i class="fa quote fa-quote-right" aria-hidden="true"></i>          
+             <div id="statusBox">
+              <i class="fa quote fa-quote-left" aria-hidden="true"></i>
+              &nbsp;&nbsp;
+              <i class='status'></i>
+              &nbsp;&nbsp;            
+              <i class="fa quote fa-quote-right" aria-hidden="true"></i>          
+             </div>
             <style>
               .owner-avatar {width: 300px!important;}
             </style>
@@ -77,9 +79,13 @@
             <div class="right_sidebar">
               <h3>Attending events </h3>
               <div class="seperator"></div>
-                <% events.forEach (function(event){ %>
-                  <% include partials/_event.ejs %>
-                <% }) %>
+                <%if(events.length>0){%>
+                  <% events.forEach (function(event){ %>
+                    <% include partials/_event.ejs %>
+                  <% }) %>
+                <%}else{%>
+                  <p>None</p>
+                <%}%>
             </div>
           </div>
 

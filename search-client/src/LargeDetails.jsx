@@ -14,7 +14,7 @@ class LargeDetails extends Component {
     return axios.get(`/api/attend/${this.props.event.id}`) 
       .then((response) => {
         this.setState({user_going: response.data});
-        if(this.props.user){
+        if(this.props.user.id){
           let users_going = this.state.user_going;
           users_going.forEach((user) => {
             if(this.props.user.id === user.user_id){

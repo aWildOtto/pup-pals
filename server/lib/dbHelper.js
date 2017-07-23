@@ -70,9 +70,6 @@ module.exports = (knex) => {
         .where({'event_pup.pup_id': id});
     },
 
-    getAllEvents: () => {
-      return knex.select().from('events');
-    },
 
     getEventDetailsByEventId: (id) => {
       return knex('events')
@@ -180,10 +177,19 @@ module.exports = (knex) => {
     },
 
     insertEventUser: (event_id, user_id) => {
-      return knex.table('event_user'). insert({
+      return knex.table('event_user').insert({
         event_id: event_id,
         user_id: user_id
       });
+    },
+
+    cancelRSVP:  (event_id, user_id) => {
+      return knex.table('event_user')
+              .where({
+                event_id: event_id,
+                user_id: user_id
+              })
+              .del();
     },
 
     getPupsIdsByUserId: (user_id) =>{
@@ -197,6 +203,12 @@ module.exports = (knex) => {
         pup_id: pup_id,
         event_id: event_id
       });
+    },
+    deleteEventPups: (pup_id, event_id) => {
+      return knex.table('event_pup').where({
+        pup_id: pup_id,
+        event_id: event_id
+      }).del();
     },
 
     saveMessage: (content, user_id, event_id) => {
@@ -252,14 +264,6 @@ module.exports = (knex) => {
         .leftJoin('users','event_posts.user_id', '=', 'users.id')
         .select('users.username', 'users.avatar_url', 'event_posts.*')
         .where({'event_posts.event_id': event_id});
-    },
-
-    rsvpToEvent: (user_id, event_id) => {
-      return knex('event_user')
-        .insert({
-          user_id,
-          event_id
-        });
     },
 
     searchEventInABox: (bound_a_lat, bound_a_lng, bound_b_lat, bound_b_lng) => {

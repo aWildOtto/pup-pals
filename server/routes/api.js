@@ -11,16 +11,11 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/user", (req, res) => {
-    console.log(req.xhr)
-    if (req.xhr) {
-      const user = {
-        id: req.session.userID,
-        username: req.session.username
-      }
-      res.json(user);
-    } else {
-      res.render('404');
+    const user = {
+      id: req.session.userID,
+      username: req.session.username
     }
+    res.json(user);
   });
 
   router.get("/attend/:id", (req, res) => {
@@ -38,13 +33,9 @@ module.exports = (dbHelper) => {
   });
 
   router.get('/owner/:id', (req, res) => {
-    if (req.xhr) {
-      dbHelper.getUserStatus(req.params.id).then((results) => {
-        res.json(results);
-      })
-    } else {
-      res.render('404');
-    }
+    dbHelper.getUserStatus(req.params.id).then((results) => {
+      res.json(results);
+    })
   });
 
   router.post("/owner/:id", (req, res) => {
@@ -55,15 +46,11 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/owner/profile/:id", (req, res) => {
-    if(req.xhr) {
     dbHelper.getUserByIds(req.params.id)
       .then((results) => {
         console.log(results, 'results')
         res.json(results)
       })
-    } else {
-      res.render('404')
-    }
   })
 
   router.post("/owner/profile/:id", (req, res) => {
@@ -74,17 +61,14 @@ module.exports = (dbHelper) => {
         let name = req.body.name || results[0].name;
         dbHelper.updateOwnerProfile(req.params.id, avatar_url, name)
           .then(()=> {res.sendStatus(204)})
-      })
+      });
   })
 
   router.get('/pet/:id', (req, res) => {
-    if(req.xhr) {
-      dbHelper.getPupStatuses(req.params.id).then((results) => {
-        res.json(results);
-      })
-    } else {
-      res.render('404');
-    }
+    
+    dbHelper.getPupStatuses(req.params.id).then((results) => {
+      res.json(results);
+    })
   });
 
   router.post("/pet/:id", (req, res) => {
@@ -95,16 +79,12 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/pet/profile/:id", (req, res) => {
-    if(req.xhr) {
     console.log(req.params.id)
     dbHelper.getPupsByIds(req.params.id)
       .then((results) => {
         console.log(results, 'results')
         res.json(results)
-      })
-    } else {
-      res.render('404')
-    }
+      });
   })
 
   router.post("/pet/profile/:id", (req, res) => {
