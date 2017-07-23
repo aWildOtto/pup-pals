@@ -39,11 +39,6 @@ class SmallDetails extends Component {
     });
   }
 
-  handleCalender = (e) => {
-    e.stopPropagation();
-    this.props.AddToCalender();
-  }
-
   componentDidMount() {
     this.fetchRsvp()
   }
@@ -64,10 +59,7 @@ class SmallDetails extends Component {
             </div>
             <div className="smalldetails-footer">
               <span className="smalldetails-rsvp">                
-                <button disabled={this.state.disabled} type="button" onClick={this.handleRsvp.bind(this)} className="btn btn-primary">Going</button>
-              </span>
-              <span className="smalldetails-calender">
-                <button type="button" onClick={this.handleCalender.bind(this)} className="btn btn-primary">Calender</button>
+                <button disabled={this.state.disabled} type="button" onClick={this.handleRsvp.bind(this)} className="btn btn-primary rsvp-btn">Going</button>
               </span>
             </div>
           </div>

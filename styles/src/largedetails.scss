@@ -110,21 +110,12 @@ a.largedetails-eventpage {
 
 .largedetails-footer {
   border-radius: 0 0 4px 4px;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
+  padding: 5px;
 }
 
 .largedetails-rsvp {
   right: 0px;
   margin: 8px 18px 8px 0;
-  flex: 1;
-  text-align: center;
-}
-
-.largedetails-calender {
-  right: 0px;
-  margin: 8px;
-  flex: 1;
   text-align: center;
 }
