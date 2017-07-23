@@ -36,7 +36,19 @@
         </div>
         <div class="col-md-6 text-left">
           <img class="map" src=<%=mapUrl%> />
-          <h1><%= events.title %></h1>    
+          <h2 class="detail-title"><%= events.title %>&nbsp;&nbsp;&nbsp;&nbsp;         
+            <%if(user){%>
+              <%if(!rsvped){%>
+                <form class="detail-rsvp" action="/events/<%=id%>" method="POST" >
+                  <button type="submit" class="btn btn-primary">Going</button>
+                </form>    
+              <%}else{%>
+                <form class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
+                  <button type="submit" class="btn btn-danger">Can't Go</button>
+                </form>    
+              <%}%>
+            <% } %>
+          </h2>    
           <div class="seperator"></div>          
           <h3><i class="fa fa-calendar-o" aria-hidden="true"></i> Date: <%= moment(events.date_time).format("dddd MMMM Do YYYY") %></h3>
           <div class="seperator"></div>
@@ -49,20 +61,12 @@
           <div class="seperator"></div>                    
           <% } %>
           <h3><i class="fa fa-sticky-note" aria-hidden="true"></i> Description:<h3> <h4><%= events.description %></h4>
-          <div class="seperator"></div> 
           <br>                   
-          <%if(!rsvped){%>
-            <form class="detail-rsvp" action="/events/<%=id%>" method="POST" >
-              <button type="submit" class="btn btn-primary">RSVP</button>
-            </form>    
-          <%}else{%>
-            <form class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
-              <button type="submit" class="btn btn-danger">Cancel</button>
-            </form>    
-          <%}%>
         </div>
         <div class="col-md-3 text-center">
           <div class="detail_right_sidebar">
+            <h3>Message Board</h3>
+            <div class="seperator"></div>
             <div class="chat-container">
               <% if (message) { %>
                 <p><%= message %></p>

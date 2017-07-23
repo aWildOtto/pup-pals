@@ -10,6 +10,10 @@ module.exports = (dbHelper) => {
     res.render('search');
   }),
 
+  router.get("/calendar", (req, res) => {
+    res.render('calendar');
+  }),
+
   router.get("/new", (req, res) => {
     if(req.session.userID){
       res.render('event_create');
