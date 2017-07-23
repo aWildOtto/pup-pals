@@ -87,7 +87,7 @@ $(document).ready(function(){
     var length = $(this).val().length;
     var remaining = 100 - length;
     var $counter = $(this).parent().children('.counter');
-    $counter.text(remaining);
+    $counter.text(remaining);    
     if (remaining < 0) {
       $counter.addClass('changeRed');
     } else {

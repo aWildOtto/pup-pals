@@ -9,7 +9,6 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
-  <link href="/styles/css/style.css" rel="stylesheet">
   <link href="/styles/build/main.css" rel="stylesheet">
   <script
     src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -43,8 +42,8 @@
           </div>
           <div class="col-md-6 text-center">
           <%if(user && user.id == profileId){%>
-             <button class="edit btn">Update profile</button>
-             <button class="back btn">Back to profile</button>
+             <button class="btn btn-primary edit btn">Update profile</button>
+             <button class="btn btn-primary back btn">Back to profile</button>
           <%}%>
             <div class="profile">
             </div>
@@ -64,11 +63,13 @@
               .owner-avatar {width: 300px!important;}
             </style>
             <% if (user && user.id == profileId) { %>
+            <div class="seperator"></div>              
             <section class="new-status">
               <h2>Update your status</h2>
               <form class="status-form" method="POST" action= "/owner/<%= person.id %>">
-                <textarea name="text" placeholder="Ehhh What's up Doc?"></textarea>
-                <input type="submit" value="Update">
+                <textarea class="form-control" name="text" placeholder="Ehhh What's up Doc?"></textarea>
+                <br>
+                <input class="btn btn-primary btn-block update-status-btn" type="submit" value="Update">
                 <span class="counter">100</span>
               </form>
             </section>
