@@ -45,7 +45,7 @@ $(document).ready(function(){
 //edit profile
   $(".edit").on('click', function(){
     $('.owner-box').slideToggle('fast');
-    $('.statusBox').slideToggle('fast');
+    $('#statusBox').slideToggle('fast');
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
     $('.back').slideToggle('fast');
@@ -54,7 +54,7 @@ $(document).ready(function(){
 
   $(".back").on('click', function(event){
     $('.owner-box').slideToggle('fast');
-    $('.statusBox').slideToggle('fast');
+    $('#statusBox').slideToggle('fast');
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
     $('.back').hide();
@@ -83,27 +83,28 @@ $(document).ready(function(){
   })
 
 //post/render status
-  $(".new-status textarea").on("input", function(event){
+  $(".new-status textarea").on("input change keyup", function(event){
     var length = $(this).val().length;
     var remaining = 100 - length;
     var $counter = $(this).parent().children('.counter');
-    $counter.text(remaining);    
     if (remaining < 0) {
       $counter.addClass('changeRed');
     } else {
       $counter.removeClass('changeRed');
     }
+    $counter.text(remaining);    
   });
 
 
 
   $('.status-form').on('submit', function(event){
     event.preventDefault();
+    var $counter = $(".new-status textarea").parent().children('.counter');
     var $inputLength = $('.status-form textarea').val().length;
     if($inputLength === 0) {
       alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
       return;
-    } else if($inputLength > 140) {
+    } else if($inputLength > 100) {
       alert('Whoa there friendo, your status is over 100 characters ◔_◔');
       return;
     } else {
@@ -112,8 +113,9 @@ $(document).ready(function(){
         url: '/api/owner/:id',
         data: $(this).serialize()
       }).done(function(){
-        $('.status-form textarea').val('');
         loadStatus();
+        $('.status-form textarea').val('');
+        $counter.text(100);         
       });
     }
   });
