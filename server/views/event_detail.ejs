@@ -53,11 +53,11 @@
           <br>                   
           <%if(!rsvped){%>
             <form class="detail-rsvp" action="/events/<%=id%>" method="POST" >
-              <button type="submit" class="btn btn-primary">RSVP</button>
+              <button type="submit" class="btn btn-primary">Going</button>
             </form>    
           <%}else{%>
             <form class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
-              <button type="submit" class="btn btn-danger">Cancel</button>
+              <button type="submit" class="btn btn-danger">Can't Go</button>
             </form>    
           <%}%>
         </div>
