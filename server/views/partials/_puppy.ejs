@@ -7,7 +7,7 @@
     <div class="pup-info">
     <p><%= pup.breed %></p>
     <p>Age: <%= pup.age %> yrs</p>
-    <% if (pup.sex == 'male') {%>
+    <% if (pup.sex == 'male' || pup.sex == 'Male') {%>
       <p> Boy </p>
     <% } else  { %>
       <p> Girl </p>

@@ -1,11 +1,10 @@
 <div class="detailcontainer">
   <div class="smalldetails-container">
-    <a href="/events/<%=event.id%>">
+    <a class="smalldetails-link" href="/events/<%=event.id%>">
     <div class="smalldetails-header">
       <h3 class="smalldetails-title"><%= event.title %></h3>
       <span class="smalldetails-attendees"><%= event.count %> Going</span>
     </div>
-    </a>
     <div class="smalldetails-body">
       <span class="smalldetails-date"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(event.date_time).format("ddd MMMM Do YYYY") %></span>
       <span class="smalldetails-time"> <%= moment(event.date_time).format("h:mm a") %></span>
@@ -26,4 +25,5 @@
       <% } %>
     </div>
   </div>
+  </a>
 </div>

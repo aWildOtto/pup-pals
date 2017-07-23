@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title></title>
+  <title>Pup-Pals</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
@@ -10,6 +10,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="/styles/css/style.css" rel="stylesheet">
   <link href="/styles/build/main.css" rel="stylesheet">
+  <link rel="icon" href="/styles/pictures/dog-paw.png" type="image/png">
 </head>
 <body>
   <% include partials/_navbar.ejs %>
@@ -44,10 +45,11 @@
           <div class="seperator"></div>          
           <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Location: <%= events.location%></h3>
           <div class="seperator"></div>          
-          <h3>Description: <%= events.description %></p>
           <%if (events.event_restriction) { %>
-            <h3><%= events.event_restriction%></h3>
+            <h4><i class="fa fa-ban" aria-hidden="true"></i> Restrictions: <%= events.event_restriction%></h4>
+          <div class="seperator"></div>                    
           <% } %>
+          <h3><i class="fa fa-sticky-note" aria-hidden="true"></i> Description:<h3> <h4><%= events.description %></h4>
           <div class="seperator"></div> 
           <br>                   
           <form class="detail-rsvp" action="/events/:id" method="POST" >
