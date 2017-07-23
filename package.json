@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "A web app for dog owner meetups",
   "engines": {
-    "node": "~0.10.21"
+    "node": "~6.11.1"
   },
   "main": "server/server.js",
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd server && npm run start"
   },
   "repository": {
     "type": "git",
