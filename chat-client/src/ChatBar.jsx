@@ -6,7 +6,7 @@ class ChatBar extends Component {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = {
-      message: '',
+      message: "",
       isHidden: true
     }
   }
@@ -15,10 +15,10 @@ class ChatBar extends Component {
     const message = e.target.value;
     if (e.key === "Enter") {
       this.props.addNewMessage(e.target.value);
-      e.target.value = '';
+      this.setState({ message: ""})
     } else {
       this.setState({
-        message: e.target.data
+        message: e.target.value
       })
     }
   }

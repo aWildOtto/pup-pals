@@ -16,7 +16,6 @@ class Message extends Component {
   }
   
   render(){
-    console.log("the url is", this.props.avatar_url);
     return (
       <div>
         <a className="pull-left" href="#">

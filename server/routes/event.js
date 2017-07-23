@@ -23,7 +23,7 @@ module.exports = (dbHelper) => {
     geocoder.geocode(`${req.body.location}, Vancouver`, (err, data) => {
       const event = {
         title: req.body.title,
-        description: req.body.description,
+        description: req.body.message,
         location: req.body.location,
         date_time: req.body.date_time,
         restriction: req.body.restriction,
@@ -63,7 +63,7 @@ module.exports = (dbHelper) => {
       .then((results) => {
         const longitude = results[0].events.longitude
         const latitude = results[0].events.latitude
-        const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=13&size=600x400&markers=color:blue%7C${latitude},${longitude}&key=AIzaSyDkfH1vIxG1NVhhTaELFJH_m6QE-LOEnGI`
+        const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=13&size=600x400&markers=color:red%7C${latitude},${longitude}&key=AIzaSyDkfH1vIxG1NVhhTaELFJH_m6QE-LOEnGI`
         let userIDs = [];
         results.forEach((item) => {
           if(!userIDs.includes(item.event_user)){

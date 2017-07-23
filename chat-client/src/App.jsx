@@ -13,7 +13,6 @@ class App extends Component {
   }
 
   addNewMessage(message) {
-    console.log("in app", message);
     this.socket.emit("message",{message: message})
   }
 
