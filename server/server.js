@@ -100,17 +100,14 @@ io.on('connection', function (socket) {
 
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
-    console.log(socket.handshake.session);
-    if(socket.handshake.session.userID){
-      console.log("username is", socket.handshake.session);
-      console.log("current event id is", eventId);
+    if(socket.handshake.session.user.id){
       dbHelper.saveMessage(data.message, socket.handshake.session.userID, eventId)
         .then((id)=>{
           io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
             message:data.message,
-            username: socket.handshake.session.username,
+            username: socket.handshake.session.user.username,
             id:id[0],
-            avatar_url: socket.handshake.session.avatar_url
+            avatar_url: socket.handshake.session.user.avatar_url
           });
       });
     }else{
