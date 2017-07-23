@@ -1,11 +1,10 @@
 <div class="detailcontainer">
   <div class="smalldetails-container">
-    <a href="/events/<%=event.id%>">
+    <a class="smalldetails-link" href="/events/<%=event.id%>">
     <div class="smalldetails-header">
       <h3 class="smalldetails-title"><%= event.title %></h3>
       <span class="smalldetails-attendees"><%= event.count %> Going</span>
     </div>
-    </a>
     <div class="smalldetails-body">
       <span class="smalldetails-date"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= moment(event.date_time).format("ddd MMMM Do YYYY") %></span>
       <span class="smalldetails-time"> <%= moment(event.date_time).format("h:mm a") %></span>
@@ -13,17 +12,12 @@
       <span class="smalldetails-body"><i class="fa fa-sticky-note" aria-hidden="true"></i> <%= event.description %></span>
     </div>
     <div class="smalldetails-footer">
-      <span class="smalldetails-rsvp">
       <% if (user) { %>
-      <form action="/events/:id" method="POST" >
-          <input type="hidden" name="eventId" value="<%= event.id %>">
-          <button type="submit" class="btn btn-primary">RSVP</button>
+      <form action="/events/<%=event.id%>/cancel" method="POST" >
+        <button type="submit" class="btn btn-danger rsvp-btn">Can't Go</button>
       </form>
-      </span>
-      <span class="smalldetails-calender">
-        <button type="button" class="btn btn-primary">Calender</button>
-      </span>
       <% } %>
     </div>
   </div>
+  </a>
 </div>

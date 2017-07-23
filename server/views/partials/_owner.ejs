@@ -1,9 +1,11 @@
 <div class="owner-box">
+  <a href="/owner/<%= owner.id %>">
   <img class="owner-avatar" src="<%= owner.avatar_url %>">
   <h2 class="listContent">
     <%= owner.username %>
   </h2>
-  <h4>
+  </a>
+  <h4 class="owner-name">
     <%= owner.name %>
   </h4>
 </div>

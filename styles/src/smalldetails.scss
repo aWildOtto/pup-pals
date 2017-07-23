@@ -66,23 +66,14 @@
 
 .smalldetails-footer {
   border-radius: 0 0 4px 4px;
-  display: flex;
   border-top: 1px solid #ddd;
   align-items: center;
-  justify-content: space-between;
+  padding: 5px;
 }
 
 .smalldetails-rsvp {
   right: 0px;
   margin: 8px 18px 8px 0;
-  flex: 1;
-  text-align: center;
-}
-
-.smalldetails-calender {
-  right: 0px;
-  margin: 8px;
-  flex: 1;
   text-align: center;
 }
 
@@ -93,3 +84,6 @@ a.smalldetails-link {
   zoom: 1;
 }
 
+.rsvp-btn {
+  width: 100%;
+}

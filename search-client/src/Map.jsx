@@ -68,13 +68,13 @@ class Map extends Component {
       },
       markers: [],
     };
+    
+    this.handleMapMounted = this.handleMapMounted.bind(this);
+    this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
+    this.handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
+    this.handlePlacesChanged = this.handlePlacesChanged.bind(this);
+    this.handleMarkerClick = this.handleMarkerClick.bind(this);
   }
-  
-  handleMapMounted = this.handleMapMounted.bind(this);
-  handleBoundsChanged = this.handleBoundsChanged.bind(this);
-  handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
-  handlePlacesChanged = this.handlePlacesChanged.bind(this);
-  handleMarkerClick = this.handleMarkerClick.bind(this);
 
   handleMapMounted(map) {
     this._map = map;

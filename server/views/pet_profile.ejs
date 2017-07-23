@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title></title>
+  <title><%= pup.name %></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
@@ -10,17 +10,19 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
   <link href="/styles/build/main.css" rel="stylesheet">
-  <link href="/styles/css/style.css" rel="stylesheet">
- <script
-   src="https://code.jquery.com/jquery-2.2.4.min.js"
-   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-   crossorigin="anonymous"></script>
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
   <script src="/styles/js/pet-profile.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <link rel="icon" href="/styles/pictures/dog-paw.png" type="image/png">
+
 </head>
+
 <body>
   <% include partials/_navbar.ejs %>
-  <script>var id = <%- JSON.stringify(pup.id) %></script>
+  <script>var id =  <%- JSON.stringify(pup.id) %></script>
   <div class="registerdiv">
     <div class="container-fluid">
       <div class="row">
@@ -30,46 +32,50 @@
           <% include partials/_owner.ejs%>
           <hr>
           <style>
-            .owner-avatar {width: 100px!important;}
+            .owner-avatar {width: 200px!important;}
           </style>
 
           </div>
         </div>
-        <% if (user && user.id == person[0].id) { %>
-        <div class="col-md-6 text-center">
-          <button class="edit btn">Update profile</button>
-          <button class="back btn">Back to profile</button>
-          <div class="edit-profile" style="display: none">
-          <% include partials/_edit_pet_profile.ejs %>
-          <% } %>
+        <div class="col-md-6 text-center owner-profile-col">
+          <button class="btn btn-primary edit btn">Update profile</button>
+          <button class="btn btn-primary back btn">Back to profile</button>
+          <div class="edit-profile">
+            <% include partials/_edit_pet_profile.ejs %>
           </div>
-          <div class="profile">
-          </div>
+          <% include partials/_puppy.ejs %>
           <style>
             .pup-pic {width: 300px!important;}
           </style>
+          <div class="seperator"></div>
+          
           <div class='statuses'> </div>
 
           <% if (user && user.id == person[0].id) { %>
+          <div class="seperator"></div>              
           <section class="new-status">
             <h2>Update pup's status</h2>
             <form class="status-form" method="POST" action= "/pet/<%= pup.id %>">
-              <textarea name="text" placeholder="Ehhh What's up Doc?"></textarea>
-              <input type="submit" value="Update">
+              <textarea class="form-control" name="text" placeholder="Ehhh What's up Doc?"></textarea>
+              <br>
+              <input class="btn btn-primary btn-block" type="submit" value="Update">
               <span class="counter">140</span>
             </form>
           </section>
           <% } %>
         </div>
-        <div class="col-md-3 text-right">
-          <div class="profile_sidebar">
-          <%events.forEach((event) => {%>
-            <% include partials/_event.ejs %>
-          <%});%>
+        <div class="col-md-3 text-center">
+          <div class="right_sidebar">
+            <h3>Attending events </h3>
+            <div class="seperator"></div>
+            <% events.forEach((event) => { %>
+              <% include partials/_event.ejs %>
+            <% });%>
           </div>
         </div>
       </div>
     </div>
   </div>
 </body>
+
 </html>
