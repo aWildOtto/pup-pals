@@ -49,6 +49,7 @@ $(document).ready(function(){
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
     $('.back').slideToggle('fast');
+    $('.seperator').slideToggle('fast');    
     $('.edit').hide();
   });
 
@@ -58,6 +59,7 @@ $(document).ready(function(){
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
     $('.back').hide();
+    $('.seperator').slideToggle('fast');        
     $('.edit').slideToggle('fast');
   });
 

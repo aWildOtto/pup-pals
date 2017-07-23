@@ -268,25 +268,6 @@ jQuery(function ($) {
 });
 
 
-//Magnific Popup
-$('.show-image').magnificPopup({type: 'image'});
-// Easy pi-chart
-$( document ).ready(function() {
-    $('#mySkill1').circliful();
-    $('#mySkill2').circliful();
-    $('#mySkill3').circliful();
-    $('#mySkill4').circliful();
-
-});
-//Typed
-// $(".element").each(function(){
-//     var $this = $(this);
-//     $this.typed({
-//     strings: $this.attr('data-elements').split(','),
-//     typeSpeed: 100, // typing speed
-//     backDelay: 3000 // pause before backspacing
-//     });
-// });
 
 /* --------------------------------------------
     Video Script 

@@ -9,6 +9,7 @@ $(document).ready(function(){
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
     $('.back').slideToggle('fast');
+    $('.seperator').slideToggle('fast');    
     $('.edit').hide();
   });
 
@@ -17,6 +18,7 @@ $(document).ready(function(){
     $('.statuses').slideToggle('fast');
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
+    $('.seperator').slideToggle('fast');        
     $('.back').hide();
     $('.edit').slideToggle('fast');
   });
