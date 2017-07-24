@@ -39,7 +39,7 @@ module.exports = (dbHelper) => {
     .catch((error) => {
       console.log(error);
       res.render('login', {
-        error: "Unexpected turnout, report to Otto"
+        error: "Something unexpected happened, try again :0"
       });
     });
   });
@@ -68,7 +68,7 @@ module.exports = (dbHelper) => {
 
   router.get("/logout", (req, res) => {
     req.session.user = null;
-    res.redirect('back');
+    res.redirect('/');
   });
 
   return router;
