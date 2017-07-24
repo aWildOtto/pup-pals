@@ -66,14 +66,13 @@ module.exports = (dbHelper) => {
   })
 
   router.get('/pet/:id', (req, res) => {
-    
     dbHelper.getPupStatuses(req.params.id).then((results) => {
       res.json(results);
     })
   });
 
   router.post("/pet/:id", (req, res) => {
-    dbHelper.makePupStatus(req.params.id, req.body.text)
+    dbHelper.makePupStatus(req.params.id, req.body)
       .then((results) => {
         res.json(results)
       })

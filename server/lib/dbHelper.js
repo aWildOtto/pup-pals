@@ -28,6 +28,7 @@ module.exports = (knex) => {
       return knex.table('pup_updates')
         .select()
         .whereIn('pup_id', pupId)
+        .orderBy('created_at', 'desc')
         .limit(5)
     },
 
@@ -37,10 +38,11 @@ module.exports = (knex) => {
         .where({'id': userId})
     },
 
-    makePupStatus:(pupId, content) => {
+    makePupStatus:(pupId, update) => {
       return knex.table('pup_updates')
         .insert({pup_id: pupId,
-          content: content})
+          content: update.content,
+          media_url: update.media_url})
         .returning('id')
     },
 
