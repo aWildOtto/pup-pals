@@ -9,7 +9,6 @@ $(document).ready(function(){
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
     $('.back').slideToggle('fast');
-    $('.seperator').slideToggle('fast');    
     $('.edit').hide();
   });
 
@@ -18,7 +17,6 @@ $(document).ready(function(){
     $('.statuses').slideToggle('fast');
     $('.new-status').slideToggle('fast');
     $('.edit-profile').slideToggle('fast');
-    $('.seperator').slideToggle('fast');        
     $('.back').hide();
     $('.edit').slideToggle('fast');
   });
@@ -58,6 +56,8 @@ $(document).ready(function(){
       url: `/api/pet/profile/${id}`
     }).done(function(profile){
       renderProfile(profile[0]);
+      console.log('watch me load')
+      console.log(profile[0].name)
     });
   }
 
@@ -97,8 +97,8 @@ $(document).ready(function(){
   function createStatusesElements(statuses) {
     var $section = $('<section>')
     statuses.forEach((status) => {
-      var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at).format("ddd MMMM Do YYYY") + " at " + moment(status.created_at).format("h:mm a")})
-      var $textSpan = $('<span>', {class: 'status-text',text: " | " + status.content});
+      var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at).format("YYYY-MM-DD HH:mm")})
+      var $textSpan = $('<span>', {class: 'status-text',text: status.content});
       var $div = $('<div>')
       $div.append($timeSpan).append($textSpan)
       $section.prepend($div)

@@ -18,12 +18,14 @@ module.exports = (dbHelper) => {
       console.log(result);
       if(result.length != 0){
         if(bcrypt.compareSync(req.body.password, result[0].password)){
+          req.session.username = result[0].username;
+          req.session.userID = result[0].id;
           // console.log(req.session);
-          req.session.user = {
+          req.app.locals.user = {
+            username: result[0].username,
             id: result[0].id,
             avatar_url: result[0].avatar_url,
-            username: result[0].username,
-          }
+          };
           res.redirect('/');
         } else {
           res.render('login', {
@@ -49,13 +51,14 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/signup", (req, res) => {
-    dbHelper.createUser(req.body)
+    let user = req.body;
+    console.log(user);
+    dbHelper.createUser(user)
     .then((id)=>{
-      req.session.user = {
-        id: id,
-        avatar_url: req.body.avatar_url,
-        username: req.body.username
-      }
+      req.session.username = user.username;
+      req.session.userID = id;
+      user.id = id;
+      req.app.locals.user = user;
       res.redirect('/');
     })
     .catch((error) => {
@@ -68,6 +71,7 @@ module.exports = (dbHelper) => {
 
   router.get("/logout", (req, res) => {
     req.session = null;
+    req.app.locals.user = null;
     res.redirect('back');
   });
 

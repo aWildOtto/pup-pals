@@ -5853,19 +5853,10 @@ button.close {
 .btn-primary {
   background-color: #3682BC; }
 
-a.error-link {
-  color: white;
-  font-weight: 400;
-  text-decoration: none; }
-
-.error-btn {
-  border-radius: 25px; }
-
-.oops {
-  font-size: 150px; }
-
 .navbar-custom {
   background-color: rgba(74, 189, 172, 0);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
   margin-bottom: 0px;
   z-index: 1000;
   border: none;
@@ -5968,9 +5959,6 @@ a.error-link {
 footer {
   height: 60px; }
 
-.nav-avatar {
-  border-radius: 5px; }
-
 .sidebar {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
   position: fixed;
@@ -6066,13 +6054,21 @@ footer {
 
 .smalldetails-footer {
   border-radius: 0 0 4px 4px;
+  display: flex;
   border-top: 1px solid #ddd;
   align-items: center;
-  padding: 5px; }
+  justify-content: space-between; }
 
 .smalldetails-rsvp {
   right: 0px;
   margin: 8px 18px 8px 0;
+  flex: 1;
+  text-align: center; }
+
+.smalldetails-calender {
+  right: 0px;
+  margin: 8px;
+  flex: 1;
   text-align: center; }
 
 a.smalldetails-link {
@@ -6080,9 +6076,6 @@ a.smalldetails-link {
   color: #555;
   text-decoration: none;
   zoom: 1; }
-
-.rsvp-btn {
-  width: 100%; }
 
 .largedetails-container {
   width: 100%;
@@ -6181,12 +6174,20 @@ a.largedetails-eventpage {
 
 .largedetails-footer {
   border-radius: 0 0 4px 4px;
+  display: flex;
   align-items: center;
-  padding: 5px; }
+  justify-content: space-between; }
 
 .largedetails-rsvp {
   right: 0px;
   margin: 8px 18px 8px 0;
+  flex: 1;
+  text-align: center; }
+
+.largedetails-calender {
+  right: 0px;
+  margin: 8px;
+  flex: 1;
   text-align: center; }
 
 .mapcontainer {
@@ -6197,7 +6198,7 @@ a.largedetails-eventpage {
   left: 0; }
 
 .registerdiv {
-  padding-top: 100px; }
+  padding-top: 200px; }
 
 .input-group-addon {
   font-size: 12px;
@@ -6418,23 +6419,8 @@ a.largedetails-eventpage {
 .fa quote fa-quote-left {
   display: flex; }
 
-.owner-name {
-  font-weight: 400; }
-
-.new-status {
-  padding-top: 0; }
-
-.update-status-btn {
-  float: right; }
-
-.owner-profile-col {
-  padding: 0 50px; }
-
 .pup-info {
   border: 1px solid lightgrey; }
-
-.statuses {
-  padding-top: 20px; }
 
 .event_detail_container {
   padding-top: 120px; }
@@ -6495,9 +6481,6 @@ a.pup-link {
   color: #555;
   text-decoration: none;
   zoom: 1; }
-
-.detail-title {
-  display: flex; }
 
 .emoji-mart,
 .emoji-mart * {

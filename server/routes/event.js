@@ -10,10 +10,6 @@ module.exports = (dbHelper) => {
     res.render('search');
   }),
 
-  router.get("/calendar", (req, res) => {
-    res.render('calendar');
-  }),
-
   router.get("/new", (req, res) => {
     if(req.session.userID){
       res.render('event_create');
@@ -69,13 +65,9 @@ module.exports = (dbHelper) => {
         const latitude = results[0].events.latitude
         const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=13&size=600x400&markers=color:red%7C${latitude},${longitude}&key=AIzaSyDkfH1vIxG1NVhhTaELFJH_m6QE-LOEnGI`
         let userIDs = [];
-        let rsvped = false;
         results.forEach((item) => {
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
-          }
-          if(req.session.userID&& req.session.userID===item.event_user){
-            rsvped = true;
           }
         })
         dbHelper.getUserByIds(userIDs)
@@ -97,31 +89,45 @@ module.exports = (dbHelper) => {
                   }
                   return user;
                 });
-                console.log("rsvped is ", rsvped);
                 let templateVars = {
                     events: results[0].events,
                     users: users,
                     moment: moment,
                     mapUrl,
                     id: req.params.id,
-                    message:'',
-                    rsvped
+                    message:''
                   };
+                console.log(req.query)
+                if (req.query.status == 'success') {
+                  console.log(req.query.status)
+                  templateVars.message = 'Successfully RSVP\'ed to event!'
+                  res.render('event_detail', templateVars );
+                }
 
+                else if (req.query.status == 'error') {
+                  console.log('error')
+                  templateVars.message = 'Oops! You must log in before you can RSVP.'
+                  res.render('event_detail', templateVars);
+                }
+
+                else {
+                console.log(templateVars.message)
                 res.render('event_detail', templateVars);
+                }
+
               });
           });
       })
       .catch((errors) => {
-        console.log(errors);
-        res.status(404).render('404');
+       console.log(errors);
+       res.status(404).render('404');
       });
   });
   //pass along in http
 
   router.post("/rsvp", (req, res) => {
     if(!req.session){
-      res.redirect('/login');
+      res.redirect('/login'); 
       return;
     }
         console.log("HELLO", req.session.userID, req.body.event_id);
@@ -133,56 +139,28 @@ module.exports = (dbHelper) => {
       console.log(error);
     });
   });
-
+  
   router.post('/:id', (req,res) => {
     const user = req.session.userID;
     if(user) {
       const userPromise = dbHelper.insertEventUser(req.body.eventId, user.id)
       const pupIdPromise = dbHelper.getPupsIdsByUserId(user.id)
       const insertPupPromise = pupIdPromise.then((pupIds) => {
+        console.log('pupids',pupIds)
         pupIds.forEach((pupId) => {
-          dbHelper.insertEventPups(pupId.id, req.params.id).then(() => {
-            return;
+          console.log(pupId.id, 'is id')
+          dbHelper.insertEventPups(pupId.id, req.body.eventId).then(() => {
+            return
           })
         })
-      });
+      })
       Promise.all([userPromise, insertPupPromise])
         .then(() => {
-          res.redirect('back');
+          res.redirect(`/events/${req.body.eventId}/?status=success`)
         })
-        .catch((error) => {
-          console.log(error);
-        });
     } else {
-      res.redirect('/user/login');
+      res.redirect(`/events/${req.body.eventId}/?status=error`)
     }
-  });
-
-  router.post('/:id/cancel', (req, res, next) => {
-    const user_id = req.session.userID;
-    if(user_id) {
-      console.log(user_id, "and shit");
-      console.log(req.params.id, "and shit");
-      const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
-      const userCancelPromise = dbHelper.cancelRSVP(req.params.id, user_id);
-      const cancelPupPromise = pupIdPromise
-        .then((pupIds) => {
-          pupIds.forEach((pupId) => {
-            dbHelper.deleteEventPups(pupId.id, req.params.id).then(()=>{
-              return;
-            });
-          });
-      });
-      Promise.all([userCancelPromise, cancelPupPromise])
-      .then(() => {
-        res.redirect('back');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }else{
-      res.json('cancel failed');
-    }
-  });
+  })
   return router;
 }

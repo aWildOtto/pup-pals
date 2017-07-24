@@ -12,7 +12,6 @@ const bodyParser  = require("body-parser");
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
-const aws = require('aws-sdk');
 const knexLogger = require('knex-logger');
 const uuid = require('uuid');
 const eventRoutes = require("./routes/event");
@@ -29,8 +28,6 @@ const session = require("express-session")({
 });
 const sharedsession = require("express-socket.io-session");
 
-const S3_BUCKET = process.env.S3_BUCKET;
-
 // Use express-session middleware for express
 app.use(session);
 
@@ -41,8 +38,6 @@ io.use(sharedsession(session, {
     secret: "my-secret-is-no-secret",
     saveUninitialized: true
 }));
-
-
 
 app.use(morgan('dev'));
 
@@ -58,13 +53,9 @@ app.use(bodyParser.json());
 app.use('/searchReact', express.static('../search-client/build'));
 app.use('/chatReact', express.static('../chat-client/build'));
 
-app.use((req, res, next) => {
-  res.locals.user = req.session.user;
-  next();
-});
+app.locals.user = null;//prepare the object for nav bar, add data to user when logged in and signed up
 
 app.get('/', (req, res) => {
-  console.log(res.locals.user);
   res.render(__dirname + '/public/views/index');
 });
 
@@ -79,32 +70,6 @@ app.use("/api", apiRoutes(dbHelper));
 io.set('authorization', function (handshakeData, callback) {
   // console.log(handshakeData, 'is handshakeData')
   callback(null, true);
-});
-
-app.get('/sign-s3', (req, res) => {
-  const s3 = new aws.S3();
-  const fileName = req.query['file-name'];
-  const fileType = req.query['file-type'];
-  const s3Params = {
-    Bucket: S3_BUCKET,
-    Key: fileName,
-    Expires: 60,
-    ContentType: fileType,
-    ACL: 'public-read'
-  };
-
-  s3.getSignedUrl('putObject', s3Params, (err, data) => {
-    if(err){
-      console.log(err);
-      return res.end();
-    }
-    const returnData = {
-      signedRequest: data,
-      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
-    };
-    res.write(JSON.stringify(returnData));
-    res.end();
-  });
 });
 
 let userCount = 0;
@@ -134,14 +99,17 @@ io.on('connection', function (socket) {
 
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
-    if(socket.handshake.session.user.id){
-      dbHelper.saveMessage(data.message, socket.handshake.session.user.id, eventId)
+    console.log(socket.handshake.session);
+    if(socket.handshake.session.userID){
+      console.log("username is", socket.handshake.session);
+      console.log("current event id is", eventId);
+      dbHelper.saveMessage(data.message, socket.handshake.session.userID, eventId)
         .then((id)=>{
           io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
             message:data.message,
-            username: socket.handshake.session.user.username,
+            username: socket.handshake.session.username,
             id:id[0],
-            avatar_url: socket.handshake.session.user.avatar_url
+            avatar_url: app.locals.user.avatar_url
           });
       });
     }else{

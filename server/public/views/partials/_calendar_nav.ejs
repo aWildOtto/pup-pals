@@ -1,45 +1,32 @@
-<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
-<script src="/scripts/bootstrap.min.js"></script>
+<script src="/styles/js/bootstrap.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq0Obk9dvvsHnE4vJit1vSuaNozXMMjBE&libraries=places"></script>
 
-<nav class="navbar navbar-default navbar-fixed-top navbar-custom small">
+<nav class="navbar navbar-default navbar-fixed-top navbar-custom small calendar-nav">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
       <a class="navbar-brand" href="/">
-      <span class="logo">P</span>
-      <span class="logo">u</span>
-      <span class="logo">p</span>
-      <span class="logo"><i class="fa fa-paw"></i></span>
-      <span class="logo">p</span>
-      <span class="logo">a</span>
-      <span class="logo">l</span>
-      <span class="logo">s</span>
+      <span class="logo">P U P <i class="fa fa-paw"></i> P A L S</span>
       </a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <% if(!user){%>
-          <li><a href="/user/login">Login</a></li>
-          <li><a href="/user/signup">Sign Up</a></li>
+          <li><a href="/events/calendar"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i></a></li>
+          <li><a href="/events"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></a></li>
+          <% if(!user){%>
+            <li><a href='/user/login' class="create_event"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></a></li>
+            <li><a href="/user/login">Login</a></li>
+            <li><a href="/user/signup">Sign Up</a></li>
           <%}else{%>
+            <li><a href='#' class="create_event"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></a></li>
             <li>
               <a href="/owner/<%=user.id%>">
-              <img src="<%=user.avatar_url%>" style="width:20px; height:20px">
-              <%=user.username%>
-            </a>
+                <img class="nav-avatar" src="<%=user.avatar_url%>" style="width:20px; height:20px">
+                <%=user.username%>
+              </a>
             </li>
-            <li><a href='#' class="create_event">Create Event</a></li>
             <li><a href="/user/logout">Log out</a></li>
+            
             <div class="row">
               <div id="myModal" class="modal fade" role="dialog">
                 <div class="modal-dialog">

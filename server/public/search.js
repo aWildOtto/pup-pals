@@ -46319,6 +46319,12 @@ var Map = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
 
+    _this.handleMapMounted = _this.handleMapMounted.bind(_this);
+    _this.handleBoundsChanged = _this.handleBoundsChanged.bind(_this);
+    _this.handleSearchBoxMounted = _this.handleSearchBoxMounted.bind(_this);
+    _this.handlePlacesChanged = _this.handlePlacesChanged.bind(_this);
+    _this.handleMarkerClick = _this.handleMarkerClick.bind(_this);
+
     _this.state = {
       zoom: 10,
       bounds: null,
@@ -46328,12 +46334,6 @@ var Map = function (_Component) {
       },
       markers: []
     };
-
-    _this.handleMapMounted = _this.handleMapMounted.bind(_this);
-    _this.handleBoundsChanged = _this.handleBoundsChanged.bind(_this);
-    _this.handleSearchBoxMounted = _this.handleSearchBoxMounted.bind(_this);
-    _this.handlePlacesChanged = _this.handlePlacesChanged.bind(_this);
-    _this.handleMarkerClick = _this.handleMarkerClick.bind(_this);
     return _this;
   }
 
@@ -46510,9 +46510,16 @@ var SideBar = function (_Component) {
     value: function RSVP(event_id) {
       var _this2 = this;
 
-      return _axios2.default.post('/events/' + event_id).then(function (response) {
+      return _axios2.default.post('/events/rsvp', {
+        event_id: event_id
+      }).then(function (response) {
         return _this2.props.fetchAppData();
       });
+    }
+  }, {
+    key: 'AddToCalender',
+    value: function AddToCalender() {
+      alert('Add to Calender');
     }
   }, {
     key: 'renderEvents',
@@ -46525,7 +46532,8 @@ var SideBar = function (_Component) {
           user: _this3.props.user,
           key: e.id,
           toggleHidden: _this3.toggleHidden.bind(_this3, e),
-          RSVP: _this3.RSVP.bind(_this3)
+          RSVP: _this3.RSVP.bind(_this3),
+          AddToCalender: _this3.AddToCalender.bind(_this3)
         });
       });
     }
@@ -46536,7 +46544,8 @@ var SideBar = function (_Component) {
         event: this.state.selectedEvent,
         user: this.props.user,
         toggleHidden: this.toggleHidden.bind(this),
-        RSVP: this.RSVP.bind(this)
+        RSVP: this.RSVP.bind(this),
+        AddToCalender: this.AddToCalender.bind(this)
       });
     }
   }, {
@@ -46604,7 +46613,7 @@ var SmallDetails = function (_Component) {
     _this.fetchRsvp = function () {
       return _axios2.default.get('/api/attend/' + _this.props.event.id).then(function (response) {
         _this.setState({ user_going: response.data });
-        if (_this.props.user.id) {
+        if (_this.props.user) {
           var users_going = _this.state.user_going;
           users_going.forEach(function (user) {
             if (_this.props.user.id === user.user_id) {
@@ -46626,6 +46635,11 @@ var SmallDetails = function (_Component) {
       _this.props.RSVP(_this.props.event.id).then(function (e) {
         return _this.fetchRsvp();
       });
+    };
+
+    _this.handleCalender = function (e) {
+      e.stopPropagation();
+      _this.props.AddToCalender();
     };
 
     _this.state = {
@@ -46708,8 +46722,17 @@ var SmallDetails = function (_Component) {
                 { className: 'smalldetails-rsvp' },
                 _react2.default.createElement(
                   'button',
-                  { disabled: this.state.disabled, type: 'button', onClick: this.handleRsvp.bind(this), className: 'btn btn-primary rsvp-btn' },
-                  'Going'
+                  { disabled: this.state.disabled, type: 'button', onClick: this.handleRsvp.bind(this), className: 'btn btn-primary' },
+                  'RSVP'
+                )
+              ),
+              _react2.default.createElement(
+                'span',
+                { className: 'smalldetails-calender' },
+                _react2.default.createElement(
+                  'button',
+                  { type: 'button', onClick: this.handleCalender.bind(this), className: 'btn btn-primary' },
+                  'Calender'
                 )
               )
             )
@@ -47636,7 +47659,7 @@ var LargeDetails = function (_Component) {
     _this.fetchRsvp = function () {
       return _axios2.default.get('/api/attend/' + _this.props.event.id).then(function (response) {
         _this.setState({ user_going: response.data });
-        if (_this.props.user.id) {
+        if (_this.props.user) {
           var users_going = _this.state.user_going;
           users_going.forEach(function (user) {
             if (_this.props.user.id === user.user_id) {
@@ -47658,6 +47681,11 @@ var LargeDetails = function (_Component) {
       _this.props.RSVP(_this.props.event.id).then(function (e) {
         return _this.fetchRsvp();
       });
+    };
+
+    _this.handleCalender = function (e) {
+      e.stopPropagation();
+      _this.props.AddToCalender();
     };
 
     _this.state = {
@@ -47741,7 +47769,7 @@ var LargeDetails = function (_Component) {
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'a',
-              { href: "/events/" + this.props.event.id, className: 'btn btn-primary largedetails-eventpage' },
+              { href: "/events/" + this.props.event.id, target: '_blank', className: 'btn btn-primary largedetails-eventpage' },
               'Go to event page'
             )
           ),
@@ -47762,8 +47790,17 @@ var LargeDetails = function (_Component) {
               { className: 'largedetails-rsvp' },
               _react2.default.createElement(
                 'button',
-                { disabled: this.state.disabled, type: 'button', onClick: this.handleRSVP.bind(this), className: 'btn btn-primary rsvp-btn' },
-                'Going'
+                { disabled: this.state.disabled, type: 'button', onClick: this.handleRSVP.bind(this), className: 'btn btn-primary' },
+                'RSVP'
+              )
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'largedetails-calender' },
+              _react2.default.createElement(
+                'button',
+                { type: 'button', onClick: this.handleCalender.bind(this), className: 'btn btn-primary' },
+                'Calender'
               )
             )
           )

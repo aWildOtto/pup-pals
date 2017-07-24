@@ -5,17 +5,17 @@
       <h2><%= pup.name %></h2>
     </a>
     <div class="pup-info">
-    <h4>Breed: <%= pup.breed %></h4>
-    <h4>Age: <%= pup.age %> years old</h4>
+    <p><%= pup.breed %></p>
+    <p>Age: <%= pup.age %> yrs</p>
     <% if (pup.sex == 'male' || pup.sex == 'Male') {%>
-      <h4> Boy </h4>
+      <p> Boy </p>
     <% } else  { %>
-      <h4> Girl </h4>
+      <p> Girl </p>
     <% } %>
     <% if (pup.neutered == true) {%>
-      <h4> Neutered </h4>
+      <p> Neutered </p>
     <% } else  { %>
-      <h4> Not Neutered </h4>
+      <p> Not Neutered </p>
     <% } %>
     </div>
   </div>
