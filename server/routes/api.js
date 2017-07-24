@@ -11,10 +11,11 @@ module.exports = (dbHelper) => {
   });
 
   router.get("/user", (req, res) => {
-    const user = {
-      id: req.session.userID,
-      username: req.session.username
-    }
+
+    const user = req.session.user?{
+      id: req.session.user.id,
+      username: req.session.user.username
+    }: null;
     res.json(user);
   });
 
@@ -65,14 +66,13 @@ module.exports = (dbHelper) => {
   })
 
   router.get('/pet/:id', (req, res) => {
-    
     dbHelper.getPupStatuses(req.params.id).then((results) => {
       res.json(results);
     })
   });
 
   router.post("/pet/:id", (req, res) => {
-    dbHelper.makePupStatus(req.params.id, req.body.text)
+    dbHelper.makePupStatus(req.params.id, req.body)
       .then((results) => {
         res.json(results)
       })

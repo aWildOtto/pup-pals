@@ -10,17 +10,16 @@ module.exports = (dbHelper) => {
     res.render('search');
   }),
 
-  router.get("/new", (req, res) => {
-    if(req.session.userID){
-      res.render('event_create');
-    }else{
-      res.redirect('/user/login');
-    }
+  router.get("/calendar", (req, res) => {
+    res.render('calendar');
   }),
 
-  router.post("/new", (req, res)=> {
+  router.post("/new", (req, res, next)=> {
     //get coordinates of location
-    geocoder.geocode(`${req.body.location}, Vancouver`, (err, data) => {
+    if(!req.session.user){
+      next();
+    }
+    geocoder.geocode(req.body.location, (err, data) => {
       const event = {
         title: req.body.title,
         description: req.body.message,
@@ -31,33 +30,35 @@ module.exports = (dbHelper) => {
         longitude: data.results[0].geometry.location.lng,
       };
       // console.log(event);
-      dbHelper.createEvent(event,req.session.userID)
+      dbHelper.createEvent(event,req.session.user.id)
         .then((id) => {
           const event_id = parseInt(id);
           //get all the current user's pups' ids
-          dbHelper.getPupsIdsByUserId(req.session.userID).then((ids)=>{
-            //run loop through pups' ids, insert each into event_pup table
-            ids.forEach((pup_id) => {
-              dbHelper.insertEventPups(pup_id.id, event_id).then(() => {
-                //insert row into event_user table
-                dbHelper.insertEventUser(event_id, req.session.userID)
+          dbHelper.getPupsIdsByUserId(req.session.user.id)
+          .then((ids)=>{
+            //insert row into event_user table
+            dbHelper.insertEventUser(event_id, req.session.user.id)
+              .then(() => {
+                //run loop through pups' ids, insert each into event_pup table
+                ids.forEach((pup_id) => {
+                  dbHelper.insertEventPups(pup_id.id, event_id)
                   .then(() => {
                     res.redirect(`/events/${event_id}`);
+                  });
                 });
-              });
             });
           });
         })
         .catch((errors) => {
           console.log(errors);
-          res.status(404).render('404');
+          next();
         });
     });
 
 
   }),
 
-  router.get("/:id", (req, res) => {
+  router.get("/:id", (req, res, next) => {
 
     dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
@@ -70,22 +71,17 @@ module.exports = (dbHelper) => {
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
           }
-          if(req.session.userID&& req.session.userID===item.event_user){
+          if(req.session.user&& req.session.user.id===item.event_user){
             rsvped = true;
           }
         })
         dbHelper.getUserByIds(userIDs)
           .then((users) => {
-            // console.log("from getUserById: ", users);
             dbHelper.getPupsByUserIds(userIDs)
               .then((pups) => {
                 req.session.eventId = req.params.id;
-
-                // console.log(users);
-                // console.log(pups);
                 const userWithPup = users.map((user)=>{
                   user.pups = [];
-                  // console.log(user);
                   for(let pup of pups){
                     if(pup.user_id === user.id){
                       user.pups.push(pup);
@@ -110,14 +106,15 @@ module.exports = (dbHelper) => {
       })
       .catch((errors) => {
         console.log(errors);
-        res.status(404).render('404');
+        next();
       });
   });
   //pass along in http
 
   router.post('/:id', (req, res, next) => {
-    const user_id = req.session.userID;
-    if(user_id) {
+    const user = req.session.user;
+    if(user) {
+      const user_id = user.id;
       const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
       const userPromise = dbHelper.insertEventUser(req.params.id, user_id);
       const insertPupPromise = pupIdPromise.then((pupIds) => {
@@ -140,7 +137,10 @@ module.exports = (dbHelper) => {
   });
 
   router.post('/:id/cancel', (req, res, next) => {
-    const user_id = req.session.userID;
+    if(!req.session.user){
+      next();
+    }
+    const user_id = req.session.user.id;
     if(user_id) {
       console.log(user_id, "and shit");
       console.log(req.params.id, "and shit");

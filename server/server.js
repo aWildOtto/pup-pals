@@ -12,6 +12,7 @@ const bodyParser  = require("body-parser");
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
+const aws = require('aws-sdk');
 const knexLogger = require('knex-logger');
 const uuid = require('uuid');
 const eventRoutes = require("./routes/event");
@@ -27,6 +28,9 @@ const session = require("express-session")({
     saveUninitialized: true
 });
 const sharedsession = require("express-socket.io-session");
+
+const S3_BUCKET = process.env.S3_BUCKET;
+
 
 // Use express-session middleware for express
 app.use(session);
@@ -73,6 +77,33 @@ io.set('authorization', function (handshakeData, callback) {
   callback(null, true);
 });
 
+app.get('/s3', (req, res) => {
+  const s3 = new aws.S3();
+  const fileName = req.query['file-name'];
+  const fileType = req.query['file-type'];
+  const s3Params = {
+    Bucket: S3_BUCKET,
+    Key: fileName,
+    Expires: 60,
+    ContentType: fileType,
+    ACL: 'public-read'
+  };
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
+    };
+    res.write(JSON.stringify(returnData));
+    res.end();
+  });
+});
+
+
 let userCount = 0;
 io.on('connection', function (socket) {
   userCount ++;
@@ -100,8 +131,8 @@ io.on('connection', function (socket) {
 
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
-    if(socket.handshake.session.user.id){
-      dbHelper.saveMessage(data.message, socket.handshake.session.userID, eventId)
+    if(socket.handshake.session.user){
+      dbHelper.saveMessage(data.message, socket.handshake.session.user.id, eventId)
         .then((id)=>{
           io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
             message:data.message,

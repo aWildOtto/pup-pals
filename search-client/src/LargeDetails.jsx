@@ -39,11 +39,6 @@ class LargeDetails extends Component {
     });
   }
 
-  handleCalender = (e) => {
-    e.stopPropagation();
-    this.props.AddToCalender();
-  }
-
   componentDidMount() {
     this.fetchRsvp()
   }
@@ -67,17 +62,14 @@ class LargeDetails extends Component {
             <span className="largedetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i> {this.props.event.location}</span>
             <br />
             <br />
-            <a href={"/events/" + this.props.event.id} target="_blank" className="btn btn-primary largedetails-eventpage">Go to event page</a>                        
+            <a href={"/events/" + this.props.event.id} className="btn btn-primary largedetails-eventpage">Go to event page</a>                        
           </div>
           <div className="largedetails-section">
             <span className="largedetails-detailbody">{this.props.event.description}</span>
           </div>
           <div className="largedetails-footer">
             <span className="largedetails-rsvp">
-              <button disabled={this.state.disabled} type="button" onClick={this.handleRSVP.bind(this)} className="btn btn-primary">RSVP</button>
-            </span>
-            <span className="largedetails-calender">
-              <button type="button" onClick={this.handleCalender.bind(this)} className="btn btn-primary">Calender</button>
+              <button disabled={this.state.disabled} type="button" onClick={this.handleRSVP.bind(this)} className="btn btn-primary rsvp-btn">Going</button>
             </span>
           </div>
         </div>  
