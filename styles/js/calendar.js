@@ -34,7 +34,19 @@ $(document).ready(function () {
 
   });
 
-
+  function loadEvents (){
+      $.ajax({
+        method: 'GET',
+        url: '/api/events',
+        data: $(this).serialize()
+      }).done(function(events){
+        events.map(function(event) {
+        console.log(event)
+    });
+    })
+  }
+  
+  loadEvents();
   /* initialize the calendar
   -----------------------------------------------------------------*/
 
@@ -101,7 +113,6 @@ $(document).ready(function () {
       }
 
     },
-
     events: [{
         title: 'All Day Event',
         start: new Date(y, m, 1)
@@ -147,7 +158,9 @@ $(document).ready(function () {
         className: 'success'
       }
     ],
+    
   });
 
 
+    console.log(eventObject)
 });
