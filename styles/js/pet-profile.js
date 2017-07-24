@@ -1,31 +1,35 @@
 
 $(document).ready(function(){
 
-//profile update
+  function createStatusesElements(statuses) {
+    var $section = $('<section>')
+    statuses.forEach((status) => {
+      var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at).format("ddd MMMM Do YYYY") + " at " + moment(status.created_at).format("h:mm a")})
+      var $textSpan = $('<span>', {class: 'status-text',text: " | " + status.content});
+      var $div = $('<div>')
+      $div.append($timeSpan).append($textSpan)
+      $section.prepend($div)
+    })
+    return $section;
+  }
 
-  $(".edit").on('click', function(){
-    $('.puppy-card').slideToggle('fast');
-    $('.statuses').slideToggle('fast');
-    $('.new-status').slideToggle('fast');
-    $('.edit-profile').slideToggle('fast');
-    $('.back').slideToggle('fast');
-    $('.seperator').slideToggle('fast');    
-    $('.edit').hide();
-  });
+  function renderStatuses(statusesData){
+    $('.statuses').empty();
+    var $newStatuses = createStatusesElements(statusesData)
+    $('.statuses').prepend($newStatuses);
+  }
 
-  $(".back").on('click', function(event){
-    $('.puppy-card').slideToggle('fast');
-    $('.statuses').slideToggle('fast');
-    $('.new-status').slideToggle('fast');
-    $('.edit-profile').slideToggle('fast');
-    $('.seperator').slideToggle('fast');        
-    $('.back').hide();
-    $('.edit').slideToggle('fast');
-  });
-
+  function loadStatuses(){
+    $.ajax({
+      url: `/api/pet/${id}`
+    }).done(function(statuses){
+      renderStatuses(statuses);
+    })
+  }
+  
   function createProfileElements(profile) {
 
-    var sex = (profile.sex == "Male") ? 'Boy' : 'Girl'
+    var sex = (profile.sex == "Male" ||profile.sex == "male" ) ? 'Boy' : 'Girl'
     var neutered = (profile.neutered == true) ? 'Neutered': 'Not Neutered'
 
     var $div1 = $("<div>", {class: "puppy-card"})
@@ -60,6 +64,27 @@ $(document).ready(function(){
       renderProfile(profile[0]);
     });
   }
+//profile update
+
+  $(".edit").on('click', function(){
+    $('.puppy-card').slideToggle('fast');
+    $('.statuses').slideToggle('fast');
+    $('.new-status').slideToggle('fast');
+    $('.edit-profile').slideToggle('fast');
+    $('.back').slideToggle('fast');
+    $('.seperator').slideToggle('fast');    
+    $('.edit').hide();
+  });
+
+  $(".back").on('click', function(event){
+    $('.puppy-card').slideToggle('fast');
+    $('.statuses').slideToggle('fast');
+    $('.new-status').slideToggle('fast');
+    $('.edit-profile').slideToggle('fast');
+    $('.seperator').slideToggle('fast');        
+    $('.back').hide();
+    $('.edit').slideToggle('fast');
+  });
 
   loadProfile()
 
@@ -77,6 +102,7 @@ $(document).ready(function(){
       $('.statuses').slideToggle();
       $('.back').hide();
       $('.edit').slideToggle();
+      $('.new-status').slideToggle();
     })
   })
 
@@ -94,31 +120,7 @@ $(document).ready(function(){
     }
   });
 
-  function createStatusesElements(statuses) {
-    var $section = $('<section>')
-    statuses.forEach((status) => {
-      var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at).format("ddd MMMM Do YYYY") + " at " + moment(status.created_at).format("h:mm a")})
-      var $textSpan = $('<span>', {class: 'status-text',text: " | " + status.content});
-      var $div = $('<div>')
-      $div.append($timeSpan).append($textSpan)
-      $section.prepend($div)
-    })
-    return $section;
-  }
 
-  function renderStatuses(statusesData){
-    $('.statuses').empty();
-    var $newStatuses = createStatusesElements(statusesData)
-    $('.statuses').prepend($newStatuses);
-  }
-
-  function loadStatuses(){
-    $.ajax({
-      url: `/api/pet/${id}`
-    }).done(function(statuses){
-      renderStatuses(statuses);
-    })
-  }
 
   $('.status-form').on('submit', function(event){
     event.preventDefault();

@@ -11,11 +11,11 @@ module.exports = (dbHelper) => {
 
 
   router.post("/pet/new", (req, res) => {
-    if(!req.session.userID) {
+    if(!req.session.user) {
       res.redirect("/user/login");
       return;
     }
-    dbHelper.savePet(req.body, req.session.userID)
+    dbHelper.savePet(req.body, req.session.user.id)
     .then((result) => {
       res.redirect(`/pet/${result}`);
     })
