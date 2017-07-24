@@ -146,36 +146,55 @@ $(document).ready(function(){
 
   $('.status-form').on('submit', function(event){
     event.preventDefault();
-    console.log($('.status-form textarea').val())
-    console.log($('#file-input')[0].files[0])
-    var files = $('#file-input')[0].files;
-    var file = files[0];
-    $.ajax({
-      url: `/s3?file-name=${file.name}&file-type=${file.type}`
-    }).done(function(data){
-      var response = JSON.parse(data);
-      uploadFile(file, response.signedRequest, response.url);
+    if ($('#file-input')[0].files.length){
+      var files = $('#file-input')[0].files;
+      var file = files[0];
+      $.ajax({
+        url: `/s3?file-name=${file.name}&file-type=${file.type}`
+      }).done(function(data){
+          var response = JSON.parse(data);
+          uploadFile(file, response.signedRequest, response.url);
 
-      var $inputLength = $('.status-form textarea').val().length;
-      if($inputLength === 0) {
-        alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
-        return;
-      } else if($inputLength > 140) {
-        alert('Whoa there friendo, your status is over 140 characters ◔_◔');
-        return;
+          var $inputLength = $('.status-form textarea').val().length;
+          if($inputLength === 0) {
+            alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
+            return;
+          } else if($inputLength > 140) {
+            alert('Whoa there friendo, your status is over 140 characters ◔_◔');
+            return;
+          } else {
+            $.ajax({
+              method: 'POST',
+              url: `/api/pet/${id}`,
+              data: {content: $('.status-form textarea').val(),
+                media_url: response.url}
+            }).done(function(){
+              $('.status-form textarea').val('');
+              $('#file-input').val('');
+              loadStatuses();
+            });
+          }
+        })
       } else {
-        $.ajax({
-          method: 'POST',
-          url: `/api/pet/${id}`,
-          data: {content: $('.status-form textarea').val(),
-            media_url: response.url}
-        }).done(function(){
-          $('.status-form textarea').val('');
-          $('.status-form file-input').val('');
-          loadStatuses();
-        });
-     }
-    })
+        var $inputLength = $('.status-form textarea').val().length;
+        if($inputLength === 0) {
+          alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
+          return;
+        } else if($inputLength > 140) {
+          alert('Whoa there friendo, your status is over 140 characters ◔_◔');
+          return;
+        } else {
+          $.ajax({
+            method: 'POST',
+            url: `/api/pet/${id}`,
+            data: {content: $('.status-form textarea').val(),
+              media_url: ''}
+          }).done(function(){
+            $('.status-form textarea').val('');
+            loadStatuses();
+          });
+        }
+      }
   });
 
   loadStatuses();
