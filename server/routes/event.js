@@ -16,6 +16,9 @@ module.exports = (dbHelper) => {
 
   router.post("/new", (req, res, next)=> {
     //get coordinates of location
+    if(!req.session.user){
+      next();
+    }
     geocoder.geocode(req.body.location, (err, data) => {
       const event = {
         title: req.body.title,
@@ -134,6 +137,9 @@ module.exports = (dbHelper) => {
   });
 
   router.post('/:id/cancel', (req, res, next) => {
+    if(!req.session.user){
+      next();
+    }
     const user_id = req.session.user.id;
     if(user_id) {
       console.log(user_id, "and shit");

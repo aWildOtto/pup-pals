@@ -100,7 +100,7 @@ io.on('connection', function (socket) {
 
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
-    if(socket.handshake.session.user.id){
+    if(socket.handshake.session.user){
       dbHelper.saveMessage(data.message, socket.handshake.session.user.id, eventId)
         .then((id)=>{
           io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room

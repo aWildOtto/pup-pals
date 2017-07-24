@@ -11,7 +11,7 @@ module.exports = (dbHelper) => {
 
 
   router.post("/pet/new", (req, res) => {
-    if(!req.session.user.id) {
+    if(!req.session.user) {
       res.redirect("/user/login");
       return;
     }
