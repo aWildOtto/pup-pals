@@ -15,7 +15,7 @@ module.exports = (dbHelper) => {
   }),
 
   router.get("/new", (req, res) => {
-    if(req.session.userID){
+    if(req.session.user.id){
       res.render('event_create');
     }else{
       res.redirect('/user/login');
@@ -35,16 +35,16 @@ module.exports = (dbHelper) => {
         longitude: data.results[0].geometry.location.lng,
       };
       // console.log(event);
-      dbHelper.createEvent(event,req.session.userID)
+      dbHelper.createEvent(event,req.session.user.id)
         .then((id) => {
           const event_id = parseInt(id);
           //get all the current user's pups' ids
-          dbHelper.getPupsIdsByUserId(req.session.userID).then((ids)=>{
+          dbHelper.getPupsIdsByUserId(req.session.user.id).then((ids)=>{
             //run loop through pups' ids, insert each into event_pup table
             ids.forEach((pup_id) => {
               dbHelper.insertEventPups(pup_id.id, event_id).then(() => {
                 //insert row into event_user table
-                dbHelper.insertEventUser(event_id, req.session.userID)
+                dbHelper.insertEventUser(event_id, req.session.user.id)
                   .then(() => {
                     res.redirect(`/events/${event_id}`);
                 });
@@ -74,7 +74,7 @@ module.exports = (dbHelper) => {
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
           }
-          if(req.session.userID&& req.session.userID===item.event_user){
+          if(req.session.user.id&& req.session.user.id===item.event_user){
             rsvped = true;
           }
         })
@@ -120,7 +120,7 @@ module.exports = (dbHelper) => {
   //pass along in http
 
   router.post('/:id', (req, res, next) => {
-    const user_id = req.session.userID;
+    const user_id = req.session.user.id;
     if(user_id) {
       const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
       const userPromise = dbHelper.insertEventUser(req.params.id, user_id);
@@ -144,7 +144,7 @@ module.exports = (dbHelper) => {
   });
 
   router.post('/:id/cancel', (req, res, next) => {
-    const user_id = req.session.userID;
+    const user_id = req.session.user.id;
     if(user_id) {
       console.log(user_id, "and shit");
       console.log(req.params.id, "and shit");
