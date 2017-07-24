@@ -23,8 +23,8 @@ exports.seed = function(knex, Promise) {
           date_time: '2017-06-05 19:48:31.893241-07' ,
           open_status: true,
           event_restriction: 'Small Pups Only',
-          latitude: 49.2825969,
-          longitude: -123.1293743
+          latitude: 49.288789,
+          longitude: -123.017149
         })
       ])
     });
