@@ -16,7 +16,6 @@ exports.seed = function(knex, Promise) {
         .returning('id').then((id) => {
           return Promise.all([
             knex('pups').insert({
-              user_id: Number(id),
               breed: 'Bull Terrier',
               size: 'Medium',
               temperament: 'Playful',
