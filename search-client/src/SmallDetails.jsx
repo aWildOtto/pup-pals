@@ -14,7 +14,7 @@ class SmallDetails extends Component {
     return axios.get(`/api/attend/${this.props.event.id}`) 
       .then((response) => {
         this.setState({user_going: response.data});
-        if(this.props.user){
+        if(this.props.user.id){
           let users_going = this.state.user_going;
           users_going.forEach((user) => {
             if(this.props.user.id === user.user_id){
@@ -39,11 +39,6 @@ class SmallDetails extends Component {
     });
   }
 
-  handleCalender = (e) => {
-    e.stopPropagation();
-    this.props.AddToCalender();
-  }
-
   componentDidMount() {
     this.fetchRsvp()
   }
@@ -64,10 +59,7 @@ class SmallDetails extends Component {
             </div>
             <div className="smalldetails-footer">
               <span className="smalldetails-rsvp">                
-                <button disabled={this.state.disabled} type="button" onClick={this.handleRsvp.bind(this)} className="btn btn-primary">RSVP</button>
-              </span>
-              <span className="smalldetails-calender">
-                <button type="button" onClick={this.handleCalender.bind(this)} className="btn btn-primary">Calender</button>
+                <button disabled={this.state.disabled} type="button" onClick={this.handleRsvp.bind(this)} className="btn btn-primary rsvp-btn">Going</button>
               </span>
             </div>
           </div>

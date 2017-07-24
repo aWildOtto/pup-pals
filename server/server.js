@@ -58,9 +58,13 @@ app.use(bodyParser.json());
 app.use('/searchReact', express.static('../search-client/build'));
 app.use('/chatReact', express.static('../chat-client/build'));
 
-app.locals.user = null;//prepare the object for nav bar, add data to user when logged in and signed up
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
+});
 
 app.get('/', (req, res) => {
+  console.log(res.locals.user);
   res.render(__dirname + '/public/views/index');
 });
 
@@ -130,17 +134,14 @@ io.on('connection', function (socket) {
 
   socket.join("room-"+eventId);//set up and join a room for each event page
   socket.on('message', (data)=>{
-    console.log(socket.handshake.session);
-    if(socket.handshake.session.userID){
-      console.log("username is", socket.handshake.session);
-      console.log("current event id is", eventId);
-      dbHelper.saveMessage(data.message, socket.handshake.session.userID, eventId)
+    if(socket.handshake.session.user.id){
+      dbHelper.saveMessage(data.message, socket.handshake.session.user.id, eventId)
         .then((id)=>{
           io.in("room-"+eventId).emit("incomingMessage",{//broadcast to the room
             message:data.message,
-            username: socket.handshake.session.username,
+            username: socket.handshake.session.user.username,
             id:id[0],
-            avatar_url: app.locals.user.avatar_url
+            avatar_url: socket.handshake.session.user.avatar_url
           });
       });
     }else{

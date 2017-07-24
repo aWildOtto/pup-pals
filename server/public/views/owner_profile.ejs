@@ -37,14 +37,14 @@
                   <hr>
                   <% }) %>
               <%if(user && user.id == profileId){%>
-                <a href="/pet/new">Add New Pups</a>
+                <a href="/pet/new"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Add New Pups</a>
               <%}%>
             </div>
           </div>
-          <div class="col-md-6 text-center">
+          <div class="col-md-6 text-center owner-profile-col">
           <%if(user && user.id == profileId){%>
-             <button class="edit btn">Update profile</button>
-             <button class="back btn">Back to profile</button>
+             <button class="btn btn-primary edit btn">Update profile</button>
+             <button class="btn btn-primary back btn">Back to profile</button>
           <%}%>
             <div class="profile">
             </div>
@@ -53,20 +53,24 @@
                <% include partials/_edit_owner_profile.ejs%>
              </div>
              <%}%>
-            <i class="fa quote fa-quote-left" aria-hidden="true"></i>
-            &nbsp;&nbsp;
-            <i class='status'></i>
-            &nbsp;&nbsp;
-            <i class="fa quote fa-quote-right" aria-hidden="true"></i>
+             <div id="statusBox">
+              <i class="fa quote fa-quote-left" aria-hidden="true"></i>
+              &nbsp;&nbsp;
+              <i class='status'></i>
+              &nbsp;&nbsp;
+              <i class="fa quote fa-quote-right" aria-hidden="true"></i>
+             </div>
             <style>
               .owner-avatar {width: 300px!important;}
             </style>
             <% if (user && user.id == profileId) { %>
+            <div class="seperator"></div>
             <section class="new-status">
               <h2>Update your status</h2>
               <form class="status-form" method="POST" action= "/owner/<%= person.id %>">
-                <textarea name="text" placeholder="Ehhh What's up Doc?"></textarea>
-                <input type="submit" value="Update">
+                <textarea class="form-control" name="text" placeholder="Ehhh What's up Doc?"></textarea>
+                <br>
+                <input class="btn btn-primary btn-block update-status-btn" type="submit" value="Update">
                 <span class="counter">100</span>
               </form>
             </section>
@@ -77,9 +81,13 @@
             <div class="right_sidebar">
               <h3>Attending events </h3>
               <div class="seperator"></div>
-                <% events.forEach (function(event){ %>
-                  <% include partials/_event.ejs %>
-                <% }) %>
+                <%if(events.length>0){%>
+                  <% events.forEach (function(event){ %>
+                    <% include partials/_event.ejs %>
+                  <% }) %>
+                <%}else{%>
+                  <p>None</p>
+                <%}%>
             </div>
           </div>
 

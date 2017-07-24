@@ -12,16 +12,10 @@
       <span class="smalldetails-body"><i class="fa fa-sticky-note" aria-hidden="true"></i> <%= event.description %></span>
     </div>
     <div class="smalldetails-footer">
-      <span class="smalldetails-rsvp">
       <% if (user) { %>
-      <form action="/events/:id" method="POST" >
-          <input type="hidden" name="eventId" value="<%= event.id %>">
-          <button type="submit" class="btn btn-primary">RSVP</button>
+      <form action="/events/<%=event.id%>/cancel" method="POST" >
+        <button type="submit" class="btn btn-danger rsvp-btn">Can't Go</button>
       </form>
-      </span>
-      <span class="smalldetails-calender">
-        <button type="button" class="btn btn-primary">Calender</button>
-      </span>
       <% } %>
     </div>
   </div>
