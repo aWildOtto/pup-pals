@@ -14,17 +14,9 @@ module.exports = (dbHelper) => {
     res.render('calendar');
   }),
 
-  router.get("/new", (req, res) => {
-    if(req.session.user.id){
-      res.render('event_create');
-    }else{
-      res.redirect('/user/login');
-    }
-  }),
-
-  router.post("/new", (req, res)=> {
+  router.post("/new", (req, res, next)=> {
     //get coordinates of location
-    geocoder.geocode(`${req.body.location}, Vancouver`, (err, data) => {
+    geocoder.geocode(req.body.location, (err, data) => {
       const event = {
         title: req.body.title,
         description: req.body.message,
@@ -39,29 +31,31 @@ module.exports = (dbHelper) => {
         .then((id) => {
           const event_id = parseInt(id);
           //get all the current user's pups' ids
-          dbHelper.getPupsIdsByUserId(req.session.user.id).then((ids)=>{
-            //run loop through pups' ids, insert each into event_pup table
-            ids.forEach((pup_id) => {
-              dbHelper.insertEventPups(pup_id.id, event_id).then(() => {
-                //insert row into event_user table
-                dbHelper.insertEventUser(event_id, req.session.user.id)
+          dbHelper.getPupsIdsByUserId(req.session.user.id)
+          .then((ids)=>{
+            //insert row into event_user table
+            dbHelper.insertEventUser(event_id, req.session.user.id)
+              .then(() => {
+                //run loop through pups' ids, insert each into event_pup table
+                ids.forEach((pup_id) => {
+                  dbHelper.insertEventPups(pup_id.id, event_id)
                   .then(() => {
                     res.redirect(`/events/${event_id}`);
+                  });
                 });
-              });
             });
           });
         })
         .catch((errors) => {
           console.log(errors);
-          res.status(404).render('404');
+          next();
         });
     });
 
 
   }),
 
-  router.get("/:id", (req, res) => {
+  router.get("/:id", (req, res, next) => {
 
     dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
@@ -80,16 +74,11 @@ module.exports = (dbHelper) => {
         })
         dbHelper.getUserByIds(userIDs)
           .then((users) => {
-            // console.log("from getUserById: ", users);
             dbHelper.getPupsByUserIds(userIDs)
               .then((pups) => {
                 req.session.eventId = req.params.id;
-
-                // console.log(users);
-                // console.log(pups);
                 const userWithPup = users.map((user)=>{
                   user.pups = [];
-                  // console.log(user);
                   for(let pup of pups){
                     if(pup.user_id === user.id){
                       user.pups.push(pup);
@@ -114,7 +103,7 @@ module.exports = (dbHelper) => {
       })
       .catch((errors) => {
         console.log(errors);
-        res.status(404).render('404');
+        next();
       });
   });
   //pass along in http

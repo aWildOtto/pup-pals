@@ -88,7 +88,7 @@ module.exports = (knex) => {
 
     getAllEvents: () => {
       return knex('events')
-        .innerJoin('event_user', 'event_user.event_id', '=', 'events.id')
+        .leftJoin('event_user', 'event_user.event_id', '=', 'events.id')
         .select('events.*')
         .count("event_user.id as count")
         .groupBy('events.id');
@@ -274,7 +274,7 @@ module.exports = (knex) => {
       return knex.raw(`
           select events.*, count(event_user.id) as count
           from events
-          inner join event_user on event_user.event_id = events.id
+          left join event_user on event_user.event_id = events.id
           where box '((${bound_a_lat}, ${bound_a_lng}), (${bound_b_lat}, ${bound_b_lng}))'
           @> point(events.latitude, events.longitude)
           group by events.id;
