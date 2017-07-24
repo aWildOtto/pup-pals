@@ -4,7 +4,7 @@ exports.seed = function(knex, Promise) {
   return knex('users').del()
     .then(function () {
       return Promise.all([
-        //Nikki has two dogs
+        //1 .Nikki has two dogs
         knex('users').insert({
           username: 'nikki915',
           name: 'Nikki Seidel',
@@ -14,32 +14,32 @@ exports.seed = function(knex, Promise) {
           avatar_url: '/styles/pictures/nikki.jpg'
         })
         .returning('id').then((id) => {
-          knex('pups').insert({
-            user_id: Number(id),
-            breed: 'Bull Terrier',
-            size: 'Medium',
-            temperament: 'Playful',
-            neutered: true,
-            age: '1',
-            avatar_url: '/styles/pictures/bull.jpg',
-            name: 'Tucker',
-            sex: 'male'
-          })
-          .then(()=> {
+          return Promise.all([
             knex('pups').insert({
-                user_id: Number(id),
-                breed: 'Boston Terrier',
-                size: 'Small',
-                temperament: 'Energetic',
-                neutered: true,
-                age: '3',
-                avatar_url: '/styles/pictures/boston.jpg',
-                name: 'Brodie',
-                sex: 'male'
-              });
+              user_id: Number(id),
+              breed: 'Bull Terrier',
+              size: 'Medium',
+              temperament: 'Playful',
+              neutered: true,
+              age: '1',
+              avatar_url: '/styles/pictures/bull.jpg',
+              name: 'Tucker',
+              sex: 'male'
+            }),
+            knex('pups').insert({
+              user_id: Number(id),
+              breed: 'Boston Terrier',
+              size: 'Small',
+              temperament: 'Energetic',
+              neutered: true,
+              age: '3',
+              avatar_url: '/styles/pictures/boston.jpg',
+              name: 'Brodie',
+              sex: 'male'
             })
+          ]);
         }),
-        //otto has one dog 
+        //2 .otto has one dog 
         knex('users').insert({
           username: 'ottoMatic',
           name: 'Otto Hu',
@@ -49,7 +49,7 @@ exports.seed = function(knex, Promise) {
           avatar_url: '/styles/pictures/otto.jpg'
         })
           .returning('id').then((id) => {
-            knex('pups').insert({
+            return knex('pups').insert({
             user_id: Number(id),
             breed: 'Husky',
             size: 'Medium-Large',
@@ -61,7 +61,7 @@ exports.seed = function(knex, Promise) {
             sex: 'female'
           });
       }),
-        //caitlin has 3 dogs
+        //3.caitlin has 3 dogs
         knex('users').insert({
           username: 'caitlinquon',
           name: 'Caitlin Quon',
@@ -70,8 +70,9 @@ exports.seed = function(knex, Promise) {
           status: 'Looking forward to National Dog Day!',
           avatar_url: '/styles/pictures/caitlin.jpg'
         })
-          .returning('id').then((id) => {
-            knex('pups').insert({
+        .returning('id').then((id) => {
+          return Promise.all([
+          knex('pups').insert({
             user_id: Number(id),
             breed: 'Long-haired Mini Daschund',
             size: 'Small',
@@ -81,35 +82,32 @@ exports.seed = function(knex, Promise) {
             avatar_url:'/styles/pictures/mini.jpg',
             name: 'Joey',
             sex: 'male'
-          })
-            .then(() => {
-              knex('pups').insert({
-              user_id: Number(id),
-              breed: 'Long-haired Mini Daschund',
-              size: 'Small',
-              temperament: 'Playful',
-              neutered: true,
-              age: '1',
-              avatar_url:'/styles/pictures/mini2.jpg',
-              name: 'Penny',
-              sex: 'female'
-            })
-              .then(() => {
-                knex('pups').insert({
-                user_id: Number(id),
-                breed: 'Golden Retriever',
-                size: 'Medium',
-                temperament: 'Active',
-                neutered: true,
-                age: '1',
-                avatar_url:'/styles/pictures/golden.jpg',
-                name: 'Charlie',
-                sex: 'male'
-              });
-            })
-          })
         }),
-        //donald has two dogs
+          knex('pups').insert({
+            user_id: Number(id),
+            breed: 'Long-haired Mini Daschund',
+            size: 'Small',
+            temperament: 'Playful',
+            neutered: true,
+            age: '1',
+            avatar_url:'/styles/pictures/mini2.jpg',
+            name: 'Penny',
+            sex: 'female'
+        }),
+          knex('pups').insert({
+            user_id: Number(id),
+            breed: 'Golden Retriever',
+            size: 'Medium',
+            temperament: 'Active',
+            neutered: true,
+            age: '1',
+            avatar_url:'/styles/pictures/golden.jpg',
+            name: 'Charlie',
+            sex: 'male'
+          })
+        ]);
+        }),
+        //4.donald has two dogs
         knex('users').insert({
           username: 'donaldma',
           name: 'Donald Ma',
@@ -118,33 +116,32 @@ exports.seed = function(knex, Promise) {
           status: 'Cannot wait for my pups birthday party',
           avatar_url: '/styles/pictures/donald.jpg'
         })
-          .returning('id').then((id) => {
-            knex('pups').insert({
+        .returning('id').then((id) => {
+          return Promise.all([knex('pups').insert({
             user_id: Number(id),
             breed: 'Husky Pomeranian',
             size: 'Small',
             temperament: 'Active',
             neutered: true,
             age: '1',
-            avatar_url:'/styles/pictures/huksypom.jpg',
+            avatar_url:'/styles/pictures/huskypom.jpg',
             name: 'Baxter',
             sex: 'male'
-          })
-            .then(() => {
-              knex('pups').insert({
-              user_id: Number(id),
-              breed: 'Pomeranian',
-              size: 'Small',
-              temperament: 'Quiet',
-              neutered: true,
-              age: '2',
-              avatar_url:'/styles/pictures/pom.jpg',
-              name: 'Fiona',
-              sex: 'female'
-            });
-          })
         }),
-        //ti has one dog
+          knex('pups').insert({
+            user_id: Number(id),
+            breed: 'Pomeranian',
+            size: 'Small',
+            temperament: 'Quiet',
+            neutered: true,
+            age: '2',
+            avatar_url:'/styles/pictures/pom.jpg',
+            name: 'Fiona',
+            sex: 'female'
+          })
+        ]);
+        }),
+        //5.ti has one dog
         knex('users').insert({
           username: 'tizhang',
           name: 'Ti Zhang',
@@ -154,7 +151,7 @@ exports.seed = function(knex, Promise) {
           avatar_url: '/styles/pictures/ti.jpg'
         })
           .returning('id').then((id) => {
-            knex('pups').insert({
+            return knex('pups').insert({
             user_id: Number(id),
             breed: 'German Shepherd',
             size: 'Large',
@@ -166,7 +163,7 @@ exports.seed = function(knex, Promise) {
             sex: 'female'
           });
         }),
-        //matt has 2 dogs
+        //6.matt has 2 dogs
         knex('users').insert({
           username: 'mattyb',
           name: 'Matt Baxley',
@@ -175,33 +172,33 @@ exports.seed = function(knex, Promise) {
           status: 'Just went to my first meetup with Jack, so fun!!',
           avatar_url: '/styles/pictures/david.jpg'
         })
-          .returning('id').then((id) => {
+        .returning('id').then((id) => {
+          return Promise.all([
             knex('pups').insert({
-            user_id: Number(id),
-            breed: 'Border Collie',
-            size: 'Medium',
-            temperament: 'Quiet',
-            neutered: true,
-            age: '2',
-            avatar_url:'/styles/pictures/collie.jpg',
-            name: 'Calli',
-            sex: 'female'
-          })
-            .then(() => {
+              user_id: Number(id),
+              breed: 'Border Collie',
+              size: 'Medium',
+              temperament: 'Quiet',
+              neutered: true,
+              age: '2',
+              avatar_url:'/styles/pictures/collie.jpg',
+              name: 'Calli',
+              sex: 'female'
+          }),
             knex('pups').insert({
-            user_id: Number(id),
-            breed: 'Blue Heeler',
-            size: 'Small',
-            temperament: 'Playful',
-            neutered: true,
-            age: '1',
-            avatar_url:'/styles/pictures/heeler.jpg',
-            name: 'Timmy',
-            sex: 'male'
-          });
-        })
-      }),
-      //ali has one dog
+              user_id: Number(id),
+              breed: 'Blue Heeler',
+              size: 'Small',
+              temperament: 'Playful',
+              neutered: true,
+              age: '1',
+              avatar_url:'/styles/pictures/heeler.jpg',
+              name: 'Timmy',
+              sex: 'male'
+            })
+          ]);
+        }),
+      //7.ali has one dog
         knex('users').insert({
           username: 'alicat',
           name: 'Alison Johnson',
@@ -211,7 +208,7 @@ exports.seed = function(knex, Promise) {
           avatar_url: '/styles/pictures/morgan.jpg'
         })
           .returning('id').then((id) => {
-            knex('pups').insert({
+            return knex('pups').insert({
             user_id: Number(id),
             breed: 'Chow Chow',
             size: 'Medium',
@@ -223,7 +220,7 @@ exports.seed = function(knex, Promise) {
             sex: 'male'
           });
         }),
-        //alec has 2 dogs 
+        //8.alec has 2 dogs 
         knex('users').insert({
           username: 'alecthom',
           name: 'Alec Thompson',
@@ -233,7 +230,7 @@ exports.seed = function(knex, Promise) {
           avatar_url: '/styles/pictures/alec.jpg'
         })
           .returning('id').then((id) => {
-            knex('pups').insert({
+            return knex('pups').insert({
             user_id: Number(id),
             breed: 'St.Bernard',
             size: 'Large',
@@ -244,8 +241,8 @@ exports.seed = function(knex, Promise) {
             name: 'Brock',
             sex: 'male'
           })
-              .then(() => {
-              knex('pups').insert({
+            .then(() => {
+              return knex('pups').insert({
               user_id: Number(id),
               breed: 'Great Dane',
               size: 'Large',
@@ -258,7 +255,7 @@ exports.seed = function(knex, Promise) {
             });
           })
        }),
-        //emma has 2 dogs
+        //9.emma has 2 dogs
         knex('users').insert({
           username: 'emmab024',
           name: 'Emma Barret',
@@ -268,7 +265,7 @@ exports.seed = function(knex, Promise) {
           avatar_url: '/styles/pictures/emma.jpg'
         })
           .returning('id').then((id) => {
-            knex('pups').insert({
+            return knex('pups').insert({
             user_id: Number(id),
             breed: 'Chihuahua',
             size: 'Small',
@@ -280,7 +277,7 @@ exports.seed = function(knex, Promise) {
             sex: 'male'
           })
             .then(() => {
-              knex('pups').insert({
+              return knex('pups').insert({
               user_id: Number(id),
               breed: 'Long Haired Chihuahua',
               size: 'Small',
@@ -293,7 +290,7 @@ exports.seed = function(knex, Promise) {
             });
           })
         }),
-        //ben has one dog
+        //10.ben has one dog
         knex('users').insert({
           username: 'benk',
           name: 'Ben Kaster',
@@ -303,7 +300,7 @@ exports.seed = function(knex, Promise) {
           avatar_url: '/styles/pictures/mike.jpg'
         })
           .returning('id').then((id) => {
-            knex('pups').insert({
+            return knex('pups').insert({
             user_id: Number(id),
             breed: 'Labradoodle',
             size: 'Medium',
@@ -315,7 +312,7 @@ exports.seed = function(knex, Promise) {
             sex: 'male'
           });
         }),
-        //aisha has one dog
+        //11.aisha has two dogs
         knex('users').insert({
           username: 'aishaaa',
           name: 'Aisha Ramachandran',
@@ -325,7 +322,7 @@ exports.seed = function(knex, Promise) {
           avatar_url: '/styles/pictures/aisha.jpg'
         })
           .returning('id').then((id) => {
-            knex('pups').insert({
+            return knex('pups').insert({
             user_id: Number(id),
             breed: 'Chinese Crested',
             size: 'Small',
@@ -335,8 +332,135 @@ exports.seed = function(knex, Promise) {
             avatar_url:'/styles/pictures/crested.jpg',
             name: 'Parker',
             sex: 'male'
+          })
+          .then(() => {
+              return knex('pups').insert({
+              user_id: Number(id),
+              breed: 'Corgi',
+              size: 'Small',
+              temperament: 'Friendly',
+              neutered: true,
+              age: '1',
+              avatar_url:'/styles/pictures/corgi.jpg',
+              name: 'Jack',
+              sex: 'male'
+            });
+          })
+        }),
+        //12.kian has one dog 
+        knex('users').insert({
+          username: 'kian',
+          name: 'Kian Invyr',
+          email: 'kian@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Love playing catch with my boy Jeter',
+          avatar_url: '/styles/pictures/kian.jpg'
+        })
+         .returning('id').then((id) => {
+            return knex('pups').insert({
+            user_id: Number(id),
+            breed: 'Australian Spirit Groomer',
+            size: 'Medium',
+            temperament: 'Playful',
+            neutered: true,
+            age: '5',
+            avatar_url:'/styles/pictures/jeter.jpg',
+            name: 'Jeter',
+            sex: 'male'
           });
-        })  
+         }),
+        //13.ella has 2 dogs 
+        knex('users').insert({
+          username: 'ellalynn',
+          name: 'Ella Dorner',
+          email: 'elladorner@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Had the best time at the cabin over the weekend, my pups loved the lake!',
+          avatar_url: '/styles/pictures/ella.jpg'
+        })
+         .returning('id').then((id) => {
+            return knex('pups').insert({
+            user_id: Number(id),
+            breed: 'Golden Retriever',
+            size: 'Medium',
+            temperament: 'Playful',
+            neutered: true,
+            age: '3',
+            avatar_url:'/styles/pictures/lucy.jpg',
+            name: 'Lucy',
+            sex: 'female'
+          })
+            .then(() => {
+              return knex('pups').insert({
+              user_id: Number(id),
+              breed: 'Golden Retriever',
+              size: 'Small',
+              temperament: 'Friendly',
+              neutered: true,
+              age: '1',
+              avatar_url:'/styles/pictures/louie.jpg',
+              name: 'Louie',
+              sex: 'male'
+            });
+          })
+        }),
+        //14.tyler has one dog
+        knex('users').insert({
+          username: 'tylertopham',
+          name: 'Tyler Topham',
+          email: 'tylertopham@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Going to my first meetup this weekend with Jett, so excited!',
+          avatar_url: '/styles/pictures/tyler.jpg'
+        })
+         .returning('id').then((id) => {
+            return knex('pups').insert({
+            user_id: Number(id),
+            breed: 'Akita',
+            size: 'Medium',
+            temperament: 'Playful',
+            neutered: true,
+            age: '3',
+            avatar_url:'/styles/pictures/akita.jpg',
+            name: 'Jett',
+            sex: 'male'
+          });
+         }),
+        //15.adam has two dogs
+        knex('users').insert({
+          username: 'adamyeager',
+          name: 'Adam Yeager',
+          email: 'adamyeager@gmail.com',
+          password: bcrypt.hashSync('123', 10),
+          status: 'Looking for a new pup to add to the crew. Hit me up if you know of anyone selling their pup!',
+          avatar_url: '/styles/pictures/adam.jpg'
+        })
+         .returning('id').then((id) => {
+            return knex('pups').insert({
+            user_id: Number(id),
+            breed: 'Shiba Inu',
+            size: 'Small',
+            temperament: 'Energetic',
+            neutered: true,
+            age: '1',
+            avatar_url:'/styles/pictures/shiba.jpg',
+            name: 'Max',
+            sex: 'male'
+            })
+          .then(() => {
+              return knex('pups').insert({
+              user_id: Number(id),
+              breed: 'Rottweiler',
+              size: 'Small',
+              temperament: 'Curious',
+              neutered: true,
+              age: '1',
+              avatar_url:'/styles/pictures/rottweiler.jpg',
+              name: 'Chase',
+              sex: 'male'
+            });
+          })
+        })
       ]);
     });
 };
