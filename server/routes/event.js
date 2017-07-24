@@ -74,7 +74,7 @@ module.exports = (dbHelper) => {
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
           }
-          if(req.session.user.id&& req.session.user.id===item.event_user){
+          if(req.session.user&& req.session.user.id===item.event_user){
             rsvped = true;
           }
         })
@@ -120,8 +120,9 @@ module.exports = (dbHelper) => {
   //pass along in http
 
   router.post('/:id', (req, res, next) => {
-    const user_id = req.session.user.id;
-    if(user_id) {
+    const user = req.session.user;
+    if(user) {
+      const user_id = user.id;
       const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
       const userPromise = dbHelper.insertEventUser(req.params.id, user_id);
       const insertPupPromise = pupIdPromise.then((pupIds) => {
