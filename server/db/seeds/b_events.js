@@ -131,7 +131,7 @@ exports.seed = function(knex, Promise) {
           knex('events').insert({
             creator_user_id: users[9].id,
             title: 'Mean dogs party',
-            description: 'It\'s gonna be messy and violet',
+            description: 'It\'s gonna be messy and violent',
             location: 'Pacific Spirit Regional Park',
             date_time: '2017-08-10T24:00' ,
             open_status: true,
