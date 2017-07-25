@@ -4,14 +4,14 @@ exports.seed = function(knex, Promise) {
   return knex('users').del()
     .then(function () {
       return Promise.all([
-        //1 .Nikki has two dogs
+        //1 .Pakalu has two dogs
         knex('users').insert({
-          username: 'nikki915',
-          name: 'Nikki Seidel',
-          email: 'nikkis@gmail.com',
+          username: 'pakalu',
+          name: 'Pakalu Papito',
+          email: 'pakalu@gmail.com',
           password: bcrypt.hashSync('123', 10),
-          status: 'Looking for a new puppy! Let me know if you know of anyone selling!!',
-          avatar_url: '/styles/pictures/nikki.jpg'
+          status: 'Things I like about other people: their dogs.',
+          avatar_url: '/styles/pictures/pakalu.png'
         })
         .returning('id').then((id) => {
           return Promise.all([
@@ -22,7 +22,7 @@ exports.seed = function(knex, Promise) {
               neutered: true,
               age: '1',
               avatar_url: '/styles/pictures/bull.jpg',
-              name: 'Tucker',
+              name: 'Doggo',
               sex: 'male'
             }),
             knex('pups').insert({
@@ -33,12 +33,12 @@ exports.seed = function(knex, Promise) {
               neutered: true,
               age: '3',
               avatar_url: '/styles/pictures/boston.jpg',
-              name: 'Brodie',
+              name: 'Puppo',
               sex: 'male'
             })
           ]);
         }),
-        //2 .otto has one dog 
+        //2 .otto has one dog
         knex('users').insert({
           username: 'ottoMatic',
           name: 'Otto Hu',
@@ -164,12 +164,12 @@ exports.seed = function(knex, Promise) {
         }),
         //6.matt has 2 dogs
         knex('users').insert({
-          username: 'mattyb',
-          name: 'Matt Baxley',
-          email: 'mbaxley@gmail.com',
+          username: 'Reece',
+          name: 'Reece Simpson',
+          email: 'rsimpson@gmail.com',
           password: bcrypt.hashSync('123', 10),
-          status: 'Just went to my first meetup with Jack, so fun!!',
-          avatar_url: '/styles/pictures/david.jpg'
+          status: 'Rolling safe with jack',
+          avatar_url: '/styles/pictures/reece.JPG'
         })
         .returning('id').then((id) => {
           return Promise.all([
@@ -219,7 +219,7 @@ exports.seed = function(knex, Promise) {
             sex: 'male'
           });
         }),
-        //8.alec has 2 dogs 
+        //8.alec has 2 dogs
         knex('users').insert({
           username: 'alecthom',
           name: 'Alec Thompson',
@@ -346,7 +346,7 @@ exports.seed = function(knex, Promise) {
             });
           })
         }),
-        //12.kian has one dog 
+        //12.kian has one dog
         knex('users').insert({
           username: 'kian',
           name: 'Kian Invyr',
@@ -368,7 +368,7 @@ exports.seed = function(knex, Promise) {
             sex: 'male'
           });
          }),
-        //13.ella has 2 dogs 
+        //13.ella has 2 dogs
         knex('users').insert({
           username: 'ellalynn',
           name: 'Ella Dorner',
