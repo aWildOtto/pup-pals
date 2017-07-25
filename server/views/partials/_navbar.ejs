@@ -44,27 +44,27 @@
                     <div class="modal-body">
                       <form method="POST" action="/events/new" class="register-form" role="form">
                         <p>
-                          <label for="title-input">Title</label>
+                          <label for="title">Title</label>
                           <input class="input form-control" type="text" name="title" required="required">
                         </p>
                         <p>
-                          <label for="event-input">Description</label>
+                          <label for="event">Description</label>
                           <textarea name="message" id="message" class="form-control" rows="5" cols="25" required="required"></textarea>
                         </p>
                         <p>
-                          <label for="restrictions-input">Restrictions</label>
+                          <label for="restrictions">Restrictions</label>
                           <input class="input form-control" type="text" placeholder="eg. Only big dogs" name="restriction">
                         </p>
                         <p>
-                          <label for="location-input">Location</label>
+                          <label for="location">Location</label>
                           <input id="searchTextField" class="input form-control" type="text" name="location" required="required">
                         </p>
                         <p>
-                          <label for="date-input">Date</label>
+                          <label for="date">Date</label>
                           <input class="input form-control" type="date" name="date_time" required="required">
                         </p>
                         <p>
-                          <label for="time-input">Time</label>
+                          <label for="time">Time</label>
                           <input class="input form-control" type="time" name="date_time" required="required">
                         </p>
                         <button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
@@ -87,10 +87,9 @@
       $('#myModal').modal("show");
     });
 
-    initialize = () => {
-
-    const input = document.getElementById('searchTextField');
-    const autocomplete = new google.maps.places.Autocomplete(input);
+    function initialize(){
+      var input = document.getElementById('searchTextField');
+      var autocomplete = new google.maps.places.Autocomplete(input);
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
