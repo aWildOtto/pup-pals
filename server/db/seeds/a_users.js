@@ -551,7 +551,81 @@ exports.seed = function(knex, Promise) {
                 'male'
               );
           });
-        })
+        }),
+        //16.packalu has two dogs
+        insertUser(
+          'pakalu',
+          'Pakalu Papito',
+          'pakalu@gmail.com',
+          '123',
+          'Things I like about other people: their dogs.',
+          '/styles/pictures/pakalu.png'
+        )
+        .then((id) => {
+          return Promise.all([
+             insertPup(
+                id,
+                'Bull Terrier',
+                'Medium',
+                'Playful',
+                true,
+                '1',
+                '/styles/pictures/bull.jpg',
+ -              'Tucker',
+ +              'Doggo',
+                'male'
+              ),
+              insertPup(
+                id,
+                'Boston Terrier',
+                'Small',
+                'Energetic',
+                true,
+                '3',
+                '/styles/pictures/boston.jpg',
+ -              'Brodie',
+ +              'Puppo',
+                'male'
+              )
+            ]);
+          }),
+          //17.matt has 2 dogs
+          insertUser(
+ -          'mattyb',
+ -          'Matt Baxley',
+ -          'mbaxley@gmail.com',
+            '123',
+ -          'Just went to my first meetup with Jack, so fun!!',
+ -          '/styles/pictures/david.jpg'
+          )
+          .then((id) => {
+            return Promise.all([
+             insertPup(
+              id,
+              'Border Collie',
+              'Medium',
+              'Quiet',
+              true,
+              '2',
+              '/styles/pictures/collie.jpg',
+              'Calli',
+              'female'
+           ),
+             insertPup(
+              id,
+              'Blue Heeler',
+              'Small',
+              'Playful',
+              true,
+              '1',
+              '/styles/pictures/heeler.jpg',
+              'Timmy',
+              'male'
+             )
+           ]);
+         })
+        //can add more users here
+
     ]);//return Promise.all
 });//del().then
 }//export
