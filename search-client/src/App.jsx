@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar.jsx';
 import Map from './Map.jsx';
+import Loading from './Loading.jsx';
 import axios from 'axios';
 import Moment from 'moment';
 import momentRange from 'moment-range';
@@ -10,6 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading:true,
       events: [],
       user: {},
       dates: {
@@ -23,19 +25,19 @@ class App extends React.Component {
     const getEvents = () => {
       return axios.get('/api/events');
     }
- 
+
     const getUser = () => {
       return axios.get('/api/user');
     }
- 
+
     axios.all([getEvents(), getUser()])
       .then(axios.spread((events, user) => {
         let eventsData = events.data;
-        let userData = user.data;        
+        let userData = user.data;
         if(this.state.dates.startDate || this.state.dates.endDate) {
           eventsData = eventsData.filter(event => {
             const startDate = Moment(this.state.dates.startDate, "DD-MM-YYYY");
-            const endDate = Moment(this.state.dates.endDate, "DD-MM-YYYY");  
+            const endDate = Moment(this.state.dates.endDate, "DD-MM-YYYY");
             const eventDate = Moment(event.date_time.split('t')[0], 'YYYY-MM-DD');
             const range = Moment().range(startDate, endDate);
             return(range.contains(eventDate))
@@ -44,11 +46,11 @@ class App extends React.Component {
           this.setState({
             events: eventsData,
             user: userData
-          });                
-        console.log("Events data from server:", eventsData)        
+          });
+        console.log("Events data from server:", eventsData)
         console.log("User data from server:", userData)
-      })); 
-  }    
+      }));
+  }
 
   locationFilter = (bound_a, bound_b) => {
     return axios.get(`/api/events/radius?boundalat=${bound_a.lat}&boundalng=${bound_a.lng}&boundblat=${bound_b.lat}&boundblng=${bound_b.lng}`)
@@ -72,21 +74,31 @@ class App extends React.Component {
     }
   }
 
+  componentWillMount() {
+    this.setState({loading: true})
+    console.log(this.state.loading, 'component will mount')
+  }
+
   componentDidMount() {
+    this.setState({loading:false});
+    console.log(this.state.loading, 'component did mount')
     this.fetchData();
   }
 
   render() {
-    return (
-      <div>
-        <Map events={this.state.events} 
-        user={this.state.user} 
+    const loading = this.state.loading
+    console.log(this.state.loading, 'render')
+    const mapDiv = ( <div>
+        <Map events={this.state.events}
+        user={this.state.user}
         fetchAppData={this.fetchData}
-        locationFilter={this.locationFilter} 
+        locationFilter={this.locationFilter}
         dates={this.state.dates}
         />
         <SearchBar dates={this.state.dates} handleDayChange={this.handleDayChange}/>
-      </div>
+      </div>)
+    return (
+      loading ? <img src="http://iamchriscollins.com/loading.gif"/> : mapDiv
     );
   }
 }
