@@ -15,12 +15,21 @@
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
   <script src="/styles/js/owner-profile.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/ca.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <link rel="icon" href="/styles/pictures/dog-paw.png" type="image/png">
 </head>
 
 <body>
+
   <% include partials/_navbar.ejs %>
+  <div class="animationload">
+    <div class="loader">&nbsp;</div>
+  </div>
+  <script>
+    $(window).ready(function() {
+        $('.animationload').hide();
+    });
+  </script>
   <script>var id = <%- JSON.stringify(person.id) %>;</script>
     <div class="registerdiv">
       <div class="container-fluid">
@@ -58,14 +67,14 @@
               <i class="fa quote fa-quote-left" aria-hidden="true"></i>
               &nbsp;&nbsp;
               <i class='status'></i>
-              &nbsp;&nbsp;            
-              <i class="fa quote fa-quote-right" aria-hidden="true"></i>          
+              &nbsp;&nbsp;
+              <i class="fa quote fa-quote-right" aria-hidden="true"></i>
              </div>
             <style>
               .owner-avatar {width: 300px!important;}
             </style>
             <% if (user && user.id == profileId) { %>
-            <div class="seperator"></div>              
+            <div class="seperator"></div>
             <section class="new-status">
               <h2>Update your status</h2>
               <form class="status-form" method="POST" action= "/owner/<%= person.id %>">

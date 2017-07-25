@@ -78,6 +78,14 @@ module.exports = (dbHelper) => {
       })
   });
 
+  router.post("/pet/delete/status/:id", (req, res) => {
+    console.log(req.params.id, 'id pup_update')
+    dbHelper.deletePupStatus(req.params.id)
+      .then(() => {
+        res.sendStatus(200)
+      })
+  })
+
   router.get("/pet/profile/:id", (req, res) => {
     console.log(req.params.id)
     dbHelper.getPupsByIds(req.params.id)

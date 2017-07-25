@@ -52,6 +52,12 @@ module.exports = (knex) => {
         .returning('id')
     },
 
+    deletePupStatus: (id) => {
+      return knex.table('pup_updates')
+        .where({'id': id})
+        .del();
+    },
+
     eventsForUser: (userId) => {
       const sq = () =>  knex('events')
         .leftOuterJoin('event_user', 'events.id', 'event_user.event_id')
@@ -114,7 +120,7 @@ module.exports = (knex) => {
         knex('events')
           .where({id: id})
           .del()
-        
+
         ]);
     },
 
