@@ -18,7 +18,7 @@ class Message extends Component {
   render(){
     return (
       <div>
-        <a className="pull-left" href="#">
+        <a className="pull-left" href={`/owner/${this.props.user_id}`}>
           <img className="media-object img-circle" src={this.props.avatar_url} width={50} />
         </a>
         <div className="media-body">
