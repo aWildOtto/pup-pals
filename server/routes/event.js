@@ -16,7 +16,8 @@ module.exports = (dbHelper) => {
 
   router.post("/new", (req, res, next)=> {
     if(!req.session.user){
-      res.redirect(404);
+      res.redirect("/404");
+      return;
     }
     //get coordinates of location
     geocoder.geocode(req.body.location, (err, data) => {
@@ -63,7 +64,7 @@ module.exports = (dbHelper) => {
     dbHelper.getEventDetailsByEventId(req.params.id)
       .then((results) => {
         if(results.length === 0){
-          res.redirect(404);
+          res.redirect("/404");
         }
         const longitude = results[0].events.longitude
         const latitude = results[0].events.latitude
