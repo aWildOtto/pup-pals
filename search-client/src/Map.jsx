@@ -48,8 +48,8 @@ const SearchBoxGoogleMap = withGoogleMap(props => (
         position={{ lat: parseFloat(e.latitude), lng: parseFloat(e.longitude) }} 
         onClick={props.onMarkerClick}
         icon={{
-          url: 'http://i.imgur.com/sWlsDsZ.png',
-          scaledSize : new google.maps.Size(55, 65)
+          url: 'http://i.imgur.com/pRdsr4R.png',
+          scaledSize : new google.maps.Size(65, 75)
         }}
         /> 
       })}

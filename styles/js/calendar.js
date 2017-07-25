@@ -1,8 +1,4 @@
 $(document).ready(function () {
-  var date = new Date();
-  var d = date.getDate();
-  var m = date.getMonth();
-  var y = date.getFullYear();
 
   /*  className colors
         
@@ -35,16 +31,44 @@ $(document).ready(function () {
   });
   /* initialize the calendar
   -----------------------------------------------------------------*/
+  
+  //Load the events from ajax call
+  function loadEvents(){
+    $.ajax({
+      method: 'GET',
+      url: '/api/events',
+      success: function(data){
+        data.map(function(event) {
+          var year = moment(event.date_time).format("YYYY");
+          var month = moment(event.date_time).format("MM") - 1;
+          var day = moment(event.date_time).format("D")
+          var hour = moment(event.date_time).format("HH")  
+          var hour = moment(event.date_time).format("HH") 
+          var min = moment(event.date_time).format("mm")     
+          console.log(month)
+          var source = { 
+            events: [{
+              title: event.title,
+              start: new Date(year, month, day, hour, min),
+              allDay: false,
+              className: 'info',
+              url: `/events/${event.id}`
+            }]
+          };
+          $('#calendar').fullCalendar( 'addEventSource', source );
+        });
+      }
+    });
+  };
 
   var calendar = $('#calendar').fullCalendar({
     header: {
       left: 'title',
-      center: 'agendaDay,agendaWeek,month',
       right: 'prev,next today'
     },
-    editable: true,
-    firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
-    selectable: true,
+    editable: false,
+    firstDay: 0, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+    selectable: false,
     defaultView: 'month',
 
     axisFormat: 'h:mm',
@@ -75,7 +99,7 @@ $(document).ready(function () {
       }
       calendar.fullCalendar('unselect');
     },
-    droppable: true, // this allows things to be dropped onto the calendar !!!
+    droppable: false, // this allows things to be dropped onto the calendar !!!
     drop: function (date, allDay) { // this function is called when something is dropped
 
       // retrieve the dropped element's stored Event Object
@@ -97,17 +121,7 @@ $(document).ready(function () {
         // if so, remove the element from the "Draggable Events" list
         $(this).remove();
       }
-
     },
-
-    events: [{
-        title: 'Meeting',
-        start: new Date(y, m, d, 10, 30),
-        allDay: false,
-        className: 'info',
-        url: 'http://google.com/',        
-      },
-    ],
-    
   });
+  loadEvents();
 });
