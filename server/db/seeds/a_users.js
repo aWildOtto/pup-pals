@@ -594,7 +594,7 @@ exports.seed = function(knex, Promise) {
             'mbaxley@gmail.com',
             '123',
             'Just went to my first meetup with Jack, so fun!!',
-            '/styles/pictures/david.jpg'
+            'http://www.gangstersout.com/david_gilesbf.JPG'
           )
           .then((id) => {
             return Promise.all([

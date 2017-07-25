@@ -147,8 +147,6 @@ module.exports = (dbHelper) => {
       return;
     }
     const user_id = req.session.user.id;
-    console.log(user_id, "and shit");
-    console.log(req.params.id, "and shit");
     const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
     const userCancelPromise = dbHelper.cancelRSVP(req.params.id, user_id);
     const cancelPupPromise = pupIdPromise

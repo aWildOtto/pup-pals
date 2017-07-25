@@ -114,7 +114,7 @@ io.on('connection', function (socket) {
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
       .then((results) => {
       console.log( "all event posts: ", results);
-        const messages = [];
+        let messages = [];
         results.forEach(function(message){
           console.log(message)
           messages.push({
@@ -127,7 +127,7 @@ io.on('connection', function (socket) {
           });
         });
       // console.log(messages);
-      io.in("room-"+eventId).emit("incomingMessage", messages);
+        io.in("room-"+eventId).emit("incomingMessage", messages);
       });
   }
 
