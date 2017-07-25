@@ -221,7 +221,7 @@ exports.seed = function(knex, Promise) {
           name: 'Reece Simpson',
           email: 'rsimpson@gmail.com',
           password: bcrypt.hashSync('123', 10),
-          status: 'Rolling safe with jack',
+          status: 'Rolling safe with my doggos',
           avatar_url: '/styles/pictures/reece.JPG'
         })
         .returning('id').then((id) => {

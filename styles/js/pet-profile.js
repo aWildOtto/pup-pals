@@ -1,5 +1,15 @@
 $(document).ready(function(){
 
+  $('.statuses').on('click', 'a.status-delete', function(event){
+    status_id = $(this).data().id
+    $.ajax({
+      url: `/api/pet/delete/status/${status_id}`,
+      method: 'POST'
+    }).done(function(){
+      loadStatuses()
+    });
+  });
+
 //profile update
 
   $(".edit").on('click', function(){
@@ -101,11 +111,14 @@ $(document).ready(function(){
       if(status.media_url) {
         var $img = $('<img>', {class: 'status-img', src:status.media_url})
       }
-      var $div = $('<div>')
+      var $div = $('<div>', {class:'status'})
       $div.append($timeSpan).append($textSpan)
       if ($img){
         $div.append($img)
       }
+      var $a = $('<a>', {class: 'status-delete', text: 'Delete', "data-id" : status.id})
+
+      $div. prepend($a)
       $section.append($div)
     })
     return $section;
@@ -142,6 +155,7 @@ $(document).ready(function(){
     };
     xhr.send(file);
   }
+
 
   $('.status-form').on('submit', function(event){
     event.preventDefault();
