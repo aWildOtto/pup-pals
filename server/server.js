@@ -113,10 +113,11 @@ io.on('connection', function (socket) {
   if(eventId){
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
       .then((results) => {
-      // console.log( "all event posts: ", results);
+      console.log( "all event posts: ", results);
         const messages = [];
         results.forEach(function(message){
           messages.push({
+            user_id: message.user_id,
             message: message.content,
             avatar_url: message.avatar_url,
             username: message.username,
