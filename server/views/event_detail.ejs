@@ -7,7 +7,6 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
 
-
   <!-- Bootstrap core CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="/styles/build/main.css" rel="stylesheet">
@@ -63,15 +62,19 @@
           <div class="seperator"></div>                    
           <% } %>
           <h3><i class="fa fa-sticky-note" aria-hidden="true"></i> Description:<h3> <h4><%= events.description %></h4>
-          <br>       
-          <%if(user&&events.creator_user_id === user.id){%>
-            <span>
-              <button id="editEvent" class="btn btn-primary">Edit Event</button>
-              <form action="/events/<%=id%>/delete" method="POST" >
-                <button type="submit" class="btn btn-danger">Close Event</button>
-              </form>
-            </span> 
+          <%if(user && events.creator_user_id === user.id){%>
+            <div class="seperator"></div><br>    
+            <div style="text-align: center">
+              <button style="width: 100%" id="editEvent" class="btn btn-primary">Edit Event</button>
+            </div>
+            <br>
+            <div style="text-align: center">
+                <form action="/events/<%=id%>/delete" method="POST" >
+                  <button style="width: 100%" type="submit" class="btn btn-danger">Close Event</button>
+                </form>
+            </div>
           <%}%>
+          <br>          
         </div>
         <div class="col-md-3 text-center">
           <div class="detail_right_sidebar">
@@ -145,14 +148,11 @@
       $('#editEventModal').modal("show");
     });
 
-    function init(){
+    function initialize(){
       var input = document.getElementById('locationField');
-      var autocomplete_edit = new google.maps.places.Autocomplete(input);
-      console.log(autocomplete_edit);
+      var autocomplete = new google.maps.places.Autocomplete(input);
     }
-    //TODO: it doesn't work yet. make this work!
-    google.maps.event.addDomListener(window, 'load', init);
-    console.log(google.maps.event);
+    google.maps.event.addDomListener(window, 'load', initialize);
   </script>
 </body>
 </html>
