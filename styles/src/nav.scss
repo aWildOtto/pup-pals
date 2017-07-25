@@ -16,10 +16,8 @@
 }
 .navbar-custom .navbar-brand {
 	font-size: 3em;
-	text-transform: uppercase;
 	color: #ffffff !important;
 	font-weight: 800;
-	letter-spacing: 0.15em;
 	font-family: 'Roboto', sans-serif;
 }
 .navbar-custom .navbar-brand:hover {
@@ -50,7 +48,9 @@
 }
 
 .logo {
-	color: $navbar-text;
+  color: $navbar-text;
+  font-family: 'Assistant', sans-serif;
+  letter-spacing: 0.1em;
 }
 
 
@@ -107,4 +107,8 @@ footer {
 
 .nav-avatar {
   border-radius: 5px;
+}
+
+.logo-paw {
+  color: #E77078;
 }

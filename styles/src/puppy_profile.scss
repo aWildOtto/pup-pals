@@ -6,6 +6,14 @@
   padding-top: 20px;
 }
 
+@media (max-width: 320px){
+  .pup-info {
+    position: static;
+    height: 500px;
+    width: 100%;
+  }
+}
+
 .main-pup-pic {
   border-radius: 50px;
   margin-top: 40px;

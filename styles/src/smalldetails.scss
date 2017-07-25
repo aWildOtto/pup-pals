@@ -87,3 +87,11 @@ a.smalldetails-link {
 .rsvp-btn {
   width: 100%;
 }
+
+@media(max-width: 320px){
+  .detailcontainer {
+    position: static;
+    height: 500px;
+    width: 100%;
+  }
+}

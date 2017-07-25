@@ -79,6 +79,22 @@ a.pup-link {
   height: 50px; 
 }
 
+@media(max-width: 320px){
+  .event_detail_container {
+    position: static;
+    height: 500px;
+    width: 100%;
+  }
+}
+
+@media(max-width: 320px){
+  .detail_right_sidebar {
+    position: static;
+    height: 500px;
+    width: 100%;
+  }
+}
+
 .pac-container {
     z-index: 10000 !important;
 }

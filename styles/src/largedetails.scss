@@ -1,7 +1,7 @@
 .largedetails-container {
   width: 100%;
   height: 100%;
-  background: white;
+  background: #f7f8f9;
 }
 
 .largedetails-titlebar {
@@ -96,7 +96,7 @@ a.largedetails-directions {
 }
 
 a.largedetails-eventpage {
-  background-color: $accent-color;
+  background-color: $button-primary;
   border-radius: 4px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
   width: 100%;

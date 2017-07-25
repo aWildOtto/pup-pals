@@ -116,6 +116,7 @@ io.on('connection', function (socket) {
       console.log( "all event posts: ", results);
         let messages = [];
         results.forEach(function(message){
+          console.log(message)
           messages.push({
             user_id: message.user_id,
             message: message.content,

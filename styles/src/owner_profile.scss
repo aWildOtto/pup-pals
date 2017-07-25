@@ -5,11 +5,12 @@
   right: 0;
   bottom: 0px;
   z-index: 100;
-  background: #fff;
+  background: #f7f8f9;
   left: auto;
   display: block;
   width: 380px;
   overflow-y: scroll;
+
 }
 
 .left_sidebar {
@@ -19,7 +20,7 @@
   left: 0;
   bottom: 0px;
   z-index: 100;
-  background: #fff;
+  background: #f7f8f9;
   right: auto;
   display: block;
   width: 380px;
@@ -80,4 +81,28 @@
 
 .owner-profile-col {
   padding: 0 50px;
+}
+
+@media (max-width: 320px) {
+  .left_sidebar{
+    position: static;
+    height: 500px;
+    width: 100%
+  }
+}
+
+@media (max-width:320px) {
+  .right_sidebar{
+    position: static;
+    height: 500px;
+    width: 100%;
+  }
+}
+
+@media (max-width:320px) {
+  .owner-profile-col {
+    position: static;
+    height: 500px;
+    width: 100%;
+  }
 }

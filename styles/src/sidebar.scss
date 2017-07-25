@@ -5,9 +5,15 @@
   right: 0;
   bottom: 0;
   z-index: 100;
-  background: #fff;
+  background: #DDDDDD;
   left: auto;
   display: block;
   width: 380px;
   overflow-y: scroll;
+}
+
+@media(max-width: 320px){
+  .sidebar{
+    display:none
+  }
 }
