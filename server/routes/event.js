@@ -15,10 +15,10 @@ module.exports = (dbHelper) => {
   }),
 
   router.post("/new", (req, res, next)=> {
-    //get coordinates of location
     if(!req.session.user){
-      next();
+      req.render('404');
     }
+    //get coordinates of location
     geocoder.geocode(req.body.location, (err, data) => {
       const event = {
         title: req.body.title,
@@ -149,9 +149,7 @@ module.exports = (dbHelper) => {
       const cancelPupPromise = pupIdPromise
         .then((pupIds) => {
           pupIds.forEach((pupId) => {
-            dbHelper.deleteEventPups(pupId.id, req.params.id).then(()=>{
-              return;
-            });
+            return dbHelper.deleteEventPups(pupId.id, req.params.id);
           });
       });
       Promise.all([userCancelPromise, cancelPupPromise])
@@ -164,6 +162,26 @@ module.exports = (dbHelper) => {
     }else{
       res.json('cancel failed');
     }
+  });
+
+  router.post('/:id/delete', (req, res, next) => {
+    if(!req.session.user){
+      next();
+    }
+    dbHelper.getEventById(req.params.id)
+      .then((result) => {
+        console.log(result);
+        if(result[0].creator_user_id!==req.session.user.id){
+          req.status(403).end("permission denied");
+        }else{
+          return dbHelper.closeEvent(req.params.id);
+        }
+      })
+      .then((result) => {
+        console.log(result);
+        res.redirect(`/owner/${req.session.user.id}`);
+      })
+      ;
   });
   return router;
 }

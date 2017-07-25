@@ -61,7 +61,12 @@
           <div class="seperator"></div>                    
           <% } %>
           <h3><i class="fa fa-sticky-note" aria-hidden="true"></i> Description:<h3> <h4><%= events.description %></h4>
-          <br>                   
+          <br>       
+          <%if(user&&events.creator_user_id === user.id){%>
+            <form class="detail-rsvp" action="/events/<%=id%>/delete" method="POST" >
+              <button type="submit" class="btn btn-danger">Close Event</button>
+            </form> 
+          <%}%>
         </div>
         <div class="col-md-3 text-center">
           <div class="detail_right_sidebar">
