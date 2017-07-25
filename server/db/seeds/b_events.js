@@ -66,7 +66,7 @@ exports.seed = function(knex, Promise) {
           .then((id)=>{
             id = Number(id);
             return Promise.all([
-              insertEventPost(
+              insertEventPost(//add a message to message board
                 users[6].id,
                 id,
                 'Who wants to bring some doggo toys?'
@@ -76,7 +76,7 @@ exports.seed = function(knex, Promise) {
                 id,
                 'I can bring some tugging rope and water bowl.'
               ),
-              insertEventUser(
+              insertEventUser(//add a attendent
                 users[3].id,
                 id
               ),
@@ -115,9 +115,9 @@ exports.seed = function(knex, Promise) {
                   id
                 )
             ]);
-        }),
+          }),
 
-      //-----------third event----------------------
+        //-----------third event----------------------
           insertEvent(
             users[9].id,
             'Mean dogs party',
@@ -146,9 +146,39 @@ exports.seed = function(knex, Promise) {
                   id
                 )
             ]);
-      })
+        }),
 
-    ]);//event promise array ends here
+        insertEvent(
+          users[11].id,
+          'National dog day',
+          'Everyone love puppies!',
+          '450 Beach Crescent, Vancouver, BC V6Z 3G1',
+          'No restrictions, we love people and pups!',
+          '2017-08-26T24:00' ,
+          true,
+          49.2757771,
+          -123.1262836
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventPost(
+                users[5].id,
+                id,
+                'Loooooking forward to this so much!'
+              ),
+              insertEventUser(
+                users[12].id,
+                id
+              ),
+              insertEventUser(
+                users[13].id,
+                id
+              )
+          ]);
+        })
+
+      ]);//event promise array ends here
+    });
   });
-});
 }
