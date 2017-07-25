@@ -161,10 +161,15 @@ io.on('connection', function (socket) {
   });
 });
 
+app.use("/404", (req, res, next) => {
+  res.status(404).render("404");
+})
+app.use("/500", (req, res, next) => {
+  res.status(500).render("500");
+})
 app.use((req, res, next) => {
   res.status(404).render("404");
 })
-
 server.listen( process.env.PORT || 3000, () => {
   console.log('Server running');
 });
