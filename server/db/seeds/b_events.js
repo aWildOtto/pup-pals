@@ -147,7 +147,7 @@ exports.seed = function(knex, Promise) {
                 )
             ]);
         }),
-
+        //--------------fourth event---------------------
         insertEvent(
           users[11].id,
           'National dog day',
