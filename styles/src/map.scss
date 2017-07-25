@@ -5,3 +5,19 @@
   position: fixed;
   left: 0;
 }
+
+@media (max-width: 320px) {
+  .mapcontainer {
+    position: static;
+    height: 400px;
+    width:100%;
+  }
+}
+
+@media (max-width: 320px) {
+  .sidebar {
+    position: static;
+    height: 500px;
+    width: 100%;
+  }
+}

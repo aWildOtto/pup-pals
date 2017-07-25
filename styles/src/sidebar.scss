@@ -11,3 +11,9 @@
   width: 380px;
   overflow-y: scroll;
 }
+
+@media(max-width: 320px){
+  .sidebar{
+    display:none
+  }
+}

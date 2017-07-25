@@ -5,3 +5,11 @@
 .statuses {
   padding-top: 20px;
 }
+
+@media (max-width: 320px){
+  .pup-info {
+    position: static;
+    height: 500px;
+    width: 100%;
+  }
+}
