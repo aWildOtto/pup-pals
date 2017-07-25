@@ -101,9 +101,21 @@ module.exports = (knex) => {
     },
 
     closeEvent: (id) => {
-      return knex('events')
-        .where({id: id})
-        .del();  
+      return Promise.all([
+        knex('event_user')
+          .where({event_id: id})
+          .del(),
+        knex('event_pup')
+          .where({event_id: id})
+          .del(),
+        knex('event_posts')
+          .where({event_id: id})
+          .del(),
+        knex('events')
+          .where({id: id})
+          .del()
+        
+        ]);
     },
 
     getAllEvents: () => {
