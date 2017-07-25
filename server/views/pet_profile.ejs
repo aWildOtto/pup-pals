@@ -38,7 +38,7 @@
           <div class="left_sidebar">
             <h3>My Owner</h3>
             <div class="seperator"></div>
-          <%const owner = person[0]%>
+          <%const owner = person%>
           <% include partials/_owner.ejs%>
           <hr>
           <style>
@@ -57,7 +57,7 @@
           <style>
             .pup-pic {width: 300px!important;}
           </style>
-          <% if (user && user.id == person[0].id) { %>
+          <% if (user && user.id == person.id) { %>
           <div class="seperator"></div>
           <section class="new-status">
             <h2>What has <%= pup.name %> been up to?</h2>
