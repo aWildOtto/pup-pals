@@ -301,7 +301,8 @@ module.exports = (knex) => {
       return knex('event_posts')
         .leftJoin('users','event_posts.user_id', '=', 'users.id')
         .select('users.username', 'users.avatar_url', 'event_posts.*')
-        .where({'event_posts.event_id': event_id});
+        .where({'event_posts.event_id': event_id})
+        .orderBy('created_at');
     },
 
     searchEventInABox: (bound_a_lat, bound_a_lng, bound_b_lat, bound_b_lng) => {
