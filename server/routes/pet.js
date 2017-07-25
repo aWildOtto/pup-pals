@@ -35,7 +35,7 @@ module.exports = (dbHelper) => {
         if(result[1].length === 0) {
           res.redirect('/404');
         };
-        const person = result[0];
+        const person = result[0][0];
         const pup = result[1][0];
         const events = result[2];
         const statuses = result[3];
