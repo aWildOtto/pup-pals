@@ -13,11 +13,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="icon" href="/styles/pictures/dog-paw.png" type="image/png">
     <script src='/styles/js/calendar.js'></script>
+    
     <style>
       body {
-        margin-top: 70px;
+        margin-top: 90px;
         margin-bottom: 5px;
-        text-align: center;
         font-size: 14px;
         font-family: "Helvetica Nueue",Arial,Verdana,sans-serif;
         background-color: #DDDDDD;
@@ -26,20 +26,20 @@
       #wrap {
         width: 1100px;
         margin: 0 auto;
-        }
+      }
         
       #external-events {
         float: left;
         width: 150px;
         padding: 0 10px;
         text-align: left;
-        }
+      }
         
       #external-events h4 {
         font-size: 16px;
         margin-top: 0;
         padding-top: 1em;
-        }
+      }
         
       .external-event { /* try to mimick the look of a real event */
         margin: 10px 0;
@@ -54,31 +54,28 @@
         margin: 1.5em 0;
         font-size: 11px;
         color: #666;
-        }
+      }
         
       #external-events p input {
         margin: 0;
         vertical-align: middle;
-        }
+      }
 
       #calendar {
-    /* 		float: right; */
-            margin: 0 auto;
-        width: 900px;
+        margin: 0 auto;
+        width: 1000px;
         background-color: #FFFFFF;
-          border-radius: 6px;
-            box-shadow: 0 1px 2px #C3C3C3;
-        }
+        border-radius: 6px;
+        box-shadow: 0 1px 2px #C3C3C3;
+      }
 
     </style>
   </head>
   <body>
-  <% include partials/_calendar_nav.ejs %>
-  <div id='wrap'>
-
-  <div id='calendar'></div>
-
-  <div style='clear:both'></div>
-  </div>
+    <% include partials/_calendar_nav.ejs %>
+    <div id='wrap'>
+    <div id='calendar'></div>
+    <div style='clear:both'></div>
+    </div>
   </body>
 </html>
