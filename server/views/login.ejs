@@ -16,6 +16,15 @@
 
 <body>
   <% include partials/_navbar.ejs%>
+  <div class="animationload">
+    <div class="loader">&nbsp;</div>
+  </div>
+  <script>
+    $(window).ready(function() {
+        $('.animationload').hide();
+    });
+  </script>
+
     <div class="container">
       <div class="row">
         <div class="registerdiv">
@@ -40,7 +49,7 @@
                         <input class="form-control" type="password" name="password" placeholder="Password">
                       </div>
                     </p>
-                    <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+                    <button type="submit" class="login btn btn-lg btn-primary btn-block">Login</button>
                   </form>
             </div>
           </div>
@@ -48,5 +57,11 @@
       </div>
     </div>
 </body>
+
+<script>
+  $('.form-group').on('submit', function() {
+    $('.login').prop('disabled', true)
+  })
+</script>
 
 </html>

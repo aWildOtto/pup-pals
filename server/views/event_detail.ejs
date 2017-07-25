@@ -14,13 +14,21 @@
 </head>
 <body>
   <% include partials/_navbar.ejs %>
+  <div class="animationload">
+    <div class="loader">&nbsp;</div>
+  </div>
+  <script>
+    $(window).ready(function() {
+        $('.animationload').hide();
+    });
+  </script>
   <div class="event_detail_container">
     <div class="container">
       <div class="row">
         <div class="col-md-3 text-center">
           <div class="left_sidebar">
             <h3>Pup-pals attending</h3>
-            <div class="seperator"></div>            
+            <div class="seperator"></div>
             <div>
               <% users.forEach((item) => {%>
                 <% include partials/_event_goer.ejs %>
@@ -37,33 +45,33 @@
         </div>
         <div class="col-md-6 text-left">
           <img class="map" src=<%=mapUrl%> />
-          <h2 class="detail-title"><%= events.title %>&nbsp;&nbsp;&nbsp;&nbsp;         
+          <h2 class="detail-title"><%= events.title %>&nbsp;&nbsp;&nbsp;&nbsp;
             <%if(user){%>
               <%if(!rsvped){%>
                 <form class="detail-rsvp" action="/events/<%=id%>" method="POST" >
                   <button type="submit" class="btn btn-primary">Going</button>
-                </form>    
+                </form>
               <%}else{%>
                 <form class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
                   <button type="submit" class="btn btn-danger">Can't Go</button>
-                </form>    
+                </form>
               <%}%>
             <% } %>
-          </h2>    
-          <div class="seperator"></div>          
+          </h2>
+          <div class="seperator"></div>
           <h3><i class="fa fa-calendar-o" aria-hidden="true"></i> Date: <%= moment(events.date_time).format("dddd MMMM Do YYYY") %></h3>
           <div class="seperator"></div>
           <h3><i class="fa fa-clock-o" aria-hidden="true"></i> Time: <%= moment(events.date_time).format("h:mm a") %></h3>
-          <div class="seperator"></div>          
+          <div class="seperator"></div>
           <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Location: <%= events.location%></h3>
-          <div class="seperator"></div>          
+          <div class="seperator"></div>
           <%if (events.event_restriction) { %>
             <h4><i class="fa fa-ban" aria-hidden="true"></i> Restrictions: <%= events.event_restriction%></h4>
-          <div class="seperator"></div>                    
+          <div class="seperator"></div>
           <% } %>
           <h3><i class="fa fa-sticky-note" aria-hidden="true"></i> Description:<h3> <h4><%= events.description %></h4>
           <%if(user && events.creator_user_id === user.id){%>
-            <div class="seperator"></div><br>    
+            <div class="seperator"></div><br>
             <div style="text-align: center">
               <button style="width: 100%" id="editEvent" class="btn btn-primary">Edit Event</button>
             </div>
@@ -74,7 +82,7 @@
                 </form>
             </div>
           <%}%>
-          <br>          
+          <br>
         </div>
         <div class="col-md-3 text-center">
           <div class="detail_right_sidebar">

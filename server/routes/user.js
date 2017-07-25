@@ -49,21 +49,27 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/signup", (req, res) => {
-    dbHelper.createUser(req.body)
-    .then((id)=>{
-      req.session.user = {
-        id: id,
-        avatar_url: req.body.avatar_url,
-        username: req.body.username
-      }
-      res.redirect('/');
-    })
-    .catch((error) => {
-      console.log(error);
-      res.render('signup', {
-        error: "Username or email was taken"
+    if (req.body.name && req.body.username && req.body.password && req.body.email){
+      dbHelper.createUser(req.body)
+      .then((id)=>{
+        req.session.user = {
+          id: id,
+          avatar_url: req.body.avatar_url,
+          username: req.body.username
+        }
+        res.redirect('/');
       })
-    });
+      .catch((error) => {
+        console.log(error);
+        res.render('signup', {
+          error: "Username or email was taken"
+        })
+      });
+    } else {
+      res.render('signup', {
+        error: "Please fill out all the fields"
+      })
+    }
   });
 
   router.get("/logout", (req, res) => {

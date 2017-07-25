@@ -92,7 +92,7 @@ exports.seed = function(knex, Promise) {
             })
           ]);
         }),
-        //2 .otto has one dog 
+        //2 .otto has one dog
         insertUser(
           'ottoMatic',
           'Otto Hu',
@@ -571,8 +571,7 @@ exports.seed = function(knex, Promise) {
                 true,
                 '1',
                 '/styles/pictures/bull.jpg',
- -              'Tucker',
- +              'Doggo',
+                'Doggo',
                 'male'
               ),
               insertPup(
@@ -583,20 +582,19 @@ exports.seed = function(knex, Promise) {
                 true,
                 '3',
                 '/styles/pictures/boston.jpg',
- -              'Brodie',
- +              'Puppo',
+                'Puppo',
                 'male'
               )
             ]);
           }),
           //17.matt has 2 dogs
           insertUser(
- -          'mattyb',
- -          'Matt Baxley',
- -          'mbaxley@gmail.com',
+            'mattyb',
+            'Matt Baxley',
+            'mbaxley@gmail.com',
             '123',
- -          'Just went to my first meetup with Jack, so fun!!',
- -          '/styles/pictures/david.jpg'
+            'Just went to my first meetup with Jack, so fun!!',
+            'http://www.gangstersout.com/david_gilesbf.JPG'
           )
           .then((id) => {
             return Promise.all([

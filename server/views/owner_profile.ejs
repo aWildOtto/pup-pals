@@ -20,7 +20,16 @@
 </head>
 
 <body>
+
   <% include partials/_navbar.ejs %>
+  <div class="animationload">
+    <div class="loader">&nbsp;</div>
+  </div>
+  <script>
+    $(window).ready(function() {
+        $('.animationload').hide();
+    });
+  </script>
   <script>var id = <%- JSON.stringify(person.id) %>;</script>
     <div class="registerdiv">
       <div class="container-fluid">
