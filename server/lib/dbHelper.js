@@ -18,6 +18,12 @@ module.exports = (knex) => {
         .where({'id': id})
     },
 
+    updateEvent: (id, event) => {
+      return knex.table('events')
+        .update(event)
+        .where({'id': id})
+    },
+
     getUserStatus: (userId) => {
       return knex.table('users')
         .select('status')
