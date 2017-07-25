@@ -13,6 +13,9 @@ module.exports = (dbHelper) => {
      console.log('events', results)})
    Promise.all([eventsPromise, userPromise, pupsPromise])
      .then((result) => {
+       if(result[1].length === 0) {
+          res.redirect('/404');
+        };
        const events = result[0];
        const person = result[1][0];
        const pups = result[2];

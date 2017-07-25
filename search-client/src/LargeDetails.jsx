@@ -65,7 +65,7 @@ class LargeDetails extends Component {
             <a href={"/events/" + this.props.event.id} className="btn btn-primary largedetails-eventpage">Go to event page</a>                        
           </div>
           <div className="largedetails-section">
-            <span className="largedetails-detailbody">{this.props.event.description}</span>
+            <span className="largedetails-detailbody"><i className="fa fa-sticky-note" aria-hidden="true"></i> {this.props.event.description}</span>
           </div>
           <div className="largedetails-footer">
             <span className="largedetails-rsvp">

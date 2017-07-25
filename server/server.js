@@ -116,6 +116,7 @@ io.on('connection', function (socket) {
       // console.log( "all event posts: ", results);
         const messages = [];
         results.forEach(function(message){
+          console.log(message)
           messages.push({
             message: message.content,
             avatar_url: message.avatar_url,

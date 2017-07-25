@@ -45,7 +45,6 @@ $(document).ready(function () {
           var hour = moment(event.date_time).format("HH")  
           var hour = moment(event.date_time).format("HH") 
           var min = moment(event.date_time).format("mm")     
-          console.log(month)
           var source = { 
             events: [{
               title: event.title,

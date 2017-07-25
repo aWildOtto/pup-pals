@@ -32,10 +32,13 @@ module.exports = (dbHelper) => {
     const eventsPromise = dbHelper.eventsForPup(req.params.id);
     Promise.all([userPromise, pupPromise, eventsPromise, statusPromise])
       .then((result) => {
-        const person = result[0]
-        const pup = result[1][0]
-        const events = result[2]
-        const statuses = result[3]
+        if(result[1].length === 0) {
+          res.redirect('/404');
+        };
+        const person = result[0];
+        const pup = result[1][0];
+        const events = result[2];
+        const statuses = result[3];
         res.render("pet_profile",  {
           person,
           pup,

@@ -28,6 +28,8 @@
       <div class="row">
         <div class = "col-md-3 text-center">
           <div class="left_sidebar">
+            <h3>My Owner</h3>
+            <div class="seperator"></div>
           <%const owner = person[0]%>
           <% include partials/_owner.ejs%>
           <hr>
@@ -47,10 +49,6 @@
           <style>
             .pup-pic {width: 300px!important;}
           </style>
-          <div class="seperator"></div>
-
-          <div class='statuses'> </div>
-
           <% if (user && user.id == person[0].id) { %>
           <div class="seperator"></div>
           <section class="new-status">
@@ -64,6 +62,8 @@
             </form>
           </section>
           <% } %>
+          <div class="seperator"></div>          
+          <div class='statuses'> </div><br>
         </div>
         <div class="col-md-3 text-center">
           <div class="right_sidebar">
