@@ -69,3 +69,31 @@ a.error-link {
 .btn {
   border: 0px solid transparent;
 }
+
+.btn-outline {
+  border: 2px solid #e0e0e0;
+  color: white;
+  font-weight: 300;
+  padding: 15px 25px;
+  &:hover {
+    color: white;      
+  }
+  &:active {
+    color: white;      
+  }
+  &:focus {
+    color: white;  
+  }
+}
+
+.btn-find {
+  background: #E77078;
+  border: 2px solid transparent;
+  font-weight: 300;  
+  padding: 15px 25px;
+}
+
+.btn-find:hover {
+  background: #bc565d;
+  border: 2px solid #bc565d;
+}
