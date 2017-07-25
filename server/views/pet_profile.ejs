@@ -54,7 +54,7 @@
           <% if (user && user.id == person[0].id) { %>
           <div class="seperator"></div>
           <section class="new-status">
-            <h2>Post new Pup pictures</h2>
+            <h2>What has <%= pup.name %> been up to?</h2>
             <form class="status-form" method="POST" action= "/pet/<%= pup.id %>">
               <input class="form-control" type="file" id="file-input">
               <textarea class="form-control" name="text" placeholder="Ehhh What's up Doc?"></textarea>
