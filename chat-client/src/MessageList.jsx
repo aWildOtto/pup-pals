@@ -13,6 +13,7 @@ class MessageList extends Component {
                   return <p key={item.id}>{item.note}</p>
                 }else{
                   return <Message key={item.id}
+                                user_id = {item.user_id}
                                 username = {item.username}
                                 avatar_url = {item.avatar_url}
                                 message={item.message}
