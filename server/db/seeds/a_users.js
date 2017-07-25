@@ -1,196 +1,228 @@
 const bcrypt = require("bcrypt");
 
 exports.seed = function(knex, Promise) {
+  function insertUser(username, name, email, password, status, avatar_url){
+    return knex('users').insert({
+      username,
+      name,
+      email,
+      password: bcrypt.hashSync(password, 10),
+      status,
+      avatar_url
+    }).returning("id");
+  }
+
+  function insertPup(user_id, breed, size, temperament, neutered, age, avatar_url, name, sex){
+    user_id = Number(user_id);
+    return knex('pups').insert({
+      user_id,
+      breed,
+      size,
+      temperament,
+      neutered,
+      age,
+      avatar_url,
+      name,
+      sex
+    })
+    //copy paste this part to add more updates to puppies
+    .returning('id');
+  }
+
+  function insertPupUpdate(pup_id, content, media_url){
+    pup_id = Number(pup_id);
+    return knex('pup_updates').insert({
+      pup_id,
+      content,
+      media_url
+    });
+  }
+
   return knex('users').del()
     .then(function () {
       return Promise.all([
         //1 .Nikki has two dogs
-        knex('users').insert({
-          username: 'nikki915',
-          name: 'Nikki Seidel',
-          email: 'nikkis@gmail.com',
-          password: bcrypt.hashSync('123', 10),
-          status: 'Looking for a new puppy! Let me know if you know of anyone selling!!',
-          avatar_url: '/styles/pictures/nikki.jpg'
-        })
-        .returning('id').then((id) => {
+        insertUser(
+          'nikki915',
+          'Nikki Seidel',
+          'nikkis@gmail.com',
+          '123',
+          'Looking for a new puppy! Let me know if you know of anyone selling!!',
+          '/styles/pictures/nikki.jpg')
+        .then((id) => {
           return Promise.all([
-            knex('pups').insert({
-              breed: 'Bull Terrier',
-              size: 'Medium',
-              temperament: 'Playful',
-              neutered: true,
-              age: '1',
-              avatar_url: '/styles/pictures/bull.jpg',
-              name: 'Tucker',
-              sex: 'male'
-            })
+            insertPup(
+              id,
+              'Bull Terrier',
+              'Medium',
+              'Playful',
+              true,
+              '1',
+              '/styles/pictures/bull.jpg',
+              'Tucker',
+              'male'
+            )
             //copy paste this part to add more updates to puppies
-            .returning('id')
             .then((pup_id)=>{
-              pup_id = Number(pup_id);
-              return knex('pup_updates').insert({
-                pup_id: pup_id,
-                content: 'Man I just love sleeping',
-                media_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
-              })
+              return insertPupUpdate(
+                pup_id,
+                "Man I just love sleeping",
+                "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+              );
             })
             //----------------------
             ,
-            knex('pups').insert({
-              user_id: Number(id),
-              breed: 'Boston Terrier',
-              size: 'Small',
-              temperament: 'Energetic',
-              neutered: true,
-              age: '3',
-              avatar_url: '/styles/pictures/boston.jpg',
-              name: 'Brodie',
-              sex: 'male'
-            }).returning('id')
+            insertPup(
+              id,
+              'Boston Terrier',
+              'Small',
+              'Energetic',
+              true,
+              '3',
+              '/styles/pictures/boston.jpg',
+              'Brodie',
+              'male'
+            )
             .then((pup_id)=>{
-              pup_id = Number(pup_id);
-              return knex('pup_updates').insert({//TODO: change the url
-                pup_id: pup_id,
-                content: 'Can\'t decide if sleeping or eating is better',
-                media_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
-              });
+              return insertPupUpdate(//TODO: change the url
+                pup_id,
+                'Can\'t decide if sleeping or eating is better',
+                "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+              );
             })
           ]);
         }),
         //2 .otto has one dog 
-        knex('users').insert({
-          username: 'ottoMatic',
-          name: 'Otto Hu',
-          email: 'ottohu101@gmail.com',
-          password: bcrypt.hashSync('123', 10),
-          status: 'Darn dogs',
-          avatar_url: '/styles/pictures/otto.jpg'
+        insertUser(
+          'ottoMatic',
+          'Otto Hu',
+          'ottohu101@gmail.com',
+          '123',
+          'Darn dogs',
+          '/styles/pictures/otto.jpg'
+        )
+        .then((id) => {
+          return insertPup(
+          id,
+          'Husky',
+          'Medium-Large',
+          'Cheerful',
+          true,
+          '5',
+          '/styles/pictures/husky.jpg',
+          'Molly',
+          'female'
+        )
+        .then((pup_id)=>{
+          return insertPupUpdate(//change the url
+            pup_id,
+            'wof wof',
+            "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+          );
         })
-          .returning('id').then((id) => {
-            return knex('pups').insert({
-            user_id: Number(id),
-            breed: 'Husky',
-            size: 'Medium-Large',
-            temperament: 'Cheerful',
-            neutered: true,
-            age: '5',
-            avatar_url:'/styles/pictures/husky.jpg',
-            name: 'Molly',
-            sex: 'female'
-          }).returning('id')
-            .then((pup_id)=>{
-              pup_id = Number(pup_id);
-              return knex('pup_updates').insert({//change the url
-                pup_id: pup_id,
-                content: 'wof wof',
-                media_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
-              });
-          })
         }),
         //3.caitlin has 3 dogs
-        knex('users').insert({
-          username: 'caitlinquon',
-          name: 'Caitlin Quon',
-          email: 'caitlin.quon@gmail.com',
-          password: bcrypt.hashSync('123', 10),
-          status: 'Looking forward to National Dog Day!',
-          avatar_url: '/styles/pictures/caitlin.jpg'
-        })
-        .returning('id').then((id) => {
+        insertUser(
+          'caitlinquon',
+          'Caitlin Quon',
+          'caitlin.quon@gmail.com',
+          '123',
+          'Looking forward to National Dog Day!',
+          '/styles/pictures/caitlin.jpg'
+        )
+        .then((id) => {
           return Promise.all([
-            knex('pups').insert({
-              user_id: Number(id),
-              breed: 'Long-haired Mini Daschund',
-              size: 'Small',
-              temperament: 'Friendly',
-              neutered: true,
-              age: '1',
-              avatar_url:'/styles/pictures/mini.jpg',
-              name: 'Joey',
-              sex: 'male'
-          }).returning('id')
-              .then((pup_id)=>{
-                pup_id = Number(pup_id);
-                return knex('pup_updates').insert({//change the url
-                  pup_id: pup_id,
-                  content: 'me on the grass',
-                  media_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
-                });
-              }),
-            knex('pups').insert({
-              user_id: Number(id),
-              breed: 'Long-haired Mini Daschund',
-              size: 'Small',
-              temperament: 'Playful',
-              neutered: true,
-              age: '1',
-              avatar_url:'/styles/pictures/mini2.jpg',
-              name: 'Penny',
-              sex: 'female'
-          }).returning('id')
-              .then((pup_id)=>{
-                pup_id = Number(pup_id);
-                return knex('pup_updates').insert({//change the url
-                  pup_id: pup_id,
-                  content: 'gaga',
-                  media_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
-                })
-              }),
-            knex('pups').insert({
-              user_id: Number(id),
-              breed: 'Golden Retriever',
-              size: 'Medium',
-              temperament: 'Active',
-              neutered: true,
-              age: '1',
-              avatar_url:'/styles/pictures/golden.jpg',
-              name: 'Charlie',
-              sex: 'male'
-            })
+            insertPup(
+              id,
+              'Long-haired Mini Daschund',
+              'Small',
+              'Friendly',
+              true,
+              '1',
+              '/styles/pictures/mini.jpg',
+              'Joey',
+              'male'
+            )
+            .then((pup_id)=>{
+              return insertPupUpdate(//change the url
+                pup_id,
+                'me on the grass',
+                "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+              );
+            }
+            ),
+            insertPup(
+              id,
+              'Long-haired Mini Daschund',
+              'Small',
+              'Playful',
+              true,
+              '1',
+              '/styles/pictures/mini2.jpg',
+              'Penny',
+              'female'
+            )
+            .then((pup_id)=>{
+              return insertPupUpdate(//change the url
+                pup_id,
+                'gaga',
+                "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+              )
+            }
+            ),
+            insertPup(
+              id,
+              'Golden Retriever',
+              'Medium',
+              'Active',
+              true,
+              '1',
+              '/styles/pictures/golden.jpg',
+              'Charlie',
+              'male'
+            )
           ]);
         }),
         //4.donald has two dogs
-        knex('users').insert({
-          username: 'donaldma',
-          name: 'Donald Ma',
-          email: 'donaldma@gmail.com',
-          password: bcrypt.hashSync('123', 10),
-          status: 'Cannot wait for my pups birthday party',
-          avatar_url: '/styles/pictures/donald.jpg'
-        })
-        .returning('id').then((id) => {
+        insertUser(
+          'donaldma',
+          'Donald Ma',
+          'donaldma@gmail.com',
+          '123',
+          'Cannot wait for my pups birthday party',
+          '/styles/pictures/donald.jpg'
+        )
+        .then((id) => {
           return Promise.all([
-            knex('pups').insert({
-              user_id: Number(id),
-              breed: 'Husky Pomeranian',
-              size: 'Small',
-              temperament: 'Active',
-              neutered: true,
-              age: '1',
-              avatar_url:'/styles/pictures/huskypom.jpg',
-              name: 'Baxter',
-              sex: 'male'
-          }).returning('id')
+            insertPup(
+              id,
+              'Husky Pomeranian',
+              'Small',
+              'Active',
+              true,
+              '1',
+              '/styles/pictures/huskypom.jpg',
+              'Baxter',
+              'male'
+            )
               .then((pup_id)=>{
-                pup_id = Number(pup_id);
-                return knex('pup_updates').insert({//change the url
-                  pup_id: pup_id,
-                  content: 'hello guys, I\'m new here',
-                  media_url: "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
-                });
+                return insertPupUpdate(//change the url
+                  pup_id,
+                  'hello guys, I\'m new here',
+                  "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+                );
               }),
-            knex('pups').insert({
-              user_id: Number(id),
-              breed: 'Pomeranian',
-              size: 'Small',
-              temperament: 'Quiet',
-              neutered: true,
-              age: '2',
-              avatar_url:'/styles/pictures/pom.jpg',
-              name: 'Fiona',
-              sex: 'female'
-            })
+            insertPup(
+              id,
+              'Pomeranian',
+              'Small',
+              'Quiet',
+              true,
+              '2',
+              '/styles/pictures/pom.jpg',
+              'Fiona',
+              'female'
+            )
           ]);
         }),
         //5.ti has one dog
