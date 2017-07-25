@@ -15,10 +15,10 @@ module.exports = (dbHelper) => {
   }),
 
   router.post("/new", (req, res, next)=> {
-    //get coordinates of location
     if(!req.session.user){
-      next();
+      req.render('404');
     }
+    //get coordinates of location
     geocoder.geocode(req.body.location, (err, data) => {
       const event = {
         title: req.body.title,
@@ -130,6 +130,7 @@ module.exports = (dbHelper) => {
         })
         .catch((error) => {
           console.log(error);
+          res.status(500).end("Sorry we messed up");
         });
     } else {
       res.redirect('/user/login');
@@ -149,9 +150,7 @@ module.exports = (dbHelper) => {
       const cancelPupPromise = pupIdPromise
         .then((pupIds) => {
           pupIds.forEach((pupId) => {
-            dbHelper.deleteEventPups(pupId.id, req.params.id).then(()=>{
-              return;
-            });
+            return dbHelper.deleteEventPups(pupId.id, req.params.id);
           });
       });
       Promise.all([userCancelPromise, cancelPupPromise])
@@ -160,9 +159,64 @@ module.exports = (dbHelper) => {
       })
       .catch((error) => {
         console.log(error);
+        res.status(500).end("Sorry we messed up");
       });
     }else{
       res.json('cancel failed');
+    }
+  });
+
+  router.post('/:id/delete', (req, res, next) => {
+    if(!req.session.user){
+      next();
+    }
+    dbHelper.getEventById(req.params.id)
+      .then((result) => {
+        console.log(result);
+        if(result[0].creator_user_id!==req.session.user.id){
+          req.status(403).end("permission denied");
+        }else{
+          return dbHelper.closeEvent(req.params.id);
+        }
+      })
+      .then((result) => {
+        console.log(result);
+        res.redirect(`/owner/${req.session.user.id}`);
+      });
+  });
+
+  router.post('/:id/edit', (req, res, next) => {
+    console.log(req.body);
+    if(!req.session.user){
+      next();
+    }else{
+    dbHelper.getEventById(req.params.id)
+      .then((result) => {
+        if(result[0].creator_user_id!==req.session.user.id){
+          req.status(403).end("permission denied");
+        }else{
+          return dbHelper.getEventById(req.params.id)
+            .then((result) => {
+              const event = {
+                title: req.body.title || result[0].title,
+                description: req.body.description || result[0].description,
+                restriction: req.body.restriction || result[0].restriction,
+                date_time: req.body.date_time || result[0].date_time,
+                location: req.body.location || result[0].location,
+                longitude: req.body.location?req.body.location.geometry.location.lng: result[0].longitude,
+                latitude: req.body.location?req.body.location.geometry.location.lat: result[0].latitude
+              }
+              return dbHelper.updateEvent(req.params.id, event);
+            });
+        }
+      })
+      .then((result) => {
+        res.redirect('back');
+      })
+      .catch((error) =>{
+        console.log(error);
+        res.status(500).end("Sorry we messed up");
+      });
     }
   });
   return router;

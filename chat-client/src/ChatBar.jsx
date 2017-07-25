@@ -30,8 +30,10 @@ class ChatBar extends Component {
   }
 
   toggleHidden = () => {
-    this.setState({
-      isHidden: !this.state.isHidden
+    this.setState((prevState)=>{
+      return {
+        isHidden: !prevState.isHidden
+      }
     })
   }
   render(){
