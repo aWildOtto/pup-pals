@@ -55,8 +55,13 @@ module.exports = (dbHelper) => {
           res.redirect("/500");
         });
     });
+  }),
 
-
+  router.get('/featured', (req, res, next) => {
+    dbHelper.getEventIdByTitle()
+    .then((event) => {
+      res.redirect(`/events/${event[0].id}`);
+    });
   }),
 
   router.get("/:id", (req, res, next) => {
@@ -93,7 +98,6 @@ module.exports = (dbHelper) => {
                   }
                   return user;
                 });
-                console.log("rsvped is ", rsvped);
                 let templateVars = {
                     events: results[0].events,
                     users: users,
@@ -151,7 +155,6 @@ module.exports = (dbHelper) => {
     const userCancelPromise = dbHelper.cancelRSVP(req.params.id, user_id);
     const cancelPupPromise = pupIdPromise
       .then((pupIds) => {
-        console.log(pupIds);
         return Promise.all(pupIds.map((pupId) => {
             return dbHelper.deleteEventPups(pupId.id, req.params.id);
           })
@@ -173,7 +176,6 @@ module.exports = (dbHelper) => {
     }
     dbHelper.getEventById(req.params.id)
       .then((result) => {
-        console.log(result);
         if(result[0].creator_user_id!==req.session.user.id){
           req.status(403).end("permission denied");
         }else{
@@ -181,7 +183,6 @@ module.exports = (dbHelper) => {
         }
       })
       .then((result) => {
-        console.log(result);
         res.redirect(`/owner/${req.session.user.id}`);
       })
       .catch((error)=>{
@@ -192,7 +193,6 @@ module.exports = (dbHelper) => {
 
 
   router.post('/:id/edit', (req, res, next) => {
-    console.log(req.body);
     if(!req.session.user){
       res.redirect("/404");
     }else{

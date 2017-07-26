@@ -64,7 +64,7 @@ app.get('/', (req, res) => {
   dbHelper.getRandomPup()
     .then((pup) => {
       console.log(pup.rows[0]);
-      res.render('index', pup.rows[0]);
+      res.render('index', {pup:pup.rows[0]});
     })
 });
 

@@ -128,7 +128,7 @@ exports.seed = function(knex, Promise) {
           insertEvent(
             users[9].id,
             'Mean dogs party',
-            'It\'s gonna be messy and violent',
+            'It\'s gonna be fun',
             'Pacific Spirit Regional Park',
             'Small Pups Watch out!',
             '2017-08-10T24:00' ,
@@ -142,7 +142,7 @@ exports.seed = function(knex, Promise) {
                 insertEventPost(
                   users[5].id,
                   id,
-                  'Oh god it\'s going to be brutal!'
+                  'Oh yea it\'s going to be awesome!'
                 ),
                 insertEventUser(
                   users[9].id,
@@ -158,13 +158,13 @@ exports.seed = function(knex, Promise) {
         insertEvent(
           users[11].id,
           'National dog day',
-          'Everyone love puppies!',
-          '450 Beach Crescent, Vancouver, BC V6Z 3G1',
+          'Join the dog community in celebrating our best friends on National Dog Day. Whether you’re a past, present or future owner of a pup, come out and enjoy some grillables and play with the pups!',
+          '999 Charleson Street, Vancouver, BC V5Z 4A2',
           'No restrictions, we love people and pups!',
           '2017-08-26T24:00' ,
           true,
-          49.2757771,
-          -123.1262836
+          49.2666094,
+          -123.1281372,17
         )
           .then((id) => {
             id = Number(id);
@@ -183,8 +183,37 @@ exports.seed = function(knex, Promise) {
                 id
               )
           ]);
+        }),
+        //--------------fifth event---------------------
+        insertEvent(
+          users[4].id,
+          'Louie\'s 2nd birthday',
+          'Come out to Steveston this Saturday to help Louie celebrate his second birthday! There will be treats for the pups and pizza for the humans. Instead of bringing Louie a gift, please bring some toys to donate to the SPCA! Hope to see you there!',
+          'Garry Point Park',
+          'No restrictions',
+          '2017-10-01T12:00' ,
+          true,
+          49.126394,
+          -123.192098
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventPost(
+                users[4].id,
+                id,
+                'Can\'t Wait!'
+              ),
+              insertEventUser(
+                users[2].id,
+                id
+              ),
+              insertEventUser(
+                users[3].id,
+                id
+              )
+          ]);
         })
-
       ]);//event promise array ends here
     });
   });
