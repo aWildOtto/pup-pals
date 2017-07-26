@@ -63,7 +63,6 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   dbHelper.getRandomPup()
     .then((pup) => {
-      console.log(pup.rows[0]);
       res.render('index', {pup:pup.rows[0]});
     })
 });
@@ -116,10 +115,8 @@ io.on('connection', function (socket) {
   if(eventId){
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
       .then((results) => {
-      console.log( "all event posts: ", results);
         let messages = [];
         results.forEach(function(message){
-          console.log(message)
           messages.push({
             user_id: message.user_id,
             message: message.content,

@@ -43,7 +43,6 @@ $(document).ready(function () {
           method: 'GET',
           url: '/api/userEvents'
         }).done(function(rsvped){
-          console.log(rsvped);
         allEvents.map(function(event) {
           var year = moment(event.date_time).format("YYYY");
           var month = moment(event.date_time).format("MM") - 1;
