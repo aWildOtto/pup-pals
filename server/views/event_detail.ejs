@@ -73,12 +73,12 @@
           <%if(user && events.creator_user_id === user.id){%>
             <div class="seperator"></div><br>
             <div style="text-align: center">
-              <button style="width: 100%" id="editEvent" class="btn btn-primary">Edit Event</button>
+              <button id="editEvent" class="btn btn-primary">Edit Event</button>
             </div>
             <br>
             <div style="text-align: center">
                 <form action="/events/<%=id%>/delete" method="POST" >
-                  <button style="width: 100%" type="submit" class="btn btn-danger">Close Event</button>
+                  <button type="submit" class="btn btn-danger">Close Event</button>
                 </form>
             </div>
           <%}%>
