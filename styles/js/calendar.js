@@ -36,8 +36,11 @@ $(document).ready(function () {
   function loadEvents(){
     $.ajax({
       method: 'GET',
-      url: '/api/events',
-      success: function(data){
+      url: '/api/events'
+    })
+      .then(function(data){
+        
+        
         data.map(function(event) {
           var year = moment(event.date_time).format("YYYY");
           var month = moment(event.date_time).format("MM") - 1;
@@ -57,7 +60,9 @@ $(document).ready(function () {
           $('#calendar').fullCalendar( 'addEventSource', source );
         });
       }
-    });
+      )
+      
+    
   };
 
   var calendar = $('#calendar').fullCalendar({
