@@ -48,11 +48,13 @@
           </div>
         </div>
         <div class="col-md-6 text-center owner-profile-col">
+          <% if (user && user.id == person.id) { %>
           <button class="btn btn-primary edit btn">Update profile</button>
           <button class="btn btn-primary back btn">Back to profile</button>
           <div class="edit-profile">
             <% include partials/_edit_pet_profile.ejs %>
           </div>
+          <% } %>
           <% include partials/_puppy.ejs %>
           <% if (user && user.id == person.id) { %>
           <div class="seperator"></div>
@@ -67,7 +69,7 @@
             </form>
           </section>
           <% } %>
-          <div class="seperator"></div>          
+          <div class="seperator"></div>
           <div class='statuses'> </div><br>
         </div>
         <div class="col-md-3 text-center">
