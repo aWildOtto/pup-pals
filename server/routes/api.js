@@ -132,6 +132,18 @@ module.exports = (dbHelper) => {
 
   });
 
+  router.get('/userEvents', (req, res, next) => {
+    if(!req.session.user){
+      res.json('');
+    }else{
+      dbHelper.getEventIdsByUserId(req.session.user.id)
+        .then((result) => {
+          console.log(result);
+          res.json(result);
+      });
+    }
+  });
+
   return router;
 }
 

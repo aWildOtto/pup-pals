@@ -36,28 +36,44 @@ $(document).ready(function () {
   function loadEvents(){
     $.ajax({
       method: 'GET',
-      url: '/api/events',
-      success: function(data){
-        data.map(function(event) {
+      url: '/api/events'
+    })
+      .done(function(allEvents){
+        return $.ajax({
+          method: 'GET',
+          url: '/api/userEvents'
+        }).done(function(rsvped){
+          console.log(rsvped);
+        allEvents.map(function(event) {
           var year = moment(event.date_time).format("YYYY");
           var month = moment(event.date_time).format("MM") - 1;
-          var day = moment(event.date_time).format("D")
-          var hour = moment(event.date_time).format("HH")  
-          var hour = moment(event.date_time).format("HH") 
-          var min = moment(event.date_time).format("mm")     
+          var day = moment(event.date_time).format("D");
+          var hour = moment(event.date_time).format("HH"); 
+          var min = moment(event.date_time).format("mm");
+          var eventClass = 'regular';
+          if(rsvped){
+            rsvped.forEach(function(rsvped_id){
+              if(event.id === rsvped_id.id){
+                eventClass = 'rsvped';
+              }
+            });
+          }
           var source = { 
             events: [{
               title: event.title,
               start: new Date(year, month, day, hour, min),
               allDay: false,
-              className: 'info',
+              className: eventClass,
               url: `/events/${event.id}`
             }]
           };
           $('#calendar').fullCalendar( 'addEventSource', source );
         });
       }
+      )
     });
+      
+    
   };
 
   var calendar = $('#calendar').fullCalendar({
