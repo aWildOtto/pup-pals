@@ -42,7 +42,7 @@
               <% pups.forEach(function(item){ %>
                 <% const pup = item; %>
                   <a href="/pet/<%=pup.id%>">
-                    <img class="pup-pic" src="<%= pup.avatar_url %>" style="width:100px">
+                    <img class="pup-pic" src="<%= pup.avatar_url %>">
                     <h2><%= pup.name %></h2>
                   </a>
                   <hr>
@@ -71,9 +71,6 @@
               &nbsp;&nbsp;
               <i class="fa quote fa-quote-right" aria-hidden="true"></i>
              </div>
-            <style>
-              .owner-avatar {width: 300px!important;}
-            </style>
             <% if (user && user.id == profileId) { %>
             <div class="seperator"></div>
             <section class="new-status">
@@ -81,8 +78,8 @@
               <form class="status-form" method="POST" action= "/owner/<%= person.id %>">
                 <textarea class="form-control" name="text" placeholder="Ehhh What's up Doc?"></textarea>
                 <br>
-                <input class="btn btn-primary btn-block update-status-btn" type="submit" value="Update">
-                <span class="counter">100</span>
+                <input class="btn btn-primary" type="submit" value="Update">
+                <div class="counter">100</div>
               </form>
             </section>
             <% } %>

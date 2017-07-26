@@ -54,9 +54,6 @@
             <% include partials/_edit_pet_profile.ejs %>
           </div>
           <% include partials/_puppy.ejs %>
-          <style>
-            .pup-pic {width: 300px!important;}
-          </style>
           <% if (user && user.id == person.id) { %>
           <div class="seperator"></div>
           <section class="new-status">
@@ -65,8 +62,8 @@
               <input class="form-control" type="file" id="file-input">
               <textarea class="form-control" name="text" placeholder="Ehhh What's up Doc?"></textarea>
               <br>
-              <input class="btn btn-primary btn-block" type="submit" value="Update">
-              <span class="counter">140</span>
+              <input class="btn btn-primary" type="submit" value="Update">
+              <div class="counter">140</div>
             </form>
           </section>
           <% } %>

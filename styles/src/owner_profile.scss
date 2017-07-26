@@ -28,14 +28,17 @@
 }
 
 .owner-avatar {
-  border-radius: 100px;
+  border-radius: 50%;
   margin-top: 30px;
+  width: 210px;
+  height: 210px;
 }
 
 .pup-pic{
-  border-radius: 100px;
+  border-radius: 50%;
   margin-top: 40px;
-  height: 80px;
+  height: 140px;
+  width: 140px;
 }
 
 .puppy-box {
@@ -73,10 +76,6 @@
 
 .new-status {
   padding-top: 0;
-}
-
-.update-status-btn {
-  float: right;
 }
 
 .owner-profile-col {

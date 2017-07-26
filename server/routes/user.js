@@ -12,10 +12,8 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/login", (req, res) => {
-    console.log(req.body);
     dbHelper.getUserByEmail(req.body.email)
     .then((result)=>{
-      console.log(result);
       if(result.length != 0){
         if(bcrypt.compareSync(req.body.password, result[0].password)){
           // console.log(req.session);

@@ -48,8 +48,6 @@ class App extends React.Component {
             user: userData,
             loading: false
           });
-        console.log("Events data from server:", eventsData)
-        console.log("User data from server:", userData)
       }));
   }
 
