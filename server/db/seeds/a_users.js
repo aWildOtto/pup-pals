@@ -39,6 +39,12 @@ exports.seed = function(knex, Promise) {
   }
 
   return knex('users').del()
+    .then(()=>{
+      return knex('pups').del()
+        .then(()=>{
+          return knex('pup_updates').del();
+        });
+    })
     .then(function () {
       return Promise.all([
         //1 .Nikki has two dogs

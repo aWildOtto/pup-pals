@@ -236,6 +236,12 @@ module.exports = (knex) => {
         .where({user_id});
     },
 
+    getRandomPup: () => {
+      return knex.raw(`SELECT * FROM pups
+        ORDER BY RANDOM()
+        LIMIT 1`);
+    },
+
     insertEventPups: (pup_id, event_id) => {
       return knex.table('event_pup').insert({
         pup_id: pup_id,

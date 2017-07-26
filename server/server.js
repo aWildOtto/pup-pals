@@ -61,8 +61,11 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  console.log(res.locals.user);
-  res.render('index');
+  dbHelper.getRandomPup()
+    .then((pup) => {
+      console.log(pup.rows[0]);
+      res.render('index', pup.rows[0]);
+    })
 });
 
 

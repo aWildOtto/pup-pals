@@ -48,8 +48,15 @@ exports.seed = function(knex, Promise) {
   }
 
   return knex('events').del()
+    .then(()=>{
+      return knex('event_posts').del()
+        .then(() => {
+          return knex('event_user').del();
+        });
+    })
     .then(function () {
-      return knex('users').select().then((users) => {//find all users
+      return knex('users').select()
+        .then((users) => {//find all users
         return Promise.all([
           //-------------------first event--------------------------
           insertEvent(// create an event under the first user's name
