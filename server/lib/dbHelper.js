@@ -9,25 +9,25 @@ module.exports = (knex) => {
     updateOwnerProfile: (id, avatar_url, name) => {
       return knex.table('users')
         .update({avatar_url, name})
-        .where({'id': id})
+        .where({id})
     },
 
     updatePupProfile: (id, profile) => {
       return knex.table('pups')
         .update(profile)
-        .where({'id': id})
+        .where({id})
     },
 
     updateEvent: (id, event) => {
       return knex.table('events')
         .update(event)
-        .where({'id': id})
+        .where({id})
     },
 
-    getUserStatus: (userId) => {
+    getUserStatus: (id) => {
       return knex.table('users')
         .select('status')
-        .where({'id': userId})
+        .where({id})
     },
 
     getPupStatuses: (pupId) => {
@@ -38,10 +38,10 @@ module.exports = (knex) => {
         .limit(5)
     },
 
-    makeOwnerStatus: (userId, content) => {
+    makeOwnerStatus: (id, content) => {
       return knex.table('users')
         .update({status: content})
-        .where({'id': userId})
+        .where({id})
     },
 
     makePupStatus:(pupId, update) => {
@@ -54,7 +54,7 @@ module.exports = (knex) => {
 
     deletePupStatus: (id) => {
       return knex.table('pup_updates')
-        .where({'id': id})
+        .where({id})
         .del();
     },
 
