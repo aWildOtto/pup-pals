@@ -127,7 +127,7 @@ module.exports = (dbHelper) => {
       res.json(result)
     })
     .catch((error) => {
-      res.json("something went wrong in our end");
+      res.json("something went wrong on our end :0");
     });
 
   });

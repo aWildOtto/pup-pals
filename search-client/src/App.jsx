@@ -45,7 +45,8 @@ class App extends React.Component {
         }
           this.setState({
             events: eventsData,
-            user: userData
+            user: userData,
+            loading: false
           });
         console.log("Events data from server:", eventsData)
         console.log("User data from server:", userData)
@@ -74,12 +75,7 @@ class App extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this.setState({loading: true})
-  }
-
   componentDidMount() {
-    this.setState({loading:false});
     this.fetchData();
   }
 
