@@ -15,7 +15,7 @@ module.exports = (dbHelper) => {
       res.redirect("/user/login");
       return;
     }
-    dbHelper.savePet(req.body, req.session.user.id)
+    dbHelper.savePet(req.body, Number(req.session.user.id))
     .then((result) => {
       res.redirect(`/pet/${result}`);
     })

@@ -70,6 +70,7 @@ module.exports = (dbHelper) => {
       .then((results) => {
         if(results.length === 0){
           res.redirect("/404");
+          return;
         }
         const longitude = results[0].events.longitude
         const latitude = results[0].events.latitude
