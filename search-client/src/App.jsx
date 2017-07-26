@@ -76,18 +76,15 @@ class App extends React.Component {
 
   componentWillMount() {
     this.setState({loading: true})
-    console.log(this.state.loading, 'component will mount')
   }
 
   componentDidMount() {
     this.setState({loading:false});
-    console.log(this.state.loading, 'component did mount')
     this.fetchData();
   }
 
   render() {
     const loading = this.state.loading
-    console.log(this.state.loading, 'render')
     const mapDiv = ( <div>
         <Map events={this.state.events}
         user={this.state.user}

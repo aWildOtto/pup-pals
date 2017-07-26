@@ -29,6 +29,13 @@ class SideBar extends Component {
     })
   }
 
+  CancelRSVP(event_id) {
+    return axios.post(`/api/${event_id}/cancel`)
+    .then((response) => {
+      return this.props.fetchAppData();
+    })
+  }
+
   renderEvents() {
     return this.props.events.map((e) => {
       return <SmallDetails 
@@ -37,6 +44,7 @@ class SideBar extends Component {
         key={e.id}
         toggleHidden={this.toggleHidden.bind(this, e)} 
         RSVP={this.RSVP.bind(this)}
+        CancelRSVP={this.CancelRSVP.bind(this)}
         />
     })
   }
@@ -47,6 +55,7 @@ class SideBar extends Component {
     user={this.props.user}    
     toggleHidden={this.toggleHidden.bind(this)} 
     RSVP={this.RSVP.bind(this)} 
+    CancelRSVP={this.CancelRSVP.bind(this)}    
     />
   }
 

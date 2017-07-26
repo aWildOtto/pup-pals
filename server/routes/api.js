@@ -113,6 +113,31 @@ module.exports = (dbHelper) => {
       })
   })
 
+  router.post('/:id/cancel', (req, res, next) => {
+    if(!req.session.user){
+      res.redirect("/404");
+      return;
+    }
+    const user_id = req.session.user.id;
+    const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
+    const userCancelPromise = dbHelper.cancelRSVP(req.params.id, user_id);
+    const cancelPupPromise = pupIdPromise
+      .then((pupIds) => {
+        console.log(pupIds);
+        return Promise.all(pupIds.map((pupId) => {
+            return dbHelper.deleteEventPups(pupId.id, req.params.id);
+          })
+        );
+    });
+    Promise.all([userCancelPromise, cancelPupPromise])
+    .then((result) => {
+      res.json(result)
+    })
+    .catch((error) => {
+      res.redirect("/500");
+    });
+
+  });
 
   return router;
 }
