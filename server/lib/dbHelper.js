@@ -106,6 +106,13 @@ module.exports = (knex) => {
         .where({'event_user.user_id': id});
     },
 
+    getEventIdsByUserId: (id) => {
+      return knex('events')
+        .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
+        .select ('events.id')
+        .where({'event_user.user_id': id});
+    },
+
     closeEvent: (id) => {
       return Promise.all([
         knex('event_user')
