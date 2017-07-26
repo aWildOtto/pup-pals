@@ -30,7 +30,6 @@ module.exports = (dbHelper) => {
         latitude: data.results[0].geometry.location.lat,
         longitude: data.results[0].geometry.location.lng,
       };
-      // console.log(event);
       dbHelper.createEvent(event,req.session.user.id)
         .then((id) => {
           const event_id = parseInt(id);

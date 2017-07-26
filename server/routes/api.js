@@ -138,7 +138,6 @@ module.exports = (dbHelper) => {
     }else{
       dbHelper.getEventIdsByUserId(req.session.user.id)
         .then((result) => {
-          console.log(result);
           res.json(result);
       });
     }
