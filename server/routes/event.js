@@ -55,8 +55,14 @@ module.exports = (dbHelper) => {
           res.redirect("/500");
         });
     });
+  }),
 
-
+  router.get('/featured', (req, res, next) => {
+    dbHelper.getEventIdByTitle()
+    .then((event) => {
+      console.log(event);
+      res.redirect(`/events/${event[0].id}`);
+    });
   }),
 
   router.get("/:id", (req, res, next) => {

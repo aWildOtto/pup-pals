@@ -255,6 +255,12 @@ module.exports = (knex) => {
       }).del();
     },
 
+    getEventIdByTitle: () => {
+      return knex('events').select('id').where({
+        title: 'National dog day'
+      })
+    },
+    
     saveMessage: (content, user_id, event_id) => {
        return knex('event_posts').insert({
         user_id,

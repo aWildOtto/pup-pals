@@ -158,13 +158,13 @@ exports.seed = function(knex, Promise) {
         insertEvent(
           users[11].id,
           'National dog day',
-          'Everyone love puppies!',
-          '450 Beach Crescent, Vancouver, BC V6Z 3G1',
+          'Everyone love puppies! So this event is for EVERYONE',
+          '999 Charleson Street, Vancouver, BC V5Z 4A2',
           'No restrictions, we love people and pups!',
           '2017-08-26T24:00' ,
           true,
-          49.2757771,
-          -123.1262836
+          49.2666094,
+          -123.1281372,17
         )
           .then((id) => {
             id = Number(id);
