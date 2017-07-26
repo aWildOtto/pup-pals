@@ -275,12 +275,12 @@ section.home-section{
 	z-index:100;
 }
 .intro-title {
-	font-weight: 900;
+	font-weight: 800;
 	color: #ffffff;
 	text-transform: uppercase;
-	font-size: 48px;
+	font-size: 60px;
 	text-shadow: rgba(0,0,0,0.498039) 2px 2px 2px;
-	letter-spacing: 0.02em;
+	letter-spacing: 0.1	em;
 	margin: 0px 0px 20px 0px;
 }
 .intro-title span {
