@@ -30,24 +30,25 @@ module.exports = (dbHelper) => {
         latitude: data.results[0].geometry.location.lat,
         longitude: data.results[0].geometry.location.lng,
       };
-      dbHelper.createEvent(event,req.session.user.id)
+      let event_id = null;
+      return dbHelper.createEvent(event,req.session.user.id)
         .then((id) => {
-          const event_id = parseInt(id);
+          event_id = Number(id);
           //get all the current user's pups' ids
-          dbHelper.getPupsIdsByUserId(req.session.user.id)
+          return dbHelper.getPupsIdsByUserId(req.session.user.id)
           .then((ids)=>{
             //insert row into event_user table
-            dbHelper.insertEventUser(event_id, req.session.user.id)
+            return dbHelper.insertEventUser(event_id, req.session.user.id)
               .then(() => {
                 //run loop through pups' ids, insert each into event_pup table
-                ids.forEach((pup_id) => {
-                  dbHelper.insertEventPups(pup_id.id, event_id)
-                  .then(() => {
-                    res.redirect(`/events/${event_id}`);
-                  });
-                });
+                return Promise.all(ids.map((pup_id) => {
+                  return dbHelper.insertEventPups(pup_id.id, event_id);
+                }));
             });
           });
+        })
+        .then(()=>{
+          res.redirect(`/events/${event_id}`);
         })
         .catch((errors) => {
           console.log(errors);
