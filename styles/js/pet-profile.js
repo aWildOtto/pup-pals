@@ -1,18 +1,18 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-  $('.statuses').on('click', 'a.status-delete', function(event){
+  $('.statuses').on('click', 'a.status-delete', function (event) {
     status_id = $(this).data().id
     $.ajax({
       url: `/api/pet/delete/status/${status_id}`,
       method: 'POST'
-    }).done(function(){
+    }).done(function () {
       loadStatuses()
     });
   });
 
-//profile update
+  //profile update
 
-  $(".edit").on('click', function(){
+  $(".edit").on('click', function () {
     $('.puppy-card').slideToggle('fast');
     $('.statuses').slideToggle('fast');
     $('.new-status').slideToggle('fast');
@@ -22,7 +22,7 @@ $(document).ready(function(){
     $('.edit').hide();
   });
 
-  $(".back").on('click', function(event){
+  $(".back").on('click', function (event) {
     $('.puppy-card').slideToggle('fast');
     $('.statuses').slideToggle('fast');
     $('.new-status').slideToggle('fast');
@@ -35,20 +35,40 @@ $(document).ready(function(){
   function createProfileElements(profile) {
 
     var sex = (profile.sex == "Male") ? 'Boy' : 'Girl'
-    var neutered = (profile.neutered == true) ? 'Neutered': 'Not Neutered'
+    var neutered = (profile.neutered == true) ? 'Neutered' : 'Not Neutered'
 
-    var $div1 = $("<div>", {class: "puppy-card"})
-    var $div2 = $("<div>", {class: "puppy-box"})
+    var $div1 = $("<div>", {
+      class: "puppy-card"
+    })
+    var $div2 = $("<div>", {
+      class: "puppy-box"
+    })
 
-    var $img = $("<img>", {class:"pup-pic", src:profile.avatar_url});
-    var $h2 = $("<h2>", {class:"listContent",text: profile.name});
+    var $img = $("<img>", {
+      class: "pup-pic",
+      src: profile.avatar_url
+    });
+    var $h2 = $("<h2>", {
+      class: "listContent",
+      text: profile.name
+    });
 
-    var $div3 = $("<div>", {class:"pup-info"})
+    var $div3 = $("<div>", {
+      class: "pup-info"
+    })
 
-    var $pBreed = $("<p>", {text:profile.breed})
-    var $pAge = $("<p>", {text: `${profile['age']} years old`})
-    var $pSex = $("<p>", {text: `${sex}`})
-    var $pNeutered = $("<p>", {text: `${neutered}`})
+    var $pBreed = $("<p>", {
+      text: profile.breed
+    })
+    var $pAge = $("<p>", {
+      text: `${profile['age']} years old`
+    })
+    var $pSex = $("<p>", {
+      text: `${sex}`
+    })
+    var $pNeutered = $("<p>", {
+      text: `${neutered}`
+    })
 
     $div3.append($pBreed).append($pAge).append($pSex).append($pNeutered)
     $div2.append($img).append($h2).append($div3)
@@ -62,23 +82,23 @@ $(document).ready(function(){
     $('.profile').append($profile)
   }
 
-  function loadProfile(){
+  function loadProfile() {
     $.ajax({
       url: `/api/pet/profile/${id}`
-    }).done(function(profile){
+    }).done(function (profile) {
       renderProfile(profile[0]);
     });
   }
 
   loadProfile()
 
-  $('.edit-form').on('submit', function(event){
+  $('.edit-form').on('submit', function (event) {
     event.preventDefault();
     $.ajax({
-      method:'POST',
+      method: 'POST',
       url: `/api/pet/profile/${id}`,
       data: $(this).serialize()
-    }).done(function(){
+    }).done(function () {
       loadProfile()
       $('.edit-form .input').val('');
       $('.edit-profile').slideToggle();
@@ -89,9 +109,9 @@ $(document).ready(function(){
     })
   })
 
-//status updates
+  //status updates
 
-  $(".new-status textarea").on("input", function(event){
+  $(".new-status textarea").on("input", function (event) {
     var length = $(this).val().length;
     var remaining = 140 - length;
     var $counter = $(this).parent().children('.counter');
@@ -106,49 +126,63 @@ $(document).ready(function(){
   function createStatusesElements(statuses) {
     var $section = $('<section>')
     statuses.forEach((status) => {
-      var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at).format("ddd MMMM Do YYYY") + " at " + moment(status.created_at).format("h:mm a")})
-      var $textSpan = $('<span>', {class: 'status-text',text: " | " + status.content});
-      if(status.media_url) {
-        var $img = $('<img>', {class: 'status-img', src:status.media_url})
+      var $timeSpan = $('<span>', {
+        class: 'status-time',
+        text: moment(status.created_at).format("ddd MMMM Do YYYY") + " at " + moment(status.created_at).format("h:mm a")
+      })
+      var $textSpan = $('<span>', {
+        class: 'status-text',
+        text: " | " + status.content
+      });
+      if (status.media_url) {
+        var $img = $('<img>', {
+          class: 'status-img',
+          src: status.media_url
+        })
       }
-      var $div = $('<div>', {class:'status'})
+      var $div = $('<div>', {
+        class: 'status'
+      })
       $div.append($timeSpan).append($textSpan)
-      if ($img){
+      if ($img) {
         $div.append($img)
       }
-      var $a = $('<a>', {class: 'status-delete', text: 'Delete', "data-id" : status.id})
+      var $a = $('<a>', {
+        class: 'status-delete',
+        text: 'Delete',
+        "data-id": status.id
+      })
 
-      $div. prepend($a)
+      $div.prepend($a)
       $section.append($div)
     })
     return $section;
   }
 
-  function renderStatuses(statusesData){
+  function renderStatuses(statusesData) {
     $('.statuses').empty();
     var $newStatuses = createStatusesElements(statusesData)
     $('.statuses').prepend($newStatuses);
   }
 
-  function loadStatuses(){
+  function loadStatuses() {
     $.ajax({
       url: `/api/pet/${id}`
-    }).done(function(statuses){
+    }).done(function (statuses) {
       renderStatuses(statuses);
     })
   }
 
 
-  function uploadFile(file, signedRequest, url){
+  function uploadFile(file, signedRequest, url) {
     const xhr = new XMLHttpRequest();
     xhr.open('PUT', signedRequest);
     xhr.onreadystatechange = () => {
-      if(xhr.readyState === 4){
-        if(xhr.status === 200){
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
           document.getElementsByClassName('preview').src = url;
           document.getElementsByClassName('status-url').value = url;
-        }
-        else{
+        } else {
           alert('Could not upload file.');
         }
       }
@@ -157,59 +191,97 @@ $(document).ready(function(){
   }
 
 
-  $('.status-form').on('submit', function(event){
+  $('.status-form').on('submit', function (event) {
     event.preventDefault();
-    if ($('#file-input')[0].files.length){
+    if ($('#file-input')[0].files.length) {
       var files = $('#file-input')[0].files;
       var file = files[0];
       $.ajax({
         url: `/s3?file-name=${file.name}&file-type=${file.type}`
-      }).done(function(data){
-          var response = JSON.parse(data);
-          uploadFile(file, response.signedRequest, response.url);
+      }).done(function (data) {
+        var response = JSON.parse(data);
+        uploadFile(file, response.signedRequest, response.url);
 
-          var $inputLength = $('.status-form textarea').val().length;
-          if($inputLength === 0) {
-            alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
-            return;
-          } else if($inputLength > 140) {
-            alert('Whoa there friendo, your status is over 140 characters ◔_◔');
-            return;
-          } else {
-            $.ajax({
-              method: 'POST',
-              url: `/api/pet/${id}`,
-              data: {content: $('.status-form textarea').val(),
-                media_url: response.url}
-            }).done(function(){
-              $('.status-form textarea').val('');
-              $('#file-input').val('');
-              loadStatuses();
-            });
-          }
-        })
-      } else {
         var $inputLength = $('.status-form textarea').val().length;
-        if($inputLength === 0) {
+        if ($inputLength === 0) {
           alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
           return;
-        } else if($inputLength > 140) {
+        } else if ($inputLength > 140) {
           alert('Whoa there friendo, your status is over 140 characters ◔_◔');
           return;
         } else {
           $.ajax({
             method: 'POST',
             url: `/api/pet/${id}`,
-            data: {content: $('.status-form textarea').val(),
-              media_url: ''}
-          }).done(function(){
+            data: {
+              content: $('.status-form textarea').val(),
+              media_url: response.url
+            }
+          }).done(function () {
             $('.status-form textarea').val('');
+            $('#file-input').val('');
             loadStatuses();
           });
         }
+      })
+    } else {
+      var $inputLength = $('.status-form textarea').val().length;
+      if ($inputLength === 0) {
+        alert('Hey bud, your status can\'t be empty(Ծ‸ Ծ)')
+        return;
+      } else if ($inputLength > 140) {
+        alert('Whoa there friendo, your status is over 140 characters ◔_◔');
+        return;
+      } else {
+        $.ajax({
+          method: 'POST',
+          url: `/api/pet/${id}`,
+          data: {
+            content: $('.status-form textarea').val(),
+            media_url: ''
+          }
+        }).done(function () {
+          $('.status-form textarea').val('');
+          loadStatuses();
+        });
       }
+    }
   });
 
   loadStatuses();
 
+  $(document).on('change', '.btn-file :file', function () {
+    var input = $(this),
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [label]);
+  });
+
+  $('.btn-file :file').on('fileselect', function (event, label) {
+
+    var input = $(this).parents('.input-group').find(':text'),
+      log = label;
+
+    if (input.length) {
+      input.val(log);
+    } else {
+      if (log) alert(log);
+    }
+
+  });
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#img-upload').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#file-input").change(function () {
+    readURL(this);
+  });
 })
