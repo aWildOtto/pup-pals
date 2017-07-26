@@ -229,7 +229,7 @@ exports.seed = function(knex, Promise) {
           .then((id) => {
             id = Number(id);
             return Promise.all([
-              insertEventPost(
+              insertEventUser(
                 users[3].id,
                 id
               ),
@@ -258,7 +258,7 @@ exports.seed = function(knex, Promise) {
           .then((id) => {
             id = Number(id);
             return Promise.all([
-              insertEventPost(
+              insertEventUser(
                 users[7].id,
                 id
               ),
@@ -287,7 +287,7 @@ exports.seed = function(knex, Promise) {
           .then((id) => {
             id = Number(id);
             return Promise.all([
-              insertEventPost(
+              insertEventUser(
                 users[9].id,
                 id
               ),
@@ -316,7 +316,7 @@ exports.seed = function(knex, Promise) {
           .then((id) => {
             id = Number(id);
             return Promise.all([
-              insertEventPost(
+              insertEventUser(
                 users[3].id,
                 id
               ),
@@ -345,7 +345,7 @@ exports.seed = function(knex, Promise) {
           .then((id) => {
             id = Number(id);
             return Promise.all([
-              insertEventPost(
+              insertEventUser(
                 users[9].id,
                 id
               ),
@@ -374,7 +374,7 @@ exports.seed = function(knex, Promise) {
           .then((id) => {
             id = Number(id);
             return Promise.all([
-              insertEventPost(
+              insertEventUser(
                 users[14].id,
                 id
               ),
