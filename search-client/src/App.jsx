@@ -63,7 +63,6 @@ class App extends React.Component {
     });
     return axios.get(`/api/events/radius?boundalat=${bound_a.lat}&boundalng=${bound_a.lng}&boundblat=${bound_b.lat}&boundblng=${bound_b.lng}`)
       .then((response) => {
-          console.log("location filtered events", response.data);
           this.setState({events: response.data})
         }
       );
@@ -99,7 +98,7 @@ class App extends React.Component {
         <SearchBar dates={this.state.dates} handleDayChange={this.handleDayChange}/>
       </div>)
     return (
-      loading ? <img src="http://iamchriscollins.com/loading.gif"/> : mapDiv
+      loading ? <img src="https://s3-us-west-1.amazonaws.com/puppals/preloader.gif"/> : mapDiv
     );
   }
 }

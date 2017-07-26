@@ -51,11 +51,11 @@ class SideBar extends Component {
 
   renderLargeDetails() {
     return <LargeDetails 
-    event={this.state.selectedEvent}
-    user={this.props.user}    
-    toggleHidden={this.toggleHidden.bind(this)} 
-    RSVP={this.RSVP.bind(this)} 
-    CancelRSVP={this.CancelRSVP.bind(this)}    
+      event={this.state.selectedEvent}
+      user={this.props.user}    
+      toggleHidden={this.toggleHidden.bind(this)} 
+      RSVP={this.RSVP.bind(this)} 
+      CancelRSVP={this.CancelRSVP.bind(this)}    
     />
   }
 
