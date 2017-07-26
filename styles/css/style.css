@@ -82,7 +82,6 @@ address {
 .btn {
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
     border-radius: 0;
 }
 .btn:focus,.btn:active {
