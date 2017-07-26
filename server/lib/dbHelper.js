@@ -232,8 +232,8 @@ module.exports = (knex) => {
 
     getPupsIdsByUserId: (user_id) =>{
       return knex('pups')
-        .select('pups.id')
-        .where({'pups.user_id':user_id});
+        .select('id')
+        .where({user_id});
     },
 
     insertEventPups: (pup_id, event_id) => {
@@ -244,8 +244,8 @@ module.exports = (knex) => {
     },
     deleteEventPups: (pup_id, event_id) => {
       return knex.table('event_pup').where({
-        pup_id: pup_id,
-        event_id: event_id
+        pup_id,
+        event_id
       }).del();
     },
 

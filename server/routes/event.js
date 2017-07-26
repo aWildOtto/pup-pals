@@ -79,9 +79,9 @@ module.exports = (dbHelper) => {
             rsvped = true;
           }
         })
-        dbHelper.getUserByIds(userIDs)
+        return dbHelper.getUserByIds(userIDs)
           .then((users) => {
-            dbHelper.getPupsByUserIds(userIDs)
+            return dbHelper.getPupsByUserIds(userIDs)
               .then((pups) => {
                 req.session.eventId = req.params.id;
                 const userWithPup = users.map((user)=>{
@@ -151,12 +151,14 @@ module.exports = (dbHelper) => {
     const userCancelPromise = dbHelper.cancelRSVP(req.params.id, user_id);
     const cancelPupPromise = pupIdPromise
       .then((pupIds) => {
-        pupIds.forEach((pupId) => {
-          return dbHelper.deleteEventPups(pupId.id, req.params.id);
-        });
+        console.log(pupIds);
+        return Promise.all(pupIds.map((pupId) => {
+            return dbHelper.deleteEventPups(pupId.id, req.params.id);
+          })
+        );
     });
     Promise.all([userCancelPromise, cancelPupPromise])
-    .then(() => {
+    .then((result) => {
       res.redirect('back');
     })
     .catch((error) => {

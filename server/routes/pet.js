@@ -21,7 +21,7 @@ module.exports = (dbHelper) => {
     })
     .catch((errors) => {
       console.log(errors);
-      res.status(404).render('404');
+      res.redirect('/500');
     });
   })
 
@@ -49,7 +49,7 @@ module.exports = (dbHelper) => {
       })
       .catch((errors) => {
        console.log(errors);
-       res.status(404).render('404');
+       res.redirect('/500');
       });
   });
 

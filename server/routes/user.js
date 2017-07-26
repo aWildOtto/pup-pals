@@ -74,7 +74,7 @@ module.exports = (dbHelper) => {
 
   router.get("/logout", (req, res) => {
     req.session.user = null;
-    res.redirect('/');
+    res.redirect('back');
   });
 
   return router;
