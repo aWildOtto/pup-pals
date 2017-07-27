@@ -365,39 +365,6 @@ exports.seed = function(knex, Promise) {
               )
           ]);
         }),
-        //--------------eighth event---------------------
-        insertEvent(
-          users[10].id,
-          'Barkopedia',
-          'Every type of dog you can think of! This event is open for big, small, pups of all ages. There will be a big open area that the dogs can run and play around in. Excited to see you all there.',
-          'Freedom Dog park',
-          'No restrictions',
-          '2017-10-10T14:30' ,
-          true,
-          49.155498,
-          -122.795104
-        )
-          .then((id) => {
-            id = Number(id);
-            return Promise.all([
-              insertEventUser(
-                users[9].id,
-                id
-              ),
-              insertEventUser(
-                users[8].id,
-                id
-              ),
-              insertEventUser(
-                users[7].id,
-                id
-              ),
-             insertEventUser(
-                users[10].id,
-                id
-              )
-          ]);
-        }),
         //--------------tenth event---------------------
         insertEvent(
           users[13].id,
