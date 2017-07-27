@@ -32,7 +32,7 @@
             <div>
               <% users.forEach((item) => {%>
                 <%if(creator_id === item.id){%>
-                  <p>Event Host</p>
+                  <h4>Event Host</h4>
                 <%}%>
                 <% include partials/_event_goer.ejs %>
                 <%if(item.pups.length != 0){%>

@@ -205,7 +205,7 @@ exports.seed = function(knex, Promise) {
         }),
         //--------------fifth event---------------------
         insertEvent(
-          users[4].id,
+          users[0].id,
           'Louie\'s 2nd birthday',
           'Come out to Steveston this Saturday to help Louie celebrate his second birthday! There will be treats for the pups and pizza for the humans. Instead of bringing Louie a gift, please bring some toys to donate to the SPCA! Hope to see you there!',
           'Garry Point Park',
@@ -222,6 +222,36 @@ exports.seed = function(knex, Promise) {
                 users[4].id,
                 id,
                 'Can\'t Wait!'
+              ),
+              insertEventPost(
+                users[4].id,
+                id,
+                'Will bring lots of toys!'
+              ),
+              insertEventPost(
+                users[5].id,
+                id,
+                'Sounds like an awesome event!'
+              ),
+              insertEventPost(
+                users[6].id,
+                id,
+                'I can bring some food!'
+              ),
+              insertEventPost(
+                users[7].id,
+                id,
+                'Are there any good dog groomers around the area?'
+              ),
+              insertEventPost(
+                users[8].id,
+                id,
+                'How do I get there?'
+              ),
+              insertEventPost(
+                users[3].id,
+                id,
+                'Use the map..'
               ),
               insertEventUser(
                 users[2].id,
