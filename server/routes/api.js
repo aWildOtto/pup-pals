@@ -48,7 +48,7 @@ module.exports = (dbHelper) => {
   router.get("/owner/profile/:id", (req, res) => {
     dbHelper.getUserByIds(req.params.id)
       .then((results) => {
-        res.json(results)
+        res.json(results);
       })
   })
 
@@ -58,7 +58,11 @@ module.exports = (dbHelper) => {
         let avatar_url = req.body.avatar_url || results[0].avatar_url;
         let name = req.body.name || results[0].name;
         dbHelper.updateOwnerProfile(req.params.id, avatar_url, name)
-          .then(()=> {res.sendStatus(204)})
+          .then(()=> {
+            req.session.user.avatar_url = avatar_url;
+            req.session.user.username = name;
+            res.sendStatus(204);
+          })
       });
   })
 
