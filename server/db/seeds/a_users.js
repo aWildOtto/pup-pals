@@ -661,37 +661,26 @@ exports.seed = function(knex, Promise) {
           }),
           //17.matt has 2 dogs
           insertUser(
-            'mattyb',
-            'Matt Baxley',
-            'mbaxley@gmail.com',
+            'markZ',
+            'Mark Zuckerberg',
+            'mzuckerberg@fb.com',
             '123',
-            'Just went to my first meetup with Jack, so fun!!',
-            'http://www.gangstersout.com/david_gilesbf.JPG'
+            'Awesome Web App!!',
+            'http://blogs.timesofindia.indiatimes.com/wp-content/uploads/2015/12/mark-zuckerberg.jpg'
           )
           .then((id) => {
             return Promise.all([
              insertPup(
               id,
-              'Border Collie',
-              'Medium',
-              'Quiet',
-              true,
-              '2',
-              '/styles/pictures/collie.jpg',
-              'Calli',
-              'female'
-           ),
-             insertPup(
-              id,
-              'Blue Heeler',
+              'Puli',
               'Small',
-              'Playful',
+              'Friendly',
               true,
-              '1',
-              '/styles/pictures/heeler.jpg',
-              'Timmy',
+              '6',
+              '/styles/pictures/beast.jpg',
+              'Beast',
               'male'
-             )
+           )
            ]);
          })
         //can add more users here
