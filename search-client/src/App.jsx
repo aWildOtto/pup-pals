@@ -39,7 +39,7 @@ class App extends React.Component {
       .then(axios.spread((events, user) => {
         let eventsData = events.data;
         let userData = user.data;
-        if(this.state.dates.startDate || this.state.dates.endDate) {
+        if(this.state.dates.startDate && this.state.dates.endDate) {
           eventsData = eventsData.filter(event => {
             const startDate = Moment(this.state.dates.startDate, "DD-MM-YYYY");
             const endDate = Moment(this.state.dates.endDate, "DD-MM-YYYY");
@@ -73,7 +73,7 @@ class App extends React.Component {
       this.setState({dates: {
         startDate: startDate,
         endDate: endDate
-      }}, this.fetchData)
+      }}, this.fetchData())
     } else {
       this.setState({dates: {
         startDate: "",
