@@ -81,9 +81,13 @@ module.exports = (dbHelper) => {
         const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=13&size=600x400&markers=color:red%7C${latitude},${longitude}&key=AIzaSyDkfH1vIxG1NVhhTaELFJH_m6QE-LOEnGI`
         let userIDs = [];
         let rsvped = false;
+        let creator_id;
         results.forEach((item) => {
           if(!userIDs.includes(item.event_user)){
             userIDs.push(item.event_user);
+          }
+          if(results[0].events.creator_user_id === item.event_user){
+            creator_id=item.event_user;
           }
           if(req.session.user&& req.session.user.id===item.event_user){
             rsvped = true;
@@ -110,7 +114,8 @@ module.exports = (dbHelper) => {
                     mapUrl,
                     id: req.params.id,
                     message:'',
-                    rsvped
+                    rsvped,
+                    creator_id
                   };
                 
                 res.render('event_detail', templateVars);

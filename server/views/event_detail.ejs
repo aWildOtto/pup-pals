@@ -31,6 +31,9 @@
             <div class="seperator"></div>
             <div>
               <% users.forEach((item) => {%>
+                <%if(creator_id === item.id){%>
+                  <p>Event Host</p>
+                <%}%>
                 <% include partials/_event_goer.ejs %>
                 <%if(item.pups.length != 0){%>
                   <p>And their pups</p>
