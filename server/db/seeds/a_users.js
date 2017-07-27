@@ -131,7 +131,7 @@ exports.seed = function(knex, Promise) {
           return insertPupUpdate(//change the url
             pup_id,
             'wof wof',
-            "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+            "https://previews.123rf.com/images/voronin76/voronin761302/voronin76130200101/17688555-The-dog-Siberian-husky-in-the-winter-Stock-Photo.jpg"
           );
         })
         }),
@@ -248,7 +248,13 @@ exports.seed = function(knex, Promise) {
               '/styles/pictures/pom.jpg',
               'Fiona',
               'female'
-            )
+            ).then((pup_id)=>{
+                return insertPupUpdate(//change the url
+                  pup_id,
+                  'Shy me',
+                  "https://s-media-cache-ak0.pinimg.com/736x/b5/9f/87/b59f8728480231a869b262c5df1978d9--chicken-nuggets-cute-pomeranian.jpg"
+                );
+              })
           ]);
         }),
         //5.ti has one dog
