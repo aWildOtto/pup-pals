@@ -2,7 +2,7 @@
 
 A platform for dog owners to create and join dog meet-up events. This web application is built with NodeJS, Express, ReactJS, socket.io, AWS-S3 and Postgresql.
 
-[Deployeded Version](https://puppals.herokuapp.com/)
+[Deployed Version](https://puppals.herokuapp.com/)
 
 [Production Build Repository](https://github.com/nombiezinja/puppal-production)
 
