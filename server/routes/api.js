@@ -80,10 +80,20 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/pet/delete/status/:id", (req, res) => {
-    dbHelper.deletePupStatus(req.params.id)
-      .then(() => {
-        res.sendStatus(200)
-      })
+    if(!req.session.user){
+      res.status(403).json("permission denied");
+    }
+    return dbHelper.getUserByPupId(req.body.pup_id)
+      .then((owner) => {
+        if(owner[0].id === req.session.user.id){
+          return dbHelper.deletePupStatus(req.params.id)
+            .then(() => {
+              res.sendStatus(200);
+          });
+        } else{
+          res.sendStatus(403);
+        }
+      });
   })
 
   router.get("/pet/profile/:id", (req, res) => {

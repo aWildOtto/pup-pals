@@ -1,9 +1,10 @@
 $(document).ready(function () {
 
   $('.statuses').on('click', 'a.status-delete', function (event) {
-    status_id = $(this).data().id
+    status_id = $(this).data().id;
     $.ajax({
       url: `/api/pet/delete/status/${status_id}`,
+      data: {pup_id: id},
       method: 'POST'
     }).done(function () {
       loadStatuses()
