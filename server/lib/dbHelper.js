@@ -262,9 +262,9 @@ module.exports = (knex) => {
       }).del();
     },
 
-    getEventIdByTitle: () => {
+    getEventIdByTitle: (title) => {
       return knex('events').select('id').where({
-        title: 'National dog day'
+        title
       })
     },
     

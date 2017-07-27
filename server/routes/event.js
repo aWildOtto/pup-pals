@@ -58,9 +58,13 @@ module.exports = (dbHelper) => {
   }),
 
   router.get('/featured', (req, res, next) => {
-    dbHelper.getEventIdByTitle()
+    dbHelper.getEventIdByTitle("National dog day")
     .then((event) => {
       res.redirect(`/events/${event[0].id}`);
+    })
+    .catch((error)=>{
+      console.log(errors);
+      res.redirect("/500");
     });
   }),
 
