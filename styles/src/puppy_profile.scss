@@ -4,6 +4,19 @@
 
 .statuses {
   padding-top: 20px;
+
+  > section {
+    display: flex;
+    flex-wrap: wrap;
+
+     > .status {
+       flex: 0 0 30%;
+       height: 175px;
+       overflow: hidden;
+       margin: 5px;
+
+     }
+  }
 }
 
 @media (max-width: 320px) {
@@ -47,3 +60,69 @@
 #img-upload {
   width: 50%;
 }
+.status-img-container {
+    position: relative;
+    overflow: hidden;
+    max-width: 200px;
+    &:hover .status-information {
+      opacity: 1;
+      display: flex;
+      align-items: center;
+    }
+}
+.status-img {
+  flex: 33.3%;
+  max-height: 210px;
+}
+
+.status-information {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  color: white;
+  align-items: center;
+  padding-top:80px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+
+  .status-delete {
+    color: white;
+    cursor: pointer;
+    
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  .status-time {
+    font-size: 12px;
+  }
+
+  .status-text {
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
+.status-form{
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.update-pup{
+  display: flex;
+  justify-content: space-between;
+}
+
+.photo-share {
+  padding-top: 50px;
+}
+
+
+
+

@@ -44,10 +44,10 @@ class LargeDetails extends Component {
 
   handleCancelRsvp = (e) => {
     e.stopPropagation();
-    this.props.CancelRSVP(this.props.event.id)  
     this.setState({
       flag: false
-    })  
+    });  
+    this.props.CancelRSVP(this.props.event.id);  
   }
 
   componentDidMount() {

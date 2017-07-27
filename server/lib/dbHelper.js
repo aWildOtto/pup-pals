@@ -262,9 +262,9 @@ module.exports = (knex) => {
       }).del();
     },
 
-    getEventIdByTitle: () => {
+    getEventIdByTitle: (title) => {
       return knex('events').select('id').where({
-        title: 'National dog day'
+        title
       })
     },
     
@@ -334,8 +334,9 @@ module.exports = (knex) => {
           from events
           left join event_user on event_user.event_id = events.id
           where box '((${bound_a_lat}, ${bound_a_lng}), (${bound_b_lat}, ${bound_b_lng}))'
-          @> point(events.latitude, events.longitude)
-          group by events.id;
+          @> point(events.latitude, events.longitude) 
+          group by events.id 
+          order by events.date_time;
           `
           //TODO(prevent sql injection): validate that bounds are floats and nothing else
         )

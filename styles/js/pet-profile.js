@@ -124,7 +124,7 @@ $(document).ready(function () {
   });
 
   function createStatusesElements(statuses) {
-    var $section = $('<section>')
+    var $section = $('<section>', {class: 'photo-share'});
     statuses.forEach((status) => {
       var $timeSpan = $('<span>', {
         class: 'status-time',
@@ -140,20 +140,23 @@ $(document).ready(function () {
           src: status.media_url
         })
       }
-      var $div = $('<div>', {
-        class: 'status'
-      })
-      $div.append($timeSpan).append($textSpan)
-      if ($img) {
-        $div.append($img)
-      }
-      var $a = $('<a>', {
-        class: 'status-delete',
-        text: 'Delete',
-        "data-id": status.id
-      })
+      var $div = $('<div>', {class:'status'})
 
-      $div.prepend($a)
+      var $infoDiv = $('<div>', {class:'status-information'})
+      $infoDiv.append($timeSpan).append($textSpan)
+      if ($img){
+        var $imgDiv = $('<div>', {class:'status-img-container'})
+        $imgDiv.append($img)
+        $imgDiv.append($infoDiv)
+
+        $div.append($imgDiv)
+      }
+      var $a = $('<a>', {class: 'status-delete', "data-id" : status.id});
+      var $deleteIcon = $('<i>', {class: 'fa fa-times-circle'});
+
+      $a.append($deleteIcon)
+
+      $infoDiv.prepend($a)
       $section.append($div)
     })
     return $section;

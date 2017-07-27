@@ -52,7 +52,10 @@ exports.seed = function(knex, Promise) {
       return knex('event_posts').del()
         .then(() => {
           return knex('event_user').del();
-        });
+        })
+          .then(() => {
+            return knex('event_pup').del();
+          });
     })
     .then(function () {
       return knex('users').select()
@@ -90,6 +93,10 @@ exports.seed = function(knex, Promise) {
               insertEventUser(
                 users[2].id,
                 id
+              ),
+              insertEventUser(
+                users[0].id,
+                id
               )
             ]);
           }),
@@ -119,6 +126,10 @@ exports.seed = function(knex, Promise) {
                 ),
                 insertEventUser(
                   users[8].id,
+                  id
+                ),
+                insertEventUser(
+                  users[4].id,
                   id
                 )
             ]);
@@ -151,6 +162,10 @@ exports.seed = function(knex, Promise) {
                 insertEventUser(
                   users[3].id,
                   id
+                ),
+                insertEventUser(
+                  users[9].id,
+                  id
                 )
             ]);
         }),
@@ -181,6 +196,10 @@ exports.seed = function(knex, Promise) {
               insertEventUser(
                 users[13].id,
                 id
+              ),
+              insertEventUser(
+                users[11].id,
+                id
               )
           ]);
         }),
@@ -210,6 +229,10 @@ exports.seed = function(knex, Promise) {
               ),
               insertEventUser(
                 users[3].id,
+                id
+              ),
+              insertEventUser(
+                users[4].id,
                 id
               )
           ]);

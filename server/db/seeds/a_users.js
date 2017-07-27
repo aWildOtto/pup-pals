@@ -131,7 +131,7 @@ exports.seed = function(knex, Promise) {
           return insertPupUpdate(//change the url
             pup_id,
             'wof wof',
-            "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+            "https://previews.123rf.com/images/voronin76/voronin761302/voronin76130200101/17688555-The-dog-Siberian-husky-in-the-winter-Stock-Photo.jpg"
           );
         })
         }),
@@ -158,13 +158,19 @@ exports.seed = function(knex, Promise) {
               'male'
             )
             .then((pup_id)=>{
-              return insertPupUpdate(//change the url
-                pup_id,
-                'me on the grass',
-                "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
-              );
-            }
-            ),
+              return Promise.all([
+                insertPupUpdate(//change the url
+                  pup_id,
+                  'me on the grass',
+                  "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+                ),
+                insertPupUpdate(
+                  pup_id, 
+                  'me on the beach',
+                  "https://s-media-cache-ak0.pinimg.com/originals/1b/18/59/1b185975b0dad478fe8b47096860647d.jpg"
+                )
+              ])
+            }),
             insertPup(
               id,
               'Long-haired Mini Daschund',
@@ -182,8 +188,7 @@ exports.seed = function(knex, Promise) {
                 'gaga',
                 "https://s-media-cache-ak0.pinimg.com/originals/11/df/09/11df0994564516bb631c6c369014080f.jpg"
               )
-            }
-            ),
+            }),
             insertPup(
               id,
               'Golden Retriever',
@@ -243,7 +248,13 @@ exports.seed = function(knex, Promise) {
               '/styles/pictures/pom.jpg',
               'Fiona',
               'female'
-            )
+            ).then((pup_id)=>{
+                return insertPupUpdate(//change the url
+                  pup_id,
+                  'Shy me',
+                  "https://s-media-cache-ak0.pinimg.com/736x/b5/9f/87/b59f8728480231a869b262c5df1978d9--chicken-nuggets-cute-pomeranian.jpg"
+                );
+              })
           ]);
         }),
         //5.ti has one dog

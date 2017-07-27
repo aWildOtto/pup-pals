@@ -36,7 +36,7 @@ module.exports = (dbHelper) => {
     })
     .catch((error) => {
       console.log(error);
-      res.render('login', {
+      res.status(500).render('login', {
         error: "Something unexpected happened, try again :0"
       });
     });
@@ -51,7 +51,7 @@ module.exports = (dbHelper) => {
       dbHelper.createUser(req.body)
       .then((id)=>{
         req.session.user = {
-          id: id,
+          id: Number(id),
           avatar_url: req.body.avatar_url,
           username: req.body.username
         }

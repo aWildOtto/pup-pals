@@ -14,6 +14,8 @@ class App extends React.Component {
       loading:true,
       events: [],
       user: {},
+      bound_a: {},
+      bound_b: {},
       dates: {
         startDate: "",
         endDate: ""
@@ -23,7 +25,10 @@ class App extends React.Component {
 
   fetchData = () => {
     const getEvents = () => {
-      return axios.get('/api/events');
+      return axios.get(`/api/events/radius?boundalat=${this.state.bound_a.lat}
+        &boundalng=${this.state.bound_a.lng}
+        &boundblat=${this.state.bound_b.lat}
+        &boundblng=${this.state.bound_b.lng}`);
     }
 
     const getUser = () => {
@@ -43,15 +48,19 @@ class App extends React.Component {
             return(range.contains(eventDate))
           })
         }
-          this.setState({
-            events: eventsData,
-            user: userData,
-            loading: false
-          });
+        this.setState({
+          events: eventsData,
+          user: userData,
+          loading: false
+        });
       }));
   }
 
   locationFilter = (bound_a, bound_b) => {
+    this.setState({
+      bound_a,
+      bound_b
+    });
     return axios.get(`/api/events/radius?boundalat=${bound_a.lat}&boundalng=${bound_a.lng}&boundblat=${bound_b.lat}&boundblng=${bound_b.lng}`)
       .then((response) => {
           this.setState({events: response.data})
@@ -89,7 +98,7 @@ class App extends React.Component {
         <SearchBar dates={this.state.dates} handleDayChange={this.handleDayChange}/>
       </div>)
     return (
-      loading ? <img src="http://iamchriscollins.com/loading.gif"/> : mapDiv
+      loading ? <img src="https://s3-us-west-1.amazonaws.com/puppals/preloader.gif"/> : mapDiv
     );
   }
 }
