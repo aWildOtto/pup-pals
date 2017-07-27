@@ -13,7 +13,7 @@
     </div>
     <div class="smalldetails-footer">
       <% if (user&&user.id===person.id) { %>
-      <form action="/events/<%=event.id%>/cancel" method="POST" >
+      <form class="cancel-form" action="/events/<%=event.id%>/cancel" method="POST" >
         <button type="submit" class="btn btn-danger rsvp-btn">Can't Go</button>
       </form>
       <% }else{ %>
@@ -22,4 +22,10 @@
     </div>
   </div>
   </a>
+
+  <script>
+    $('.cancel-form').on('submit', function() {
+      $('.rsvp-btn').prop('disabled', true)
+    })
+  </script>
 </div>

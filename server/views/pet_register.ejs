@@ -110,12 +110,17 @@
                   </div>
                 </div>
               </p>
-              <button type="submit" class="btn btn-lg btn-primary btn-block">Sign Up</button>
+              <button type="submit" class="submit-btn btn btn-lg btn-primary btn-block">Add my new Pup</button>
             </form>
           </div>
         </div>
       </div>
     </div>
+    <script>
+      $('.register-form').on('submit', function() {
+        $('.submit-btn').prop('disabled', true)
+      });
+  </script>
 </body>
 
 </html>

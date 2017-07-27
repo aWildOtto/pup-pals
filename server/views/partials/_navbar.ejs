@@ -83,7 +83,9 @@
       </div>
     </div>
   <script>
-    
+    $('.register-form').on('submit', function() {
+      $('#btn-create').prop('disabled', true)
+    })
     $('.create_event').on('click', (e) => {
       $('#myModal').modal("show");
     });

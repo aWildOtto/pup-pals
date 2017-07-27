@@ -49,11 +49,11 @@
             <%if(user){%>
               <%if(!rsvped){%>
                 <form class="detail-rsvp" action="/events/<%=id%>" method="POST" >
-                  <button type="submit" class="btn btn-primary">Going</button>
+                  <button type="submit" class="btn-rsvp btn btn-primary">Going</button>
                 </form>
               <%}else{%>
-                <form class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
-                  <button type="submit" class="btn btn-danger">Can't Go</button>
+                <form id="cancel-form" class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
+                  <button type="submit" class="btn-cancel btn btn-danger">Can't Go</button>
                 </form>
               <%}%>
             <% } %>
@@ -77,8 +77,8 @@
             </div>
             <br>
             <div style="text-align: center">
-                <form action="/events/<%=id%>/delete" method="POST" >
-                  <button type="submit" class="btn btn-danger">Close Event</button>
+                <form id="delete-form"action="/events/<%=id%>/delete" method="POST" >
+                  <button type="submit" id="btn-delete"class="btn btn-danger">Close Event</button>
                 </form>
             </div>
           <%}%>
@@ -152,6 +152,17 @@
     </div>
   </div>
   <script>
+    $('.detail-rsvp').on('submit', function() {
+        $('.btn-rsvp').prop('disabled', true)
+    });
+  
+    $('#cancel-form').on('submit', function() {
+        $('.btn-cancel').prop('disabled', true)
+      });
+    $('#delete-form').on('submit', function() {
+        $('#btn-delete').prop('disabled', true)
+      });
+
     $('#editEvent').on('click', (e) => {
       $('#editEventModal').modal("show");
     });
