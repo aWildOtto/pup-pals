@@ -16,10 +16,8 @@ class App extends React.Component {
       user: {},
       bound_a: {},
       bound_b: {},
-      dates: {
-        startDate: "",
-        endDate: ""
-      }
+      startDate: "",
+      endDate: ""
     }
   }
 
@@ -39,10 +37,10 @@ class App extends React.Component {
       .then(axios.spread((events, user) => {
         let eventsData = events.data;
         let userData = user.data;
-        if(this.state.dates.startDate && this.state.dates.endDate) {
+        if(this.state.startDate && this.state.endDate) {
           eventsData = eventsData.filter(event => {
-            const startDate = Moment(this.state.dates.startDate, "DD-MM-YYYY");
-            const endDate = Moment(this.state.dates.endDate, "DD-MM-YYYY");
+            const startDate = Moment(this.state.startDate, "DD-MM-YYYY");
+            const endDate = Moment(this.state.endDate, "DD-MM-YYYY");
             const eventDate = Moment(event.date_time.split('t')[0], 'YYYY-MM-DD');
             const range = Moment().range(startDate, endDate);
             return(range.contains(eventDate))
@@ -68,17 +66,27 @@ class App extends React.Component {
       );
   }
 
-  handleDayChange = (startDate, endDate) => {
-    if(startDate && endDate) {
-      this.setState({dates: {
+  handleStartDayChange = (startDate) => {
+    if(startDate) {
+      this.setState({
         startDate: startDate,
-        endDate: endDate
-      }}, this.fetchData())
+      }, this.fetchData());
     } else {
-      this.setState({dates: {
+      this.setState({
         startDate: "",
+      }, this.fetchData());
+    }
+  }
+
+  handleEndDayChange = (endDate) => {
+    if(endDate) {
+      this.setState({
+        endDate: endDate
+      }, this.fetchData())
+    } else {
+      this.setState({
         endDate: ""
-      }})
+      }, this.fetchData())
     }
   }
 
@@ -93,9 +101,13 @@ class App extends React.Component {
         user={this.state.user}
         fetchAppData={this.fetchData}
         locationFilter={this.locationFilter}
-        dates={this.state.dates}
+        startDate={this.state.startDate}
+        endDate={this.state.endDate} 
         />
-        <SearchBar dates={this.state.dates} handleDayChange={this.handleDayChange}/>
+        <SearchBar startDate={this.state.startDate}
+          endDate={this.state.endDate} 
+          handleStartDayChange={this.handleStartDayChange}
+          handleEndDayChange={this.handleEndDayChange}/>
       </div>)
     return (
       loading ? <img src="https://s3-us-west-1.amazonaws.com/puppals/preloader.gif"/> : mapDiv

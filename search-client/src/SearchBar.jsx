@@ -4,10 +4,25 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 class SearchBar extends Component {
 
-  handleDayChange = (e) => {
-    const startDate = this.refs.startDate.state.value;
-    const endDate = this.refs.endDate.state.value;
-    this.props.handleDayChange(startDate, endDate);
+  handleStartDayChange = (selectedDay, modifiers) => {
+    let startDate;
+    if(selectedDay){
+      startDate = selectedDay.format("DD/MM/YYYY");
+    }else{
+      startDate = "";
+    }
+    console.log(startDate);
+    this.props.handleStartDayChange(startDate);
+  }
+  handleEndDayChange = (selectedDay, modifiers) => {
+    let endDate;
+    if(selectedDay){
+      endDate = selectedDay.format("DD/MM/YYYY");
+    }else{
+      endDate = "";
+    }
+    console.log(endDate);
+    this.props.handleEndDayChange(endDate);
   }
 
 
@@ -17,21 +32,20 @@ class SearchBar extends Component {
         <form className="form-inline searchform">
           <div className="form-group">
             <DayPickerInput  
-              ref="startDate"
               className="form-control input-lg"         
               placeholder="Start Date"
               format="DD/MM/YYYY"
-              value={this.props.dates.startDate}
+              value={this.props.startDate}
+              onDayChange={this.handleStartDayChange} 
             />
           </div>&nbsp;&nbsp;&nbsp;
           <div className="form-group">
-            <DayPickerInput  
-              ref="endDate"            
+            <DayPickerInput         
               className="form-control input-lg"         
               placeholder="End Date"
               format="DD/MM/YYYY"
-              value={this.props.dates.endDate}                       
-              onDayChange={this.handleDayChange} 
+              value={this.props.endDate}                       
+              onDayChange={this.handleEndDayChange} 
             />
           </div>
         </form>
