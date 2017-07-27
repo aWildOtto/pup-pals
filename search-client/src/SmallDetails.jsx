@@ -12,7 +12,7 @@ class SmallDetails extends Component {
     }
   }
   fetchRsvp = () => {
-    return axios.get(`/api/attend/${this.props.event.id}`) 
+    return axios.get(`/api/attend/${this.props.event.id}`)
       .then((response) => {
         this.setState({user_going: response.data});
         if(this.props.user){
@@ -44,17 +44,17 @@ class SmallDetails extends Component {
 
   handleCancelRsvp = (e) => {
     e.stopPropagation();
-    this.props.CancelRSVP(this.props.event.id)  
+    this.props.CancelRSVP(this.props.event.id)
     this.setState({
       flag: false
-    })  
+    })
   }
 
   componentDidMount() {
     this.fetchRsvp()
   }
-  
-  render() {   
+
+  render() {
       if (this.state.flag) {
         return (
           <div className="detailcontainer">
@@ -70,8 +70,8 @@ class SmallDetails extends Component {
                   <span className="smalldetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i> {this.props.event.location}</span>
                 </div>
                 <div className="smalldetails-footer">
-                  <span className="smalldetails-rsvp">                
-                    <button type="button" onClick={this.handleCancelRsvp.bind(this)} className="btn btn-danger rsvp-btn">Not Going</button>
+                  <span className="smalldetails-rsvp">
+                    <button type="button" onClick={this.handleCancelRsvp.bind(this)} className="btn btn-danger rsvp-btn">Click to Cancel</button>
                   </span>
                 </div>
               </div>
@@ -93,8 +93,8 @@ class SmallDetails extends Component {
                   <span className="smalldetails-location"><i className="fa fa-map-marker" aria-hidden="true"></i> {this.props.event.location}</span>
                 </div>
                 <div className="smalldetails-footer">
-                  <span className="smalldetails-rsvp">                
-                    <button disabled={this.state.disabled} type="button" onClick={this.handleRsvp.bind(this)} className="btn btn-primary rsvp-btn">Going</button>
+                  <span className="smalldetails-rsvp">
+                    <button disabled={this.state.disabled} type="button" onClick={this.handleRsvp.bind(this)} className="btn btn-primary rsvp-btn">Click to Go</button>
                   </span>
                 </div>
               </div>
