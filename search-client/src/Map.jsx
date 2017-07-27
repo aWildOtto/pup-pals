@@ -151,7 +151,8 @@ class Map extends Component {
           events={this.props.events}
           user={this.props.user}
           fetchAppData={this.props.fetchAppData}
-          dates={this.props.dates}
+          startDate={this.state.startDate}
+          endDate={this.state.endDate} 
         />
       </div>
     );
