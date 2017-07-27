@@ -37,12 +37,15 @@ class App extends React.Component {
       .then(axios.spread((events, user) => {
         let eventsData = events.data;
         let userData = user.data;
-        if(this.state.startDate && this.state.endDate) {
+        if(this.state.startDate || this.state.endDate) {
           eventsData = eventsData.filter(event => {
             const startDate = Moment(this.state.startDate, "DD-MM-YYYY");
             const endDate = Moment(this.state.endDate, "DD-MM-YYYY");
             const eventDate = Moment(event.date_time.split('t')[0], 'YYYY-MM-DD');
-            const range = Moment().range(startDate, endDate);
+            const range = Moment.range(
+              this.state.startDate?startDate:null,
+              this.state.endDate?endDate:null
+              );
             return(range.contains(eventDate))
           })
         }
@@ -69,11 +72,11 @@ class App extends React.Component {
   handleStartDayChange = (startDate) => {
     if(startDate) {
       this.setState({
-        startDate: startDate,
+        startDate: startDate
       }, this.fetchData());
     } else {
       this.setState({
-        startDate: "",
+        startDate: ""
       }, this.fetchData());
     }
   }
