@@ -47,6 +47,16 @@ You are all set, open the web app on your browser: http://localhost:3000/
 
 ### Screenshot
 
+!["Home Page"](https://github.com/aWildOtto/pup-pals/blob/master/docs/home.png)
+!["Create Event"](https://github.com/aWildOtto/pup-pals/blob/master/docs/create.png)
+!["Search"](https://github.com/aWildOtto/pup-pals/blob/master/docs/location:date.png)
+!["Event Detail"](https://github.com/aWildOtto/pup-pals/blob/master/docs/detail.png)
+!["Emoji"](https://github.com/aWildOtto/pup-pals/blob/master/docs/emoji.png)
+!["User Profile"](https://github.com/aWildOtto/pup-pals/blob/master/docs/user.png)
+!["Pet Profile"](https://github.com/aWildOtto/pup-pals/blob/master/docs/pet.png)
+!["Pet photo upload"](https://github.com/aWildOtto/pup-pals/blob/master/docs/upload.png)
+!["Calendar"](https://github.com/aWildOtto/pup-pals/blob/master/docs/calendar.png)
+
 ### Dependencies
 
 Dependencies for express server:
