@@ -104,7 +104,7 @@ $(document).ready(function(){
   });
 
   function createStatusesElements(statuses) {
-    var $section = $('<section>')
+    var $section = $('<section>', {class: 'photo-share'});
     statuses.forEach((status) => {
       var $timeSpan = $('<span>', {class: 'status-time', text: moment(status.created_at).format("ddd MMMM Do YYYY") + " at " + moment(status.created_at).format("h:mm a")})
       var $textSpan = $('<span>', {class: 'status-text',text: " | " + status.content});
@@ -112,13 +112,23 @@ $(document).ready(function(){
         var $img = $('<img>', {class: 'status-img', src:status.media_url})
       }
       var $div = $('<div>', {class:'status'})
-      $div.append($timeSpan).append($textSpan)
-      if ($img){
-        $div.append($img)
-      }
-      var $a = $('<a>', {class: 'status-delete', text: 'Delete', "data-id" : status.id})
 
-      $div. prepend($a)
+      var $infoDiv = $('<div>', {class:'status-information'})
+      $infoDiv.append($timeSpan).append($textSpan)
+      if ($img){
+        var $imgDiv = $('<div>', {class:'status-img-container'})
+        $imgDiv.append($img)
+        $imgDiv.append($infoDiv)
+
+        $div.append($imgDiv)
+      }
+      var $a = $('<a>', {class: 'status-delete', "data-id" : status.id});
+      var $deleteIcon = $('<i>', {class: 'fa fa-times-circle'});
+
+      $a.append($deleteIcon)
+
+      $infoDiv.prepend($a)
+      console.log($infoDiv)
       $section.append($div)
     })
     return $section;
