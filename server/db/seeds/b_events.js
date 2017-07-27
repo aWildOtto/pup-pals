@@ -264,6 +264,10 @@ exports.seed = function(knex, Promise) {
               insertEventUser(
                 users[4].id,
                 id
+              ),
+              insertEventUser(
+                users[0].id,
+                id
               )
           ]);
         }),
