@@ -58,7 +58,7 @@ class SmallDetails extends Component {
       if (this.state.flag) {
         return (
           <div className="detailcontainer">
-            <a href="#" onClick={this.handleClick.bind(this)} className="smalldetails-link">
+            <a href="#" onClick={this.handleClick} className="smalldetails-link">
               <div className="smalldetails-container">
                 <div className="smalldetails-header">
                   <h3 className="smalldetails-title">{this.props.event.title}</h3>
@@ -71,7 +71,7 @@ class SmallDetails extends Component {
                 </div>
                 <div className="smalldetails-footer">
                   <span className="smalldetails-rsvp">
-                    <button type="button" onClick={this.handleCancelRsvp.bind(this)} className="btn btn-danger rsvp-btn">Click to Cancel</button>
+                    <button type="button" onClick={this.handleCancelRsvp} className="btn btn-danger rsvp-btn">Click to Cancel</button>
                   </span>
                 </div>
               </div>
@@ -81,7 +81,7 @@ class SmallDetails extends Component {
       } else {
         return (
           <div className="detailcontainer">
-            <a href="#" onClick={this.handleClick.bind(this)} className="smalldetails-link">
+            <a href="#" onClick={this.handleClick} className="smalldetails-link">
               <div className="smalldetails-container">
                 <div className="smalldetails-header">
                   <h3 className="smalldetails-title">{this.props.event.title}</h3>
@@ -94,7 +94,7 @@ class SmallDetails extends Component {
                 </div>
                 <div className="smalldetails-footer">
                   <span className="smalldetails-rsvp">
-                    <button disabled={this.state.disabled} type="button" onClick={this.handleRsvp.bind(this)} className="btn btn-primary rsvp-btn">Click to Go</button>
+                    <button disabled={this.state.disabled} type="button" onClick={this.handleRsvp} className="btn btn-primary rsvp-btn">Click to Go</button>
                   </span>
                 </div>
               </div>

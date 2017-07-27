@@ -4,7 +4,6 @@ import Emoji from './Emoji.jsx';
 class ChatBar extends Component {
   constructor(props) {
     super(props);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = {
       message: "",
       isHidden: true
