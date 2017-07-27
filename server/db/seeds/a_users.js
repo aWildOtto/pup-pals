@@ -158,13 +158,19 @@ exports.seed = function(knex, Promise) {
               'male'
             )
             .then((pup_id)=>{
-              return insertPupUpdate(//change the url
-                pup_id,
-                'me on the grass',
-                "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
-              );
-            }
-            ),
+              return Promise.all([
+                insertPupUpdate(//change the url
+                  pup_id,
+                  'me on the grass',
+                  "http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg"
+                ),
+                insertPupUpdate(
+                  pup_id, 
+                  'me on the beach',
+                  "https://s-media-cache-ak0.pinimg.com/originals/1b/18/59/1b185975b0dad478fe8b47096860647d.jpg"
+                )
+              ])
+            }),
             insertPup(
               id,
               'Long-haired Mini Daschund',
@@ -182,8 +188,7 @@ exports.seed = function(knex, Promise) {
                 'gaga',
                 "https://s-media-cache-ak0.pinimg.com/originals/11/df/09/11df0994564516bb631c6c369014080f.jpg"
               )
-            }
-            ),
+            }),
             insertPup(
               id,
               'Golden Retriever',
