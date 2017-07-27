@@ -682,6 +682,74 @@ exports.seed = function(knex, Promise) {
               'male'
            )
            ]);
+         }),
+          insertUser(
+            'manuelP',
+            'Manuel Perez Cabello',
+            'manuelpcabello@gmail.com',
+            '123',
+            'Had a blast at my last meetup!!',
+            '/styles/pictures/Manuel.jpg'
+          )
+          .then((id) => {
+            return Promise.all([
+             insertPup(
+              id,
+              'Mini dachshund',
+              'Small',
+              'High maintenance',
+              true,
+              '5',
+              '/styles/pictures/peppi.jpg',
+              'Peppi',
+              'female'
+           )
+           ]);
+         }),
+          insertUser(
+            'rebs',
+            'Rebecca Haliburton',
+            'rebeccahaliburton@gmail.com',
+            '123',
+            'Can\'t wait to meet new people and puppies!',
+            '/styles/pictures/rebs.jpg'
+          )
+          .then((id) => {
+            return Promise.all([
+              insertPup(
+                id,
+                'Golden Labrador',
+                'Medium',
+                'Playful',
+                true,
+                '4',
+                '/styles/pictures/lucy2.jpg',
+                'Lucy',
+                'female'
+              ),
+              insertPup(
+                id,
+                'Golden Retriever',
+                'Medium',
+                'Playful',
+                true,
+                '5',
+                '/styles/pictures/morley.jpg',
+                'Morley',
+                'male'
+              ),
+              insertPup(
+                id,
+                'Golden Labrador',
+                'Medium',
+                'Playful',
+                true,
+                '5',
+                '/styles/pictures/haley.jpg',
+                'Haley',
+                'female'
+              )
+           ]);
          })
         //can add more users here
 
