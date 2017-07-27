@@ -9,25 +9,25 @@ module.exports = (knex) => {
     updateOwnerProfile: (id, avatar_url, name) => {
       return knex.table('users')
         .update({avatar_url, name})
-        .where({'id': id})
+        .where({id})
     },
 
     updatePupProfile: (id, profile) => {
       return knex.table('pups')
         .update(profile)
-        .where({'id': id})
+        .where({id})
     },
 
     updateEvent: (id, event) => {
       return knex.table('events')
         .update(event)
-        .where({'id': id})
+        .where({id})
     },
 
-    getUserStatus: (userId) => {
+    getUserStatus: (id) => {
       return knex.table('users')
         .select('status')
-        .where({'id': userId})
+        .where({id})
     },
 
     getPupStatuses: (pupId) => {
@@ -38,10 +38,10 @@ module.exports = (knex) => {
         .limit(5)
     },
 
-    makeOwnerStatus: (userId, content) => {
+    makeOwnerStatus: (id, content) => {
       return knex.table('users')
         .update({status: content})
-        .where({'id': userId})
+        .where({id})
     },
 
     makePupStatus:(pupId, update) => {
@@ -54,7 +54,7 @@ module.exports = (knex) => {
 
     deletePupStatus: (id) => {
       return knex.table('pup_updates')
-        .where({'id': id})
+        .where({id})
         .del();
     },
 
@@ -103,6 +103,13 @@ module.exports = (knex) => {
       return knex('events')
         .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
         .select ('events.*')
+        .where({'event_user.user_id': id});
+    },
+
+    getEventIdsByUserId: (id) => {
+      return knex('events')
+        .leftJoin('event_user', 'events.id', '=', 'event_user.event_id')
+        .select ('events.id')
         .where({'event_user.user_id': id});
     },
 
@@ -236,6 +243,12 @@ module.exports = (knex) => {
         .where({user_id});
     },
 
+    getRandomPup: () => {
+      return knex.raw(`SELECT * FROM pups
+        ORDER BY RANDOM()
+        LIMIT 1`);
+    },
+
     insertEventPups: (pup_id, event_id) => {
       return knex.table('event_pup').insert({
         pup_id: pup_id,
@@ -249,6 +262,12 @@ module.exports = (knex) => {
       }).del();
     },
 
+    getEventIdByTitle: (title) => {
+      return knex('events').select('id').where({
+        title
+      })
+    },
+    
     saveMessage: (content, user_id, event_id) => {
        return knex('event_posts').insert({
         user_id,
@@ -315,8 +334,9 @@ module.exports = (knex) => {
           from events
           left join event_user on event_user.event_id = events.id
           where box '((${bound_a_lat}, ${bound_a_lng}), (${bound_b_lat}, ${bound_b_lng}))'
-          @> point(events.latitude, events.longitude)
-          group by events.id;
+          @> point(events.latitude, events.longitude) 
+          group by events.id 
+          order by events.date_time;
           `
           //TODO(prevent sql injection): validate that bounds are floats and nothing else
         )

@@ -61,8 +61,10 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  console.log(res.locals.user);
-  res.render('index');
+  dbHelper.getRandomPup()
+    .then((pup) => {
+      res.render('index', {pup:pup.rows[0]});
+    })
 });
 
 
@@ -113,10 +115,8 @@ io.on('connection', function (socket) {
   if(eventId){
     dbHelper.getMessagesByEventId(eventId)// find all messages under this event
       .then((results) => {
-      console.log( "all event posts: ", results);
         let messages = [];
         results.forEach(function(message){
-          console.log(message)
           messages.push({
             user_id: message.user_id,
             message: message.content,
@@ -170,7 +170,7 @@ app.use("/500", (req, res, next) => {
   res.status(500).render("500");
 })
 app.use((req, res, next) => {
-  res.status(404).render("404");
+  res.redirect('/404');
 })
 server.listen( process.env.PORT || 3000, () => {
   console.log('Server running');

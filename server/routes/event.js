@@ -30,33 +30,42 @@ module.exports = (dbHelper) => {
         latitude: data.results[0].geometry.location.lat,
         longitude: data.results[0].geometry.location.lng,
       };
-      // console.log(event);
-      dbHelper.createEvent(event,req.session.user.id)
+      let event_id = null;
+      return dbHelper.createEvent(event,req.session.user.id)
         .then((id) => {
-          const event_id = parseInt(id);
+          event_id = Number(id);
           //get all the current user's pups' ids
-          dbHelper.getPupsIdsByUserId(req.session.user.id)
+          return dbHelper.getPupsIdsByUserId(req.session.user.id)
           .then((ids)=>{
             //insert row into event_user table
-            dbHelper.insertEventUser(event_id, req.session.user.id)
+            return dbHelper.insertEventUser(event_id, req.session.user.id)
               .then(() => {
                 //run loop through pups' ids, insert each into event_pup table
-                ids.forEach((pup_id) => {
-                  dbHelper.insertEventPups(pup_id.id, event_id)
-                  .then(() => {
-                    res.redirect(`/events/${event_id}`);
-                  });
-                });
+                return Promise.all(ids.map((pup_id) => {
+                  return dbHelper.insertEventPups(pup_id.id, event_id);
+                }));
             });
           });
+        })
+        .then(()=>{
+          res.redirect(`/events/${event_id}`);
         })
         .catch((errors) => {
           console.log(errors);
           res.redirect("/500");
         });
     });
+  }),
 
-
+  router.get('/featured', (req, res, next) => {
+    dbHelper.getEventIdByTitle("National dog day")
+    .then((event) => {
+      res.redirect(`/events/${event[0].id}`);
+    })
+    .catch((error)=>{
+      console.log(errors);
+      res.redirect("/500");
+    });
   }),
 
   router.get("/:id", (req, res, next) => {
@@ -65,6 +74,7 @@ module.exports = (dbHelper) => {
       .then((results) => {
         if(results.length === 0){
           res.redirect("/404");
+          return;
         }
         const longitude = results[0].events.longitude
         const latitude = results[0].events.latitude
@@ -93,7 +103,6 @@ module.exports = (dbHelper) => {
                   }
                   return user;
                 });
-                console.log("rsvped is ", rsvped);
                 let templateVars = {
                     events: results[0].events,
                     users: users,
@@ -151,7 +160,6 @@ module.exports = (dbHelper) => {
     const userCancelPromise = dbHelper.cancelRSVP(req.params.id, user_id);
     const cancelPupPromise = pupIdPromise
       .then((pupIds) => {
-        console.log(pupIds);
         return Promise.all(pupIds.map((pupId) => {
             return dbHelper.deleteEventPups(pupId.id, req.params.id);
           })
@@ -173,7 +181,6 @@ module.exports = (dbHelper) => {
     }
     dbHelper.getEventById(req.params.id)
       .then((result) => {
-        console.log(result);
         if(result[0].creator_user_id!==req.session.user.id){
           req.status(403).end("permission denied");
         }else{
@@ -181,7 +188,6 @@ module.exports = (dbHelper) => {
         }
       })
       .then((result) => {
-        console.log(result);
         res.redirect(`/owner/${req.session.user.id}`);
       })
       .catch((error)=>{
@@ -190,8 +196,8 @@ module.exports = (dbHelper) => {
       });
   });
 
+
   router.post('/:id/edit', (req, res, next) => {
-    console.log(req.body);
     if(!req.session.user){
       res.redirect("/404");
     }else{

@@ -54,6 +54,7 @@
 }
 
 .emoji-toggle {
+  border: 1px solid lightgrey;
   height: 34px;
 }
 
@@ -97,4 +98,14 @@ a.pup-link {
 
 .pac-container {
     z-index: 10000 !important;
+}
+
+.regular {
+  color: $accent-color;
+}
+
+.rsvped {
+  color: #53575e;
+  background-color: #9FE1E7;
+  border: 1px solid #0BBCB2;
 }

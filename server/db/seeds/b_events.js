@@ -48,8 +48,18 @@ exports.seed = function(knex, Promise) {
   }
 
   return knex('events').del()
+    .then(()=>{
+      return knex('event_posts').del()
+        .then(() => {
+          return knex('event_user').del();
+        })
+          .then(() => {
+            return knex('event_pup').del();
+          });
+    })
     .then(function () {
-      return knex('users').select().then((users) => {//find all users
+      return knex('users').select()
+        .then((users) => {//find all users
         return Promise.all([
           //-------------------first event--------------------------
           insertEvent(// create an event under the first user's name
@@ -83,6 +93,10 @@ exports.seed = function(knex, Promise) {
               insertEventUser(
                 users[2].id,
                 id
+              ),
+              insertEventUser(
+                users[0].id,
+                id
               )
             ]);
           }),
@@ -93,7 +107,7 @@ exports.seed = function(knex, Promise) {
             'Playdate at the dog park',
             'Burnaby Heights Off-leash Park',
             'Small Pups Only',
-            '2017-08-05T12:00',
+            '2017-08-05T15:00',
             true,
             49.288789,
             -123.017149
@@ -113,6 +127,10 @@ exports.seed = function(knex, Promise) {
                 insertEventUser(
                   users[8].id,
                   id
+                ),
+                insertEventUser(
+                  users[4].id,
+                  id
                 )
             ]);
           }),
@@ -121,10 +139,10 @@ exports.seed = function(knex, Promise) {
           insertEvent(
             users[9].id,
             'Mean dogs party',
-            'It\'s gonna be messy and violent',
+            'It\'s gonna be fun',
             'Pacific Spirit Regional Park',
             'Small Pups Watch out!',
-            '2017-08-10T24:00' ,
+            '2017-08-10T19:00' ,
             true,
             49.2577354,
             -123.123904
@@ -135,7 +153,7 @@ exports.seed = function(knex, Promise) {
                 insertEventPost(
                   users[5].id,
                   id,
-                  'Oh god it\'s going to be brutal!'
+                  'Oh yea it\'s going to be awesome!'
                 ),
                 insertEventUser(
                   users[9].id,
@@ -144,6 +162,10 @@ exports.seed = function(knex, Promise) {
                 insertEventUser(
                   users[3].id,
                   id
+                ),
+                insertEventUser(
+                  users[9].id,
+                  id
                 )
             ]);
         }),
@@ -151,13 +173,13 @@ exports.seed = function(knex, Promise) {
         insertEvent(
           users[11].id,
           'National dog day',
-          'Everyone love puppies!',
-          '450 Beach Crescent, Vancouver, BC V6Z 3G1',
+          'Join the dog community in celebrating our best friends on National Dog Day. Whether you’re a past, present or future owner of a pup, come out and enjoy some grillables and play with the pups!',
+          '999 Charleson Street, Vancouver, BC V5Z 4A2',
           'No restrictions, we love people and pups!',
-          '2017-08-26T24:00' ,
+          '2017-08-26T18:30' ,
           true,
-          49.2757771,
-          -123.1262836
+          49.2666094,
+          -123.1281372,17
         )
           .then((id) => {
             id = Number(id);
@@ -174,10 +196,241 @@ exports.seed = function(knex, Promise) {
               insertEventUser(
                 users[13].id,
                 id
+              ),
+              insertEventUser(
+                users[11].id,
+                id
               )
           ]);
-        })
-
+        }),
+        //--------------fifth event---------------------
+        insertEvent(
+          users[4].id,
+          'Louie\'s 2nd birthday',
+          'Come out to Steveston this Saturday to help Louie celebrate his second birthday! There will be treats for the pups and pizza for the humans. Instead of bringing Louie a gift, please bring some toys to donate to the SPCA! Hope to see you there!',
+          'Garry Point Park',
+          'No restrictions',
+          '2017-10-01T12:30' ,
+          true,
+          49.126394,
+          -123.192098
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventPost(
+                users[4].id,
+                id,
+                'Can\'t Wait!'
+              ),
+              insertEventUser(
+                users[2].id,
+                id
+              ),
+              insertEventUser(
+                users[3].id,
+                id
+              ),
+              insertEventUser(
+                users[4].id,
+                id
+              )
+          ]);
+        }),
+        //--------------sixth event---------------------
+        insertEvent(
+          users[6].id,
+          'Goldie meet up',
+          'Calling all golden retrievers to Marlven Off-Leash Dog Park in Burnaby! New to the city and would love to meet up with some other goldie lovers! Feel free to bring balls or frisbees for the dogs to play, looking forward to meeting you all.',
+          'Malvern Off-Leash Dog Park',
+          'Only golden retrievers',
+          '2017-09-12T10:00' ,
+          true,
+          49.228208,
+          -122.952651
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventUser(
+                users[3].id,
+                id
+              ),
+              insertEventUser(
+                users[6].id,
+                id
+              ),
+              insertEventUser(
+                users[1].id,
+                id
+              )
+          ]);
+        }),
+        //--------------seventh event---------------------
+        insertEvent(
+          users[3].id,
+          'Small dogs unite',
+          'If you would love for your small pup to play and interact with other small pups, come out to Dogwood Park in white rock! We will be meeting by the fountains and going for a walk along the trails, and having some treats in the park afterwards.',
+          'Dogwood Park',
+          'Only small dogs',
+          '2017-09-20T11:30' ,
+          true,
+          49.038584,
+          -122.850112
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventUser(
+                users[7].id,
+                id
+              ),
+              insertEventUser(
+                users[6].id,
+                id
+              ),
+              insertEventUser(
+                users[5].id,
+                id
+              ),
+              insertEventUser(
+                users[3].id,
+                id
+              )
+          ]);
+        }),
+        //--------------eighth event---------------------
+        insertEvent(
+          users[10].id,
+          'Barkopedia',
+          'Every type of dog you can think of! This event is open for big, small, pups of all ages. There will be a big open area that the dogs can run and play around in. Excited to see you all there.',
+          'Freedom Dog park',
+          'No restrictions',
+          '2017-10-10T13:00' ,
+          true,
+          49.155498,
+          -122.795104
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventUser(
+                users[9].id,
+                id
+              ),
+              insertEventUser(
+                users[8].id,
+                id
+              ),
+              insertEventUser(
+                users[7].id,
+                id
+              ),
+              insertEventUser(
+                users[10].id,
+                id
+              )
+          ]);
+        }),
+        //--------------ninth event---------------------
+        insertEvent(
+          users[11].id,
+          'The Running paws',
+          'Looking to meet up with other owners and pups to go running along the seawall with! The first meetup will be this Sunday at noon, meeting by Second Beach Pool in Stanley park. Hoping to make this a weekly event, can’t wait to see the turnout!',
+          'Second Beach Pool',
+          'No restrictions',
+          '2017-07-30T10:00' ,
+          true,
+          49.295304,
+          -123.151508
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventUser(
+                users[3].id,
+                id
+              ),
+              insertEventUser(
+                users[8].id,
+                id
+              ),
+              insertEventUser(
+                users[2].id,
+                id
+              ),
+              insertEventUser(
+                users[11].id,
+                id
+              )
+          ]);
+        }),
+        //--------------eighth event---------------------
+        insertEvent(
+          users[10].id,
+          'Barkopedia',
+          'Every type of dog you can think of! This event is open for big, small, pups of all ages. There will be a big open area that the dogs can run and play around in. Excited to see you all there.',
+          'Freedom Dog park',
+          'No restrictions',
+          '2017-10-10T14:30' ,
+          true,
+          49.155498,
+          -122.795104
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventUser(
+                users[9].id,
+                id
+              ),
+              insertEventUser(
+                users[8].id,
+                id
+              ),
+              insertEventUser(
+                users[7].id,
+                id
+              ),
+             insertEventUser(
+                users[10].id,
+                id
+              )
+          ]);
+        }),
+        //--------------tenth event---------------------
+        insertEvent(
+          users[13].id,
+          'Barkwatch',
+          'Baywatch – puppy style! This event is open for all pups. If you and your pup love the ocean and the sand then this is the meet up for you!! We hope to have games of Frisbee and catch going on so please respond if you are able to bring a toy!',
+          'Kitsilano Beach Park',
+          'No restrictions',
+          '2017-07-30T15:00' ,
+          true,
+          49.273977,
+          -123.154581
+        )
+          .then((id) => {
+            id = Number(id);
+            return Promise.all([
+              insertEventUser(
+                users[14].id,
+                id
+              ),
+              insertEventUser(
+                users[4].id,
+                id
+              ),
+              insertEventUser(
+                users[9].id,
+                id
+              ),
+              insertEventUser(
+                users[13].id,
+                id
+              )
+          ]);
+        }),
       ]);//event promise array ends here
     });
   });

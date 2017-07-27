@@ -37,14 +37,14 @@
       <div class="container slidero">
         <div class="row">
           <div class="col-md-12">
-            <h1 class="intro-title">Pups Need Pals<span class="element" data-elements="for your puppy"></span></h1>
-            <p class="intro-text"></p>
+            <h1 class="intro-title">Bringing Pups Together<span class="element" data-elements="for your puppy"></span></h1>
+            <p class="intro-text">A meetup for local puppy owners.</p>
             <div class="btn-bar">
-              <a href="/events" class="btn btn-primary btn-lg btn-find">Find a Pup Party</a>
+              <a href="/events" class="btn btn-primary btn-lg btn-find">Find a Pup Meetup</a>
               <%if(user){%>
-                <a href='#' class="btn btn-outline btn-lg" data-toggle="modal" data-target="#myModal">Create a Pup Party</a>
+                <a href='#' class="btn btn-outline btn-lg" data-toggle="modal" data-target="#myModal">Create a Pup Meetup</a>
               <%}else{%>
-                <a href='/user/login' class="btn btn-outline btn-lg">Create a Pup Party</a>
+                <a href='/user/login' class="btn btn-outline btn-lg">Create a Pup Meetup</a>
               <%}%>
             </div>
           </div>
@@ -59,24 +59,36 @@
     <!-- FUN-FACTS -->
     <section class="fun-facts bg-dark" id="fun-facts">
       <div class="container">
-        <div class="col-md-5 text-center">
-          <h1 class="featured-heading"><i class="fa fa-handshake-o" aria-hidden="true"></i> Featured Meetup</h1>
+        <div class="feature-box col-lg-4 text-center">
+          <h2 class="featured-heading"><i class="fa fa-star" aria-hidden="true"></i></i> Most Popular Park</h2>
             <div class="featured-body">
-              <h1 class="featured-title">National Dog Day</h1>
-              <span class="featured-date"><i class="fa fa-clock-o" aria-hidden="true"></i> <Moment format="ddd MMMM Do YYYY">Saturday August 26 2017</Moment></span>
-              <span class="featured-time"><Moment format="h:mm a">12:00 pm</Moment></span>
-              <span class="featured-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Charleson Park</span>
+              <a href="https://www.google.ca/maps/dir//Spanish+Banks+Beach+Park,+4801+NW+Marine+Dr,+Vancouver,+BC+V6T+1E2/@49.2768953,-123.2196682,17z/data=!4m15!1m6!3m5!1s0x5486729281cc092d:0x886c0a9a6aa169d!2sSpanish+Banks+Beach+Park!8m2!3d49.2768918!4d-123.2174795!4m7!1m0!1m5!1m1!1s0x5486729281cc092d:0x886c0a9a6aa169d!2m2!1d-123.2174795!2d49.2768918?hl=en" target="_blank">
+                <h4 class="featured-title">Spanish Banks Park</h4>
+                <br>
+                <img class="featured-map" src="/styles/pictures/2.png" alt="">
+              </a>
+            </div>
+        </div>
+        <div class="col-lg-4 feature-box text-center">
+          <h2 class="featured-heading"><i class="fa fa-handshake-o" aria-hidden="true"></i> Featured Meetup</h2>
+            <div class="featured-body">
+              <a href="/events/featured">
+                <h4 class="featured-title">National Dog Day</h4>
+              </a>
+                <span class="featured-date"><i class="fa fa-clock-o" aria-hidden="true"></i> <Moment format="ddd MMMM Do YYYY">Saturday August 26 2017</Moment></span>
+                <span class="featured-time"><Moment format="h:mm a">12:00 pm</Moment></span>
+                <span class="featured-location"><i class="fa fa-map-marker" aria-hidden="true"></i> Charleson Park</span>
               <img class="featured-img" src="/styles/pictures/1.png" alt="">
             </div>
         </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-5 text-center">
-          <h1 class="featured-heading"><i class="fa fa-star" aria-hidden="true"></i></i> Most Popular Park</h1>
+        <div class="col-lg-4 text-center feature-box">
+          <h2 class="featured-heading"><i class="fa fa-paw" aria-hidden="true"></i></i> Random Pup Pal</h2>
             <div class="featured-body">
-              <h1 class="featured-title">Spanish Banks Park</h1>
-              <br>
-              <a href="https://www.google.ca/maps/dir//Spanish+Banks+Beach+Park,+4801+NW+Marine+Dr,+Vancouver,+BC+V6T+1E2/@49.2768953,-123.2196682,17z/data=!4m15!1m6!3m5!1s0x5486729281cc092d:0x886c0a9a6aa169d!2sSpanish+Banks+Beach+Park!8m2!3d49.2768918!4d-123.2174795!4m7!1m0!1m5!1m1!1s0x5486729281cc092d:0x886c0a9a6aa169d!2m2!1d-123.2174795!2d49.2768918?hl=en" target="_blank"><img class="featured-map" src="/styles/pictures/2.png" alt=""></a>
+              <a href="/pet/<%=pup.id%>">
+                <h4 class="featured-title"><%=pup.name%></h4>
+              </a>
+                <p ><%=pup.breed%></p>
+                <img style="height:200px;" src="<%=pup.avatar_url%>">
             </div>
         </div>
       </div>

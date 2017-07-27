@@ -12,10 +12,8 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/login", (req, res) => {
-    console.log(req.body);
     dbHelper.getUserByEmail(req.body.email)
     .then((result)=>{
-      console.log(result);
       if(result.length != 0){
         if(bcrypt.compareSync(req.body.password, result[0].password)){
           // console.log(req.session);
@@ -38,7 +36,7 @@ module.exports = (dbHelper) => {
     })
     .catch((error) => {
       console.log(error);
-      res.render('login', {
+      res.status(500).render('login', {
         error: "Something unexpected happened, try again :0"
       });
     });
@@ -53,7 +51,7 @@ module.exports = (dbHelper) => {
       dbHelper.createUser(req.body)
       .then((id)=>{
         req.session.user = {
-          id: id,
+          id: Number(id),
           avatar_url: req.body.avatar_url,
           username: req.body.username
         }

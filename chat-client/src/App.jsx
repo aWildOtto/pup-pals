@@ -9,10 +9,9 @@ class App extends Component {
     this.state = {
       messages: []
     }
-    this.addNewMessage = this.addNewMessage.bind(this);
   }
 
-  addNewMessage(message) {
+  addNewMessage = (message) => {
     this.socket.emit("message",{message: message})
   }
 

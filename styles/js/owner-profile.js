@@ -75,7 +75,7 @@ $(document).ready(function(){
       $('.edit-form .input').val('');
       $('.edit-profile').slideToggle();
       $('.owner-box').slideToggle();
-      $('.statusBox').slideToggle();
+      $('#statusBox').slideToggle();
       $('.new-status').slideToggle();
       $('.back').hide();
       $('.edit').slideToggle();

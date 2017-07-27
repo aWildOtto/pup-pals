@@ -14,6 +14,8 @@ class App extends React.Component {
       loading:true,
       events: [],
       user: {},
+      bound_a: {},
+      bound_b: {},
       dates: {
         startDate: "",
         endDate: ""
@@ -23,7 +25,10 @@ class App extends React.Component {
 
   fetchData = () => {
     const getEvents = () => {
-      return axios.get('/api/events');
+      return axios.get(`/api/events/radius?boundalat=${this.state.bound_a.lat}
+        &boundalng=${this.state.bound_a.lng}
+        &boundblat=${this.state.bound_b.lat}
+        &boundblng=${this.state.bound_b.lng}`);
     }
 
     const getUser = () => {
@@ -34,7 +39,7 @@ class App extends React.Component {
       .then(axios.spread((events, user) => {
         let eventsData = events.data;
         let userData = user.data;
-        if(this.state.dates.startDate || this.state.dates.endDate) {
+        if(this.state.dates.startDate && this.state.dates.endDate) {
           eventsData = eventsData.filter(event => {
             const startDate = Moment(this.state.dates.startDate, "DD-MM-YYYY");
             const endDate = Moment(this.state.dates.endDate, "DD-MM-YYYY");
@@ -43,16 +48,19 @@ class App extends React.Component {
             return(range.contains(eventDate))
           })
         }
-          this.setState({
-            events: eventsData,
-            user: userData
-          });
-        console.log("Events data from server:", eventsData)
-        console.log("User data from server:", userData)
+        this.setState({
+          events: eventsData,
+          user: userData,
+          loading: false
+        });
       }));
   }
 
   locationFilter = (bound_a, bound_b) => {
+    this.setState({
+      bound_a,
+      bound_b
+    });
     return axios.get(`/api/events/radius?boundalat=${bound_a.lat}&boundalng=${bound_a.lng}&boundblat=${bound_b.lat}&boundblng=${bound_b.lng}`)
       .then((response) => {
           this.setState({events: response.data})
@@ -65,7 +73,7 @@ class App extends React.Component {
       this.setState({dates: {
         startDate: startDate,
         endDate: endDate
-      }}, this.fetchData)
+      }}, this.fetchData())
     } else {
       this.setState({dates: {
         startDate: "",
@@ -74,20 +82,12 @@ class App extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this.setState({loading: true})
-    console.log(this.state.loading, 'component will mount')
-  }
-
   componentDidMount() {
-    this.setState({loading:false});
-    console.log(this.state.loading, 'component did mount')
     this.fetchData();
   }
 
   render() {
     const loading = this.state.loading
-    console.log(this.state.loading, 'render')
     const mapDiv = ( <div>
         <Map events={this.state.events}
         user={this.state.user}
@@ -98,7 +98,7 @@ class App extends React.Component {
         <SearchBar dates={this.state.dates} handleDayChange={this.handleDayChange}/>
       </div>)
     return (
-      loading ? <img src="http://iamchriscollins.com/loading.gif"/> : mapDiv
+      loading ? <img src="https://s3-us-west-1.amazonaws.com/puppals/preloader.gif"/> : mapDiv
     );
   }
 }

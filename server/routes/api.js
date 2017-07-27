@@ -28,7 +28,6 @@ module.exports = (dbHelper) => {
   router.get("/events/radius", (req, res) => {
     dbHelper.searchEventInABox(req.query.boundalat, req.query.boundalng, req.query.boundblat, req.query.boundblng)
       .then((results) => {
-        console.log(results.rows);
         res.json(results.rows);
       })
   });
@@ -49,19 +48,21 @@ module.exports = (dbHelper) => {
   router.get("/owner/profile/:id", (req, res) => {
     dbHelper.getUserByIds(req.params.id)
       .then((results) => {
-        console.log(results, 'results')
-        res.json(results)
+        res.json(results);
       })
   })
 
   router.post("/owner/profile/:id", (req, res) => {
-    console.log(req.body)
     dbHelper.getUserByIds(req.params.id)
       .then((results) => {
         let avatar_url = req.body.avatar_url || results[0].avatar_url;
         let name = req.body.name || results[0].name;
         dbHelper.updateOwnerProfile(req.params.id, avatar_url, name)
-          .then(()=> {res.sendStatus(204)})
+          .then(()=> {
+            req.session.user.avatar_url = avatar_url;
+            req.session.user.username = name;
+            res.sendStatus(204);
+          })
       });
   })
 
@@ -79,7 +80,6 @@ module.exports = (dbHelper) => {
   });
 
   router.post("/pet/delete/status/:id", (req, res) => {
-    console.log(req.params.id, 'id pup_update')
     dbHelper.deletePupStatus(req.params.id)
       .then(() => {
         res.sendStatus(200)
@@ -87,10 +87,8 @@ module.exports = (dbHelper) => {
   })
 
   router.get("/pet/profile/:id", (req, res) => {
-    console.log(req.params.id)
     dbHelper.getPupsByIds(req.params.id)
       .then((results) => {
-        console.log(results, 'results')
         res.json(results)
       });
   })
@@ -113,6 +111,41 @@ module.exports = (dbHelper) => {
       })
   })
 
+  router.post('/:id/cancel', (req, res, next) => {
+    if(!req.session.user){
+      res.json("you are not logged in");
+      return;
+    }
+    const user_id = req.session.user.id;
+    const pupIdPromise = dbHelper.getPupsIdsByUserId(user_id);
+    const userCancelPromise = dbHelper.cancelRSVP(req.params.id, user_id);
+    const cancelPupPromise = pupIdPromise
+      .then((pupIds) => {
+        return Promise.all(pupIds.map((pupId) => {
+            return dbHelper.deleteEventPups(pupId.id, req.params.id);
+          })
+        );
+    });
+    Promise.all([userCancelPromise, cancelPupPromise])
+    .then((result) => {
+      res.json(result)
+    })
+    .catch((error) => {
+      res.json("something went wrong on our end :0");
+    });
+
+  });
+
+  router.get('/userEvents', (req, res, next) => {
+    if(!req.session.user){
+      res.json('');
+    }else{
+      dbHelper.getEventIdsByUserId(req.session.user.id)
+        .then((result) => {
+          res.json(result);
+      });
+    }
+  });
 
   return router;
 }

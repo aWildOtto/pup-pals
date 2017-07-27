@@ -28,7 +28,8 @@
 
 .featured-title {
   color: black;
-  font-size: 3em;
+  font-size: 2em;
+  font-family: 'Assistant', sans-serif;
   font-weight: 400;
 }
 
@@ -41,16 +42,6 @@
   width: 85%;
   height: 85%;
 }
-
-.btn-primary:disabled {
-  background-color: #5cb85c;  
-}
-.btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled.focus, .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled].focus,
-  fieldset[disabled] .btn-primary:hover,
-  fieldset[disabled] .btn-primary:focus,
-  fieldset[disabled] .btn-primary.focus {
-    background-color: #5cb85c;
-  }
 
 a.error-link {
   color: white;

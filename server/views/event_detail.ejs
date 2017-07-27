@@ -5,8 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700' rel='stylesheet' type='text/css'>
-
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
   <!-- Bootstrap core CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <link href="/styles/css/style.css" rel="stylesheet">
@@ -50,11 +49,11 @@
             <%if(user){%>
               <%if(!rsvped){%>
                 <form class="detail-rsvp" action="/events/<%=id%>" method="POST" >
-                  <button type="submit" class="btn btn-primary">Going</button>
+                  <button type="submit" class="btn-rsvp btn btn-primary">Going</button>
                 </form>
               <%}else{%>
-                <form class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
-                  <button type="submit" class="btn btn-danger">Can't Go</button>
+                <form id="cancel-form" class="detail-rsvp" action="/events/<%=id%>/cancel" method="POST" >
+                  <button type="submit" class="btn-cancel btn btn-danger">Can't Go</button>
                 </form>
               <%}%>
             <% } %>
@@ -74,12 +73,12 @@
           <%if(user && events.creator_user_id === user.id){%>
             <div class="seperator"></div><br>
             <div style="text-align: center">
-              <button style="width: 100%" id="editEvent" class="btn btn-primary">Edit Event</button>
+              <button id="editEvent" class="btn btn-primary">Edit Event</button>
             </div>
             <br>
             <div style="text-align: center">
-                <form action="/events/<%=id%>/delete" method="POST" >
-                  <button style="width: 100%" type="submit" class="btn btn-danger">Close Event</button>
+                <form id="delete-form"action="/events/<%=id%>/delete" method="POST" >
+                  <button type="submit" id="btn-delete"class="btn btn-danger">Close Event</button>
                 </form>
             </div>
           <%}%>
@@ -153,6 +152,17 @@
     </div>
   </div>
   <script>
+    $('.detail-rsvp').on('submit', function() {
+        $('.btn-rsvp').prop('disabled', true)
+    });
+  
+    $('#cancel-form').on('submit', function() {
+        $('.btn-cancel').prop('disabled', true)
+      });
+    $('#delete-form').on('submit', function() {
+        $('#btn-delete').prop('disabled', true)
+      });
+
     $('#editEvent').on('click', (e) => {
       $('#editEventModal').modal("show");
     });

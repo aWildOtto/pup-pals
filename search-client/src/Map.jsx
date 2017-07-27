@@ -68,19 +68,13 @@ class Map extends Component {
       },
       markers: [],
     };
-    
-    this.handleMapMounted = this.handleMapMounted.bind(this);
-    this.handleBoundsChanged = this.handleBoundsChanged.bind(this);
-    this.handleSearchBoxMounted = this.handleSearchBoxMounted.bind(this);
-    this.handlePlacesChanged = this.handlePlacesChanged.bind(this);
-    this.handleMarkerClick = this.handleMarkerClick.bind(this);
   }
 
-  handleMapMounted(map) {
+  handleMapMounted = (map) => {
     this._map = map;
   }
 
-  handleBoundsChanged() {
+  handleBoundsChanged = () => {
     this.setState({
       bounds: this._map.getBounds(),
       center: this._map.getCenter(),
@@ -96,11 +90,11 @@ class Map extends Component {
     this.props.locationFilter(bound_a, bound_b);
   }
 
-  handleSearchBoxMounted(searchBox) {
+  handleSearchBoxMounted = (searchBox) => {
     this._searchBox = searchBox;
   }
 
-  handlePlacesChanged() {
+  handlePlacesChanged = () => {
     const places = this._searchBox.getPlaces();
 
     // Add a marker for each place returned from search bar
@@ -117,7 +111,7 @@ class Map extends Component {
     });
   }
   
-  handleMarkerClick(e) {
+  handleMarkerClick = (e) => {
     const events = this.props.events
     events.map((event) => {
       const lat = e.latLng.lat();
