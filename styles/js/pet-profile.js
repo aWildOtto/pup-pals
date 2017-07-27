@@ -132,7 +132,7 @@ $(document).ready(function () {
       })
       var $textSpan = $('<span>', {
         class: 'status-text',
-        text: " | " + status.content
+        text: status.content
       });
       if (status.media_url) {
         var $img = $('<img>', {
