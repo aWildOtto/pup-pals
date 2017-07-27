@@ -50,43 +50,43 @@ You are all set, open the web app on your browser: http://localhost:3000/
 ### Dependencies
 
 Dependencies for express server:
-*aws-sdk
-*express
-*express-socket.io-session
-*geocoder
-*knex
-*moment
-*socket.io
-*ejs
-*fullcalendar
+* aws-sdk
+* express
+* express-socket.io-session
+* geocoder
+* knex
+* moment
+* socket.io
+* ejs
+* fullcalendar
 
 Dependencies for search client:
-*axios
-*babel-core
-*babel-loader
-*moment
-*react
-*react-dom
-*react-google-maps
-*react-moment
-*webpack
+* axios
+* babel-core
+* babel-loader
+* moment
+* react
+* react-dom
+* react-google-maps
+* react-moment
+* webpack
 
 Dependencies for chat client:
-*babel-core
-*babel-loader
-*emoji-mart
-*moment
-*react
-*react-dom
-*react-moment
-*socket.io-client
-*webpack
+* babel-core
+* babel-loader
+* emoji-mart
+* moment
+* react
+* react-dom
+* react-moment
+* socket.io-client
+* webpack
 
 ### Contributors
 
-[Caitlin](https://github.com/caitlinquon)
-[Donald](https://github.com/donaldma)
-[Otto](https://github.com/aWildOtto)
-[Ti](https://github.com/nombiezinja)
+* [Caitlin](https://github.com/caitlinquon)
+* [Donald](https://github.com/donaldma)
+* [Otto](https://github.com/aWildOtto)
+* [Ti](https://github.com/nombiezinja)
 
 Disclaimer: this project is meant for learning purpose only, please do not use.
