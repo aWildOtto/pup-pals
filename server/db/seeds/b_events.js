@@ -292,6 +292,10 @@ exports.seed = function(knex, Promise) {
               insertEventUser(
                 users[5].id,
                 id
+              ),
+              insertEventUser(
+                users[3].id,
+                id
               )
           ]);
         }),
@@ -320,6 +324,10 @@ exports.seed = function(knex, Promise) {
               ),
               insertEventUser(
                 users[7].id,
+                id
+              ),
+              insertEventUser(
+                users[10].id,
                 id
               )
           ]);
@@ -350,6 +358,10 @@ exports.seed = function(knex, Promise) {
               insertEventUser(
                 users[2].id,
                 id
+              ),
+              insertEventUser(
+                users[11].id,
+                id
               )
           ]);
         }),
@@ -379,6 +391,10 @@ exports.seed = function(knex, Promise) {
               insertEventUser(
                 users[7].id,
                 id
+              ),
+             insertEventUser(
+                users[10].id,
+                id
               )
           ]);
         }),
@@ -407,6 +423,10 @@ exports.seed = function(knex, Promise) {
               ),
               insertEventUser(
                 users[9].id,
+                id
+              ),
+              insertEventUser(
+                users[13].id,
                 id
               )
           ]);
