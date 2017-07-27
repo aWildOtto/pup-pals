@@ -51,7 +51,7 @@ module.exports = (dbHelper) => {
       dbHelper.createUser(req.body)
       .then((id)=>{
         req.session.user = {
-          id: id,
+          id: Number(id),
           avatar_url: req.body.avatar_url,
           username: req.body.username
         }
