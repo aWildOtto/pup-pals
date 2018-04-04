@@ -15,7 +15,7 @@ Logged-in users can create an event, RSVP to events, cancel their attendances, o
 ### Getting Started
 
 1)Clone this repository, cd into each folder and install the dependencies(descibed at the end) individually.  
-2)Follow the format of `.example.env` file present in each repository and create a `.env` file for each folder.   
+2)Follow the format of the `.example.env` files presented in the folders and create a `.env` file for each folder.   
 3)Run migrations and seed files.
 
 
