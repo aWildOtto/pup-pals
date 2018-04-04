@@ -1,5 +1,5 @@
 # Pup-Pals
-Pup-Pals is a web application that assists dog owners to create and join dog meet-up events. It is built with NodeJS, Express, ReactJS, socket.io, AWS-S3 and Postgresql.
+Pup-Pals is a web application that assists dog owners to create and join dog meet-up events. It is built with NodeJS, Express, ReactJS, Socket.io, AWS-S3 and PostgreSQL.
 
 [Deployed Version](https://puppals.herokuapp.com/)
 
