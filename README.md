@@ -8,9 +8,9 @@ Pup-Pals is a web application that assists dog owners to create and join dog mee
 
 ### Usage
 
-All visitors can browse the events listing on the webpage, create an event, and find events with advanced search of time range and location. They can also browse the profiles of users and their dogs.
+All visitors can browse the events listing on the webpage and find events with advanced search of time range and location. They can also browse the profiles of users and their dogs.
 
-Logged-in users can RSVP to events, cancel their attendances, or participate in the real-time message board of specific events. They can also update their personal statuses and upload picture onto the profiles of their dogs.
+Logged-in users can create an event, RSVP to events, cancel their attendances, or participate in the real-time message board of specific events. They can also update their personal statuses and upload picture onto the profiles of their dogs.
 
 ### Getting Started
 
