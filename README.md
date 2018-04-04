@@ -1,6 +1,5 @@
 # Pup-Pals
-
-A platform for dog owners to create and join dog meet-up events. This web application is built with NodeJS, Express, ReactJS, socket.io, AWS-S3 and Postgresql.
+Pup-Pals is a web application that assists dog owners to create and join dog meet-up events. It is built with NodeJS, Express, ReactJS, socket.io, AWS-S3 and Postgresql.
 
 [Deployed Version](https://puppals.herokuapp.com/)
 
@@ -9,15 +8,16 @@ A platform for dog owners to create and join dog meet-up events. This web applic
 
 ### Usage
 
-Any user can browse events, user profiles, and dog profiles belonging to users, as well as search for events in the search page, narrow them down by time range and location and see the filtered results real-time.
+All visitors can browse the events listing on the webpage, create an event, and find events with advanced search of time range and location. They can also browse the profiles of users and their dogs.
 
-Logged-in users can RSVP to events, cancel their attendance, or participate in the real-time message board of specific events. Logged-in users can also update their personal status, as well as upload picture updates on the individual profiles of their dogs.
+Logged-in users can RSVP to events, cancel their attendances, or participate in the real-time message board of specific events. They can also update their personal statuses and upload picture onto the profiles of their dogs.
 
 ### Getting Started
 
-1)Clone this repository, cd into each folder and install the dependencies individually.
-2)Create .env file for each folder following the format of .example.env files present in the repository.
+1)Clone this repository, cd into each folder and install the dependencies(descibed at the end) individually.  
+2)Follow the format of `.example.env` file present in each repository and create a `.env` file for each folder.  
 3)Run migrations and seed files.
+
 
 
 
@@ -37,7 +37,7 @@ To start the chat-client server:
 cd chat-client
 npm run webpack2
 ```
-To compile the style sheets, run the following commands, then open main.scss in your code editor, perform a save.
+To compile the style sheets, run the following commands, open main.scss in your code editor, and perform a save.
 ```
 cd styles
 npm run sass:dev
