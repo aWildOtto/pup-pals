@@ -1,5 +1,5 @@
 # Pup-Pals
-Pup-Pals is a web application that assists dog owners to create and join dog meet-up events. It is built with NodeJS, Express, ReactJS, Socket.io, AWS-S3 and PostgreSQL.
+Pup-pals is a social media for puppy owners. It assists dog owners to create and join dog related meet-up events. the web app is built with NodeJS, Express, ReactJS, Socket.io, AWS-S3 and PostgreSQL.
 
 [Deployed Version](https://puppals.herokuapp.com/)
 
@@ -8,17 +8,16 @@ Pup-Pals is a web application that assists dog owners to create and join dog mee
 
 ### Usage
 
-All visitors can browse the events listing on the webpage and find the events with advanced search of time range and location. They can also browse the profiles of users and their dogs.
+All visitors can browse the event listings on the website and search for events using time range and location filter. They can also browse the profiles of other users and their attending events and dogs.
 
-Logged-in users can create an event, RSVP to events, cancel their attendances, or participate in the real-time message board of specific events. They can also update their personal statuses and upload picture onto the profiles of their dogs.
+Logged-in users can create events, RSVP to events, cancel their attendances, or participate in the real-time message board of specific events. They can also update their personal statuses and upload picture onto the profiles of their dogs.
+
 
 ### Getting Started
 
 1. Clone this repository, cd into each folder and install the dependencies(descibed at the end) individually.  
 2. Follow the format of the `.example.env` files presented in the folders and create a `.env` file for each folder.   
 3. Run migrations and seed files.
-
-
 
 
 To start the express server:
@@ -99,4 +98,4 @@ Dependencies for chat client:
 * [Otto](https://github.com/aWildOtto)
 * [Ti](https://github.com/nombiezinja)
 
-Disclaimer: this project is meant for learning purpose only, please do not use.
+Disclaimer: this project is meant for learning purpose and demo usage. Massive traffic from real usage could crash the server. 
